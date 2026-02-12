@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript" data-line="5,23,24,25,26,27,28"><code>import { createRouter, createWebHistory } from &#x27;vue-router&#x27;;
+import SignIn from &#x27;../components/SignIn.vue&#x27;
+import SignUp from &#x27;../components/SignUp.vue&#x27;;
+import Home from &#x27;../components/Home.vue&#x27;;
+import SearchResult from &#x27;../components/SearchResult.vue&#x27;;
+import { auth, onAuthStateChanged } from &#x27;../firebase.js&#x27;;
+
+const routes = [
+  {
+    path: &#x27;/&#x27;,
+    name: &#x27;SignIn&#x27;,
+    component: SignIn
+  },
+  {
+    path: &#x27;/signup&#x27;,
+    name: &#x27;SignUp&#x27;,
+    component: SignUp
+  },
+  {
+    path: &#x27;/home&#x27;,
+    name: &#x27;Home&#x27;,
+    component: Home,
+  },
+  {
+    path: &#x27;/search&#x27;,
+    name: &#x27;SearchResult&#x27;,
+    component: SearchResult,
+  }
+]
+
+const router = createRouter({
+  history: createWebHistory(import.meta.env.BASE_URL),
+  routes
+});
+
+function getCurrentUser(auth) {
+  return new Promise((resolve, reject) =&gt; {
+    const unsubscribe = onAuthStateChanged(auth, (user) =&gt; {
+      unsubscribe();
+      resolve(user);
+    }, reject);
+  });
+}
+
+
+router.beforeEach(async (to, from, next) =&gt; {
+  const currentUser = await getCurrentUser(auth);
+
+  if (!currentUser &amp;&amp; to.path !== &#x27;/&#x27; &amp;&amp; to.path !== &#x27;/signup&#x27;) {
+    next(&#x27;/&#x27;);
+  }else if (currentUser &amp;&amp; (to.path === &#x27;/&#x27; || to.path === &#x27;/signup&#x27;)) {
+    next(&#x27;/home&#x27;);
+  } else {
+    next();
+  }
+});
+
+export default router;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

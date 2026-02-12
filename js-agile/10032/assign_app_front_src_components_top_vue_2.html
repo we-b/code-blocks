@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript" data-line="4,12,13,14,15,16,17,18,19,26,27,28"><code>&lt;script setup&gt;
+// (省略)
+const router = useRouter();
+const allUsers = ref([]);
+
+// (省略)
+
+const displayName = computed(() =&gt; {
+  return auth.currentUser.displayName;
+})
+
+onMounted(async() =&gt; {
+  try {
+    const fetchAllUsers = await api.get(&#x27;/users&#x27;);
+    allUsers.value = fetchAllUsers.data;
+  }catch(error) {
+    console.log(&quot;ユーザーデータの取得ができませんでした&quot;, error);
+  }
+})
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div class=&quot;header&quot;&gt;
+    &lt;div class=&quot;input-area&quot;&gt;
+      &lt;label for=&quot;assignee&quot;&gt;対応者&lt;/label&gt;
+        &lt;select&gt;
+          &lt;option :value=user.uid v-for=&quot;user in allUsers&quot;&gt;{{ user.displayName }}&lt;/option&gt;
+        &lt;/select&gt;
+    &lt;/div&gt;
+    &lt;button class=&quot;submitBtn&quot;&gt;保存&lt;/button&gt;
+  &lt;/form&gt;
+  &lt;TaskList /&gt;
+&lt;/template&gt;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

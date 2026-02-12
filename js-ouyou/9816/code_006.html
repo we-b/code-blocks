@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-plaintext"><code>% docker container logs mydb 
+PostgreSQL Database directory appears to contain a database; Skipping initialization
+
+2024-03-25 08:08:49.571 UTC [1] LOG:  starting PostgreSQL 14.11 (Debian 14.11-1.pgdg120+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14) 12.2.0, 64-bit
+2024-03-25 08:08:49.577 UTC [1] LOG:  listening on IPv4 address &quot;0.0.0.0&quot;, port 5432
+2024-03-25 08:08:49.578 UTC [1] LOG:  listening on IPv6 address &quot;::&quot;, port 5432
+2024-03-25 08:08:49.583 UTC [1] LOG:  listening on Unix socket &quot;/var/run/postgresql/.s.PGSQL.5432&quot;
+2024-03-25 08:08:49.596 UTC [27] LOG:  database system was shut down at 2024-03-25 08:08:10 UTC
+2024-03-25 08:08:49.644 UTC [1] LOG:  database system is ready to accept connections
+2024-03-25 08:08:55.586 UTC [35] LOG:  could not receive data from client: Connection reset by peer</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript" data-line="4,5,6,7,8,9,10,11,12,23"><code>&lt;script setup&gt;
+(省略)
+
+const handleSubmit = (e) =&gt; {
+  e.preventDefault();
+  if (searchKeyword.value.trim()) {
+    router.push({
+      path: &#x27;/search&#x27;,
+      query: { q: searchKeyword.value }
+    });
+  }
+};
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div class=&quot;header&quot;&gt;
+    &lt;div class=&quot;header-left&quot;&gt;
+      &lt;CheckAll class=&quot;header_icon&quot; fontsize=&quot;large&quot; /&gt;
+      &lt;router-link to=&quot;/home&quot; class=&quot;header_title&quot;&gt;Task Checker&lt;/router-link&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;header-center&quot;&gt;
+      &lt;form @submit=&quot;handleSubmit&quot; class=&quot;search-container&quot;&gt;
+        &lt;input
+          v-model=&quot;searchKeyword&quot;
+          placeholder=&quot;タイトルで検索&quot;
+          class=&quot;search-input&quot;
+          type=&quot;search&quot;
+          aria-label=&quot;検索&quot;
+        /&gt;
+        &lt;button
+          type=&quot;submit&quot;
+          class=&quot;search-button&quot;
+        &gt;
+          検索
+        &lt;/button&gt;
+      &lt;/form&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;header-right&quot;&gt;
+      &lt;button v-if=&quot;currentUser&quot; @click=&quot;handleSignOut&quot; class=&quot;logout-button&quot;&gt;
+        ログアウト
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

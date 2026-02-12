@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript" data-line="5,6,7,12,13,14,15"><code>&lt;script setup&gt;
+import Select from &#x27;./Select.vue&#x27;
+
+// 追加
+const props = defineProps({
+  task: Object
+})
+&lt;/script&gt;
+
+&lt;template&gt;
+   &lt;div class=&quot;task&quot;&gt;
+      &lt;span class=&quot;task_date&quot;&gt;{{ task.deadlineDate }}&lt;/span&gt;   &lt;!---追加--&gt;
+      &lt;div class=&quot;task_text_contents&quot;&gt;                                                &lt;!---追加--&gt;
+        &lt;h3 class=&quot;task_title&quot;&gt;{{ task.name }}&lt;/h3&gt;                          &lt;!---追加--&gt;
+        &lt;p class=&quot;task_sentence&quot;&gt;{{ task.explanation}}&lt;/p&gt;        &lt;!---追加--&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;image-container&quot;&gt;
+        &lt;div class=&quot;image-wrapper&quot;&gt;
+          &lt;img
+            :src=&quot;&#x27;https://tech-master.s3.amazonaws.com/uploads/curriculums/images/Rails1-4/sample.jpg&#x27;&quot;
+            class=&quot;task-image&quot;
+          /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;task_input_contents&quot;&gt;
+        &lt;Select /&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+&lt;/template&gt;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

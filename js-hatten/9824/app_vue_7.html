@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-TypeScript" data-line="4,11,12,16,17,18,19,20,21,22,23,24"><code>onMounted(() =&gt; {
+  const savedTime = localStorage.getItem(&#x27;savedTime&#x27;);
+  const savedTimestamp = localStorage.getItem(&#x27;savedTimestamp&#x27;);
+  const timerRunning = localStorage.getItem(&#x27;timerRunning&#x27;) === &#x27;true&#x27;;
+  
+  if (savedTime !== null &amp;&amp; savedTimestamp !== null) {
+    const currentTime = Date.now();
+    const elapsedSeconds = Math.floor((currentTime - Number(savedTimestamp)) / 1000);
+    let calculatedTime = Number(savedTime) - elapsedSeconds;
+
+    if (calculatedTime &gt; 0 &amp;&amp; timerRunning) {
+        // 「もし timerRunning が true だったら」という条件を追加
+        time.value = calculatedTime;
+        timeSet.value = true;
+        startTimer();
+      } else if (!timerRunning) {
+        calculatedTime = Number(savedTime); 
+        time.value = calculatedTime &gt; 0 ? calculatedTime : 0;
+        timeSet.value = true;
+      } else {
+        time.value = 0;
+        startingTime.value = 0;
+        timeSet.value = false;
+    }
+  }
+});</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-TypeScript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

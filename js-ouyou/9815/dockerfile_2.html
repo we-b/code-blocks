@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-plaintext" data-line="13,14,26"><code># ベースとして使用するnode.jsのイメージを指定
+FROM node:lts
+
+# コンテナ内での作業ディレクトリを指定。以降のコマンド(命令)は、指定したディレクトリ内で実施される。
+WORKDIR /app
+
+# package.json および package-lock.json を先にコピー
+COPY ./package*.json .
+
+# npmをインストールし、必要な依存関係をインストールする。
+RUN npm install
+
+# nodemon をインストール
+RUN npm install -g nodemon
+
+# 残りのアプリケーションファイルをコピー
+COPY . .
+
+# アプリケーションをビルド（Prismaスキーマのコンパイルが含まれる場合）
+RUN npx prisma generate
+
+# 3000番ポートを解放する
+EXPOSE 3000
+
+# コンテナが起動した時の起動コマンドを設定。
+CMD [&quot;/bin/sh&quot;, &quot;-c&quot;, &quot;npx prisma migrate deploy &amp;&amp; nodemon index.js&quot;]</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

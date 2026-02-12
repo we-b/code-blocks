@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-plaintext"><code>% docker container logs app   
+// 省略
+
+[nodemon] 3.1.9
+[nodemon] to restart at any time, enter `rs`
+[nodemon] watching path(s): *.*
+[nodemon] watching extensions: js,mjs,cjs,json
+[nodemon] starting `node index.js`
+Listening on localhost port 3000
+データ登録にエラーがありました
+PrismaClientValidationError: 
+Invalid `prisma.post.create()` invocation in
+/app/controllers/posts/createPost.js:6:23
+
+  3 
+  4 module.exports = async(req, res) =&gt; {
+  5   try {
+→ 6     await prisma.post.create({
+          data: {
+        +   content: String
+          }
+        })
+
+Argument `content` is missing.
+    at wn (/app/node_modules/@prisma/client/runtime/library.js:29:1363)
+    at Vn.handleRequestError (/app/node_modules/@prisma/client/runtime/library.js:121:6982)
+    at Vn.handleAndLogRequestError (/app/node_modules/@prisma/client/runtime/library.js:121:6663)
+    at Vn.request (/app/node_modules/@prisma/client/runtime/library.js:121:6370)
+    at async l (/app/node_modules/@prisma/client/runtime/library.js:130:9617)
+    at async module.exports (/app/controllers/posts/createPost.js:6:5) {
+  clientVersion: &#x27;6.2.1&#x27;
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

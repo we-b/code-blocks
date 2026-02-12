@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript"><code>const { PrismaClient } = require(&#x27;@prisma/client&#x27;);
+const prisma = new PrismaClient();
+
+async function transferMoney(senderAccountNumber, receiverAccountNumber, amount) {
+  try {
+    // $transactionメソッドを使用してトランザクションを開始
+    await prisma.$transaction(async (tx) =&gt; {
+      // 1. 送金元の口座情報を取得
+      const sender = await tx.bankAccount.findUnique({
+        where: { accountNumber: senderAccountNumber },
+      });
+
+      if (!sender) {
+        throw new Error(&quot;送金元の口座が見つかりません。&quot;);
+      }
+
+      // 2. 送金先の口座情報を取得
+      const receiver = await tx.bankAccount.findUnique({
+        where: { accountNumber: receiverAccountNumber },
+      });
+
+      if (!receiver) {
+        throw new Error(&quot;送金先の口座が見つかりません。&quot;);
+      }
+
+      // 3. 残高不足のチェック
+      if (sender.balance &lt; amount) {
+        throw new Error(&quot;送金元の口座の残高が不足しています。&quot;);
+      }
+
+      // 4. 送金元の残高を減らす更新
+      await tx.bankAccount.update({
+        where: { accountNumber: senderAccountNumber },
+        data: { balance: { decrement: amount } },
+      });
+
+      // 5. 送金先の残高を増やす更新
+      await tx.bankAccount.update({
+        where: { accountNumber: receiverAccountNumber },
+        data: { balance: { increment: amount } },
+      });
+    });
+
+    console.log(&quot;送金が完了しました。&quot;);
+
+  } catch (error) {
+    // トランザクション内でエラーが発生した場合（throw new Errorなど）、
+    // 自動的にロールバックされ、catchブロックに処理が移ります。
+    console.error(&quot;送金に失敗しました:&quot;, error.message);
+  } finally {
+    await prisma.$disconnect();
+  }
+}
+
+// 関数の実行例
+transferMoney(&#x27;1234567&#x27;, &#x27;7654321&#x27;, 10000);</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

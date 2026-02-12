@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-JavaScript" data-line="4,34"><code>const request = require(&#x27;supertest&#x27;);
+const app = require(&#x27;../app&#x27;);
+
+describe(&#x27;Webアプリケーションのテスト&#x27;, () =&gt; {
+
+  describe(&#x27;ページ遷移のテスト&#x27;, () =&gt; {
+    // 正常系
+    describe(&#x27;トップページ遷移のテスト&#x27;, () =&gt; {
+      it(&#x27;トップページに正しく遷移できる&#x27;, async () =&gt; {
+        const response = await request(app)
+          .get(&#x27;/posts&#x27;)
+          .expect(200);
+        expect(response.text).toMatch(/トップページ/);
+      });
+
+      it(&#x27;新規投稿画面に正しく遷移できる&#x27;, async () =&gt; {
+        const response = await request(app)
+          .get(&#x27;/posts/create&#x27;)
+          .expect(200);
+        expect(response.text).toMatch(/新規投稿ページ/);
+      });
+    });
+
+    // 異常系
+    describe(&#x27;トップページの遷移に失敗&#x27;, () =&gt; {
+      it(&#x27;未定義のパスにアクセスした時、リダイレクトして302エラーを返す&#x27;, async () =&gt; {
+        const response = await request(app)
+          .get(&#x27;/some-undefined-path&#x27;)
+          .expect(302);
+        expect(response.headers.location).toEqual(&#x27;/non-existent-page&#x27;);
+      });
+    });
+  });
+});</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-JavaScript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>
