@@ -3,7 +3,6 @@
 <head>
     <meta charset="UTF-8">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" rel="stylesheet" />
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
     <style>
         body { margin: 0; padding: 0; background-color: #2d2d2d; }
@@ -14,12 +13,45 @@
     </style>
 </head>
 <body>
-<pre class="language-javascript line-numbers" data-line="2"><code> &lt;tbody&gt;
-  &lt;tr v-for="goods in filterGoodsByStatusId(status)" :key="goods.id"&gt;
-//(省略)
-&lt;/tbody&gt;</code></pre>
+<pre class="language-css" data-line="16,17,18,19,21,22,23,25,26,27,28,29,31,32,33,35,36,37,38"><code>.wrapper {
+  display: flex;
+  height: 100vh;
+}
+
+.chat-side {
+  width: 300px;
+  background-color: #333333;
+}
+
+.chat-main {
+  width: calc(100% - 300px);
+  background-color: #1a1d21;
+}
+
+.side-header {
+  background-color: #595959;
+  height: 100px;
+}
+
+.groups {
+  height: calc(100vh - 100px);
+}
+
+.main-header {
+  height: 100px;
+  background-color: #3f3f3f;
+  border-bottom: 1px solid #595959;
+}
+
+.messages {
+  height: calc(100vh - 190px);
+}
+
+.form {
+  background-color: #595959;
+  height: 90px;
+}</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
 </body>
 </html>
