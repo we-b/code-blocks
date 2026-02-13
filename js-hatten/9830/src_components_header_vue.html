@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript" data-line="23,24,25,26,27,43,44,45,46,47,48,49,50,51"><code>&lt;template&gt;
+  &lt;div class=&quot;header&quot;&gt;
+    &lt;div class=&quot;header-left&quot;&gt;
+      &lt;CheckAll class=&quot;header_icon&quot; fontsize=&quot;large&quot; /&gt;
+      &lt;span class=&quot;header-title&quot;&gt;Task Checker&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;header-search&quot;&gt;
+      &lt;form class=&quot;search-container&quot;&gt;
+        &lt;input
+          placeholder=&quot;タイトルで検索&quot;
+          class=&quot;search-input&quot;
+          type=&quot;search&quot;
+          aria-label=&quot;検索&quot;
+        /&gt;
+        &lt;button
+          type=&quot;submit&quot;
+          class=&quot;search-button&quot;
+        &gt;
+          検索
+        &lt;/button&gt;
+      &lt;/form&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;header-right&quot;&gt;
+      &lt;button @click=&quot;handleSignOut&quot; class=&quot;logout-button&quot;&gt;
+        ログアウト
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style&gt;
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  background-color: white;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
+  padding: 0 30px;
+}
+(省略)
+
+.logout-button {
+  background-color: rgb(66, 163, 247);
+  color: white;
+  border-radius: 25px;
+  border-style: none;
+  padding: 8px 20px;
+  margin-bottom: 8px;
+  font-size: 15px;
+}
+&lt;/style&gt;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>
