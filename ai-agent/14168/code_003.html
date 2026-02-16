@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript"><code>function doPost(e) {
+  const sheet = SpreadsheetApp.getActiveSheet();
+  const params = JSON.parse(e.postData.contents);
+
+  // Difyから送られたデータを処理
+  const result = processData(params);
+
+  // 結果をスプレッドシートに記録
+  sheet.appendRow(result);
+
+  // Difyに結果を返す
+  return ContentService.createTextOutput(JSON.stringify({
+    success: true,
+    message: &#x27;処理完了しました&#x27;
+  })).setMimeType(ContentService.MimeType.JSON);
+}
+
+function processData(params) {
+  // 実装：実際のデータ処理ロジック
+  return [new Date(), params.input];
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-plaintext"><code>あなたは企業内のサポートアシスタントです。
+
+ユーザーの質問：{{#question#}}
+
+以下の参考資料から、ユーザーの質問に答えてください。
+参考資料：{{#knowledge_result#}}
+
+答える際は：
+1. 資料に書かれた内容に基づいて回答する
+2. 資料に書かれていないことは「資料に記載されていません」と答える
+3. 回答の出典となった資料部分を引用する</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

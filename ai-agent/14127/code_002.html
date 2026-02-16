@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-plaintext"><code>function getProductInfo() {
+  const sheet = SpreadsheetApp.getActiveSheet();
+  const data = sheet.getRange(2, 1, sheet.getLastRow() - 1, 6).getValues();
+
+  // 特定の商品を検索(例: ノートパソコン)
+  const targetProduct = &#x27;ノートパソコン&#x27;;
+  const result = data.find(row =&gt; row[1] === targetProduct);
+
+  if (result) {
+    const message =
+      `【商品情報】\n\n` +
+      `商品名: ${result[1]}\n` +
+      `単価: ${result[3]}円\n` +
+      `在庫数: ${result[2]}個`;
+
+    Browser.msgBox(message);
+  }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

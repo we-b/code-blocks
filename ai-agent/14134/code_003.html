@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-plaintext"><code>【アプリ名】
+営業提案見積もり自動生成ツール
+
+【目的】
+営業提案時の見積もり作成業務を自動化し、営業担当者が顧客対応に集中できるようにする
+
+【想定ユーザー】
+営業部門のメンバー（営業経験の有無を問わず）
+
+【利用シーン】
+顧客から製品について問い合わせを受けた後、提案見積もりを作成する際に使用。1件あたり30分かかる作業を、2分に短縮したい
+
+【MVP機能リスト】
+商品マスターの読み込み: スプレッドシートに登録された商品情報（商品名、単価、納期）を自動で読み込む
+見積もり自動生成: 顧客名・商品名・数量を入力するとAIが見積書テキストを自動生成
+スプレッドシート保存: 生成した見積もりを指定のスプレッドシートに自動保存
+
+【入力】
+- 顧客名（テキスト）
+- 購入したい商品名（テキスト）
+- 数量（数字）
+- 納期希望（テキスト、任意）
+
+【出力】
+- 見積もり内容（テキスト形式）
+- 合計金額（数字）
+- スプレッドシートへの自動記録
+
+【必要なツール・連携】
+Google Apps Scriptで行う処理:
+- スプレッドシートから商品マスターデータを取得
+- 顧客情報と商品情報をマッチング
+
+連携するツール:
+Google スプレッドシート: 商品マスター、見積もり履歴の保存
+他のツール: なし（今後の拡張で請求書生成を検討）
+
+【将来の拡張機能】
+- 見積もりのPDF出力機能
+- 過去の見積もり履歴から類似案件を自動提案
+- 見積もり承認フロー
+
+【技術的な注意点】
+- スプレッドシートのカラム名が変わると動作しなくなるため、変更時はGASコードの修正が必要
+- 商品マスターは常に最新の状態に保つ必要がある</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>
