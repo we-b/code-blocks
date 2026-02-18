@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-bash"><code>【家計簿アプリ要件定義書】
+
+1. 概要
+個人の収入と支出を管理するためのWebアプリケーション
+
+2. 対象ユーザー
+- 家計を管理したい個人
+- 年齢：20-40代
+- ITリテラシー：中程度
+
+3. 主要機能
+
+3.1 収支記録機能
+- ユーザーは収入情報を登録できる
+- 入力項目：日付、金額、収入源、メモ
+- ユーザーは支出情報を登録できる
+- 入力項目：日付、金額、カテゴリ、メモ
+- カテゴリは以下から選択可能：食費、交通費、娯楽費、光熱費、その他
+
+3.2 集計表示機能
+- 月別の収支一覧を表示する
+- カテゴリ別の支出割合をグラフで表示する
+- 収支の推移を月別で表示する
+
+4. 画面構成
+- ホーム画面：当月の収支サマリー表示
+- 記録画面：収入・支出の登録
+- 一覧画面：登録済みデータの確認・編集
+- 集計画面：グラフ・レポート表示
+
+5. 非機能要件
+- レスポンス時間：3秒以内
+- 対応ブラウザ：Chrome、Safari、Firefox最新版
+- データ保存：ローカルストレージ使用</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+</body>
+</html>

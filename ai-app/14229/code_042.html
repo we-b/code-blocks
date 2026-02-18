@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-bash"><code>
+# 私の読書ノート
+
+## 概要
+個人の読書記録を管理するシンプルなWebアプリケーション。
+読んだ本の基本情報と感想を記録し、後で検索・振り返りができる。
+既存の読書管理アプリよりもシンプルで、個人使用に特化したツール。
+
+## アプリのゴール
+### WHO（誰に）
+月に2-3冊程度本を読む会社員
+個人使用（共有機能は不要）
+シンプルで使いやすいツールを求めている
+
+### WHAT（何を）
+読んだ本を忘れがちという問題の解決
+おすすめ本をすぐに思い出せる仕組みの提供
+
+### HOW（どうなってもらいたいか）
+本を読み終わるたびに記録する習慣ができる
+3ヶ月間継続して記録を付けられる
+おすすめ本をすぐに答えられるようになる
+
+## 主要機能
+### 必須機能（MVP）
+- **本の登録機能**
+  - タイトル、著者、読了日の入力
+  - 簡単な感想・メモの記録
+- **一覧表示機能**
+  - 登録した本のリスト表示
+  - 読了日の新しい順で表示
+- **検索機能**
+  - タイトル・著者名での検索
+  - 部分一致での候補表示
+- **編集・削除機能**
+  - 登録済み情報の修正・削除
+
+### 追加予定機能
+- 5段階評価機能
+- 読書統計（月別読書数など）
+- お気に入り機能
+- データエクスポート
+
+## 技術仕様
+- HTML/CSS/JavaScriptによるシンプルなWebアプリ
+- データ保存：LocalStorage使用
+- レスポンシブデザイン（スマホ対応）
+- 外部ライブラリは最小限に
+
+### データベース設計（該当する場合）
+- データ構造：本情報オブジェクトの配列形式
+- 検索性能を考慮したインデックス設計は今後検討
+
+
+## UI/UX方針
+- シンプルで直感的な操作
+- スマホでも使いやすいデザイン
+- 入力の手間を最小限に
+- 見やすい一覧表示
+
+## 開発進捗
+- 現在：要件定義完了
+- 次のステップ：MVP機能の実装開始
+- 優先順位：本の登録機能から順次実装</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+</body>
+</html>

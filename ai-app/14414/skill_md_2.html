@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-markdown"><code>---
+name: competitor-report
+description: 競合調査エビデンス付きレポートを自動作成します
+---
+
+# 競合調査エビデンス付きレポートエージェント
+
+## 概要
+競合サイトを巡回し、スクリーンショットによるエビデンス収集、価格・新製品・キャンペーン情報の取得、商品検索を行います。
+収集した情報をもとに、レポートとデータファイルを作成します。
+
+## 対象サイト
+- 競合A社（テックプラザ）: https://we-b.github.io/claude-code-lesson-samples/shop-a/
+- 競合B社（デジタルマート）: https://we-b.github.io/claude-code-lesson-samples/shop-b/
+- 競合C社（エレクトロワールド）: https://we-b.github.io/claude-code-lesson-samples/shop-c/
+
+## 処理手順
+1. Playwright MCPで各サイトにアクセス
+2. トップページのスクリーンショットを screenshots/ フォルダに保存
+3. 価格・新製品・キャンペーン情報をテキストで取得
+4. 検索フォームに指定商品名を入力して検索結果を取得
+5. 取得データを整形し、CSVファイルを data/ フォルダに保存
+6. 調査結果をMarkdownレポートとして reports/ フォルダに保存
+
+## 出力フォーマット
+- screenshots/competitor_a_YYYYMMDD.png（各社のスクリーンショット）
+- data/competitor_data_YYYYMMDD.csv（価格・商品データ）
+- reports/competitor_report_YYYYMMDD.md（調査レポート）
+
+## レポート構成
+- 調査日時
+- 各社のスクリーンショット（ファイルパスを記載）
+- 価格比較表
+- 新製品一覧
+- キャンペーン情報まとめ</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markdown.min.js"></script>
+</body>
+</html>
