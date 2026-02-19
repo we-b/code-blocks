@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-bash"><code>■ 実装するファイル名
+・regexp5.rb（「Regexp」フォルダ内に作成すること）
+
+■ メソッドの概要
+・12桁のクレジットカード番号が格納された変数を引数で受け取り、正規表現を適用する
+・下2桁とハイフン以外「*」で非表示にされたクレジットカード番号を出力する
+
+
+■ 正規表現の条件
+・「4桁-4桁-4桁-4桁」のクレジットカード番号を「****-****-****-**下2桁」へ置換する
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-md"><code># テーブル設計
+
+## users テーブル
+
+| Column             | Type   | Options     |
+| ------------------ | ------ | ----------- |
+| name               | string | null: false |
+| email              | string | null: false, unique: true |
+| encrypted_password | string | null: false |
+
+## rooms テーブル
+
+| Column | Type   | Options     |
+| ------ | ------ | ----------- |
+| name   | string | null: false |
+
+## room_users テーブル
+
+| Column | Type       | Options                        |
+| ------ | ---------- | ------------------------------ |
+| user   | references | null: false, foreign_key: true |
+| room   | references | null: false, foreign_key: true |
+
+## messages テーブル
+
+| Column  | Type       | Options                        |
+| ------- | ---------- | ------------------------------ |
+| content | string     |                                |
+| user    | references | null: false, foreign_key: true |
+| room    | references | null: false, foreign_key: true |</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-md.min.js"></script>
+</body>
+</html>

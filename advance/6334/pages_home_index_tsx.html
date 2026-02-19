@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript" data-line="36,37,38,39,62,69"><code>import React, { useEffect, useState } from &quot;react&quot;;
+import { Header } from &quot;../../components/header&quot;;
+import { Select } from &quot;../../components/select&quot;;
+import { ToDoList } from &quot;../../components/toDoList&quot;;
+import { FormModal } from &quot;../../components/modal&quot;;
+import { taskRequest } from &quot;../../requests/taskRequest&quot;;
+import { genreRequest } from &quot;../../requests/genreRequest&quot;;
+import { Data, dataAction, useDataReducer } from &quot;../../hooks/useDataReducer&quot;;
+import { useFilterTasks } from &quot;../../hooks/useFilterTasks&quot;;
+import AddCircleOutlineIcon from &quot;@material-ui/icons/AddCircleOutline&quot;;
+import &quot;./style.css&quot;;
+
+type dataContextType = {
+  data: Data;
+  dispatch: ({ type, payload }: dataAction) =&gt; void;
+};
+
+export const DataContext = React.createContext&lt;dataContextType&gt;(
+  {} as dataContextType
+);
+
+export const Home = () =&gt; {
+  const [isOpen, setIsOpen] = useState(false);
+  const [data, dispatch] = useDataReducer();
+  // eslint-disable-next-line
+  const [selectGenreId, setSelectGenreId] = useState&lt;number&gt;(0);
+  // eslint-disable-next-line
+  const [filteredTasks, tasksDispatch] = useFilterTasks();
+  const handleOpen = () =&gt; {
+    setIsOpen(true);
+  };
+  const handleClose = () =&gt; {
+    setIsOpen(false);
+  };
+
+  const changeSelectGenreId = (event: any) =&gt; {
+    const id = event.target.value;
+    setSelectGenreId(id);
+  };
+
+  useEffect(() =&gt; {
+    const fetchData = async () =&gt; {
+      const genres = await genreRequest(&quot;fetchGenres&quot;);
+      const tasks = await taskRequest(&quot;fetchTasks&quot;);
+      dispatch({ type: &quot;genresUpdate&quot;, payload: { genre: genres } });
+      dispatch({ type: &quot;tasksUpdate&quot;, payload: { task: tasks } });
+    };
+    fetchData();
+    // eslint-disable-next-line
+  }, []);
+
+  useEffect(() =&gt; {
+    console.log(data);
+  }, [data]);
+
+  useEffect(() =&gt; {
+    tasksDispatch({
+      type: &quot;filterTask&quot;,
+      payload: { tasks: data.tasksData, genreId: selectGenreId },
+    });
+    // eslint-disable-next-line
+  }, [data.tasksData, selectGenreId]);
+
+  return (
+    &lt;DataContext.Provider value={{ data, dispatch }}&gt;
+      &lt;div className=&quot;main&quot;&gt;
+        &lt;Header /&gt;
+        &lt;div className=&quot;genre&quot;&gt;
+          &lt;Select genres={data.genresData} changeSelect={changeSelectGenreId} /&gt;
+          &lt;AddCircleOutlineIcon
+            className=&quot;add_circle_outline_icon&quot;
+            fontSize=&quot;medium&quot;
+            onClick={handleOpen}
+          /&gt;
+          &lt;FormModal
+            handleClose={handleClose}
+            isOpen={isOpen}
+            body=&quot;genreBody&quot;
+          /&gt;
+        &lt;/div&gt;
+        &lt;div className=&quot;contents&quot;&gt;
+          &lt;ToDoList tasks={filteredTasks} /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/DataContext.Provider&gt;
+  );
+};
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

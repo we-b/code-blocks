@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-plaintext" data-line="15"><code>require_relative &quot;boot&quot;
+
+require &quot;rails/all&quot;
+
+# Require the gems listed in Gemfile, including any gems
+# you&#x27;ve limited to :test, :development, or :production.
+Bundler.require(*Rails.groups)
+
+module ChatApp
+  class Application &lt; Rails::Application
+    # Initialize configuration defaults for originally generated Rails version.
+    config.load_defaults 7.0
+    config.i18n.default_locale = :ja
+    config.time_zone = &#x27;Tokyo&#x27;
+    config.active_storage.variant_processor = :mini_magick
+    # Configuration for the application, engines, and railties goes here.
+    #
+    # These settings can be overridden in specific environments using the files
+    # in config/environments, which are processed later.
+    #
+    # config.time_zone = &quot;Central Time (US &amp; Canada)&quot;
+    # config.eager_load_paths &lt;&lt; Rails.root.join(&quot;extras&quot;)
+    config.generators do |g|
+      g.stylesheets false
+      g.javascripts false
+      g.helper false
+      g.test_framework false
+    end
+  end
+end
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

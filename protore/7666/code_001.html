@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-bash"><code>■ 実装するファイル名
+・regexp3.rb（「Regexp」フォルダ内に作成すること）
+
+■ メソッドの概要
+・配列（要素は文字列）を引数で受け取り、1つ1つに対して正規表現を適用する
+・正規表現に一致した要素のみが格納された、「新たな配列」を作成する
+・「新たな配列」に格納された要素を、メソッドの実行結果として出力する
+
+
+■ 正規表現の条件
+・0120から始まる電話番号（フリーダイヤル）のみと一致する
+・「0120」に続く部分は、3桁3桁のみを許容する
+・「0120-xxx-xxx」または「0120(xxx)xxx」の記述のみを許容する
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+</body>
+</html>

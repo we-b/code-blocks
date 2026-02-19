@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>context &#x27;ツイート投稿ができるとき&#x27;do
+  it &#x27;ログインしたユーザーは新規投稿できる&#x27; do
+    # ログインする
+    visit new_user_session_path
+    fill_in &#x27;Email&#x27;, with: @user.email
+    fill_in &#x27;Password&#x27;, with: @user.password
+    find(&#x27;input[name=&quot;commit&quot;]&#x27;).click
+    expect(page).to have_current_path(root_path)
+    # 新規投稿ページへのボタンがあることを確認する
+    expect(page).to have_content(&#x27;投稿する&#x27;)
+    # 投稿ページに移動する
+    visit new_tweet_path
+    # フォームに情報を入力する
+    fill_in &#x27;tweet_image&#x27;, with: @tweet_image
+    fill_in &#x27;tweet_text&#x27;, with: @tweet_text
+    # 送信するとTweetモデルのカウントが1上がることを確認する
+    expect{
+      find(&#x27;input[name=&quot;commit&quot;]&#x27;).click
+      sleep 1
+    }.to change { Tweet.count }.by(1)
+    # トップページには先ほど投稿した内容のツイートが存在することを確認する（画像）
+    expect(page).to have_selector &quot;.content_post[style=&#x27;background-image: url(#{@tweet_image});&#x27;]&quot;
+    # トップページには先ほど投稿した内容のツイートが存在することを確認する（テキスト）
+    expect(page).to have_content(@tweet_text)
+  end
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

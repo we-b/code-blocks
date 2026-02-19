@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript"><code>/* 安全ではない例 */
+async function searchTweets(search) {
+  if (search !== &quot;&quot;) {
+    // ユーザー入力をそのまま文字列結合している（危険！）
+    return await prisma.$queryRawUnsafe(`SELECT * FROM Tweet WHERE text LIKE &#x27;%${search}%&#x27;`);
+  } else {
+    return await prisma.tweet.findMany();
+  }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

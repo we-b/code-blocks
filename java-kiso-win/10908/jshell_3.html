@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-bash"><code>jshell&gt; String.format(&quot;%s：今日で%d歳になりました&quot;, 20, &quot;たろう&quot;)
+|  例外java.util.IllegalFormatConversionException: d != java.lang.String
+|        at Formatter$FormatSpecifier.failConversion (Formatter.java:4515)
+|        at Formatter$FormatSpecifier.printInteger (Formatter.java:3066)
+|        at Formatter$FormatSpecifier.print (Formatter.java:3021)
+|        at Formatter.format (Formatter.java:2791)
+|        at Formatter.format (Formatter.java:2728)
+|        at String.format (String.java:4390)
+|        at (#11:1)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+</body>
+</html>

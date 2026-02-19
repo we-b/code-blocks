@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code> private
+
+  def prepare_ticket
+    genre = select_genre
+    if genre[0].is_a?(Ride)
+      ticket = TicketingRide.new(rides).transaction
+    elsif genre[0].is_a?(Food)
+      ticket = TicketingFood.new(foods).transaction
+    elsif genre[0].is_a?(Goods)
+      ticket = TicketingGoods.new(goods).transaction
+    end
+  end
+
+  def select_genre
+    puts &quot;どのチケットを購入しますか？\n\n【1】アトラクション\n【2】食べ物\n【3】記念品&quot;
+    ticket_number = gets.chomp.to_i
+    if ticket_number === 1
+      product = rides
+    elsif ticket_number === 2
+      product = foods
+    elsif ticket_number === 3
+      product = goods
+    end
+  end
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

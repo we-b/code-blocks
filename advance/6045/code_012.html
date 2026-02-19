@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>class FileManager
+ def initialize(path)
+   # path名のファイルを作成。
+   @file = File.open(path, &quot;w&quot;)
+ end
+
+ def write_line(line)
+   @file.print(line)
+   @file.print(&quot;\n&quot;)
+ end
+
+end
+
+# 中略
+
+# ↓箇条書きの機能を追加
+class BulletWriter
+ def initialize(real_writer)
+     # ↓いずれのクラスでも、引数をインスタンス変数化しなければならない。
+   @real_writer = real_writer
+ end
+
+ def write_line(text)
+   @real_writer.write_line(&quot;- #{text}&quot;)
+ end
+end
+
+bullet_writer = BulletWriter.new(FileManager.new(&#x27;bullet.txt&#x27;))
+bullet_writer.write_line(&#x27;箇条書きの1つ目です。&#x27;)
+bullet_writer.write_line(&#x27;箇条書きの2つ目です。&#x27;)
+bullet_writer.write_line(&#x27;箇条書きの3つ目です。&#x27;)
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

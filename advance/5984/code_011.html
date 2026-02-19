@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>account_data = {name: &#x27;佐藤&#x27; , deposit: 100000}
+
+def main(account_data)
+  query_deposit(account_data)
+  withdraw(account_data)
+  query_deposit(account_data) # 引き落とし後の残高を表示する
+end
+
+def query_deposit(account_data)
+  puts &quot;残高は#{account_data[:deposit]}円です&quot;
+end
+
+def withdraw(account_data)
+  puts &#x27;引き落とし額を数字で入力してください&#x27;
+  while true do
+    withdrawal = gets.to_i
+    if withdrawal &lt; 1000
+      puts &quot;引き落としは1000円以上からです&quot;
+      puts &#x27;もう1度、引き落とし額を数字で入力してください&#x27;
+    else
+      account_data[:deposit] = account_data[:deposit] - withdrawal
+      break
+    end
+  end
+  puts &quot;#{withdrawal}円を正常に下ろしました&quot;
+end
+
+main(account_data)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

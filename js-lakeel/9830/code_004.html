@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-plaintext"><code>&lt;template&gt;
+  &lt;form class=&quot;modal_body&quot;&gt;
+    &lt;h2 class=&quot;input_menu&quot;&gt;タスクを追加&lt;/h2&gt;
+    &lt;div&gt;
+      &lt;h4 class=&quot;input_title&quot;&gt;ジャンル&lt;/h4&gt;
+      &lt;div class=&quot;task_genre&quot;&gt;
+        &lt;Select @change=&quot;genreSelect&quot; :value=&quot;task.genreId&quot;/&gt;
+      &lt;/div&gt;
+      &lt;h4 class=&quot;input_title&quot;&gt;タイトル&lt;/h4&gt;
+      &lt;input type=&quot;text&quot; v-model=&quot;task.name&quot;/&gt;
+      &lt;h4 class=&quot;input_title&quot;&gt;説明&lt;/h4&gt;
+      &lt;textarea v-model=&quot;task.explanation&quot;/&gt;
+      &lt;h4 class=&quot;input_title&quot;&gt;期限&lt;/h4&gt;
+      &lt;input class=&quot;input_date&quot; type=&quot;date&quot; v-model=&quot;task.deadlineDate&quot;/&gt;
+      &lt;h4 class=&quot;input_title&quot;&gt;画像&lt;/h4&gt;
+      &lt;input type=&quot;file&quot; @change=&quot;handleImageUpload&quot; accept=&quot;image/*&quot;/&gt;
+    &lt;/div&gt;
+    &lt;input class=&quot;input_submit&quot; type=&quot;button&quot; value=&quot;送信&quot; /&gt;
+  &lt;/form&gt;
+&lt;/template&gt;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

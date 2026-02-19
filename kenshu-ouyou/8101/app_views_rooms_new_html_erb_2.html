@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-erb" data-line="19,20,21,22,23"><code>&lt;div class=&#x27;chat-room-form&#x27;&gt;
+  &lt;h1&gt;新規チャットルーム&lt;/h1&gt;
+  &lt;%=form_with model: @room, local: true do |f|%&gt;
+    &lt;div class=&#x27;chat-room-form__field&#x27;&gt;
+      &lt;div class=&#x27;chat-room-form__field--left&#x27;&gt;
+        &lt;%= f.label :name, :チャットルーム名, class: &#x27;chat-room-form__label&#x27;%&gt;
+      &lt;/div&gt;
+      &lt;div class=&#x27;chat-room-form__field--right&#x27;&gt;
+        &lt;%= f.text_field :name, class: &#x27;chat__room_name chat-room-form__input&#x27;, placeholder: &#x27;チャットルーム名を入力してください&#x27;%&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&#x27;chat-room-form__field&#x27;&gt;
+    &lt;/div&gt;
+    &lt;div class=&#x27;chat-room-form__field&#x27;&gt;
+      &lt;div class=&#x27;chat-room-form__field--left&#x27;&gt;
+        &lt;label class=&#x27;chat-room-form__label&#x27; for=&#x27;chat_room_チャットメンバー&#x27;&gt;チャットメンバー&lt;/label&gt;
+      &lt;/div&gt;
+      &lt;div class=&#x27;chat-room-form__field--right&#x27;&gt;
+        &lt;select&gt;
+          &lt;option&gt;チャットするユーザーを選択してください&lt;/option&gt;
+          &lt;option&gt;ユーザー1&lt;/option&gt;
+          &lt;option&gt;ユーザー2&lt;/option&gt;
+        &lt;/select&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+    &lt;div class=&#x27;chat-room-form__field&#x27;&gt;
+      &lt;div class=&#x27;chat-room-form__field--left&#x27;&gt;&lt;/div&gt;
+      &lt;div class=&#x27;chat-room-form__field--right&#x27;&gt;
+        &lt;%= f.submit class: &#x27;chat-room-form__action-btn&#x27;%&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;% end %&gt;
+&lt;/div&gt;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-erb.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

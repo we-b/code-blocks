@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>class CommentsController &lt; ApplicationController
+  before_action :set_article
+  before_action :set_comment, only: [:destroy]
+
+  # GET /articles/:article_id/comments
+  def index
+    @comments = @article.comments.order(created_at: :desc)
+    render json: @comments
+  end
+
+  # POST /articles/:article_id/comments
+  def create
+    @comment = @article.comments.build(comment_params)
+
+    if @comment.save
+      render json: @comment, status: :created
+    else
+      render json: { errors: @comment.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
+  # DELETE /articles/:article_id/comments/:id
+  def destroy
+    @comment.destroy
+    head :no_content
+  end
+
+  private
+
+  def set_article
+    @article = Article.find(params[:article_id])
+  end
+
+  def set_comment
+    @comment = @article.comments.find(params[:id])
+  end
+
+  def comment_params
+    params.require(:comment).permit(:author_name, :body)
+  end
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-bash"><code>⏺ Issue #1 の対応を開始します。まず、現在のブランチ状況を確認し、関連するコードを調査します。
+
+⏺ Bash(git branch --show-current)
+  ⎿  main
+
+⏺ Explore(Explore Tasks codebase)
+  ⎿  Done (22 tool uses · 32.6k tokens · 1m 18s)                                                                                                
+
+⏺ コードベースの調査が完了しました。現在 main ブランチにいるので、既存の feature/issue-1-tasks-stats ブランチに切り替えます。
+
+⏺ Bash(git checkout -b feature/issue-1-tasks-stats)
+  ⎿  Switched to a new branch &#x27;feature/issue-1-tasks-stats&#x27;
+
+⏺ ブランチを作成しました。調査結果に基づき、実装計画を策定します。
+
+  ---
+  Step 2: 実装計画
+
+  要件
+
+  - エンドポイント: GET /tasks/stats
+  - レスポンス: 全タスク数、ステータス別タスク数、完了率
+
+  実装方針（TDD）
+
+  コードベースの既存パターン（Service Object、Jbuilder、RSpec）に従い、以下の順序で実装します。
+
+  | #   | 作業内容              | ファイル                                |
+  |-----|-------------------|-------------------------------------|
+  | 1   | ルーティング追加          | config/routes.rb                    |
+  | 2   | テスト作成（Red）        | spec/requests/tasks_spec.rb         |
+  | 3   | Service Object作成  | app/services/tasks/stats_service.rb |
+  | 4   | Controllerアクション追加 | app/controllers/tasks_controller.rb |
+  | 5   | JSONビュー作成         | app/views/tasks/stats.json.jbuilder |
+  | 6   | テスト実行（Green）      | bundle exec rspec                   |
+  | 7   | リファクタリング＆RuboCop  | bundle exec rubocop                 |
+
+  レスポンス形式（案）
+
+  {
+    &quot;totalCount&quot;: 10,
+    &quot;countByStatus&quot;: {
+      &quot;notStarted&quot;: 3,
+      &quot;inProgress&quot;: 4,
+      &quot;completed&quot;: 3
+    },
+    &quot;completionRate&quot;: 30.0
+  }
+
+  - camelCase形式（既存のJSONと統一）
+  - completionRate は completed / total * 100 のパーセンテージ（小数点以下1桁）
+  - タスクが0件の場合、completionRate は 0.0
+
+  ---
+  この計画で進めてよろしいですか？ (yes で着手、修正があればお知らせください)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+</body>
+</html>

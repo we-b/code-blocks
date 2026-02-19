@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-plaintext"><code>public abstract class Cooking {
+  public final void prepareDish() {
+    gatherIngredients();
+    cook();
+    serve();
+  }
+
+  private void gatherIngredients() {
+    System.out.println(&quot;材料を集める&quot;);
+  }
+
+  protected abstract void cook();
+
+  private void serve() {
+    System.out.println(&quot;盛り付ける&quot;);
+  }
+}
+
+public class CurryCooking extends Cooking {
+  @Override
+  protected void cook() {
+    System.out.println(&quot;食材を煮込む&quot;);
+  }
+}
+
+public class PastaCooking extends Cooking {
+  @Override
+  protected void cook() {
+    System.out.println(&quot;パスタを茹でる&quot;);
+    System.out.println(&quot;トッピングと和える&quot;);
+  }
+}
+
+public class Mein {
+  public static void main(String[] args) {
+    Cooking curryCooking = new CurryCooking();
+    curryCooking.prepareDish();
+    
+    Cooking pastaCooking = new PastaCooking();
+    pastaCooking.prepareDish();
+  }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

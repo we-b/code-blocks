@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>class User
+ def initialize(info)
+   @name = info[:name]
+ end
+
+ def name
+   @name
+ end
+end
+
+class Tweet
+ def initialize(contents)
+   @poster_name = contents[:name]
+   @text = contents[:text]
+   @image = contents[:image]
+ end
+
+ def poster_name
+   @poster_name
+ end
+
+ def text
+   @text
+ end
+
+ def image
+   @image
+ end
+end
+
+class TweetForm
+ def initialize
+   @contents = { name: &#x27;&#x27;, text: &#x27;&#x27;, image: &#x27;&#x27; }
+ end
+
+ def input(user, data)
+   contents[:name] = user.name
+   contents[:text] = data[:text]
+   contents[:image] = data[:image]
+ end
+
+ def create
+   Tweet.new(contents)
+ end
+
+ def contents
+   @contents
+ end
+end
+
+tanaka = User.new({ name: &#x27;tanaka&#x27; })
+
+form = TweetForm.new
+form.input(tanaka, { text: &#x27;テスト投稿&#x27;, image: &#x27;テスト画像のURL&#x27; })
+first_tweet = form.create
+
+puts first_tweet.poster_name
+puts first_tweet.text
+puts first_tweet.image
+ </code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

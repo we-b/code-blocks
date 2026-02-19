@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript" data-line="9,13,17,21"><code>&lt;script setup&gt;
+// (省略)
+&lt;/script&gt;
+&lt;template&gt;
+  &lt;h2&gt;ユーザー登録&lt;/h2&gt;
+  &lt;Form&gt;
+    &lt;label for=&quot;nickname&quot;&gt;ニックネーム&lt;/label&gt;
+     &lt;!-- 必須(required)のバリデーション追加 --&gt;
+    &lt;Field type=&quot;text&quot; id=&quot;nickname&quot; class=&quot;input-field&quot; name=&quot;nickname&quot; rules=&quot;required&quot; v-model=&quot;user.nickname&quot;/&gt;
+
+    &lt;label for=&quot;email&quot;&gt;メールアドレス&lt;/label&gt;
+    &lt;!-- 必須(required)、emailに関するバリデーション追加 --&gt;
+    &lt;Field type=&quot;email&quot; id=&quot;email&quot; class=&quot;input-field&quot; name=&quot;email&quot; rules=&quot;required|email&quot; v-model=&quot;user.email&quot;/&gt;
+
+    &lt;label for=&quot;password&quot;&gt;パスワード&lt;/label&gt;
+     &lt;!-- 必須(required)、最小文字数に関するバリデーション追加 --&gt;
+    &lt;Field type=&quot;password&quot; id=&quot;password&quot; name=&quot;password&quot; rules=&quot;required|min:6&quot; v-model=&quot;user.password&quot; class=&quot;input-field&quot; /&gt;
+
+    &lt;label for=&quot;password-confirmation&quot;&gt;確認用パスワード&lt;/label&gt;
+    &lt;!-- 必須(required)、confirmed(確認用フィールドの検証)に関するバリデーション追加 --&gt;
+    &lt;Field type=&quot;password&quot; id=&quot;password-confirmation&quot; name=&quot;password-confirmation&quot; rules=&quot;required|confirmed:@password&quot; class=&quot;input-field&quot; v-model=&quot;user.password_confirmation&quot; /&gt;
+
+    &lt;input type=&quot;submit&quot; value=&quot;登録&quot; id=&quot;submit-btn&quot; @click.prevent=&quot;registerBtn&quot;&gt;
+  &lt;/Form&gt;
+&lt;/template&gt;
+// (省略)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

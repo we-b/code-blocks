@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-bash" data-line="1"><code>irb(main):001:0&gt; Post.all
+   (3.4ms)  SET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, &#x27;,STRICT_ALL_TABLES&#x27;), &#x27;,NO_AUTO_VALUE_ON_ZERO&#x27;),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483
+  Post Load (6.3ms)  SELECT  `posts`.* FROM `posts` LIMIT 11
+=&gt; #&lt;ActiveRecord::Relation [#&lt;Post id: 1, content: &quot;はじめまして&quot;, created_at: &quot;2019-01-01 00:00:00&quot;, updated_at: &quot;2019-01-02 00:00:00&quot;&gt;, #&lt;Post id: 2, content: &quot;こんにちは！&quot;, created_at: &quot;2019-02-01 00:00:00&quot;, updated_at: &quot;2019-02-02 00:00:00&quot;&gt;]&gt;
+irb(main):002:0&gt;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

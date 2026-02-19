@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript"><code>//商品の個数を選択するセレクター
+const selector = document.querySelectorAll(&#x27;.item_num&#x27;);
+//商品の金額
+const item_amounts = document.querySelectorAll(&#x27;.item_amount&#x27;);
+
+// 商品の個数選択時に「合計金額を計算する」イベントをセット
+selector.forEach(function(s) {
+  s.addEventListener(&#x27;change&#x27;, e =&gt; {
+    // 全部の金額を取得し、個数分足し合わせる
+    let total_amount = 0;
+    item_amounts.forEach(function(s, index) {
+      total_amount = total_amount + parseInt(s.innerHTML) * selector[index].value
+    });
+    // カートの合計金額表示を書き換える
+    const cart_amount = document.querySelector(&#x27;#cart_amount&#x27;);
+    cart_amount.innerHTML = total_amount;
+  });
+});
+ </code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

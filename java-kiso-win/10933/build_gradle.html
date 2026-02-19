@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java" data-line="22,26"><code>plugins {
+	id &#x27;java&#x27;
+	id &#x27;org.springframework.boot&#x27; version &#x27;3.3.3&#x27;
+	id &#x27;io.spring.dependency-management&#x27; version &#x27;1.1.6&#x27;
+}
+
+group = &#x27;in.tech-camp&#x27;
+version = &#x27;0.0.1-SNAPSHOT&#x27;
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation &#x27;org.springframework.boot:spring-boot-starter-web&#x27;
+	implementation &#x27;org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3&#x27; //追加
+	runtimeOnly &#x27;org.postgresql:postgresql&#x27;
+	implementation &#x27;org.springframework.boot:spring-boot-starter-thymeleaf&#x27;
+	testImplementation &#x27;org.springframework.boot:spring-boot-starter-test&#x27;
+	testImplementation &#x27;org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3&#x27; //追加
+	testRuntimeOnly &#x27;org.junit.platform:junit-platform-launcher&#x27;
+}
+
+tasks.named(&#x27;test&#x27;) {
+   useJUnitPlatform()
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby" data-line="37,38,39,40,41,42,43,45,44,46,47,48"><code>require &#x27;rails_helper&#x27;
+
+RSpec.describe &#x27;ログイン&#x27;, type: :system do
+
+  before do
+    @user = FactoryBot.create(:user)
+  end
+
+  context &#x27;ログインができるとき&#x27; do
+    it &#x27;保存されているユーザーの情報と合致すればログインができる&#x27; do
+      # トップページに移動する
+      visit root_path
+      # トップページにログインページへ遷移するボタンがあることを確認する
+      expect(page).to have_content(&#x27;ログイン&#x27;)
+      # ログインページへ遷移する
+      visit new_user_session_path
+      # 正しいユーザー情報を入力する
+      fill_in &#x27;Email&#x27;, with: @user.email
+      fill_in &#x27;Password&#x27;, with: @user.password
+      # ログインボタンを押す
+      find(&#x27;input[name=&quot;commit&quot;]&#x27;).click
+      # トップページへ遷移することを確認する
+      expect(page).to have_current_path(root_path)
+      # カーソルを合わせるとログアウトボタンが表示されることを確認する
+      expect(
+        find(&#x27;.user_nav&#x27;).find(&#x27;span&#x27;).hover
+      ).to have_content(&#x27;ログアウト&#x27;)
+      # サインアップページへ遷移するボタンやログインページで遷移するボタンが表示されていないことを確認する
+      expect(page).to have_no_content(&#x27;新規登録&#x27;)
+      expect(page).to have_no_content(&#x27;ログイン&#x27;)
+    end
+  end
+
+  context &#x27;ログインができないとき&#x27; do
+    it &#x27;保存されているユーザーの情報と合致しないとログインができない&#x27; do
+      #トップページに移動する
+      visit root_path
+      # トップページにログインページへ遷移するボタンがあることを確認する
+      expect(page).to have_content(&#x27;ログイン&#x27;)
+      # ログインページへ遷移する
+      visit new_user_session_path
+      # ユーザー情報を入力する
+      fill_in &#x27;Email&#x27;, with: &#x27;&#x27;
+      fill_in &#x27;Password&#x27;, with: &#x27;&#x27;
+      # ログインボタンを押す
+      find(&#x27;input[name=&quot;commit&quot;]&#x27;).click
+      # ログインページへ戻されることを確認する
+      expect(page).to have_current_path(new_user_session_path)
+    end
+  end
+end
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

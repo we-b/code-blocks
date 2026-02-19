@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>def choose_action
+  book = choose_title
+  puts &#x27;本を読む場合は0、書評を読む場合は1を選択してください&#x27;
+  input = gets.to_i
+  while true do
+    if input == 0
+      puts &quot;#{book[:name]}を読みます&quot;
+　　　read_book(selected_title)
+      break
+    elsif input == 1
+      puts &quot;#{book[:name]}の書評を読みます&quot;
+      read_book_review(selected_title)
+      break
+    else
+      puts &#x27;本を読む場合は0、書評を読む場合は1を選択してください&#x27;
+      input = gets.to_i
+    end
+  end
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

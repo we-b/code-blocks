@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java"><code>public class Curry {
+  protected String description = &quot;Basic Curry&quot;;
+  protected int baseCost = 500;
+
+  public String getDescription() {
+    return description;
+  }
+
+  public int cost() {
+    return baseCost;
+  }
+}
+
+public class CheeseCurry extends Curry {
+  public CheeseCurry() {
+    description = &quot;Basic Curry, with Cheese&quot;;
+  }
+
+  @Override
+  public int cost() {
+    return super.cost() + 200;
+  }
+}
+
+public class VegetableCurry extends Curry {
+  public VegetableCurry() {
+    description = &quot;Basic Curry, with Vegetables&quot;;
+  }
+
+  @Override
+  public int cost() {
+    return super.cost() + 150;
+  }
+}
+
+public class CheeseVegetableCurry extends Curry {
+  public CheeseVegetableCurry() {
+    description = &quot;Basic Curry, with Cheese and Vegetables&quot;;
+  }
+
+  @Override
+  public int cost() {
+    return super.cost() + 350;
+  }
+}
+
+
+public class Main {
+  public static void main(String[] args) {
+    Curry basicCurry = new Curry();
+    System.out.println(basicCurry.getDescription() + &quot; Cost: &quot; + basicCurry.cost());
+
+    Curry cheeseCurry = new CheeseCurry();
+    System.out.println(cheeseCurry.getDescription() + &quot; Cost: &quot; + cheeseCurry.cost());
+
+    Curry vegetableCurry = new VegetableCurry();
+    System.out.println(vegetableCurry.getDescription() + &quot; Cost: &quot; + vegetableCurry.cost());
+
+    Curry cheeseVegetableCurry = new CheeseVegetableCurry();
+    System.out.println(cheeseVegetableCurry.getDescription() + &quot; Cost: &quot; + cheeseVegetableCurry.cost());
+  }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>

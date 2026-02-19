@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript" data-line="5,6,9,13,14,15,16,17,18,22,23,24"><code>&lt;script setup&gt;
+import ShowList from &#x27;./ShowList.vue&#x27;
+import { ref, onMounted } from &#x27;vue&#x27;
+import api from &#x27;../api/axios&#x27;
+import { auth, onAuthStateChanged,signOut } from &#x27;../firebase&#x27;;
+import { useRouter } from &#x27;vue-router&#x27;;
+// (省略)
+
+const router = useRouter();
+
+// (省略)
+
+const handleSignOut = async () =&gt; {
+  await signOut(auth);
+  // サインアウトしたらjwtをremoveする
+  localStorage.removeItem (&#x27;jwt&#x27;);
+  router.push(&quot;/&quot;);
+};
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div&gt;
+    &lt;button @click=&quot;handleSignOut&quot;&gt;ログアウト&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;form&gt;
+// (省略)
+    &lt;/form&gt;
+    &lt;ShowList :books=&quot;books&quot;/&gt;
+  &lt;/div&gt;
+&lt;/template&gt;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

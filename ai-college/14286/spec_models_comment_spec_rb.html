@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>require &#x27;rails_helper&#x27;
+
+RSpec.describe Comment, type: :model do
+  describe &#x27;バリデーション&#x27; do
+    let(:article) { create(:article) }
+
+    context &#x27;authorが空の場合&#x27; do
+      it &#x27;バリデーションに失敗すること&#x27; do
+        comment = build(:comment, article: article, author: nil)
+        expect(comment).not_to be_valid
+        expect(comment.errors[:author]).to include(&quot;can&#x27;t be blank&quot;)
+      end
+    end
+
+    context &#x27;bodyが空の場合&#x27; do
+      it &#x27;バリデーションに失敗すること&#x27; do
+        comment = build(:comment, article: article, body: nil)
+        expect(comment).not_to be_valid
+        expect(comment.errors[:body]).to include(&quot;can&#x27;t be blank&quot;)
+      end
+    end
+
+    context &#x27;articleが存在しない場合&#x27; do
+      it &#x27;バリデーションに失敗すること&#x27; do
+        comment = build(:comment, article: nil)
+        expect(comment).not_to be_valid
+        expect(comment.errors[:article]).to include(&quot;must exist&quot;)
+      end
+    end
+
+    context &#x27;全ての属性が正しく設定されている場合&#x27; do
+      it &#x27;バリデーションに成功すること&#x27; do
+        comment = build(:comment, article: article)
+        expect(comment).to be_valid
+      end
+    end
+  end
+
+  describe &#x27;アソシエーション&#x27; do
+    describe &#x27;belongs_to :article&#x27; do
+      it &#x27;記事に属していること&#x27; do
+        article = create(:article)
+        comment = create(:comment, article: article)
+        expect(comment.article).to eq(article)
+      end
+    end
+
+    describe &#x27;dependent: :destroy&#x27; do
+      it &#x27;親の記事が削除されるとコメントも削除されること&#x27; do
+        article = create(:article)
+        comment = create(:comment, article: article)
+
+        expect {
+          article.destroy
+        }.to change(Comment, :count).by(-1)
+      end
+    end
+  end
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java"><code>package in.tech_camp.pictweet.system;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+
+import in.tech_camp.pictweet.PictweetApplication;
+import in.tech_camp.pictweet.entity.UserEntity;
+import in.tech_camp.pictweet.entity.TweetEntity;
+import in.tech_camp.pictweet.factory.UserFormFactory;
+import in.tech_camp.pictweet.factory.TweetFormFactory;
+import in.tech_camp.pictweet.form.UserForm;
+import in.tech_camp.pictweet.form.TweetForm;
+import in.tech_camp.pictweet.service.UserService;
+import in.tech_camp.pictweet.repository.TweetRepository;
+
+@ActiveProfiles(&quot;test&quot;)
+@SpringBootTest(classes = PictweetApplication.class)
+@AutoConfigureMockMvc
+public class TweetEditIntegrationTest {
+  private UserForm userForm1;
+  private UserEntity userEntity1;
+
+  private UserForm userForm2;
+  private UserEntity userEntity2;
+
+  private TweetForm tweetForm1;
+  private TweetEntity tweetEntity1;
+
+  private TweetForm tweetForm2;
+  private TweetEntity tweetEntity2;
+
+  @Autowired
+  private UserService userService;
+
+  @Autowired
+  private TweetRepository tweetRepository;
+
+  @BeforeEach
+  public void setup() {
+    userForm1 = UserFormFactory.createUser();
+    userEntity1 = new UserEntity();
+    userEntity1.setEmail(userForm1.getEmail());
+    userEntity1.setNickname(userForm1.getNickname());
+    userEntity1.setPassword(userForm1.getPassword());
+    userService.createUserWithEncryptedPassword(userEntity1);
+
+    userForm2 = UserFormFactory.createUser();
+    userEntity2 = new UserEntity();
+    userEntity2.setEmail(userForm2.getEmail());
+    userEntity2.setNickname(userForm2.getNickname());
+    userEntity2.setPassword(userForm2.getPassword());
+    userService.createUserWithEncryptedPassword(userEntity2);
+
+    tweetForm1 = TweetFormFactory.createTweet();
+    tweetEntity1 = new TweetEntity();
+    tweetEntity1.setUser(userEntity1);
+    tweetEntity1.setImage(tweetForm1.getImage());
+    tweetEntity1.setText(tweetForm1.getText());
+    tweetRepository.insert(tweetEntity1);
+
+    tweetForm2 = TweetFormFactory.createTweet();
+    tweetEntity2 = new TweetEntity();
+    tweetEntity2.setUser(userEntity2);
+    tweetEntity2.setImage(tweetForm2.getImage());
+    tweetEntity2.setText(tweetForm2.getText());
+    tweetRepository.insert(tweetEntity2);
+  }
+
+  @Nested
+  class ツイート編集ができるとき {
+    @Test
+    public void ログインしたユーザーは自分が投稿したツイートの編集ができる() throws Exception {
+      // ツイート1を投稿したユーザーでログインする
+      // ツイート1に「編集」へのリンクがあることを確認する
+      // 編集ページへ遷移し、すでに投稿済みの内容がフォームに入っていることを確認する
+      // 投稿内容を編集する
+      // 編集してもtweetsテーブルのレコードの数が変わらないことを確認する
+      // トップページには先ほど変更した内容のツイートが存在することを確認する（画像）
+      // トップページには先ほど変更した内容のツイートが存在することを確認する（テキスト）
+    }
+  }
+
+  @Nested
+  class ツイート編集ができないとき {
+    @Test
+    public void ログインしたユーザーは自分以外が投稿したツイートの編集画面には遷移できない() throws Exception {
+      // ツイート1を投稿したユーザーでログインする
+      // ツイート2に「編集」へのリンクがないことを確認する
+    }
+
+    @Test
+    public void ログインしていないとツイートの編集画面には遷移できない() throws Exception {
+      // ログインせずにトップページにアクセス
+      // ツイート1に「編集」へのリンクがないことを確認する
+      // ツイート2に「編集」へのリンクがないことを確認する
+    }
+  }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>

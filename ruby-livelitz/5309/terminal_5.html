@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-bash"><code>Started GET &quot;/tweets/search?keyword=%E3%83%86%E3%82%B9%E3%83%88%E6%8A%95%E7%A8%BF&amp;commit=%E6%A4%9C%E7%B4%A2&quot; for ::1 at 2020-09-03 11:45:44 +0900
+   (3.0ms)  SET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, &#x27;,STRICT_ALL_TABLES&#x27;), &#x27;,NO_AUTO_VALUE_ON_ZERO&#x27;),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483
+Processing by TweetsController#search as HTML
+  Parameters: {&quot;keyword&quot;=&gt;&quot;テスト投稿&quot;, &quot;commit&quot;=&gt;&quot;検索&quot;}
+  Rendering tweets/search.html.erb within layouts/application
+  Tweet Load (1.7ms)  SELECT `tweets`.* FROM `tweets` WHERE (text LIKE(&#x27;%%&#x27;))
+  ↳ app/views/tweets/search.html.erb:6
+  User Load (0.8ms)  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 ORDER BY `users`.`id` ASC LIMIT 1
+  ↳ app/views/tweets/_tweet.html.erb:8
+  User Load (0.4ms)  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 LIMIT 1
+  ↳ app/views/tweets/_tweet.html.erb:20
+  Rendered tweets/_tweet.html.erb (Duration: 22.0ms | Allocations: 2529)
+  Rendered tweets/search.html.erb within layouts/application (Duration: 35.4ms | Allocations: 3952)
+[Webpacker] Everything&#x27;s up-to-date. Nothing to do
+Completed 200 OK in 84ms (Views: 68.0ms | ActiveRecord: 2.9ms | Allocations: 12755)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+</body>
+</html>

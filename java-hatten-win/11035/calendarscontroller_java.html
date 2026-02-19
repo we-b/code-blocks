@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java" data-line="7"><code> private List&lt;Map&lt;String, Object&gt;&gt; get_week() {
+    List&lt;Map&lt;String, Object&gt;&gt; weekDays = new ArrayList&lt;&gt;();
+
+    LocalDate todaysDate = LocalDate.now();
+    List&lt;PlanEntity&gt; plans = planRepository.findByDateBetween(todaysDate, todaysDate.plusDays(6));
+
+    String[] wdays = {&quot;(日)&quot;, &quot;(月)&quot;, &quot;(火)&quot;, &quot;(水)&quot;, &quot;(木)&quot;, &quot;(金)&quot;, &quot;(土)&quot;};
+
+    for (int x = 0; x &lt; 7; x++) {
+      Map&lt;String, Object&gt; dayMap = new HashMap&lt;String, Object&gt;();
+      LocalDate currentDate = todaysDate.plusDays(x);
+
+      List&lt;String&gt; todayPlans = new ArrayList&lt;&gt;();
+      for (PlanEntity plan : plans) {
+          if (plan.getDate().equals(currentDate)) {
+              todayPlans.add(plan.getPlan());
+          }
+      }
+
+      dayMap.put(&quot;month&quot;, currentDate.getMonthValue());
+      dayMap.put(&quot;date&quot;, currentDate.getDayOfMonth());
+      dayMap.put(&quot;plans&quot;, todayPlans);
+
+      weekDays.add(dayMap);
+    }
+
+    return weekDays;
+  }</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

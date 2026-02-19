@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby" data-line="15,16"><code>class Genre &lt; ActiveHash::Base
+ self.data = [
+   { id: 1, name: &#x27;---&#x27; },
+   { id: 2, name: &#x27;経済&#x27; },
+   { id: 3, name: &#x27;政治&#x27; },
+   { id: 4, name: &#x27;地域&#x27; },
+   { id: 5, name: &#x27;国際&#x27; },
+   { id: 6, name: &#x27;IT&#x27; },
+   { id: 7, name: &#x27;エンタメ&#x27; },
+   { id: 8, name: &#x27;スポーツ&#x27; },
+   { id: 9, name: &#x27;グルメ&#x27; },
+   { id: 10, name: &#x27;その他&#x27; }
+ ]
+
+  include ActiveHash::Associations
+  has_many :articles
+
+ end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

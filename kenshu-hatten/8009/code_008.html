@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-plaintext"><code>
+&lt;!-- X:レコードの数だけ同じビューを繰り返す部分で、eachを使用している --&gt;
+&lt;h2&gt;
+  &lt;% @users.each do |user| %&gt;
+    &lt;div class=&quot;user-container&quot;&gt;
+      &lt;%= user.name %&gt;
+      &lt;%= user.profile %&gt;
+      &lt;%= user.image %&gt;
+   &lt;/div&gt;
+&lt;/h2&gt;
+
+&lt;!-- ◯:繰り返しを部分テンプレートで記述している --&gt;
+&lt;!-- 部分テンプレートを使用する理由は動作が軽いから --&gt;
+&lt;h2&gt;
+  &lt;%= render partial: &#x27;user-contaier&#x27;, collection @users %&gt;
+&lt;/h2&gt;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

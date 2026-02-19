@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript" data-line="8,12,13,14,15,16,17,18,19,25,29"><code>import React, { useEffect, useState } from &quot;react&quot;;
+import { Header } from &quot;../../components/header&quot;;
+import { Select } from &quot;../../components/select&quot;;
+import { ToDoList } from &quot;../../components/toDoList&quot;;
+import { FormModal } from &quot;../../components/modal&quot;;
+import { taskRequest } from &quot;../../requests/taskRequest&quot;;
+import { genreRequest } from &quot;../../requests/genreRequest&quot;;
+import { Data, dataAction, useDataReducer } from &quot;../../hooks/useDataReducer&quot;;
+import AddCircleOutlineIcon from &quot;@material-ui/icons/AddCircleOutline&quot;;
+import &quot;./style.css&quot;;
+
+type dataContextType = {
+  data: Data;
+  dispatch: ({ type, payload }: dataAction) =&gt; void;
+};
+
+export const DataContext = React.createContext&lt;dataContextType&gt;(
+  {} as dataContextType
+);
+
+export const Home = () =&gt; {
+  /* 省略 */
+
+  return (
+    &lt;DataContext.Provider value={{ data, dispatch }}&gt;
+      &lt;div className=&quot;main&quot;&gt;
+        /* 省略*/
+      &lt;/div&gt;
+    &lt;/DataContext.Provider&gt;
+  );
+};</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

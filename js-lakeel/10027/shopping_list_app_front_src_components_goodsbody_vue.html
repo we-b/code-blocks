@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript" data-line="8,9,10,11,12,13,14,15,16,17,18"><code>
+const goodsSubmit = async() =&gt; {
+  const resetFormAndCloseModal = () =&gt; {
+    //入力フォームのリセット
+    goods.value = { name:&#x27;&#x27;, quantity: &#x27;&#x27;, genreId: &#x27;&#x27;, statusId: 0 };
+    // emitを用いてmodal-closeする
+    emit(&#x27;close-modal&#x27;);
+  };
+  try {
+    if(goods.value.id) {
+      await goodsStore.updateGoods(goods.value);
+      emit(&#x27;close-modal&#x27;);
+    }else{
+      await goodsStore.addGoods(goods.value);
+      resetFormAndCloseModal();
+    }
+  } catch (error) {
+    console.error(`${goods.id ? &#x27;更新&#x27; : &#x27;保存&#x27;}に失敗しました。`, error);
+  }
+}
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div class=&quot;modal_body&quot;&gt;
+      &lt;h2 class=&quot;input_menu&quot;&gt;{{ goods.id ? &#x27;リストの編集&#x27; : &#x27;リストの追加&#x27;}}&lt;/h2&gt;
+      &lt;form class=&quot;goods_form&quot;&gt;
+        &lt;input type=&quot;text&quot; class=&quot;form_input&quot; placeholder=&quot;品目&quot; v-model=&quot;goods.name&quot;/&gt;
+        &lt;input type=&quot;text&quot; class=&quot;form_input&quot; placeholder=&quot;数量&quot; v-model=&quot;goods.quantity&quot;/&gt;
+        &lt;select v-model=&quot;goods.genreId&quot; class=&quot;form_input&quot;&gt;
+          &lt;option  :value=&quot;genre.id&quot; v-for=&quot;genre in genreStore.genres&quot; :key=&quot;genre.id&quot;&gt;{{ genre.name }}&lt;/option&gt;
+        &lt;/select&gt;
+        &lt;select v-model=&quot;goods.statusId&quot; class=&quot;form_input&quot; :value=&quot;goods.statusId&quot;&gt;
+          &lt;option :value=&quot;index&quot; v-for=&quot;(status,index) in statusList&quot; :key=&quot;index&quot;&gt;{{ status }}&lt;/option&gt;
+        &lt;/select&gt;
+        &lt;input class=&quot;input_submit&quot; type=&quot;button&quot; value=&quot;送信&quot; @click=&quot;goodsSubmit&quot;/&gt;
+      &lt;/form&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

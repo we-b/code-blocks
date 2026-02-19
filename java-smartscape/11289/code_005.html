@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-plaintext"><code>このコードは以下の動画のように動作します。
+
+商品の合計金額が10000円を超えると小計の下に赤い警告メッセージが表示され、小計自体は更新されません。反対に、その状態から商品の合計金額が10000円を下回ると警告メッセージが消えて小計が更新されます。
+
+![https://tech-master.s3.amazonaws.com/uploads/curriculums//d359817c8394f08222f441d847dd0ef4.gif](https://tech-master.s3.amazonaws.com/uploads/curriculums//d359817c8394f08222f441d847dd0ef4.gif)
+
+18行目の`addEventListener`内、つまりセットしたイベント部分のコードが複雑になっていることがわかります。これは、警告表示をする/しないを判定するロジックや、すでに警告表示が出ていた場合にどうするかのロジックが増えているためです。
+
+今回は簡易的に実装しており、本来のECサイトならばさらに「警告表示を出した時に商品の個数を元に戻す」や「警告表示を出した場合は購入ボタンを押せないようにする」といった処理も必要になってくるためコードはより複雑になります。
+
+機能自体は特殊なものではなく、よく見かけるオーソドックスなものです。しかし、JavaScriptのコードは「もし◯◯だったら」という条件分岐が増え、だんだん何をやっているのかわかりづらいコードになってきました。
+
+わかりづらいコードになるのは「JavaScriptを使ってユーザーの操作に応じてブラウザ上の画面を変化させるというコードの仕組み」そのものが原因です。以下の図は、その仕組みの流れを説明しています。
+
+![https://tech-master.s3.amazonaws.com/uploads/curriculums//8405dbeaf6020aed813901c5a82d233b.png](https://tech-master.s3.amazonaws.com/uploads/curriculums//8405dbeaf6020aed813901c5a82d233b.png)
+JavaScriptで直接「このDOMを取得する」「取得したノードの値を取得する」「値を処理して新しい要素をDOMに埋め込む」といった方法です。
+
+このやり方は読み手のコードの理解に時間がかかります。読み手はJavaScriptとHTMLのコードを両方読み解いて、ユーザーが何をしたらどのような変化が画面上に起きるか、時系列に沿って想像するしかないためです。
+
+先程の例程度の規模のコードであればまだギリギリ対処できるかもしれません。しかし、機能がもっと複雑になるとさらにコードの量が増え、より難易度が上がることは想像に難くないでしょう。
+
+実際に、Reactが登場し普及する2015年ごろより前のWebエンジニア業界は、ユーザーが快適にアプリを使えるように工夫しようとすると、上記のような問題で複雑になっていくフロントエンドのコードに困っていました。
+
+**Reactは、全く違うアプローチでこの問題を解決します。**
+
+ポイントは、画面上の要素を部品と見立て、その部品に「状態」を持たせるようにしたことです。以下に、状態の例を示します。
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

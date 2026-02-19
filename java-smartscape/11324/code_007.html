@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java"><code>import React, { useState } from &#x27;react&#x27;;
+
+// フォーマット戦略を定義する関数
+const normalFormat = (value) =&gt; new Intl.NumberFormat().format(value);
+const percentFormat = (value) =&gt; `${(value * 100).toFixed(2)}%`;
+const currencyFormat = (value) =&gt; `￥${new Intl.NumberFormat().format(value)}`;
+
+// Strategyパターンのコンテキストとなるコンポーネント
+const ValueDisplay = ({ value, formatStrategy }) =&gt; {
+  return &lt;div&gt;{formatStrategy(value)}&lt;/div&gt;;
+};
+
+// メインコンポーネント
+const App = () =&gt; {
+  const [format, setFormat] = useState(normalFormat);
+
+  const handleFormatChange = (event) =&gt; {
+    const selectedFormat = event.target.value;
+    
+    switch (selectedFormat) {
+      case &#x27;percent&#x27;:
+        setFormat(() =&gt; percentFormat);
+        break;
+      case &#x27;currency&#x27;:
+        setFormat(() =&gt; currencyFormat);
+        break;
+      default:
+        setFormat(() =&gt; normalFormat);
+    }
+  };
+
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;Strategy Pattern Example&lt;/h1&gt;
+      &lt;select onChange={handleFormatChange}&gt;
+        &lt;option value=&quot;normal&quot;&gt;Normal&lt;/option&gt;
+        &lt;option value=&quot;percent&quot;&gt;Percent&lt;/option&gt;
+        &lt;option value=&quot;currency&quot;&gt;Currency&lt;/option&gt;
+      &lt;/select&gt;
+      &lt;ValueDisplay value={1500} formatStrategy={format} /&gt;
+    &lt;/div&gt;
+  );
+};
+
+export default App;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>

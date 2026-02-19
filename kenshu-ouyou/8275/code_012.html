@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>class VendingMachine
+  def initialize(drinks)
+    @drinks = drinks
+  end
+
+  def drinks
+    @drinks
+  end
+
+  def play_slot
+    result = []
+    3.times do 
+      result &lt;&lt; rand(0..9)
+    end
+    puts &quot;スロットゲームの結果は#{result.join}です！&quot;
+    if result[0] == result[1] &amp;&amp; result[0] == result[2]
+      puts &quot;おめでとうございます！&quot;
+    else
+      puts &quot;残念でした〜&quot;
+    end 
+  end
+
+  def show_drinks
+    puts &quot;いらっしゃいませ。以下の商品を販売しています&quot;
+    i = 0
+    self.drinks.each do |drink|
+      puts &quot;【#{i}】#{drink.name}: #{drink.fee}円&quot;
+      i += 1
+    end
+  end
+
+  def pay(user)
+    puts &quot;商品を選んでください&quot;
+    chosen_drink = user.choose_drink
+    change = user.money - self.drinks[chosen_drink].fee
+    if change &gt;= 0
+      puts &quot;ご利用ありがとうございました！お釣りは#{change}円です。&quot;
+      play_slot
+    else
+      puts &quot;投入金額が足りません&quot;
+    end
+  end
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

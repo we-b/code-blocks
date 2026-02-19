@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python" data-line="2,16,17,18,19,20"><code>from django.shortcuts import render, redirect
+from django.http import JsonResponse
+from django.views import View
+from posts.models import Post
+from .forms  import PostForm
+
+class IndexView(View):        
+  def get(self,request,*args,**kwargs):
+    posts =  Post.objects.all()
+    form = PostForm()
+    return render(request, &#x27;posts/index.html&#x27;, {&#x27;posts&#x27;: posts, &#x27;form&#x27;: form})
+
+  def post(self, request, *args, **kwargs):
+    form = PostForm(request.POST)
+    if form.is_valid():
+      post = form.save()
+      return JsonResponse({
+        &#x27;content&#x27;: post.content,
+        &#x27;created_at&#x27;: post.created_at.strftime(&#x27;%Y-%m-%d %H:%M:%S&#x27;)
+      })
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

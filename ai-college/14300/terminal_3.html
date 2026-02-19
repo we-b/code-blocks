@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-bash"><code>次に、コードベースを調査して実装計画を策定します。SerenaMCPのメモリとシンボルツールを使用します。
+
+⏺ serena - read_memory (MCP)(memory_file_name: &quot;codebase_structure&quot;)
+  ⎿ {                                                                                                                                           
+      &quot;result&quot;: &quot;# コードベース構造\n\n## ディレクトリ構成\n\n```\ntodo_advance_back_rails7/\n├── app/\n│   ├── channels/           # Action
+    Cable チャンネル\n│   ├─
+    ─ controllers/        # コントローラ\n│   │   ├── application_controller.rb\n│   │   ├── tasks_controller.rb\n│   │   └──
+    genres_controller.rb\n│
+    … +14 lines (ctrl+o to expand)
+
+
+・・省略・・
+
+
+⏺ ---
+  調査結果サマリー
+
+  | 項目             | 内容                                         |
+  |----------------|--------------------------------------------|
+  | Taskモデルのstatus | not_started, in_progress, completed (enum) |
+  | 既存のJSON形式      | camelCase使用 (例: deadlineDate, genreId)     |
+  | ルーティング         | resources :tasks + カスタムルート                 |
+  | テスト            | RSpec request spec                         |
+
+  ---
+  実装計画
+
+  Step 1: テスト追加 (Red)
+
+  spec/requests/tasks_spec.rb にテストを先に追加:
+
+  describe &#x27;GET /tasks/report&#x27; do
+    # 正常系: 統計データが正しく返される
+    # エッジケース: タスクが0件の場合
+    # completionRateの計算精度確認
+  end
+
+  Step 2: テスト実行 → 失敗確認 (Red)
+
+  bundle exec rspec spec/requests/tasks_spec.rb
+  ルーティングとアクションがないため失敗することを確認
+
+  Step 3: 最小限の実装 (Green)
+
+  1. config/routes.rb にルーティング追加
+  2. app/controllers/tasks_controller.rb に report アクション追加
+
+  Step 4: テスト再実行 → 成功確認 (Green)
+
+  全テストがパスすることを確認
+
+  Step 5: リファクタリング (Refactor)
+
+  必要に応じてコードを整理
+
+  ---
+  この TDD 順序で進めてよろしいですか？ (yes で承認)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+</body>
+</html>

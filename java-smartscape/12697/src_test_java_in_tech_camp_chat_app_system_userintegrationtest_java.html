@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java" data-line="11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28"><code>// 省略
+
+@ActiveProfiles(&quot;test&quot;)
+@SpringBootTest(classes = ChatAppApplication.class)
+@AutoConfigureMockMvc
+public class UserIntegrationTest {
+  // 省略
+
+  @Test
+  public void ログインに失敗し再びサインインページに戻ってくる() throws Exception {
+    // サインインページに遷移する
+    mockMvc.perform(get(&quot;/users/login&quot;))
+            .andExpect(status().isOk())
+            .andExpect(view().name(&quot;users/login&quot;));
+
+    // 誤ったユーザーでログインするとエラーパスにリダイレクトされる
+    mockMvc.perform(post(&quot;/login&quot;)
+                    .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                    .param(&quot;email&quot;, &quot;hoge@hoge.com&quot;)
+                    .param(&quot;password&quot;, &quot;hogefuga&quot;)
+                    .with(csrf()))
+            .andExpect(status().isFound())
+            .andExpect(redirectedUrl(&quot;/login?error&quot;));  
+
+    // エラーパスにリダイレクトされたとき、サインインのビューが表示される
+    mockMvc.perform(get(&quot;/login?error&quot;).param(&quot;error&quot;, &quot;&quot;))
+            .andExpect(status().isOk())
+            .andExpect(view().name(&quot;users/login&quot;));
+  }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

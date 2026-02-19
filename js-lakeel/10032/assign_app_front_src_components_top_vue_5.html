@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript" data-line="12,13,14,15,16,17,31"><code>&lt;script setup&gt;
+// (省略)
+onMounted(async() =&gt; {
+  try {
+    const fetchAllUsers = await api.get(&#x27;/users&#x27;);
+    allUsers.value = fetchAllUsers.data;
+  }catch(error) {
+    console.log(&quot;ユーザーデータの取得ができませんでした&quot;, error);
+  }
+
+  // タスクの取得
+  try {
+    const fetchAllTasks = await api.get(&#x27;/tasks&#x27;);
+    tasks.value = fetchAllTasks.data;
+  }catch(error){
+    console.log(&quot;タスクデータの取得ができませんでした&quot;, error);
+  }
+})
+//(省略)
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div class=&quot;header&quot;&gt;
+    &lt;h1&gt;タスク管理アプリ&lt;/h1&gt;
+    &lt;button class=&quot;logout&quot; @click=&quot;handleSignOut&quot;&gt;ログアウト&lt;/button&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;user-name&quot;&gt;
+    &lt;span&gt;こんにちは{{ displayName }}さん&lt;/span&gt;
+  &lt;/div&gt;
+(省略)
+  &lt;TaskList :tasks=&quot;tasks&quot; :users=&quot;allUsers&quot;/&gt;
+&lt;/template&gt;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript"><code>// yearが閏年かどうかを判定する関数
+const getYear = (year) =&gt; {
+  // yearが4で割り切れる（year % 4 == 0）場合
+  if (year % 4 == 0){ 
+    // yearが100で割り切れ、なおかつ（&amp;&amp;）、400で割り切れない（year % 400 != 0）場合
+    if (year % 100 == 0 &amp;&amp; year % 400 != 0){
+      console.log(`${year}年は閏年ではありません`);
+    } else {
+      console.log(`${year}年は閏年です`);
+    };
+  }else {
+    console.log(`${year}年は閏年ではありません`);
+  };
+};</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

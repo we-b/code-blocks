@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code># ケース1: 基本のファクトリ
+article = FactoryBot.create(:article)
+article.title
+# =&gt; &quot;テスト記事1&quot;
+article.status
+# =&gt; &quot;draft&quot;
+
+# ケース2: publishedトレイト
+article = FactoryBot.create(:article, :published)
+article.status
+# =&gt; &quot;published&quot;
+article.published_at
+# =&gt; 2024-01-15 10:30:00 UTC
+
+# ケース3: archivedトレイト
+article = FactoryBot.create(:article, :archived)
+article.status
+# =&gt; &quot;archived&quot;
+
+# ケース4: with_long_titleトレイト
+article = FactoryBot.create(:article, :with_long_title)
+article.title.length
+# =&gt; 100</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

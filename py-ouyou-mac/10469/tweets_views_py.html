@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python" data-line="5,10,15,19,20,21,22,23,24,25,26"><code>from django.shortcuts import render
+from django.views.generic import ListView,CreateView,DeleteView,UpdateView,DetailView
+from django.urls import reverse_lazy
+from .models import Tweet
+from .forms import TweetForm, SearchForm
+from django.views.generic.edit import FormMixin
+from comments.forms import CommentForm
+from comments.models import Comment
+
+class IndexView(ListView, FormMixin):
+    model = Tweet
+    template_name = &#x27;tweets/index.html&#x27;
+    context_object_name = &#x27;tweets&#x27;
+    ordering = &#x27;-created_at&#x27;
+    form_class = SearchForm
+
+（省略）
+
+def tweet_search(request):
+    form = SearchForm(request.GET or None)
+    if form.is_valid():
+        keyword = form.cleaned_data.get(&#x27;keyword&#x27;, &#x27;&#x27;)
+        tweets = Tweet.objects.filter(text__icontains=keyword)
+    else:
+        tweets = Tweet.objects.all()
+    return render(request, &#x27;tweets/search.html&#x27;, {&#x27;form&#x27;: form, &#x27;tweets&#x27;: tweets})</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

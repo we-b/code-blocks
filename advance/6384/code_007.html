@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby" data-line="7,8,9"><code>1.upto(mouse_grow_count(2)) do |i|
+  puts &quot;----------#{i * 3}ヶ月目----------&quot;
+  previous_adult = adult
+  previous_child = child
+  child = birth(previous_adult)
+  adult += grow(previous_child)
+  puts &quot;前回存在した幼獣#{previous_child}組が成獣になり、成獣は合計で#{adult}組になりました&quot;
+  puts &quot;前回存在した成獣#{previous_adult}組が幼獣を産み、幼獣は合計で#{child}組になりました&quot;
+  puts &quot;ネズミは合計#{cal_animal_count(adult, child)}匹です&quot;
+end
+
+p cal_animal_count(adult, child)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

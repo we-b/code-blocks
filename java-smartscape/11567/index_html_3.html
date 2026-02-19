@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-markup"><code>&lt;!DOCTYPE html&gt;
+&lt;html xmlns:th=&quot;http://www.thymeleaf.org&quot; lang=&quot;ja&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;link th:href=&quot;@{/css/reset.css}&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;&gt;
+  &lt;link th:href=&quot;@{/css/style.css}&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;&gt;
+  &lt;title&gt;&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;div&gt;
+    &lt;form th:action=&quot;@{/calendars}&quot; th:object=&quot;${planForm}&quot; method=&quot;post&quot; class=&quot;form&quot;&gt;
+      &lt;label for=&quot;date&quot; class=&quot;label&quot;&gt;日付を選択&lt;/label&gt;
+      &lt;input type=&quot;date&quot; id=&quot;date&quot; th:field=&quot;*{date}&quot; class=&quot;date-select&quot;/&gt;
+
+      &lt;label for=&quot;plan&quot; class=&quot;label&quot;&gt;予定を入力&lt;/label&gt;
+      &lt;input type=&quot;text&quot; id=&quot;plan&quot; th:field=&quot;*{plan}&quot; class=&quot;text-input&quot;/&gt;
+
+      &lt;button type=&quot;submit&quot;&gt;保存&lt;/button&gt;
+    &lt;/form&gt;
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;div class=&quot;calendar&quot;&gt;
+      &lt;div th:each=&quot;day : ${weekDays}&quot;&gt;
+        &lt;div class=&quot;item&quot;&gt;
+          &lt;div class=&quot;date&quot;&gt;
+            &lt;span th:text=&quot;${day.month} + &#x27;/&#x27; + ${day.date}&quot;&gt;&lt;/span&gt;
+          &lt;/div&gt;
+          &lt;ul class=&quot;content&quot;&gt;
+            &lt;li th:each=&quot;plan : ${day.plans}&quot; class=&quot;plan-list&quot;&gt;・&lt;span th:text=&quot;${plan}&quot;&gt;&lt;/span&gt;&lt;/li&gt;
+          &lt;/ul&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

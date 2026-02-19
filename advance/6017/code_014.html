@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code># 抽象クラスHuman
+class Human
+ def talk
+ end
+
+ def walk
+ end
+
+ def run
+ end
+end
+
+# 具象クラスTeacherは、抽象クラスHumanを継承
+class Japanese &lt; Human
+  # ↓抽象メソッドと同名のメソッドを定義する。
+   def talk
+     puts &quot;話します&quot;
+   end
+
+   def walk
+     puts &quot;歩きます&quot;
+   end
+
+   def run
+     puts &quot;走ります&quot;
+   end
+end
+
+mr_tanaka = Japanese.new
+mr_tanaka.talk</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

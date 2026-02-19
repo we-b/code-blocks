@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>require &#x27;observer&#x27;
+# 従業員クラス
+class Employee
+  # 中略
+  def salary=(new_salary)
+    @salary = new_salary
+    changed
+    # notify_observerメソッドの引数の数は属性の数と一致
+    notify_observers(name, salary)
+  end
+end
+# 上司クラス
+class Manager
+  # updateメソッドが未定義の場合はエラーが出る
+  def update(name, salary)
+    puts &quot;上司：#{name}さんの給料は#{salary}円です！&quot;
+  end
+end
+# 中略
+# add_observerメソッド内でインスタンスを生成し、処理を委譲する
+takashi.add_observer(Manager.new)
+takashi.add_observer(Accountant.new)
+takashi.salary = 9999999
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

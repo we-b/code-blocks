@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-JavaScript" data-line="8,13,14,15,16,17,18,19,20,21,23,25"><code>const { prisma, resetDatabase } = require(&#x27;./testUtils&#x27;);
+
+afterAll(async () =&gt; {
+  await resetDatabase();
+  await prisma.$disconnect();
+});
+
+const { createPost } = require(&#x27;./createPost&#x27;);
+
+describe(&#x27;投稿編集フローのテスト&#x27;, () =&gt; {
+
+  it(&#x27;投稿を編集して、内容が更新されていることを確認&#x27;, async () =&gt; {
+    const originalContent = &#x27;編集する投稿&#x27;;
+    const updatedContent = &#x27;更新された投稿内容&#x27;;
+
+    await createPost(page, originalContent);
+
+    const editButton = await page.$(&#x27;.right-content .btn&#x27;);
+    await editButton.click();
+
+    await page.fill(&#x27;input[name=&quot;content&quot;]&#x27;, updatedContent);
+    await page.click(&#x27;text=&quot;投稿する&quot;&#x27;);
+    await page.waitForSelector(`text=&quot;${updatedContent}&quot;`);
+
+    const isVisible = await page.isVisible(`text=&quot;${updatedContent}&quot;`);
+    expect(isVisible).toBeTruthy();
+  });
+});</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-JavaScript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

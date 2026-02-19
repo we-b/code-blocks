@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java" data-line="28,29,30,31,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77"><code>package in.tech_camp.pictweet.form;
+import java.util.Set;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.test.context.ActiveProfiles;
+
+import in.tech_camp.pictweet.factory.UserFormFactory;
+import in.tech_camp.pictweet.validation.ValidationPriority1;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
+
+@ActiveProfiles(&quot;test&quot;)
+public class UserFormUnitTest {
+    private UserForm userForm;
+    private Validator validator;
+
+    @BeforeEach
+    public void setUp() {
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        validator = factory.getValidator();
+        userForm = UserFormFactory.createUser();
+    }
+    
+    @Test
+    public void nicknameとemailとpasswordとpasswordConfirmationが存在すれば登録できる() {
+
+    }
+
+    @Test
+    public void nicknameが空の場合バリデーションエラーが発生する() {
+        userForm.setNickname(&quot;&quot;);
+        Set&lt;ConstraintViolation&lt;UserForm&gt;&gt; violations = validator.validate(userForm, ValidationPriority1.class);
+        assertEquals(1, violations.size());
+        assertEquals(&quot;Nickname can&#x27;t be blank&quot;, violations.iterator().next().getMessage());
+    }
+
+    @Test
+    public void emailが空の場合バリデーションエラーが発生する() {
+        userForm.setEmail(&quot;&quot;);
+        Set&lt;ConstraintViolation&lt;UserForm&gt;&gt; violations = validator.validate(userForm, ValidationPriority1.class);
+        assertEquals(1, violations.size());
+        assertEquals(&quot;Email can&#x27;t be blank&quot;, violations.iterator().next().getMessage());
+    }
+
+    @Test
+    public void passwordが空の場合バリデーションエラーが発生する() {
+
+    }
+
+    @Test
+    public void passwordとpasswordConfirmationが不一致ではバリデーションエラーが発生する() {
+
+    }
+
+    @Test
+    public void nicknameが7文字以上ではバリデーションエラーが発生する() {
+
+    }
+
+    @Test
+    public void emailはアットマークを含まないとバリデーションエラーが発生する() {
+
+    }
+
+    @Test
+    public void passwordが5文字以下ではバリデーションエラーが発生する() {
+
+    }
+
+    @Test
+    public void passwordが129文字以上ではバリデーションエラーが発生する() {
+
+    }
+}
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

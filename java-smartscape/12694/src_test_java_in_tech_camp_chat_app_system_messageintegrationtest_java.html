@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java"><code>package in.tech_camp.chat_app.system;
+
+import java.io.IOException;
+import java.nio.file.DirectoryStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+
+import in.tech_camp.chat_app.ChatAppApplication;
+import in.tech_camp.chat_app.ImageUrl;
+import in.tech_camp.chat_app.entity.RoomEntity;
+import in.tech_camp.chat_app.entity.RoomUserEntity;
+import in.tech_camp.chat_app.entity.UserEntity;
+import in.tech_camp.chat_app.factories.MessageFormFactory;
+import in.tech_camp.chat_app.factories.RoomFormFactory;
+import in.tech_camp.chat_app.factories.UserFormFactory;
+import in.tech_camp.chat_app.form.MessageForm;
+import in.tech_camp.chat_app.form.RoomForm;
+import in.tech_camp.chat_app.form.UserForm;
+import in.tech_camp.chat_app.repository.RoomRepository;
+import in.tech_camp.chat_app.repository.RoomUserRepository;
+import in.tech_camp.chat_app.service.UserService;
+
+@ActiveProfiles(&quot;test&quot;)
+@SpringBootTest(classes = ChatAppApplication.class)
+@AutoConfigureMockMvc
+public class MessageIntegrationTest {
+
+  @Autowired
+  private UserService userService;
+
+  @Autowired
+  private RoomRepository roomRepository;
+
+  @Autowired
+  private RoomUserRepository roomUserRepository;
+
+  @Autowired
+  private MessageRepository messageRepository;
+
+  @Autowired
+  private ImageUrl imageUrl;
+
+  @Autowired
+  private MockMvc mockMvc;
+
+  private UserForm userForm1;
+  private UserForm userForm2;
+  private RoomForm roomForm;
+  private UserEntity userEntity1;
+  private UserEntity userEntity2;
+  private RoomEntity roomEntity;
+
+  private MessageForm messageForm;
+  
+  @BeforeEach
+  public void setup() {
+    userForm1 = UserFormFactory.createUser();
+    userEntity1 = new UserEntity();
+    userEntity1.setEmail(userForm1.getEmail());
+    userEntity1.setName(userForm1.getName());
+    userEntity1.setPassword(userForm1.getPassword());
+    userService.createUserWithEncryptedPassword(userEntity1);
+
+    userForm2 = UserFormFactory.createUser();
+    userEntity2 = new UserEntity();
+    userEntity2.setEmail(userForm2.getEmail());
+    userEntity2.setName(userForm2.getName());
+    userEntity2.setPassword(userForm2.getPassword());
+    userService.createUserWithEncryptedPassword(userEntity2);
+
+    roomForm = RoomFormFactory.createRoom();
+    roomEntity = new RoomEntity();
+    roomEntity.setName(roomForm.getName());
+    roomRepository.insert(roomEntity);
+
+    RoomUserEntity roomUserEntity = new RoomUserEntity();
+    roomUserEntity.setRoom(roomEntity);
+    roomUserEntity.setUser(userEntity1);
+    roomUserRepository.insert(roomUserEntity);
+    roomUserEntity.setRoom(roomEntity);
+    roomUserEntity.setUser(userEntity2);
+    roomUserRepository.insert(roomUserEntity);
+
+    messageForm = MessageFormFactory.createMessage();
+  }
+
+  @AfterEach
+  public void cleanup() throws IOException {
+    Path directoryPath = Paths.get(imageUrl.getImageUrl());
+
+    // ディレクトリが存在することを確認
+    if (Files.exists(directoryPath) &amp;&amp; Files.isDirectory(directoryPath)) {
+      // ディレクトリ内のすべてのファイルを削除
+      try (DirectoryStream&lt;Path&gt; directoryStream = Files.newDirectoryStream(directoryPath)) {
+        for (Path filePath : directoryStream) {
+          Files.deleteIfExists(filePath);
+        }
+      }
+    }
+  }
+
+  @Test
+  public void メッセージの送信に失敗する() throws Exception {
+    // サインインする
+    // 作成されたチャットルームへ遷移する
+    // メッセージを投稿し、元のページに戻ってくることを確認する
+    // メッセージの数が変化しないことを確認する
+  }
+
+  @Test
+  public void テキストの投稿に成功する() throws Exception {
+    // サインインする
+    // 作成されたチャットルームへ遷移する
+    // テキストメッセージを投稿し、チャットルームに遷移していることを確認する
+    // メッセージの数が1増加していることを確認する
+    // チャットルームには先ほどの投稿が存在することを確認する（テキスト）
+  }
+
+  @Test
+  public void 画像の投稿に成功する() throws Exception {
+    // サインインする
+    // 作成されたチャットルームへ遷移する
+    // 画像を投稿し、チャットルームに遷移していることを確認する
+    // メッセージの数が1増加していることを確認する
+    // チャットルームには先ほどの投稿が存在することを確認する（画像）
+  }
+
+  @Test
+  public void テキストと画像の投稿に成功する() throws Exception {
+    // サインインする
+    // 作成されたチャットルームへ遷移する
+    // テキストと画像のメッセージを投稿し、チャットルームに遷移していることを確認する
+    // メッセージの数が1増加していることを確認する
+    // チャットルームには先ほどの投稿が存在することを確認する（テキスト）
+    // チャットルームには先ほどの投稿が存在することを確認する（画像）
+  }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>

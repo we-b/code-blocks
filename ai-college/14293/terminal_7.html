@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-bash"><code>⏺ 現在のコードを確認して変更計画を立てます。
+
+⏺ Read(app/models/task.rb)
+  ⎿  Read 6 lines
+
+⏺ Read(app/services/tasks/duplicate_service.rb)
+  ⎿  Read 25 lines
+
+⏺ Read(app/controllers/tasks_controller.rb)
+  ⎿  Read 52 lines
+
+⏺ ---
+  変更計画
+
+  変更対象ファイル一覧
+
+  | No. | ファイル                                    | 変更内容                 |
+  |-----|-----------------------------------------|----------------------|
+  | 1   | app/models/task.rb                      | status の enum 定義を追加  |
+  | 2   | app/services/tasks/duplicate_service.rb | 設計改善（案A）+ マジックナンバー排除 |
+  | 3   | app/controllers/tasks_controller.rb     | N+1解消 + 未使用変数削除      |
+
+  ---
+  詳細な変更内容
+
+  1. app/models/task.rb
+
+  理由: status: :not_started をシンボルで使うために enum 定義が必要
+
+    class Task &lt; ApplicationRecord
+      belongs_to :genre
+
+  +   enum status: { not_started: 0, in_progress: 1, completed: 2 }
+      enum priority: { low: 0, medium: 1, high: 2 }
+    end
+
+  ---
+  2. app/services/tasks/duplicate_service.rb
+
+  変更点:
+  - 定数 COPY_ATTRIBUTES, RESET_ATTRIBUTES, NAME_SUFFIX を定義
+  - build_duplicate と copy_attributes メソッドに分離
+  - status: 0 → status: :not_started
+
+  class Tasks::DuplicateService
+    COPY_ATTRIBUTES = %i[explanation genre_id priority].freeze
+    RESET_ATTRIBUTES = { status: :not_started, deadline_date: nil }.freeze
+    NAME_SUFFIX = &#x27;(コピー)&#x27;
+
+    def initialize(task_id)
+      @task_id = task_id
+    end
+
+    def call
+      original_task = Task.find(@task_id)
+      duplicated_task = build_duplicate(original_task)
+
+      if duplicated_task.save
+        ServiceResult.new(success: true, task: duplicated_task)
+      else
+        ServiceResult.new(success: false, task: duplicated_task, errors: duplicated_task.errors.full_messages)
+      end
+    end
+
+    private
+
+    def build_duplicate(original)
+      Task.new(
+        **copy_attributes(original),
+        **RESET_ATTRIBUTES,
+        name: &quot;#{original.name}#{NAME_SUFFIX}&quot;
+      )
+    end
+
+    def copy_attributes(original)
+      COPY_ATTRIBUTES.index_with { |attr| original.public_send(attr) }
+    end
+  end
+
+  ---
+  3. app/controllers/tasks_controller.rb
+
+  変更点:
+  - create アクション: result, @result 変数を削除（10-11行目）
+  - duplicate アクション: result 変数を削除（31行目）
+  - tasks_all メソッド: Task.all → Task.includes(:genre).all（48行目）
+
+      def create
+  -     result = Tasks::CreateService.new(params).call
+  -     @result = result.task
+  +     Tasks::CreateService.new(params).call
+        tasks_all
+      end
+
+      def duplicate
+  -     result = Tasks::DuplicateService.new(params[:id]).call
+  +     Tasks::DuplicateService.new(params[:id]).call
+        tasks_all
+      rescue ActiveRecord::RecordNotFound
+        render json: { error: &#x27;Task not found&#x27; }, status: :not_found
+      end
+
+      def tasks_all
+  -     @tasks = Task.all
+  +     @tasks = Task.includes(:genre).all
+        render :all_tasks
+      end
+
+  ---
+  変更順序
+
+  1. Task モデル — enum 追加（他の変更の前提条件）
+  2. DuplicateService — 設計改善 + マジックナンバー排除
+  3. TasksController — N+1解消 + 未使用変数削除
+
+  ---
+  この計画で進めてよろしいですか？</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+</body>
+</html>

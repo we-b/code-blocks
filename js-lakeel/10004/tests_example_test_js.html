@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-JavaScript"><code>describe(&#x27;Google検索ページ&#x27;, () =&gt; {
+  it(&#x27;訪れたサイトのタイトルがGoogleであることを確認する&#x27;, async () =&gt; {
+    await page.goto(&quot;https://www.google.com&quot;);
+    await expect(page.title()).resolves.toMatch(&quot;Google&quot;);
+  });
+});</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-JavaScript.min.js"></script>
+</body>
+</html>

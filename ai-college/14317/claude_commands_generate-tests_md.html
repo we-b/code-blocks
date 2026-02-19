@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-markdown"><code>---
+description: コードに対するテストを自動生成します
+argument-hint: [file-path] [test-type]
+allowed-tools: Read, Write, Glob, Bash(npm test:*)
+---
+
+# テスト生成
+
+## 対象ファイル
+@$1
+
+## テストタイプ
+$2（unit, integration, e2e のいずれか。省略時は unit）
+
+## タスク
+上記のファイルを分析し、テストを生成してください。
+
+### テスト生成方針
+
+#### 1. テストケースの洗い出し
+- 正常系: 期待される入力での動作
+- 異常系: エラーが発生するケース
+- 境界値: 境界値での動作
+- エッジケース: 特殊な条件での動作
+
+#### 2. テスト構造</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markdown.min.js"></script>
+</body>
+</html>

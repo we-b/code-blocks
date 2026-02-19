@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code># NG例：スタイルが統一されていないコード
+class userProfile # クラス名が小文字から始まっている
+  def initialize(userName, birth_date)
+    @userName = userName # 変数名がキャメルケース
+    @birth_date = birth_date
+  end
+
+  def display_info # メソッド名がスネークケース
+      # インデントがスペース6つ
+      puts &quot;Name: #{@userName}&quot;
+      puts &quot;Birth Date: #{@birth_date}&quot;
+  end
+
+  def getAge # メソッド名がキャメルケース
+    #年齢を計算するロジック
+  end
+end
+
+# OK例：スタイルが統一されたコード
+# クラス名はキャメルケースで記述
+class UserProfile
+  # インデントを半角スペース2つで統一
+  def initialize(user_name, birth_date)
+    # 変数名・メソッド名はスネークケースで統一
+    @user_name = user_name
+    @birth_date = birth_date
+  end
+
+  def display_info
+    puts &quot;Name: #{@user_name}&quot;
+    puts &quot;Birth Date: #{@birth_date}&quot;
+  end
+
+  def age
+    # 年齢を計算するロジック
+  end
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

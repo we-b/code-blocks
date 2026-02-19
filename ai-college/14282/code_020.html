@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>Articleモデルにstatusのenumを設定してください。
+
+【enumの定義】
+- draft（下書き）= 0
+- published（公開）= 1
+- archived（アーカイブ）= 2
+
+【要件】
+- デフォルト値はdraft（0）
+- enumの定義はモデルファイルに記述
+- _prefixオプションを使用して、status_draft?のような形式でメソッドを生成</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript" data-line="12"><code>import React from &quot;react&quot;;
+import { Select } from &quot;../../components/select&quot;;
+import &quot;./style.css&quot;;
+
+export const TaskBody = () =&gt; {
+  return (
+    &lt;form className=&quot;modal_body&quot;&gt;
+      &lt;h2 className=&quot;input_menu&quot;&gt;タスクを追加&lt;/h2&gt;
+      &lt;div&gt;
+        &lt;h4 className=&quot;input_title&quot;&gt;ジャンル&lt;/h4&gt;
+        &lt;div className=&quot;task_genre&quot;&gt;
+          &lt;Select /&gt;
+        &lt;/div&gt;
+        &lt;h4 className=&quot;input_title&quot;&gt;タイトル&lt;/h4&gt;
+        &lt;input type=&quot;text&quot; /&gt;
+        &lt;h4 className=&quot;input_title&quot;&gt;説明&lt;/h4&gt;
+        &lt;textarea /&gt;
+        &lt;h4 className=&quot;input_title&quot;&gt;期限&lt;/h4&gt;
+        &lt;input className=&quot;input_date&quot; type=&quot;date&quot; /&gt;
+      &lt;/div&gt;
+      &lt;input className=&quot;input_submit&quot; type=&quot;button&quot; value=&quot;送信&quot; /&gt;
+    &lt;/form&gt;
+  );
+};</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

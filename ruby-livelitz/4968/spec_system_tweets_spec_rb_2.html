@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>require &#x27;rails_helper&#x27;
+
+RSpec.describe &#x27;ツイート投稿&#x27;, type: :system do
+  before do
+    @user = FactoryBot.create(:user)
+    @tweet_text = Faker::Lorem.sentence
+    @tweet_image = Faker::Lorem.sentence
+  end
+  context &#x27;ツイート投稿ができるとき&#x27;do
+    it &#x27;ログインしたユーザーは新規投稿できる&#x27; do
+      # ログインする
+      visit new_user_session_path
+      fill_in &#x27;Email&#x27;, with: @user.email
+      fill_in &#x27;Password&#x27;, with: @user.password
+      find(&#x27;input[name=&quot;commit&quot;]&#x27;).click
+      expect(current_path).to eq root_path
+      # 新規投稿ページへのリンクがある
+      expect(page).to have_content(&#x27;投稿する&#x27;)
+      # 投稿ページに移動する
+      visit new_tweet_path
+      # フォームに情報を入力する
+      fill_in &#x27;tweet_image&#x27;, with: @tweet_image
+      fill_in &#x27;tweet_text&#x27;, with: @tweet_text
+      # 送信するとTweetモデルのカウントが1上がる
+      expect{
+        find(&#x27;input[name=&quot;commit&quot;]&#x27;).click
+      }.to change { Tweet.count }.by(1)
+      # 投稿完了ページに遷移する
+      expect(current_path).to eq tweets_path
+      # 「投稿が完了しました」の文字がある
+      expect(page).to have_content(&#x27;投稿が完了しました。&#x27;)
+      # トップページに遷移する
+      visit root_path
+      # トップページには先ほど投稿した内容のツイートが存在する（画像）
+      expect(page).to have_selector &quot;.content_post[style=&#x27;background-image: url(#{@tweet_image});&#x27;]&quot;
+      # トップページには先ほど投稿した内容のツイートが存在する（テキスト）
+      expect(page).to have_content(@tweet_text)
+    end
+  end
+  context &#x27;ツイート投稿ができないとき&#x27;do
+    it &#x27;ログインしていないと新規投稿ページに遷移できない&#x27; do
+      # トップページに遷移する
+      visit root_path
+      # 新規投稿ページへのリンクがない
+      expect(page).to have_no_content(&#x27;投稿する&#x27;)
+    end
+  end
+end
+
+RSpec.describe &#x27;ツイート編集&#x27;, type: :system do
+  before do
+    @tweet1 = FactoryBot.create(:tweet)
+    @tweet2 = FactoryBot.create(:tweet)
+  end
+  context &#x27;ツイート編集ができるとき&#x27; do
+    it &#x27;ログインしたユーザーは自分が投稿したツイートの編集ができる&#x27; do
+      # ツイート1を投稿したユーザーでログインする
+      visit new_user_session_path
+      fill_in &#x27;Email&#x27;, with: @tweet1.user.email
+      fill_in &#x27;Password&#x27;, with: @tweet1.user.password
+      find(&#x27;input[name=&quot;commit&quot;]&#x27;).click
+      expect(current_path).to eq root_path
+      # ツイート1に「編集」ボタンがある
+       expect(
+      all(&quot;.more&quot;)[1].hover
+    ).to have_link &#x27;編集&#x27;, href: edit_tweet_path(@tweet1)
+      # 編集ページへ遷移する
+      visit edit_tweet_path(@tweet1)
+      # すでに投稿済みの内容がフォームに入っている
+      expect(
+        find(&#x27;#tweet_image&#x27;).value
+      ).to eq @tweet1.image
+      expect(
+        find(&#x27;#tweet_text&#x27;).value
+      ).to eq @tweet1.text
+      # 投稿内容を編集する
+       fill_in &#x27;tweet_image&#x27;, with: &quot;#{@tweet1.image}+編集した画像URL&quot;
+       fill_in &#x27;tweet_text&#x27;, with: &quot;#{@tweet1.text}+編集したテキスト&quot;
+      # 編集してもTweetモデルのカウントは変わらない
+      expect{
+        find(&#x27;input[name=&quot;commit&quot;]&#x27;).click
+      }.to change { Tweet.count }.by(0)
+      # 編集完了画面に遷移する
+      expect(current_path).to eq tweet_path(@tweet1)
+      # 「更新が完了しました」の文字がある
+      expect(page).to have_content(&#x27;更新が完了しました。&#x27;)
+      # トップページに遷移する
+      visit root_path
+      # トップページには先ほど変更した内容のツイートが存在する（画像）
+      expect(page).to have_selector &quot;.content_post[style=&#x27;background-image: url(#{@tweet1.image}+編集した画像URL);&#x27;]&quot;
+      # トップページには先ほど変更した内容のツイートが存在する（テキスト）
+      expect(page).to have_content(&quot;#{@tweet1.text}+編集したテキスト&quot;)
+    end
+  end
+  context &#x27;ツイート編集ができないとき&#x27; do
+    it &#x27;ログインしたユーザーは自分以外が投稿したツイートの編集画面には遷移できない&#x27; do
+      # ツイート1を投稿したユーザーでログインする
+      visit new_user_session_path
+      fill_in &#x27;Email&#x27;, with: @tweet1.user.email
+      fill_in &#x27;Password&#x27;, with: @tweet1.user.password
+      find(&#x27;input[name=&quot;commit&quot;]&#x27;).click
+      expect(current_path).to eq root_path
+      # ツイート2に「編集」ボタンがない
+      expect(
+      all(&quot;.more&quot;)[0].hover
+    ).to have_no_link &#x27;編集&#x27;, href: edit_tweet_path(@tweet2)
+    end
+    it &#x27;ログインしていないとツイートの編集画面には遷移できない&#x27; do
+      # トップページにいる
+      visit root_path
+      # ツイート1に「編集」ボタンがない
+      expect(
+      all(&quot;.more&quot;)[1].hover
+    ).to have_no_link &#x27;編集&#x27;, href: edit_tweet_path(@tweet1)
+      # ツイート2に「編集」ボタンがない
+      expect(
+      all(&quot;.more&quot;)[0].hover
+    ).to have_no_link &#x27;編集&#x27;, href: edit_tweet_path(@tweet2)
+    end
+  end
+end
+
+RSpec.describe &#x27;ツイート削除&#x27;, type: :system do
+  before do
+    @tweet1 = FactoryBot.create(:tweet)
+    @tweet2 = FactoryBot.create(:tweet)
+  end
+  context &#x27;ツイート削除ができるとき&#x27; do
+    it &#x27;ログインしたユーザーは自らが投稿したツイートの削除ができる&#x27; do
+      # ツイート1を投稿したユーザーでログインする
+      visit new_user_session_path
+      fill_in &#x27;Email&#x27;, with: @tweet1.user.email
+      fill_in &#x27;Password&#x27;, with: @tweet1.user.password
+      find(&#x27;input[name=&quot;commit&quot;]&#x27;).click
+      expect(current_path).to eq root_path
+      # ツイート1に「削除」ボタンがある
+      expect(
+        all(&quot;.more&quot;)[1].hover
+      ).to have_link &#x27;削除&#x27;, href: tweet_path(@tweet1)
+      # 投稿を削除するとレコードの数が1減る
+      expect{
+        all(&quot;.more&quot;)[1].hover.find_link(&#x27;削除&#x27;, href: tweet_path(@tweet1)).click
+      }.to change { Tweet.count }.by(-1)
+      # 削除完了画面に遷移する
+      expect(current_path).to eq tweet_path(@tweet1)
+      # 「削除が完了しました」の文字がある
+      expect(page).to have_content(&#x27;削除が完了しました。&#x27;)
+      # トップページに遷移する
+      visit root_path
+      # トップページにはツイート1の内容が存在しない（画像）
+      expect(page).to have_no_selector &quot;.content_post[style=&#x27;background-image: url(#{@tweet1.image});&#x27;]&quot;
+      # トップページにはツイート1の内容が存在しない（テキスト）
+      expect(page).to have_no_content(&quot;#{@tweet1.text}&quot;)
+    end
+  end
+  context &#x27;ツイート削除ができないとき&#x27; do
+    it &#x27;ログインしたユーザーは自分以外が投稿したツイートの削除ができない&#x27; do
+      # ツイート1を投稿したユーザーでログインする
+      visit new_user_session_path
+      fill_in &#x27;Email&#x27;, with: @tweet1.user.email
+      fill_in &#x27;Password&#x27;, with: @tweet1.user.password
+      find(&#x27;input[name=&quot;commit&quot;]&#x27;).click
+      expect(current_path).to eq root_path
+      # ツイート2に「削除」ボタンが無い
+      expect(
+          all(&quot;.more&quot;)[0].hover
+        ).to have_no_link &#x27;削除&#x27;, href: tweet_path(@tweet2)
+    end
+    it &#x27;ログインしていないとツイートの削除ボタンがない&#x27; do
+      # トップページに移動する
+      visit root_path
+      # ツイート1に「削除」ボタンが無い
+       expect(
+          all(&quot;.more&quot;)[1].hover
+        ).to have_no_link &#x27;削除&#x27;, href: tweet_path(@tweet1)
+      # ツイート2に「削除」ボタンが無い
+       expect(
+          all(&quot;.more&quot;)[0].hover
+        ).to have_no_link &#x27;削除&#x27;, href: tweet_path(@tweet2)
+    end
+  end
+end
+
+RSpec.describe &#x27;ツイート詳細&#x27;, type: :system do
+  before do
+    @tweet = FactoryBot.create(:tweet)
+  end
+  it &#x27;ログインしたユーザーはツイート詳細ページに遷移してコメント投稿欄が表示される&#x27; do
+    # ログインする
+    visit new_user_session_path
+    fill_in &#x27;Email&#x27;, with: @tweet.user.email
+    fill_in &#x27;Password&#x27;, with: @tweet.user.password
+    find(&#x27;input[name=&quot;commit&quot;]&#x27;).click
+    expect(current_path).to eq root_path
+    # ツイートに「詳細」ボタンがある
+    expect(
+        all(&quot;.more&quot;)[0].hover
+      ).to have_link &#x27;詳細&#x27;, href: tweet_path(@tweet)
+    # 詳細ページに遷移する
+    visit tweet_path(@tweet)
+    # 詳細ページにツイートの内容が含まれている
+    expect(page).to have_selector &quot;.content_post[style=&#x27;background-image: url(#{@tweet.image});&#x27;]&quot;
+    expect(page).to have_content(&quot;#{@tweet.text}&quot;)
+    # コメント用のフォームが存在する
+    expect(page).to have_selector &#x27;form&#x27;
+  end
+  it &#x27;ログインしていない状態でツイート詳細ページに遷移できるもののコメント投稿欄が表示されない&#x27; do
+    # トップページに移動する
+    visit root_path
+    # ツイートに「詳細」ボタンがある
+    expect(
+        all(&quot;.more&quot;)[0].hover
+      ).to have_link &#x27;詳細&#x27;, href: tweet_path(@tweet)
+    # 詳細ページに遷移する
+    visit tweet_path(@tweet)
+    # 詳細ページにツイートの内容が含まれている
+    expect(page).to have_selector &quot;.content_post[style=&#x27;background-image: url(#{@tweet.image});&#x27;]&quot;
+    expect(page).to have_content(&quot;#{@tweet.text}&quot;)
+    # フォームが存在しないことを確認する
+    expect(page).to have_no_selector &#x27;form&#x27;
+    # 「コメントの投稿には新規登録/ログインが必要です」が表示されていることを確認する
+    expect(page).to have_content(&#x27;コメントの投稿には新規登録/ログインが必要です&#x27;)
+  end
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

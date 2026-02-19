@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-markup" data-line="5,6,7,8"><code>{% extends &quot;base.html&quot; %}
+{% load static %}
+{% block content %}
+
+&lt;form action=&quot;{% url &#x27;Tweets:search&#x27; %}&quot; method=&quot;get&quot; class=&quot;search-form&quot;&gt;
+  {{ form.keyword }}
+  &lt;input type=&quot;submit&quot; class=&quot;search-btn&quot; value=&quot;検索&quot;&gt;
+&lt;/form&gt;
+
+&lt;div class=&quot;contents row&quot;&gt;
+  {% include &#x27;tweets/_tweet_list.html&#x27; %}
+&lt;/div&gt;
+
+{% endblock content %}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

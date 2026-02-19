@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript" data-line="9,10,11,12,13,14,15"><code>&quot;use client&quot;
+
+import { useState, useEffect } from &quot;react&quot;;
+import { useParams } from &#x27;next/navigation&#x27;
+import { ResponsePost } from &quot;@/app/_type/ResponsePost&quot;;
+
+export default function showPage() {
+~ 省略 ~
+  const changeFormat = (date: string) =&gt; {
+    return new Date(date).toLocaleDateString(&quot;ja-JP&quot;, {
+      year: &quot;numeric&quot;,
+      month: &quot;2-digit&quot;,
+      day: &quot;2-digit&quot;
+    });
+  }
+
+  if (!post) return;
+
+  return(
+    &lt;&gt;
+      &lt;h2&gt;詳細ページ&lt;/h2&gt;
+      {isLoading ? (
+        &lt;p&gt;読み込み中...&lt;/p&gt;
+      ) : (
+        &lt;div className=&#x27;post&#x27;&gt;
+          &lt;p&gt;内容：{post.content}&lt;/p&gt;
+          &lt;p&gt;投稿日：{post.createdAt}&lt;/p&gt;
+        &lt;/div&gt;
+      )}
+    &lt;/&gt;
+  )
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

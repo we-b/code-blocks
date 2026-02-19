@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript"><code>import { getAuth, updateProfile } from &quot;firebase/auth&quot;;
+const auth = getAuth();
+
+// ログイン中のユーザーのdisplayNameを更新
+  try {
+    await updateProfile(auth.currentUser, {
+      displayName: &quot;UpdateName&quot;,
+    });
+    // プロフィール更新が成功した際の処理
+    console.log(&quot;Profileが更新されました&quot;);
+  } catch (error) {
+    // エラー発生時の処理
+    console.error(&quot;更新に失敗しました&quot;, error);
+  }</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

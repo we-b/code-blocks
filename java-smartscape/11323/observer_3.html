@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java"><code>import java.util.ArrayList;
+import java.util.List;
+
+// Subjectインターフェース
+public interface Subject {
+  void addObserver(Observer observer);
+  void removeObserver(Observer observer);
+  void notifyObservers(String softwareUpdate);
+}
+
+// Observerインターフェース
+public interface Observer {
+  void downloadSoftwareUpdate(String softwareUpdate);
+  String kindOfCustomer();
+}
+
+// ConcreteSubjectクラス
+public class PCShop implements Subject {
+  private 【 ① 】 observers;
+
+  public PCShop() {
+    observers = new ArrayList&lt;&gt;();
+  }
+
+  @Override
+  public void addObserver(Observer observer) {
+    【 ② 】
+  }
+
+  @Override
+  public void removeObserver(Observer observer) {
+    observers.remove(observer);
+  }
+
+  @Override
+  public void notifyObservers(String softwareUpdate) {
+    for (Observer observer : observers) {
+    【 ③ 】
+    }
+  }
+
+  // 新しいソフトウェアの通知を受け取る
+  public void noticeSoftwareUpdate(String softwareUpdate) {
+    System.out.println(&quot;ソフトウェア更新が通知されました: &quot; + softwareUpdate);
+    【 ④ 】
+  }
+}
+
+// ConcreteObserverクラス
+public abstract class Customer implements Observer {
+  protected List&lt;String&gt; updates;
+
+  public Customer() {
+    updates = new ArrayList&lt;&gt;();
+  }
+
+  @Override
+  public void downloadSoftwareUpdate(String softwareUpdate) {
+    updates.add(softwareUpdate);
+    System.out.println(kindOfCustomer() + &quot; が新しい更新情報をダウンロードしました: &quot; + softwareUpdate);
+  }
+
+  @Override
+  public abstract String kindOfCustomer();
+}
+
+// ConcreteObserverクラス（個人）
+public class Individual extends Customer {
+  @Override
+  public String kindOfCustomer() {
+    return &quot;個人&quot;;
+  }
+}
+
+// ConcreteObserverクラス（法人）
+public class Corporate extends Customer {
+  @Override
+  public String kindOfCustomer() {
+    return &quot;法人&quot;;
+  }
+}
+
+// メインクラス
+public class Main {
+  public static void main(String[] args) {
+    PCShop pcShop = new PCShop();
+    
+    Individual individualCustomer = new Individual();
+    Corporate corporateCustomer = new Corporate();
+
+    pcShop.addObserver(individualCustomer);
+    pcShop.addObserver(corporateCustomer);
+    
+    【 ⑤ 】.noticeSoftwareUpdate(&quot;ソフトウェアver1.02&quot;);
+  }
+}
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>

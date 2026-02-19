@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript" data-line="20,27,39,48,49,50"><code>&quot;use client&quot;;
+import { useState, useEffect } from &#x27;react&#x27;;
+import { useParams, notFound } from &#x27;next/navigation&#x27;
+import AuthGuard from &#x27;@/app/_components/AuthGuard&#x27;;
+import Header from &#x27;@/app/_components/Header&#x27;
+import Footer from &#x27;@/app/_components/Footer&#x27;
+import TweetForm from &#x27;@/app/_components/TweetForm&#x27;;
+import { TweetData } from &#x27;@/app/_interfaces/TweetData&#x27;
+import { findTweetById } from &#x27;@/app/api/tweets&#x27;;
+
+interface TweetFormData {
+  text: string;
+  image: string;
+}
+
+const EditTweetPage = () =&gt; {
+  const [tweet, setTweet] = useState&lt;TweetData | null&gt;(null)
+  const [formData, setFormData] = useState&lt;TweetFormData&gt;({ text: &#x27;&#x27;, image: &#x27;&#x27; });
+  const [errorMessages, setErrorMessages] = useState&lt;string[]&gt;([]);
+  const [loading, setLoading] = useState&lt;boolean&gt;(true);
+
+  const params = useParams()
+  const tweetId = params.tweetId
+
+  useEffect(() =&gt; {
+    const fetchTweet = async () =&gt; {
+      setLoading(true);
+      if (tweetId) {
+        try {
+          const response = await findTweetById(Number(tweetId));
+          setTweet(response);
+          const { text, image } = response;
+          setFormData({ text: text, image: image || &#x27;&#x27; });
+        } catch (error) {
+          setTweet(null);
+          console.error(&#x27;ツイートの取得に失敗しました:&#x27;, error);
+        }
+      }
+      setLoading(false)
+    };
+    fetchTweet();
+  }, [tweetId]);
+
+  const handleSubmit = async () =&gt; {
+    // 編集ボタンを押した時の処理
+  };
+
+  if (loading) {
+    return &lt;div&gt;Loading...&lt;/div&gt;
+  }
+
+  if (!tweet) {
+    return notFound()
+  }
+
+（省略）</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

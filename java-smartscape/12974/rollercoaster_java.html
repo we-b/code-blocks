@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java"><code>import java.util.Scanner;
+
+public class RollerCoaster {
+  public static void main(String[] args) {
+    int rideCount = 0;
+    String[] friends = new String[6];
+
+    try (Scanner scanner = new Scanner(System.in)){
+
+      System.out.println(&quot;お友達の名前は？&quot;);
+      friends[0] = scanner.nextLine();
+      System.out.println(&quot;お友達の身長は？&quot;);
+      friends[1] = scanner.nextLine();
+      rideCount += 1;
+
+      System.out.println(&quot;お友達の名前は？&quot;);
+      friends[2] = scanner.nextLine();
+      System.out.println(&quot;お友達の身長は？&quot;);
+      friends[3] = scanner.nextLine();
+      rideCount += 1;
+
+      System.out.println(&quot;お友達の名前は？&quot;);
+      friends[4] = scanner.nextLine();
+      System.out.println(&quot;お友達の身長は？&quot;);
+      friends[5] = scanner.nextLine();
+      rideCount += 1;
+
+      System.out.println(&quot;乗車するのは&quot; + rideCount + &quot;人です&quot;);
+
+    }
+  }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>

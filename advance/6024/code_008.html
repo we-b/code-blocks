@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>class AttackMagic
+  attr_reader :name
+
+  def initialize
+    @name = &quot;攻撃呪文&quot;
+  end
+
+  def run_skill
+    puts &#x27;こうげきじゅもんをとなえた！ 相手に20HPダメージ。&#x27;
+  end
+end
+
+class HealMagic
+  attr_reader :name
+
+  def initialize
+    @name = &quot;回復呪文&quot;
+  end
+
+  def run_skill
+    puts &#x27;回復呪文を発動しました。30HP回復します。&#x27;
+  end
+end
+
+class Wizard
+  attr_reader :skill
+
+  def initialize
+    @skill = AttackMagic.new
+  end
+
+  def run_skill
+    skill.run_skill
+  end
+end
+
+class Cleric
+  attr_reader :skill
+
+  def initialize
+    @skill = HealMagic.new
+  end
+
+  def run_skill
+    skill.run_skill
+  end
+end
+
+class Sage
+  attr_reader :skills
+
+  def initialize
+    @skills = [AttackMagic.new, HealMagic.new]
+  end
+
+  def run_skill
+    puts &quot;どちらのスキルを発動しますか？&quot;
+    skills.each_with_index do |skill, index|
+      puts &quot;#{index}：#{skill.name}&quot;
+    end
+    input = gets.to_i
+    skills[input].run_skill
+  end
+end
+
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

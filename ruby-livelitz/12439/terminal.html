@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-bash"><code>Started POST &quot;/tweets&quot; for ::1 at 2020-03-18 17:31:23 +0900
+Processing by TweetsController#create as HTML
+  Parameters: {&quot;authenticity_token&quot;=&gt;&quot;7imvHaB3Z9fle2uEDeNY5mBJebreoWRs6Scs8zcEHuL5FHWhXS8eOpX8Db8i13SGuV1F8T9fTbgSCuBFkrOmDQ==&quot;, &quot;tweet&quot;=&gt;{&quot;image&quot;=&gt;&quot;&quot;, &quot;text&quot;=&gt;&quot;aaa&quot;}, &quot;commit&quot;=&gt;&quot;SEND&quot;}
+  User Load (0.8ms)  SELECT `users`.* FROM `users` WHERE `users`.`id` = 1 ORDER BY `users`.`id` ASC LIMIT 1
+  ↳ app/controllers/tweets_controller.rb:50:in `move_to_index`
+
+From: /Users/div-M.T/projects/pictweet/app/controllers/tweets_controller.rb @ line 14 TweetsController#create:
+
+    13: def create
+ =&gt; 14:   binding.pry
+    15:   Tweet.create(tweet_params)
+    16:   redirect_to &#x27;/&#x27;
+    17: end
+
+[1] pry(#&lt;TweetsController&gt;)&gt; </code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+</body>
+</html>

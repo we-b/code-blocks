@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java" data-line="6,7,8,9,10,30,31,32,33,49,50,51,52,53"><code>public abstract class Product {
+  private String name;
+  private int price;
+  private int weight;
+
+  public Product(String name, int price, int weight) {
+    this.name = name;
+    this.price = price;
+    this.weight = weight;
+  }
+
+  public abstract String getUniqueInfo();
+
+  public String getName() {
+    return name;
+  }
+    
+  public int getPrice() {
+    return price;
+  }
+
+  public int getWeight() {
+    return weight;
+  }
+}
+
+public class Pc extends Product {
+  private PcParts parts;
+
+  public Pc(String name, int price, int weight, PcParts parts) {
+    super(name, price, weight);
+    this.parts = parts;
+  }
+
+  @Override
+  public String getUniqueInfo() {
+    return &quot;スペック表\n&quot; +
+               &quot;CPU: &quot; + parts.getCpu() + &quot;\n&quot; +
+               &quot;RAM: &quot; + parts.getRam() + &quot;GB\n&quot; +
+               &quot;ROM: &quot; + parts.getRom() + &quot;GB&quot;;
+  }
+}
+
+public class PcParts {
+  private String cpu;
+  private int ram;
+  private int rom;
+
+  public PcParts(String cpu, int ram, int rom) {
+    this.cpu = cpu;
+    this.ram = ram;
+    this.rom = rom;
+  }
+
+  public String getCpu() {
+    return cpu;
+  }
+
+  public int getRam() {
+    return ram;
+  }
+
+  public int getRom() {
+    return rom;
+  }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

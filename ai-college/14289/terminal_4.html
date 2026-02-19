@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-bash"><code>⏺ 優先度機能の追加に必要な作業を整理します。
+
+⏺ 優先度機能追加の開発計画
+
+  優先度機能を追加するための作業を6つのステップに分けました。以下の順序で実装を進めることをお勧めします。
+
+  ---
+  ステップ1: マイグレーションファイルの作成
+
+  作業内容:
+  - rails generate migration AddPriorityToTasks priority:integer を実行
+  - 生成されたマイグレーションファイルにデフォルト値を設定
+    - default: 1（中）を指定
+    - null: false の制約を追加
+
+  ポイント: デフォルト値を設定することで、既存データにも「中」が自動設定されます
+
+  ---
+  ステップ2: Taskモデルの更新
+
+  作業内容:
+  - app/models/task.rb にenum定義を追加
+  enum priority: { low: 0, medium: 1, high: 2 }
+
+  ポイント:
+  - enumを使うことで task.low? や task.medium! などの便利なメソッドが使えます
+  - デフォルト値の 1 が medium に対応
+
+  ---
+  ステップ3: TasksControllerの更新
+
+  作業内容:
+  - task_params メソッドに :priority を追加
+  - 既存のcamelCase対応を踏襲する場合は、フロントエンドとのキー名を確認
+
+  対応例:
+  params.permit(:name, :explanation, :status, :priority)
+
+  ---
+  ステップ4: JSONビューの更新
+
+  作業内容:
+  - app/views/tasks/all_tasks.json.jbuilder に priority フィールドを追加
+  json.priority task.priority
+
+  ポイント: enumで定義しているため、文字列（&quot;low&quot;, &quot;medium&quot;, &quot;high&quot;）として出力されます
+
+  ---
+  ステップ5: マイグレーション実行
+
+  作業内容:
+  - rails db:migrate を実行
+  - db/schema.rb の更新を確認
+
+  確認項目:
+  - priority カラムが integer 型で追加されているか
+  - デフォルト値が設定されているか
+
+  ---
+  ステップ6: 動作確認
+
+  作業内容:
+  - 既存タスクの priority が「中」になっているか確認
+  - 新規作成時にデフォルト値が設定されるか確認
+  - priority を指定した作成・更新が正しく動作するか確認
+  - APIレスポンスに priority が含まれているか確認
+
+  ---
+  実装のポイント
+
+  1. データ整合性: マイグレーションでデフォルト値とNOT NULL制約を設定することで、データの整合性を保証
+  2. enum活用: Railsのenum機能により、コード上で直感的な操作が可能
+  3. 既存データ保護: デフォルト値により既存データが自動的に「中」優先度に設定
+  4. API互換性: JSONレスポンスに priority を追加することで、フロントエンドでも利用可能
+
+  準備ができましたら、実装を開始しますか？それとも、仕様について確認したい点がありますか？</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+</body>
+</html>

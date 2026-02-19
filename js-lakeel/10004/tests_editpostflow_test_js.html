@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-JavaScript"><code>const { prisma, resetDatabase } = require(&#x27;./testUtils&#x27;);
+
+afterAll(async () =&gt; {
+  await resetDatabase();
+  await prisma.$disconnect();
+});
+
+describe(&#x27;投稿編集フローのテスト&#x27;, () =&gt; {
+
+  it(&#x27;投稿を編集して、内容が更新されていることを確認&#x27;, async () =&gt; {
+    await page.goto(&#x27;http://localhost:3000/posts&#x27;);
+    await page.click(&#x27;text=&quot;新規投稿&quot;&#x27;);
+    expect(await page.url()).toContain(&#x27;http://localhost:3000/posts/create&#x27;);
+
+    await page.fill(&#x27;input[name=&quot;content&quot;]&#x27;, &#x27;テスト投稿&#x27;);
+    await page.click(&#x27;text=&quot;投稿する&quot;&#x27;);
+    expect(await page.url()).toContain(&#x27;http://localhost:3000/posts&#x27;);
+
+    await page.goto(&#x27;http://localhost:3000/posts&#x27;);
+    await page.click(&#x27;text=&quot;編集&quot;&#x27;);
+    expect(await page.url()).toContain(&#x27;http://localhost:3000/posts/update&#x27;);
+
+    await page.fill(&#x27;input[name=&quot;content&quot;]&#x27;, &#x27;更新されたテスト投稿&#x27;);
+    await page.click(&#x27;text=&quot;投稿する&quot;&#x27;);
+    expect(await page.url()).toContain(&#x27;http://localhost:3000/posts&#x27;);
+    
+    const isVisible = await page.isVisible(&#x27;text=&quot;更新されたテスト投稿&quot;&#x27;);
+    expect(isVisible).toBeTruthy();
+  });
+});</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-JavaScript.min.js"></script>
+</body>
+</html>

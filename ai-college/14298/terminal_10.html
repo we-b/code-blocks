@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-bash"><code>⏺ Taskモデルのメソッド一覧を取得します。
+
+⏺ serena - find_symbol (MCP)(name_path_pattern: &quot;Task&quot;, depth: 1, include_body: false)
+  ⎿ {                                                                                                                                           
+      &quot;result&quot;: &quot;[{\&quot;name_path\&quot;: \&quot;Task\&quot;, \&quot;kind\&quot;: \&quot;Class\&quot;, \&quot;body_location\&quot;: {\&quot;start_line\&quot;: 0, \&quot;end_line\&quot;: 5}, \&quot;children\&quot;: [{\&quot;name
+    \&quot;: \&quot;belongs_to :genre\&quot;, \&quot;name_path\&quot;: \&quot;Task/belongs_to :genre\&quot;, \&quot;kind\&quot;: \&quot;Method\&quot;, \&quot;location\&quot;: {\&quot;line\&quot;: 1, \&quot;column\&quot;: 14}, \&quot;b
+    … +2 lines (ctrl+o to expand)
+
+⏺ もう少し詳しく確認します。
+
+⏺ serena - get_symbols_overview (MCP)(relative_path: &quot;app/models/task.rb&quot;)
+  ⎿  {                                                     
+       &quot;result&quot;: &quot;[{\&quot;name_path\&quot;: \&quot;Task\&quot;, \&quot;kind\&quot;: 5}]&quot;
+     }
+
+⏺ Taskモデル (app/models/task.rb) に定義されているメソッドは以下の通りです：
+
+  | メソッド名             | 種類               | 行番号 |
+  |-------------------|------------------|-----|
+  | belongs_to :genre | アソシエーション（Method） | 1行目 |
+
+  Taskモデルは非常にシンプルな構成で、Genreモデルへのbelongs_toアソシエーションのみが定義されています。カスタムメソッドは現在定義されていません。
+
+  ファイルは全体で6行（0〜5行目）の小さなモデルファイルです。</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+</body>
+</html>

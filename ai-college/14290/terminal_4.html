@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-bash"><code>create アクションの Service Object パターンへのリファクタリング計画を作成します。
+
+  ---
+  リファクタリング計画：create アクションの Service Object 化
+
+  前提条件
+
+  - 対象：TasksController#create
+  - 目標：ビジネスロジックを Tasks::CreateService に分離
+
+  ---
+  Step 1: ディレクトリ構造の準備
+
+  app/
+  └── services/
+      └── tasks/
+          └── create_service.rb
+
+  app/services ディレクトリを作成し、Railsの自動読み込み対象にする。
+
+  ---
+  Step 2: Service クラスの基本設計
+
+  責務の明確化：
+
+  | 責務           | 担当           |
+  |--------------|--------------|
+  | HTTPリクエストの受付 | Controller   |
+  | パラメータの変換・正規化 | Service      |
+  | バリデーション実行    | Model（既存のまま） |
+  | データベースへの保存   | Service      |
+  | 成功/失敗の判定     | Service      |
+  | レスポンスの生成     | Controller   |
+
+  ---
+  Step 3: Service クラスのインターフェース設計
+
+  # 使用イメージ
+  service = Tasks::CreateService.new(params)
+  result = service.call
+
+  result.success?  # =&gt; true / false
+  result.task      # =&gt; Task インスタンス
+  result.errors    # =&gt; エラーメッセージ（失敗時）
+
+  設計ポイント：
+  - call メソッドで実行（Rubyの慣習）
+  - 結果オブジェクトを返す（成功/失敗を明示）
+  - 例外ではなく戻り値で制御
+
+  ---
+  Step 4: 実装順序
+
+  | #   | タスク                     | 詳細                 |
+  |-----|-------------------------|--------------------|
+  | 4-1 | app/services ディレクトリ作成   | 新規ディレクトリ           |
+  | 4-2 | ServiceResult クラス作成     | 結果を格納する汎用クラス       |
+  | 4-3 | Tasks::CreateService 作成 | 本体の実装              |
+  | 4-4 | コントローラー修正               | Service を呼び出すように変更 |
+  | 4-5 | 動作確認                    | 既存の動作が維持されることを確認   |
+
+  ---
+  Step 5: 各ファイルの実装内容
+
+  5-1. app/services/service_result.rb
+  class ServiceResult
+    attr_reader :task, :errors
+
+    def initialize(success:, task: nil, errors: [])
+      @success = success
+      @task = task
+      @errors = errors
+    end
+
+    def success?
+      @success
+    end
+
+    def failure?
+      !@success
+    end
+  end
+
+  5-2. app/services/tasks/create_service.rb
+  class Tasks::CreateService
+    def initialize(params)
+      @params = params
+    end
+
+    def call
+      task = Task.new(task_attributes)
+
+      if task.save
+        ServiceResult.new(success: true, task: task)
+      else
+        ServiceResult.new(success: false, task: task, errors: task.errors.full_messages)
+      end
+    end
+
+    private
+
+    def task_attributes
+      {
+        name: @params[:name],
+        explanation: @params[:explanation],
+        status: @params[:status],
+        priority: @params[:priority],
+        genre_id: @params[:genreId],
+        deadline_date: @params[:deadlineDate]
+      }
+    end
+  end
+
+  5-3. app/controllers/tasks_controller.rb（修正後）
+  def create
+    result = Tasks::CreateService.new(params).call
+    @result = result.task
+    tasks_all
+  end
+
+  ---
+  Step 6: テストの作成
+
+  spec/services/tasks/create_service_spec.rb
+  RSpec.describe Tasks::CreateService do
+    describe &#x27;#call&#x27; do
+      context &#x27;有効なパラメータの場合&#x27; do
+        it &#x27;タスクを作成し、成功を返す&#x27; do
+          params = { name: &#x27;テスト&#x27;, status: &#x27;todo&#x27;, genreId: 1 }
+          result = described_class.new(params).call
+
+          expect(result.success?).to be true
+          expect(result.task).to be_persisted
+        end
+      end
+
+      context &#x27;無効なパラメータの場合&#x27; do
+        it &#x27;失敗を返し、エラーメッセージを含む&#x27; do
+          params = { name: &#x27;&#x27; }  # nameが必須の場合
+          result = described_class.new(params).call
+
+          expect(result.failure?).to be true
+          expect(result.errors).not_to be_empty
+        end
+      end
+    end
+  end
+
+  ---
+  Step 7: 確認項目チェックリスト
+
+  - Tasks::CreateService.new(params).call でタスクが作成される
+  - 成功時は result.success? が true
+  - 失敗時は result.errors にメッセージが格納される
+  - コントローラーの既存のレスポンス形式が維持される
+  - genreId → genre_id の変換が正しく動作する
+
+  ---
+  この計画で進めてよろしいでしょうか？問題なければ実装を開始します。</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+</body>
+</html>

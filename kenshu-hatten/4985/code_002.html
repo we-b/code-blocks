@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>def select_birthplace
+  prefecture = [&#x27;北海道&#x27;, &#x27;青森&#x27;, &#x27;...(省略)...&#x27;, &#x27;沖縄&#x27;]
+  num = gets.to_i
+  birthplace = prefecture[num]
+  puts birthplace
+end
+
+def select_address
+  prefecture = [&#x27;北海道&#x27;, &#x27;青森&#x27;, &#x27;...(省略)...&#x27;, &#x27;沖縄&#x27;]
+  num = gets.to_i
+  address = prefecture[num]
+  puts address
+end
+
+def select_work_address
+  prefecture = [&#x27;北海道&#x27;, &#x27;青森&#x27;, &#x27;...(省略)...&#x27;, &#x27;沖縄&#x27;]
+  num = gets.to_i
+  work_address = prefecture[num]
+  puts work_address
+end
+
+select_birthplace
+select_address
+select_work_address</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code># 給料内容を管理する責任を持つクラス
+class Salary
+# ...
+end
+
+# 給料計算の責任を持つクラス
+class CalculateSaraly
+ def calc_saraly(employee)
+   case employee
+   when Trainee
+     result = employee.get_score
+   end 
+   when Engineer
+     result = employee.get_products_by_engineer
+   end 
+   when Designer
+     result = employee.get_products_by_designer
+   end 
+   when Marketer
+     result = employee.get_profit_by_marketer
+   end     
+    # 以下で取得した実績によって、独自の計算式で給料を算出する
+    ...
+  end
+end
+
+# 研修員情報を管理する責任をもつクラス
+class Trainee
+  # 今期の研修でうけたテスト点数を取得するメソッド
+  def get_score
+    # ...
+  end 
+end
+
+# エンジニア情報を管理する責任をもつクラス
+class Engineer
+　# 今期の作成したプロダクト情報を取得するメソッド
+  def get_products_by_engineer
+    # ...
+  end 
+end
+
+# デザイナー情報を管理する責任をもつクラス
+class Designer
+　# 今期の作成したプロダクト情報を取得するメソッド
+  def get_products_by_designer
+    # ...
+  end 
+end
+
+# マーケター情報を管理する責任をもつクラス
+class Markter
+　# 今期の発生した売上を算出するメソッド
+  def get_profit_by_marketer
+    # ...
+  end 
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

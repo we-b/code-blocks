@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript"><code>const { PrismaClient } = require(&#x27;@prisma/client&#x27;);
+const prisma = new PrismaClient();
+
+async function main() {
+  // ジャンルデータの作成
+  const genresCount = await prisma.genre.count();
+  if(genresCount === 0) {
+    await prisma.genre.createMany({
+      data: [
+        { name: &quot;sample1&quot; },
+        { name: &quot;sample2&quot; },
+      ],
+    });
+  }
+
+  // タスクデータの作成
+  const tasksCount = await prisma.task.count();
+  if(tasksCount === 0) {
+    await prisma.task.createMany({
+      data: [
+        { name: &quot;task1&quot;, explanation: &quot;test1&quot;, deadlineDate: new Date(&quot;2024-01-01&quot;), image_url: &quot;&quot;,status: 0, genreId: 1 },
+        { name: &quot;task2&quot;, explanation: &quot;test2&quot;, deadlineDate: new Date(&quot;2024-01-02&quot;), image_url: &quot;&quot;,status: 0, genreId: 2 },
+      ],
+    });
+  }
+}
+main()
+    .catch(e =&gt; {
+        console.error(e)
+        process.exit(1)
+    })
+    .finally(async () =&gt; {
+        await prisma.$disconnect()
+    })
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

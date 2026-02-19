@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>require &#x27;rails_helper&#x27;
+
+RSpec.describe Task, type: :model do
+  # テストデータを事前に作成
+  let(:genre) { Genre.create!(name: &#x27;テストジャンル&#x27;) }
+
+  describe &#x27;バリデーション&#x27; do
+    context &#x27;優先度が正常な場合&#x27; do
+      it &#x27;優先度を「低」に設定できること&#x27; do
+        task = Task.create(name: &#x27;テストタスク&#x27;, genre: genre, priority: :low)
+        expect(task).to be_valid
+        expect(task.priority).to eq(&#x27;low&#x27;)
+      end
+
+      it &#x27;優先度を「中」に設定できること&#x27; do
+        task = Task.create(name: &#x27;テストタスク&#x27;, genre: genre, priority: :medium)
+        expect(task).to be_valid
+        expect(task.priority).to eq(&#x27;medium&#x27;)
+      end
+
+      it &#x27;優先度を「高」に設定できること&#x27; do
+        task = Task.create(name: &#x27;テストタスク&#x27;, genre: genre, priority: :high)
+        expect(task).to be_valid
+        expect(task.priority).to eq(&#x27;high&#x27;)
+      end
+    end
+  end
+
+  describe &#x27;デフォルト値&#x27; do
+    context &#x27;新規タスク作成時&#x27; do
+      it &#x27;優先度を指定しない場合、デフォルト値が「中」になること&#x27; do
+        task = Task.create(name: &#x27;テストタスク&#x27;, genre: genre)
+        expect(task.priority).to eq(&#x27;medium&#x27;)
+      end
+    end
+  end
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript"><code>import React, { useState } from &quot;react&quot;;
+import { Task } from &quot;../task&quot;;
+import { FormModal } from &quot;../modal&quot;;
+【ここを編集】
+import MenuIcon from &quot;@material-ui/icons/Menu&quot;;
+import AddCircleOutlineIcon from &quot;@material-ui/icons/AddCircleOutline&quot;;
+import &quot;./style.css&quot;;
+
+【ここを編集】
+
+export const ToDoList = (【ここを編集】) =&gt; {
+  const [isOpen, setIsOpen] = useState(false);
+  const handleOpen = () =&gt; {
+    setIsOpen(true);
+  };
+  const handleClose = () =&gt; {
+    setIsOpen(false);
+  };
+  return (
+    &lt;div className=&quot;task_list&quot;&gt;
+      &lt;div className=&quot;section&quot;&gt;
+        &lt;MenuIcon className=&quot;section_ele&quot; /&gt;
+        &lt;span className=&quot;section_ele&quot;&gt;ToDo&lt;/span&gt;
+        &lt;AddCircleOutlineIcon
+          className=&quot;add_circle_outline_icon&quot;
+          fontSize=&quot;small&quot;
+          onClick={handleOpen}
+        /&gt;
+        &lt;FormModal
+          handleClose={handleClose}
+          isOpen={isOpen}
+          body=&quot;taskBody&quot;
+        /&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;task_field&quot;&gt;
+        {
+          props.tasks.map((task: TaskType) =&gt; {
+            return &lt;Task task={【ここを編集】} key={【ここを編集】}/&gt;;
+          })
+        }
+
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+};
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+</body>
+</html>

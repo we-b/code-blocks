@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-erb" data-line="6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44"><code>&lt;h2&gt;Sign up&lt;/h2&gt;
+
+&lt;%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %&gt;
+  &lt;%= render &quot;devise/shared/error_messages&quot;, resource: resource %&gt;
+
+  &lt;div class=&quot;field&quot;&gt;
+    &lt;%= f.label :name %&gt;&lt;br /&gt;
+    &lt;%= f.text_field :name, autofocus: true, autocomplete: &quot;name&quot; %&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;field&quot;&gt;
+    &lt;%= f.label :name_reading %&gt;&lt;br /&gt;
+    &lt;%= f.text_field :name_reading, autocomplete: &quot;name_reading&quot; %&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;field&quot;&gt;
+    &lt;%= f.label :nickname %&gt;&lt;br /&gt;
+    &lt;%= f.text_field :nickname, autocomplete: &quot;nickname&quot; %&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;field&quot;&gt;
+    &lt;%= f.label :email %&gt;&lt;br /&gt;
+    &lt;%= f.email_field :email, autocomplete: &quot;email&quot; %&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;field&quot;&gt;
+    &lt;%= f.label :password %&gt;
+    &lt;% if @minimum_password_length %&gt;
+    &lt;em&gt;(&lt;%= @minimum_password_length %&gt; characters minimum)&lt;/em&gt;
+    &lt;% end %&gt;&lt;br /&gt;
+    &lt;%= f.password_field :password, autocomplete: &quot;new-password&quot; %&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;field&quot;&gt;
+    &lt;%= f.label :password_confirmation %&gt;&lt;br /&gt;
+    &lt;%= f.password_field :password_confirmation, autocomplete: &quot;new-password&quot; %&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;actions&quot;&gt;
+    &lt;%= f.submit &quot;Sign up&quot; %&gt;
+  &lt;/div&gt;
+&lt;% end %&gt;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-erb.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

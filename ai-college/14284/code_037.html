@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>## enum設計の詳細分析
+
+### 選択肢1: 通常のenum
+
+
+enum status: { draft: 0, published: 1, archived: 2 }
+
+
+**生成されるメソッド:**
+- `article.draft?` - statusがdraftかどうか
+- `article.published?` - statusがpublishedかどうか
+- `article.archived?` - statusがarchivedかどうか
+- `article.draft!` - statusをdraftに変更
+- `Article.draft` - statusがdraftの記事をスコープ
+
+**メリット:**
+- シンプルで直感的
+- メソッド名が短い
+
+**デメリット:**
+- 他のカラムに同名の値がある場合、衝突の可能性
+- 例: `visibility`カラムに`draft`があると、`draft?`が衝突
+
+### 選択肢2: _prefix付きenum
+
+
+enum status: { draft: 0, published: 1, archived: 2 }, _prefix: true
+
+
+**生成されるメソッド:**
+- `article.status_draft?` - statusがdraftかどうか
+- `article.status_published?` - statusがpublishedかどうか
+- `article.status_archived?` - statusがarchivedかどうか
+- `article.status_draft!` - statusをdraftに変更
+- `Article.status_draft` - statusがdraftの記事をスコープ
+
+**メリット:**
+- メソッド名に`status_`が付くので、どのカラムのenumか明確
+- 他のカラムとの衝突を防げる
+
+**デメリット:**
+- メソッド名が長くなる
+
+### 選択肢3: _suffix付きenum
+
+enum status: { draft: 0, published: 1, archived: 2 }, _suffix: true
+
+
+**生成されるメソッド:**
+- `article.draft_status?` - statusがdraftかどうか
+- `article.published_status?` - statusがpublishedかどうか
+- `article.archived_status?` - statusがarchivedかどうか
+- `article.draft_status!` - statusをdraftに変更
+- `Article.draft_status` - statusがdraftの記事をスコープ
+
+**メリット:**
+- _prefix同様、衝突を防げる
+- 英語として自然な表現になる場合がある
+
+**デメリット:**
+- `_status`がすべてに付くのは冗長な印象
+
+### 推奨: 選択肢2（_prefix付き）
+
+以下の理由から、**_prefix付きenum**を推奨します：
+
+1. **将来の拡張性**: 今後`visibility`や`priority`など、他のenumカラムを追加する可能性がある
+2. **明確性**: `status_draft?`のように、どのカラムの状態を確認しているか一目瞭然
+3. **一貫性**: すべてのenumに_prefixを付けるルールにすると、統一感が出る
+
+コードの例：
+
+# prefixなしの場合
+article.draft? # どのカラムのdraft?
+
+# prefixありの場合
+article.status_draft? # statusカラムのdraftであることが明確
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

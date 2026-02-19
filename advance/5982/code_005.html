@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>lottery_elements = [&#x27;prize&#x27; , &#x27;blank&#x27; , &#x27;blank&#x27; , &#x27;blank&#x27; , &#x27;blank&#x27;]
+lottery = lottery_elements.shuffle
+ 
+def remaining_lottery
+ puts &quot;#{[[*0..(lottery.length - 1)]].join(&quot; , &quot;)}から番号を選んで下さい&quot;
+end
+ 
+while lottery.length &gt; 0 do
+ remaining_lottery
+ target = gets.to_i
+ 
+ if lottery[target] == &#x27;prize&#x27;
+   puts &#x27;当たり&#x27;
+   exit
+ elsif lottery[target] == &#x27;blank&#x27;
+   puts &#x27;はずれ&#x27;
+ else
+   puts &#x27;正しい番号を選んでください&#x27;
+ end
+ lottery.delete_at(target)
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

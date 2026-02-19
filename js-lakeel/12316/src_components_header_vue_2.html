@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript" data-line="9,40"><code>&lt;script setup&gt;
+import CheckAll from &#x27;vue-material-design-icons/CheckAll.vue&#x27;;
+import { auth, signOut, onAuthStateChanged } from &#x27;../firebase&#x27;;
+import { useRouter } from &#x27;vue-router&#x27;;
+import { ref, onMounted } from &#x27;vue&#x27;; 
+
+const router = useRouter();
+const currentUser = ref(null); 
+const searchKeyword = ref(&#x27;&#x27;);
+
+const handleSignOut = async() =&gt; {
+  try{
+    await signOut(auth)
+    router.push(&quot;/&quot;)
+  }catch(error){
+    console.log(&#x27;ログアウトに失敗しました&#x27;)
+  }
+}
+
+onMounted(() =&gt; {
+  onAuthStateChanged(auth, (user) =&gt; {
+    if(user) {
+      currentUser.value = auth.currentUser;
+    }else{
+      currentUser.value = null;
+    }
+  })
+})
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div class=&quot;header&quot;&gt;
+    &lt;div class=&quot;header-left&quot;&gt;
+      &lt;CheckAll class=&quot;header_icon&quot; fontsize=&quot;large&quot; /&gt;
+      &lt;span class=&quot;header-title&quot;&gt;Task Checker&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;header-search&quot;&gt;
+      &lt;form class=&quot;search-container&quot;&gt;
+        &lt;input
+          v-model=&quot;searchKeyword&quot;
+          placeholder=&quot;タイトルで検索&quot;
+          class=&quot;search-input&quot;
+          type=&quot;search&quot;
+          aria-label=&quot;検索&quot;
+        /&gt;
+        &lt;button
+          type=&quot;submit&quot;
+          class=&quot;search-button&quot;
+        &gt;
+          検索
+        &lt;/button&gt;
+      &lt;/form&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;header-right&quot;&gt;
+      &lt;button v-if=&quot;currentUser&quot; @click=&quot;handleSignOut&quot; class=&quot;logout-button&quot;&gt;
+        ログアウト
+      &lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style&gt;
+// 省略
+&lt;/style&gt;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

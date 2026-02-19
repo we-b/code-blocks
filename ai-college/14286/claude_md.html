@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-markdown"><code># Blog API
+
+## プロジェクト概要
+
+Ruby on Rails（APIモード）で構築されたブログAPIです。
+
+### モデル構成
+
+- **Article（記事）**
+  - title: string（必須）
+  - body: text（必須）
+  - status: integer（enum: draft, published, archived）
+
+- **Comment（コメント）**
+  - article_id: references（必須）
+  - author: string（必須）
+  - body: text（必須）
+
+### API構成
+
+全てのAPIは `/api/v1/` 以下にネストされています。
+
+- `GET /api/v1/articles` - 記事一覧
+- `GET /api/v1/articles/:id` - 記事詳細
+- `POST /api/v1/articles` - 記事作成
+- `PATCH /api/v1/articles/:id` - 記事更新
+- `DELETE /api/v1/articles/:id` - 記事削除
+- `GET /api/v1/articles/:article_id/comments` - コメント一覧
+- `POST /api/v1/articles/:article_id/comments` - コメント作成
+- `DELETE /api/v1/articles/:article_id/comments/:id` - コメント削除
+
+## 開発時の注意点
+
+### enumの実装
+
+Articleのstatusは`_prefix: true`オプション付きで定義しています。
+そのため、メソッド名は以下のようになります。
+
+- `article.status_draft?` （`article.draft?`ではない）
+- `article.status_published!` （`article.published!`ではない）
+
+### ルーティング
+
+APIは以下のように名前空間でネストしています。
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markdown.min.js"></script>
+</body>
+</html>

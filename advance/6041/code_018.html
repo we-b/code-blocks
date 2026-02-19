@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>
+class Vehicle
+  def initialize(type)
+    @type = type
+  end
+
+  def speed_limit
+    if type == &#x27;車&#x27;
+      puts &#x27;制限速度:60km&#x27;
+    elsif type == &#x27;原付&#x27;
+      puts &#x27;制限速度:30km&#x27;
+    end
+  end
+
+  private
+
+  attr_reader :type
+end
+
+vehicle = Vehicle.new(&#x27;車&#x27;)
+vehicle.speed_limit</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java"><code>// 人間クラスを定義する
+class Human {
+    // 属性（フィールド）
+    String name; // 名前
+    int age;     // 年齢
+
+    // コンストラクタ（初期化メソッド）: 新しいインスタンスを作成するときに呼び出され、オブジェクトを初期化します
+    public Human(String name, int age) {
+        this.name = name;  // nameフィールドに値を代入
+        this.age = age;    // ageフィールドに値を代入
+    }
+
+    // メソッド（動作）: オブジェクトが行う具体的な操作
+    public void introduce() {
+        System.out.println(&quot;こんにちは、私の名前は &quot; + name + &quot; です。年齢は &quot; + age + &quot; 歳です。&quot;);
+    }
+
+    // 誕生日の際に年齢を1つ増やす動作を行うメソッド
+    public void haveBirthday() {
+        age++; // 年齢を1つ増やす
+        System.out.println(&quot;誕生日おめでとう！年齢が &quot; + age + &quot; 歳になりました。&quot;);
+    }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>

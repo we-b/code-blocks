@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>class CalculateSaraly
+ def calc_saraly(employee)
+   case employee
+   when Trainee
+     result = employee.get_score
+   end 
+   when Engineer
+     result = employee.get_products_by_engineer
+   end 
+   when Designer
+     result = employee.get_products_by_designer
+   end 
+   when Marketer
+     result = employee.get_profit_by_marketer
+   end     
+   
+    # 以下で取得した実績によって、独自の計算式で給料を算出する
+    ...
+end
+
+# 税理士情報を管理する責任を持つクラス
+class TaxAcounter
+# ...
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

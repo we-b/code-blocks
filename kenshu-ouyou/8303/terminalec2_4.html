@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-bash"><code># ①rbenvのインストール
+[ec2-user@ip-172-31-25-189 ~]$ git clone https://github.com/rbenv/rbenv.git ~/.rbenv 
+
+# ②パスを通す
+[ec2-user@ip-172-31-25-189 ~]$ echo &#x27;export PATH=&quot;$HOME/.rbenv/bin:$PATH&quot;&#x27; &gt;&gt; ~/.bash_profile 
+
+# ③rbenvを呼び出すための記述
+[ec2-user@ip-172-31-25-189 ~]$ echo &#x27;eval &quot;$(rbenv init -)&quot;&#x27; &gt;&gt; ~/.bash_profile
+
+# ④.bash_profileの読み込み
+[ec2-user@ip-172-31-25-189 ~]$ source .bash_profile
+
+# ⑤ruby-buildのインストール
+[ec2-user@ip-172-31-25-189 ~]$ git clone https://github.com/rbenv/ruby-build.git &quot;$(rbenv root)&quot;/plugins/ruby-build
+
+# ⑥rehashを行う
+[ec2-user@ip-172-31-25-189 ~]$ rbenv rehash  </code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+</body>
+</html>

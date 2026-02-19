@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code># 人間クラス
+class Human
+  attr_reader :vocal_cords, :mouth, :right_arm, :left_arm
+
+  def initialize
+    # 人間の各部位
+    @vocal_cords = &#x27;声帯&#x27;
+    @mouth = &#x27;口&#x27;
+    @right_arm = &#x27;右腕&#x27;
+    @left_arm = &#x27;左腕&#x27;
+  end
+
+  # 人間が話す際の一連の動作
+  def speak
+    neuro_transmission(vocal_cords) # 神経を通って声帯を動かすような命令が出る
+    neuro_transmission(mouth) # 神経を通って口を動かすような命令が出る
+    puts &#x27;喋ります&#x27;
+  end
+
+  # 人間が右手を動かす際の一連の動作
+  def move_right_arm
+    neuro_transmission(right_arm) # 神経を通って右手を動かすような命令が出る
+    puts &#x27;右腕を動かします&#x27;
+  end
+
+  # 人間が左手を動かす際の一連の動作
+  def move_left_arm
+    neuro_transmission(left_arm) # 神経を通って左手を動かすような命令が出る
+    puts &#x27;左腕を動かします&#x27;
+  end
+
+  # 風邪をひいたときの症状
+  def catch_a_cold
+    immune_function # 免疫機能が働く
+    puts &#x27;熱が出ます&#x27;
+  end
+
+  private
+
+  # 体の各部位を動かす際に必ず呼ばれる命令
+  # 各部位を動かすためには神経伝達物質が各部位に到達する必要がある
+  def neuro_transmission(part)
+    puts &quot;神経伝達物質が#{part}に到達しました&quot;
+  end
+
+  # 風邪をひいたときに呼び出されるメソッド
+  def immune_function
+    puts &#x27;免疫機能が働きます&#x27;
+  end
+end
+
+human = Human.new
+human.speak
+human.move_left_arm
+human.move_right_arm
+human.catch_a_cold</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

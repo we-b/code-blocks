@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript"><code>const user= [
+  {id: 1, name: &quot;John&quot;},
+  {id: 2, name: &quot;Pete&quot;},
+  {id: 3, name: &quot;Mary&quot;}
+  {id: 4, name: &quot;Mary&quot;}
+];
+
+const select_id = 3
+
+const filteredUser = users.filter((user) =&gt; {
+  return select_id === user.id 
+});
+
+// filteredUser =&gt; [{id: 3, name: &quot;Mary&quot;}]</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

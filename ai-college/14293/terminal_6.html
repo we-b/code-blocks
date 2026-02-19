@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-bash"><code>レビュー結果を確認し、以下についてコード修正をすることにしました。
+
+1. マジックナンバーの排除: `status: 0` を `:not_started` などのシンボルまたは定数に変更してください。
+2. パフォーマンス改善: コントローラの `tasks_all` メソッドで `includes` を使用し、N+1問題を解消してください。
+3. 未使用変数の削除: コントローラの `create` アクション等にある不要な変数 `result` を削除してください。
+4. 設計改善（案A）: `Tasks::DuplicateService` 内のハードコードされた設定（コピー対象の属性など）を、定数として定義し、ロジックと設定を分離してください。
+
+まずは改めて変更計画を立ててください。</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+</body>
+</html>

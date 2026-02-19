@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-plaintext"><code>  @PostMapping(&quot;/rooms/{roomId}/messages&quot;)
+  public String saveMessage(@PathVariable(&quot;roomId&quot;) Integer roomId, @ModelAttribute(&quot;messageForm&quot;) MessageForm messageForm, @AuthenticationPrincipal CustomUserDetail currentUser) {
+    MessageEntity message = new MessageEntity();
+    message.setContent(messageForm.getContent());
+
+    UserEntity user = userRepository.findById(currentUser.getId());
+    RoomEntity room = roomRepository.findById(roomId);
+    message.setUser(user);
+    message.setRoom(room);
+    
+    try {
+      messageRepository.insert(message);
+    } catch (Exception e) {
+      System.out.println(&quot;エラー：&quot; + e);
+    }
+    
+    return &quot;redirect:/rooms/&quot; + roomId + &quot;/messages&quot;;
+  }
+}
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

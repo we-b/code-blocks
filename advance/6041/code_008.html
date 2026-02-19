@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-plaintext"><code>module AdsHelper
+  def ad(ad_type, image_count)
+   ad_instance = AdTemplate.new
+    ad_instance.return_html(ad_type, image_count)
+  end
+end
+
+class AdTemplate
+  def return_html(ad_type, image_count)
+    @html = &#x27;&#x27;
+    @html += &#x27;&lt;header&gt;株式会社〇〇&lt;/header&gt;&#x27;
+    if ad_type == &quot;gif&quot; &amp;&amp; image_count == 2
+      @html += &#x27;&lt;iframe id=&quot;player1&quot; type=&quot;text/html&quot; width=&quot;700px&quot; height=&quot;350px&quot; src=&quot;/assets/ad_gif1.png&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;&#x27;
+      @html += &#x27;&lt;iframe id=&quot;player2&quot; type=&quot;text/html&quot; width=&quot;700px&quot; height=&quot;350px&quot; src=&quot;/assets/ad_gif2.png&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;&#x27;
+
+    elsif ad_type == &quot;gif&quot; &amp;&amp; image_count == 1
+      @html += &#x27;&lt;iframe id=&quot;player&quot; type=&quot;text/html&quot; width=&quot;700px&quot; height=&quot;700px&quot; src=&quot;/assets/ad_gif1.png&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;&#x27;
+
+    elsif ad_type == &quot;image&quot;
+      @html += &#x27;&lt;iframe id=&quot;player&quot; type=&quot;text/html&quot; width=&quot;700px&quot; height=&quot;700px&quot; src=&quot;/assets/ad_image.png&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;&#x27;
+
+    elsif ad_type == &quot;movie&quot;
+      @html += &#x27;&lt;iframe id=&quot;player&quot; type=&quot;text/html&quot; width=&quot;500px&quot; height=&quot;500px&quot; src=&quot;/assets/ad_movie.png&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;&#x27;
+
+    end
+    @html += &#x27;&lt;footer&gt;詳しくはコチラ&lt;/footer&gt;&#x27;
+
+    return @html.html_safe
+  end
+end
+
+
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

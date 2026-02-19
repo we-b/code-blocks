@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java"><code>public class Main {
+    public static void main(String[] args) {
+        // 人間クラスから新しいインスタンス（具体的な人物）を生成する
+        Human person1 = new Human(&quot;山田太郎&quot;, 30); // 山田太郎という人物を生成
+        Human person2 = new Human(&quot;鈴木花子&quot;, 25); // 鈴木花子という人物を生成
+
+        // メソッドを使って動作を実行する
+        person1.introduce(); // 出力: こんにちは、私の名前は 山田太郎 です。年齢は 30 歳です。
+        person2.introduce(); // 出力: こんにちは、私の名前は 鈴木花子 です。年齢は 25 歳です。
+
+        // 山田太郎が誕生日を迎える
+        person1.haveBirthday(); // 出力: 誕生日おめでとう！年齢が 31 歳になりました。
+    }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>

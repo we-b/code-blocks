@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python" data-line="4,5,11,22,23,24,25,26,28,29,30,31,32,33,34,35,36,37,38,45,46,47"><code>from pathlib import Path
+import os
+import environ
+from decouple import config
+from dj_database_url import parse as dburl 
+
+（省略）
+
+MIDDLEWARE = [
+    &#x27;django.middleware.security.SecurityMiddleware&#x27;,
+    &#x27;whitenoise.middleware.WhiteNoiseMiddleware&#x27;,
+    &#x27;django.contrib.sessions.middleware.SessionMiddleware&#x27;,
+    &#x27;django.middleware.common.CommonMiddleware&#x27;,
+    &#x27;django.middleware.csrf.CsrfViewMiddleware&#x27;,
+    &#x27;django.contrib.auth.middleware.AuthenticationMiddleware&#x27;,
+    &#x27;django.contrib.messages.middleware.MessageMiddleware&#x27;,
+    &#x27;django.middleware.clickjacking.XFrameOptionsMiddleware&#x27;,
+]
+
+（省略）
+
+# //本番環境//
+default_dburl = &quot;sqlite:///&quot; + str(BASE_DIR / &quot;db.sqlite3&quot;)
+DATABASES = {
+    &quot;default&quot;: config(&quot;DATABASE_URL&quot;, default=default_dburl, cast=dburl),
+}
+
+# //開発環境//
+# DATABASES = {
+#     &#x27;default&#x27;: {
+#         &#x27;ENGINE&#x27;: &#x27;django.db.backends.postgresql&#x27;,
+#         &#x27;NAME&#x27;: &#x27;ajax_app&#x27;,
+#         &#x27;USER&#x27;: &#x27;postgres&#x27;,
+#         &#x27;PASSWORD&#x27;: &#x27;admin&#x27;, # ご自身で設定したパスワード
+#         &#x27;HOST&#x27;: &#x27;localhost&#x27;,
+#         &#x27;PORT&#x27;: &#x27;5432&#x27;,
+#     }
+# }
+
+（省略）
+
+STATIC_URL = &#x27;static/&#x27;
+STATICFILES_DIRS = [BASE_DIR/&#x27;static&#x27;]
+
+# //本番環境//
+STATIC_ROOT = str(BASE_DIR / &quot;staticfiles&quot;)
+STATICFILES_STORAGE = &quot;whitenoise.storage.CompressedManifestStaticFilesStorage&quot;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

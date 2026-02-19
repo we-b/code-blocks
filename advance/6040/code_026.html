@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code># 商品の抽象クラス
+class Product
+  attr_accessor :name, :price, :weight
+​
+  def initialize(name: &#x27;&#x27;, price: 0, weight: 0 )
+    @name = name
+    @price = price
+    @weight = weight
+  end
+  # 商品の固有情報の出力を必須化
+  def unique_info
+    raise &#x27;Called abstract method: unique_info&#x27;
+  end
+end
+​
+# 抽象クラスであるProductによって生成するパソコンの具象クラス
+class PC &lt; Product
+  attr_accessor :parts
+​
+  def initialize(info, parts)
+    super(info)
+    @parts = parts
+  end
+  # 商品の固有情報
+  def unique_info
+    @spec_sheet = &quot;
+    スペック表
+    CPU:#{parts.cpu}
+    RAM:#{parts.ram}GB
+    ROM:#{parts.rom}GB
+    &quot;
+  end
+end
+# パソコンのパーツ
+class PCParts
+  attr_reader :cpu, :ram, :rom
+​
+  def initialize(cpu: &#x27;&#x27;, ram: &#x27;&#x27;, rom: &#x27;&#x27; )
+    @cpu = cpu
+    @ram = ram]
+    @rom = rom
+  end
+end
+# ↓入力する情報
+pc_info = { name: &#x27;tcbook&#x27;, price: 120_000, weight: 1_200 }
+pc_spec = { cpu: &#x27;core i5&#x27;, ram: 8, rom: 256 }
+# ↓入力側の情報をもとにインスタンスを作成
+pc_parts = PCParts.new(pc_spec)
+pc = PC.new(pc_info, pc_parts)
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

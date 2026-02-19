@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java" data-line="15,16,17,18,19,25"><code>（省略）
+
+   for (int x = 0; x &lt; 7; x++) {
+      Map&lt;String, Object&gt; dayMap = new HashMap&lt;&gt;();
+      LocalDate currentDate = todaysDate.plusDays(x);
+
+      // 今日の予定を抽出
+      List&lt;String&gt; todayPlans = new ArrayList&lt;&gt;();
+      for (PlanEntity plan : plans) {
+          if (plan.getDate().equals(currentDate)) {
+              todayPlans.add(plan.getPlan());
+          }
+      }
+
+      // 曜日番号を計算
+      int wdayNum = wdayメソッドを用いて取得した数値;
+      if(「wday_numが7以上の場合」という条件式){
+        wdayNum = wdayNum -7;
+      }
+
+      // ハッシュマップに値を格納
+      dayMap.put(&quot;month&quot;, currentDate.getMonthValue());
+      dayMap.put(&quot;date&quot;, currentDate.getDayOfMonth());
+      dayMap.put(&quot;plans&quot;, todayPlans);
+      dayMap.put(&quot;wday&quot;, wdaysから値を取り出す記述);
+
+      weekDays.add(dayMap);
+    }
+
+（省略）</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

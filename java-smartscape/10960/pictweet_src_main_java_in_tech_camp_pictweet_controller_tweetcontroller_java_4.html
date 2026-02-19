@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java" data-line="8,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37"><code>package in.tech_camp.pictweet.controller;
+
+import java.util.List;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import in.tech_camp.pictweet.entity.TweetEntity;
+import in.tech_camp.pictweet.form.TweetForm;
+import in.tech_camp.pictweet.repository.TweetRepository;
+import lombok.AllArgsConstructor;
+
+@Controller
+@AllArgsConstructor
+public class TweetController {
+
+  （省略）
+  
+  @PostMapping(&quot;/tweets&quot;)
+  public String createTweet(@ModelAttribute(&quot;tweetForm&quot;) TweetForm tweetForm) {
+
+    TweetEntity tweet = new TweetEntity();
+    tweet.setName(tweetForm.getName());
+    tweet.setText(tweetForm.getText());
+    tweet.setImage(tweetForm.getImage());
+      
+    try {
+      tweetRepository.insert(tweet);
+    } catch (Exception e) {
+      System.out.println(&quot;エラー：&quot; + e);
+      return &quot;redirect:/&quot;;
+    }
+
+    return &quot;redirect:/&quot;;
+  }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java" data-line="14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,36,37,38,39,40,41,42,43,44,45,46,47"><code>（省略）
+
+@ActiveProfiles(&quot;test&quot;)
+@SpringBootTest(classes = PictweetApplication.class)
+@AutoConfigureMockMvc
+public class TweetDeleteIntegrationTest {
+
+（省略）
+
+  @Nested
+  class ツイート削除ができないとき {
+    @Test
+    public void ログインしたユーザーは自分以外が投稿したツイートの削除ができない() throws Exception {
+      // ツイート1を投稿したユーザーでログインする
+      MvcResult loginResult = mockMvc.perform(post(&quot;/login&quot;)
+          .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+          .param(&quot;email&quot;, userForm1.getEmail())
+          .param(&quot;password&quot;, userForm1.getPassword())
+          .with(csrf()))
+          .andReturn();
+
+      MockHttpSession session  = (MockHttpSession)loginResult.getRequest().getSession();
+      assertNotNull(session);
+
+      // ツイート2に「削除」へのリンクがないことを確認する
+      MvcResult pageResult = mockMvc.perform(get(&quot;/&quot;).session(session))
+          .andReturn();
+      String pageContent = pageResult.getResponse().getContentAsString();
+      Document document = Jsoup.parse(pageContent);
+      Element deleteMenuElement = document.selectFirst(&quot;form[action=&#x27;/tweets/&quot; + tweetEntity2.getId() + &quot;/delete&#x27;]&quot;);
+      assertNull(deleteMenuElement);
+    }
+
+    @Test
+    public void ログインしていないとツイートの削除ができない() throws Exception {
+      // ログインせずにトップページにアクセス
+      MvcResult pageResult = mockMvc.perform(get(&quot;/&quot;))
+      .andReturn();
+      String pageContent = pageResult.getResponse().getContentAsString();
+      Document document = Jsoup.parse(pageContent);
+
+      // ツイート1に「削除」へのリンクがないことを確認する
+      Element tweet1DeleteMenuElement = document.selectFirst(&quot;form[action=&#x27;/tweets/&quot; + tweetEntity1.getId() + &quot;/delete&#x27;]&quot;);
+      assertNull(tweet1DeleteMenuElement);
+      // ツイート2に「削除」へのリンクがないことを確認する
+      Element tweet2DeleteMenuElement = document.selectFirst(&quot;form[action=&#x27;/tweets/&quot; + tweetEntity2.getId() + &quot;/delete&#x27;]&quot;);
+      assertNull(tweet2DeleteMenuElement);
+    }
+  }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

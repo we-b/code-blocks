@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java" data-line="3,5,24,27,37,38,42,43,65,66,82,83,84"><code>package in.tech_camp.pictweet.system;
+
+import java.util.List;     // import追加
+
+import static org.junit.jupiter.api.Assertions.assertEquals;     // import追加
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.web.servlet.MockMvc;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+
+import in.tech_camp.pictweet.PictweetApplication;
+import in.tech_camp.pictweet.entity.UserEntity;     // import追加
+import in.tech_camp.pictweet.factory.UserFormFactory;
+import in.tech_camp.pictweet.form.UserForm;
+import in.tech_camp.pictweet.repository.UserRepository;     // import追加
+
+@ActiveProfiles(&quot;test&quot;)
+@SpringBootTest(classes = PictweetApplication.class)
+@AutoConfigureMockMvc
+public class UserRegistrationIntegrationTest {
+
+    @Autowired
+    private MockMvc mockMvc;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    private UserForm userForm;
+
+    private int initialCount;
+    private int afterCount;
+
+    @BeforeEach
+    public void setup() {
+        userForm = UserFormFactory.createUser();
+    }
+    @Nested
+    class ユーザー新規登録ができるとき {
+        @Test
+        void 正しい情報を入力すればユーザー新規登録ができてトップページに移動する() throws Exception {
+                // トップページにアクセス
+                mockMvc.perform(get(&quot;/&quot;))
+                        .andExpect(status().isOk())
+                        .andExpect(view().name(&quot;tweets/index&quot;)) // トップページのビューを確認
+                        // トップページにサインアップページへ遷移するボタンが存在することを確認
+                        .andExpect(content().string(org.hamcrest.Matchers.containsString(&quot;新規登録&quot;))); // サインアップボタンが存在するかチェック
+
+                // 新規登録ページにアクセス
+                mockMvc.perform(get(&quot;/users/sign_up&quot;))
+                        .andExpect(status().isOk())
+                        .andExpect(view().name(&quot;users/signUp&quot;));
+
+                List&lt;UserEntity&gt; userBeforeDeletion = userRepository.findAll();
+                initialCount = userBeforeDeletion.size();
+
+                // 新規登録情報を送信
+                mockMvc.perform(post(&quot;/user&quot;)
+                        // ユーザー情報を入力する
+                        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                        .param(&quot;nickname&quot;, userForm.getNickname())
+                        .param(&quot;email&quot;, userForm.getEmail())
+                        .param(&quot;password&quot;, userForm.getPassword())
+                        .param(&quot;passwordConfirmation&quot;, userForm.getPasswordConfirmation())
+                        .with(csrf())) // CSRFトークンを含める
+                        // トップページにリダイレクトされることを確認
+                        .andExpect(redirectedUrl(&quot;/&quot;))
+                        .andExpect(status().isFound());
+
+                // 新規登録に成功するとユーザーモデルのカウントが1上がる
+                List&lt;UserEntity&gt; userAfterDeletion = userRepository.findAll();
+                afterCount = userAfterDeletion.size();
+                assertEquals(initialCount + 1, afterCount);
+        }
+    }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

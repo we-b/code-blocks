@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-plaintext"><code>
+### &lt;i class=&quot;icon attention&quot;&gt;&lt;/i&gt; /resumeの注意点
+
+/resumeは便利ですが、以下の点に注意してください。
+
+1. **コンテキストの消費**：過去の会話を読み込むため、コンテキストを消費します
+2. **新鮮なスタート**：タスクが大きく変わる場合は、/resumeより新規セッションの方が効率的なこともあります
+3. **圧縮との組み合わせ**：長いセッションを再開する場合は、/compactで圧縮してから再開すると効率的です
+
+## /clearでセッションをリセットする
+
+作業を完全にやり直したい場合や、全く別のタスクを開始する場合は、/clearコマンドでセッションをリセットできます。
+
+### &lt;i class=&quot;icon information&quot;&gt;&lt;/i&gt; /clearコマンド
+
+/clearコマンドは、現在のセッションの会話履歴をすべてクリアし、新しいセッションを開始するためのスラッシュコマンドです。CLAUDE.mdやplan modeで作成したプランは保持されますが、それ以外の会話コンテキストはリセットされます。
+
+### &lt;i class=&quot;icon pen&quot;&gt;&lt;/i&gt; セッションをクリアしましょう
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-plaintext"><code>Article
+  バリデーション
+    titleが空の場合
+      バリデーションに失敗すること
+    bodyが空の場合
+      バリデーションに失敗すること
+    全ての属性が正しく設定されている場合
+      バリデーションに成功すること
+  enum status
+    新規作成時
+      デフォルトでdraftになること
+    ステータスの変更
+      publishedに変更できること
+      archivedに変更できること
+    無効なステータス
+      ArgumentErrorが発生すること
+
+Finished in 0.12345 seconds (files took 1.23 seconds to load)
+7 examples, 0 failures</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

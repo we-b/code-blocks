@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript" data-line="13,26,35"><code>import React from &quot;react&quot;;
+import { Link } from &quot;react-router-dom&quot;;
+import Hand from &quot;../../components/hand&quot;;
+import { HandType } from &quot;../../interfaces/handType&quot;;
+
+interface Props {}
+
+interface State {
+  selectHand: HandType;
+  enemyHand: HandType;
+  resultString: string;
+  winCount: number;
+  battleCount: number;
+}
+
+export default class Index extends React.Component&lt;Props, State&gt; {
+  handTypes: HandType[] = [HandType.Rock, HandType.Scissors, HandType.Paper];
+
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      selectHand: HandType.Rock,
+      enemyHand:HandType.Rock,
+      resultString: &quot;最初はグーじゃんけん&quot;,
+      winCount: 0,
+      battleCount: 0,
+    };
+  }
+
+  componentDidMount() {
+    alert(&quot;手を選ぶと、勝敗が決まるよ！\n手を選んでね！&quot;);
+  }
+
+  componentDidUpdate(prevProps: Props, prevState: State) {
+    if (prevState.battleCount !== this.state.battleCount) {
+      const enemyHand: HandType = Math.floor(Math.random() * 3);
+      this.setState({ enemyHand: enemyHand });
+      this.confirmResult(this.state.selectHand, enemyHand);
+    }
+  }
+
+  // 省略
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

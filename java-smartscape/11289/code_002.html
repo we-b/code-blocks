@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-plaintext"><code>
+いずれにしても、サーバから値を受け取り、最終的なHTMLを構築する、という機能を持つことに変わりはありません。
+
+## Reactで作るメリットを知ろう
+Reactはビューを構築するものであることを知りました。
+
+実は、単純に値をサーバから取得して表示して終わりというページであれば、従来のHTMLコードでの実装でも、Reactを使った実装でも、大きな違いはありません。ではなぜReactが注目されるのでしょうか。
+
+問題となるのは「JavaScriptでイベントを扱う場合」です。例えば以下のようなUIです。
+
+- ECサイトで購入数を変更する際「+」ボタンを押したら購入数が増える
+- 宿泊予約サイトで物件をクリックしたら現地の地図が表示される
+
+こうした機能を実装する場合、JavaScriptでonClick、onChangeなどの関数を利用しイベントを設定する必要があります。
+
+イベントを設定する実装が絡んできた時、「これまでのHTML + JavaScriptによる実装」と「Reactによる実装」とを比較するとReactの方が優れている点があります。それは以下の2つです。
+
+1. フロントエンドの機能が複雑になっても「読みやすく変更に強いコード」を書きやすい
+2. ページが表示されるまでのスピードが速い
+
+一つずつ詳しく説明します。
+
+### 1.フロントエンドの機能が複雑になっても「読みやすく変更に強いコード」を書きやすい
+まず、機能が複雑になっても、読みやすく変更に強いコードを書きやすい点についてです。
+
+前提として「HTMLの要素をJavaScript上で取得し操作する流れ」をおさらいしましょう。
+HTMLの要素をJavaScriptで取得し操作するにあたって、DOMという仕組みが使われています。
+
+### &lt;i class=&quot;icon information&quot;&gt;&lt;/i&gt;DOM
+DOMとはDocument Object Model(ドキュメントオブジェクトモデル)の略です。ブラウザがHTMLを解析し、データを作成する仕組みです。
+
+ここで一度、サーバーからブラウザに到着したHTMLやCSSがWebページとして閲覧されるまでの流れを考えてみましょう。
+
+#### HTMLがWebページとして閲覧されるまでの流れ
+
+HTMLで書かれたファイルは単なる文字情報なので、そのまま表示するととても見にくいものです。そのため、HTMLを解析し、CSSやJavaScriptによる装飾を行ってから画面に映すという工程を経て一般的なWebページは表示されます。
+
+これを行っているのが、Google ChromeやSafariといったブラウザです。ブラウザがHTMLやCSS、JavaScriptを受け取ってユーザーに届けるまでには、以下の図のような手順を踏んでいます。
+
+&lt;img src=&quot;https://tech-master.s3.amazonaws.com/uploads/curriculums//f4d953956431ecaff54836aa086b1ac4.png&quot;&gt;
+HTMLは階層構造になっており、DOMによって解析されたHTMLは階層構造のあるデータとなります。これを、**DOMツリー**や**ドキュメントツリー**と呼びます。
+
+&lt;img src=&quot;https://tech-master.s3.amazonaws.com/uploads/curriculums//0bc5e69f74b7d8ba311f729fb93b0007.png&quot;&gt;
+JavaScriptを使うと、DOMツリーを操作することができます。
+
+HTMLの要素名や、「id、class」といった属性の情報を元にDOMツリーの一部を取得し、CSSを変更したり、要素を増やしたり、消したりできます。するとそれがブラウザに反映され、描画も変わります。
+
+具体的にコードの例を見てみましょう。以下は、ECサイトのカート画面を想定したコードです。
+
+こちらはHTML/CSSです。CSSはライブラリであるtailwind.cssをインターネットを通じて読み込んでいます。本旨とは外れるため解説は割愛します。
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

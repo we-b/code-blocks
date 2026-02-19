@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>[1] pry(#&lt;RSpec::ExampleGroups::TweetsController::GETIndex&gt;)&gt; response
+
+=&gt; #&lt;ActionDispatch::TestResponse:0x00007fe4ba5b45e0
+ @cache_control={:max_age=&gt;&quot;0&quot;, :private=&gt;true, :must_revalidate=&gt;true},
+ @committed=false,
+ @cv=#&lt;MonitorMixin::ConditionVariable:0x00007fe4ba5b44a0 @cond=#&lt;Thread::ConditionVariable:0x00007fe4ba5b4478&gt;, @monitor=#&lt;ActionDispatch::TestResponse:0x00007fe4ba5b45e0 ...&gt;&gt;,
+ @header=
+  {&quot;X-Frame-Options&quot;=&gt;&quot;SAMEORIGIN&quot;,
+   &quot;X-XSS-Protection&quot;=&gt;&quot;1; mode=block&quot;,
+   &quot;X-Content-Type-Options&quot;=&gt;&quot;nosniff&quot;,
+   &quot;X-Download-Options&quot;=&gt;&quot;noopen&quot;,
+   &quot;X-Permitted-Cross-Domain-Policies&quot;=&gt;&quot;none&quot;,
+   &quot;Referrer-Policy&quot;=&gt;&quot;strict-origin-when-cross-origin&quot;,
+   &quot;Content-Type&quot;=&gt;&quot;text/html; charset=utf-8&quot;,
+   &quot;ETag&quot;=&gt;&quot;W/\&quot;07b471bc4b0f822d1d74886c0cd36998\&quot;&quot;,
+   &quot;Cache-Control&quot;=&gt;&quot;max-age=0, private, must-revalidate&quot;,
+   &quot;X-Request-Id&quot;=&gt;&quot;e0aea9ae-5622-4a8a-9cfc-13fa1eaaddf3&quot;,
+   &quot;X-Runtime&quot;=&gt;&quot;2.913438&quot;,
+   &quot;Content-Length&quot;=&gt;&quot;154958&quot;},
+ @mon_count=0,
+ @mon_mutex=#&lt;Thread::Mutex:0x00007fe4ba5b4590&gt;,
+ @mon_mutex_owner_object_id=70310177907440,
+ @mon_owner=nil,
+
+#以下省略</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

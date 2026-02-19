@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code># 1. 記事を作成
+article = Article.create!(title: &#x27;テスト記事&#x27;, body: &#x27;テスト本文&#x27;, status: :draft)
+
+# 2. コメントを作成
+comment1 = article.comments.create!(author_name: &#x27;ユーザー1&#x27;, body: &#x27;コメント1&#x27;)
+comment2 = article.comments.create!(author_name: &#x27;ユーザー2&#x27;, body: &#x27;コメント2&#x27;)
+
+# 3. 記事からコメントを取得
+article.comments
+# =&gt; [#&lt;Comment id: 1, ...&gt;, #&lt;Comment id: 2, ...&gt;]
+
+# 4. コメントから記事を取得
+comment1.article
+# =&gt; #&lt;Article id: 1, ...&gt;
+
+# 5. 記事を削除
+article.destroy
+Comment.count
+# =&gt; 0（コメントも削除される）</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

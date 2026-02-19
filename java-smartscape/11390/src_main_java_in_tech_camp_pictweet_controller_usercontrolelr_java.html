@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java" data-line="59"><code>package in.tech_camp.pictweet.controller;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import in.tech_camp.pictweet.entity.UserEntity;
+import in.tech_camp.pictweet.form.UserForm;
+import in.tech_camp.pictweet.repository.UserRepository;
+import in.tech_camp.pictweet.service.UserService;
+import in.tech_camp.pictweet.validation.ValidationOrder;
+import lombok.AllArgsConstructor;
+
+
+
+@Controller
+@AllArgsConstructor
+public class UserController {
+
+  private final UserRepository userRepository;
+
+  private final UserService userService;
+
+  @GetMapping(&quot;/users/sign_up&quot;)
+  public String showSignUp(Model model){
+    model.addAttribute(&quot;userForm&quot;, new UserForm());
+    return &quot;users/signUp&quot;;
+  }
+
+  @PostMapping(&quot;/user&quot;)
+  public String createUser(@ModelAttribute(&quot;userForm&quot;) @Validated(ValidationOrder.class) UserForm userForm, BindingResult result, Model model) {
+    userForm.validatePasswordConfirmation(result);
+    if (userRepository.existsByEmail(userForm.getEmail())) {
+      result.rejectValue(&quot;email&quot;, &quot;null&quot;, &quot;Email already exists&quot;);
+    }
+
+    if (result.hasErrors()) {
+      List&lt;String&gt; errorMessages = result.getAllErrors().stream()
+              .map(DefaultMessageSourceResolvable::getDefaultMessage)
+              .collect(Collectors.toList());
+
+      model.addAttribute(&quot;errorMessages&quot;, errorMessages);
+      model.addAttribute(&quot;userForm&quot;, userForm);
+      return &quot;users/signUp&quot;;
+    }
+
+    UserEntity userEntity = new UserEntity();
+    userEntity.setEmail(userForm.getEmail());
+    userEntity.setPassword(userForm.getPassword());
+    // ここにファーストネームとラストネームを設定するコードを記入してください
+
+    try {
+      userService.createUserWithEncryptedPassword(userEntity);
+    } catch (Exception e) {
+      System.out.println(&quot;エラー：&quot; + e);
+      return &quot;redirect:/&quot;;
+    }
+
+    return &quot;redirect:/&quot;;
+  }
+
+    @GetMapping(&quot;/login&quot;)
+  public String showLoginWithError(@RequestParam(value = &quot;error&quot;) String error, Model model) {
+    if (error != null) {
+      model.addAttribute(&quot;loginError&quot;, &quot;Invalid email or password.&quot;);
+    }
+    return &quot;users/login&quot;;
+  }
+
+  @GetMapping(&quot;/users/login&quot;)
+  public String showLogin(){
+      return &quot;users/login&quot;;
+  }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

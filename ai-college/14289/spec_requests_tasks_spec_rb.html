@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>require &#x27;rails_helper&#x27;
+
+RSpec.describe &quot;Tasks API&quot;, type: :request do
+  let!(:genre) { Genre.create!(name: &#x27;テストジャンル&#x27;) }
+
+  describe &quot;POST /tasks&quot; do
+    context &#x27;priorityパラメータを指定してタスクを作成&#x27; do
+      it &#x27;優先度「高」でタスクを作成できる&#x27; do
+        task_params = {
+          name: &#x27;重要なタスク&#x27;,
+          explanation: &#x27;これは重要なタスクです&#x27;,
+          genreId: genre.id,
+          deadlineDate: &#x27;2025-12-31&#x27;,
+          status: 0,
+          priority: &#x27;high&#x27;
+        }
+
+        post &#x27;/tasks&#x27;, params: task_params, as: :json
+
+        expect(response).to have_http_status(:success)
+
+        created_task = Task.last
+        expect(created_task.name).to eq(&#x27;重要なタスク&#x27;)
+        expect(created_task.priority).to eq(&#x27;high&#x27;)
+        expect(created_task.high?).to be true
+      end
+
+      it &#x27;優先度「中」でタスクを作成できる&#x27; do
+        task_params = {
+          name: &#x27;通常のタスク&#x27;,
+          explanation: &#x27;これは通常のタスクです&#x27;,
+          genreId: genre.id,
+          deadlineDate: &#x27;2025-12-31&#x27;,
+          status: 0,
+          priority: &#x27;medium&#x27;
+        }
+
+        post &#x27;/tasks&#x27;, params: task_params, as: :json
+
+        expect(response).to have_http_status(:success)
+
+        created_task = Task.last
+        expect(created_task.name).to eq(&#x27;通常のタスク&#x27;)
+        expect(created_task.priority).to eq(&#x27;medium&#x27;)
+        expect(created_task.medium?).to be true
+      end
+
+      it &#x27;優先度「低」でタスクを作成できる&#x27; do
+        task_params = {
+          name: &#x27;急がないタスク&#x27;,
+          explanation: &#x27;これは急がないタスクです&#x27;,
+          genreId: genre.id,
+          deadlineDate: &#x27;2025-12-31&#x27;,
+          status: 0,
+          priority: &#x27;low&#x27;
+        }
+
+        post &#x27;/tasks&#x27;, params: task_params, as: :json
+
+        expect(response).to have_http_status(:success)
+
+        created_task = Task.last
+        expect(created_task.name).to eq(&#x27;急がないタスク&#x27;)
+        expect(created_task.priority).to eq(&#x27;low&#x27;)
+        expect(created_task.low?).to be true
+      end
+    end
+
+    context &#x27;レスポンスJSONにpriorityが含まれている&#x27; do
+      it &#x27;タスク作成後のレスポンスにpriorityフィールドが含まれる&#x27; do
+        task_params = {
+          name: &#x27;APIテストタスク&#x27;,
+          explanation: &#x27;レスポンス確認用&#x27;,
+          genreId: genre.id,
+          deadlineDate: &#x27;2025-12-31&#x27;,
+          status: 0,
+          priority: &#x27;high&#x27;
+        }
+
+        post &#x27;/tasks&#x27;, params: task_params, as: :json
+
+        expect(response).to have_http_status(:success)
+
+        json_response = JSON.parse(response.body)
+        expect(json_response).to be_an(Array)
+
+        created_task = json_response.find { |task| task[&#x27;name&#x27;] == &#x27;APIテストタスク&#x27; }
+        expect(created_task).not_to be_nil
+        expect(created_task[&#x27;priority&#x27;]).to eq(&#x27;high&#x27;)
+      end
+
+      it &#x27;priorityを指定しない場合、デフォルト値「medium」が設定される&#x27; do
+        task_params = {
+          name: &#x27;デフォルト優先度タスク&#x27;,
+          explanation: &#x27;デフォルト値確認用&#x27;,
+          genreId: genre.id,
+          deadlineDate: &#x27;2025-12-31&#x27;,
+          status: 0
+        }
+
+        post &#x27;/tasks&#x27;, params: task_params, as: :json
+
+        expect(response).to have_http_status(:success)
+
+        json_response = JSON.parse(response.body)
+        created_task = json_response.find { |task| task[&#x27;name&#x27;] == &#x27;デフォルト優先度タスク&#x27; }
+
+        expect(created_task).not_to be_nil
+        expect(created_task[&#x27;priority&#x27;]).to eq(&#x27;medium&#x27;)
+      end
+    end
+  end
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

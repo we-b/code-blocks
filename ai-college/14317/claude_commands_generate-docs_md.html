@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-markdown"><code>---
+description: コードからドキュメントを自動生成します
+argument-hint: [file-path]
+allowed-tools: Read, Write, Glob
+---
+
+# ドキュメント生成
+
+## 対象ファイル
+@$ARGUMENTS
+
+## タスク
+上記のファイルを分析し、以下の形式でドキュメントを生成してください。
+
+### ドキュメント構成
+
+#### 1. 概要
+- ファイルの目的
+- 主要な機能
+
+#### 2. 関数・クラス一覧
+各関数/クラスについて以下を記述：
+- 名前
+- 説明
+- パラメータ（型、説明）
+- 戻り値（型、説明）
+- 使用例
+
+#### 3. 依存関係
+- インポートしているモジュール
+- 外部ライブラリ
+
+#### 4. 使用例</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markdown.min.js"></script>
+</body>
+</html>

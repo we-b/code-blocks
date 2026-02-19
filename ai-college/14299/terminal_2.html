@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-bash"><code>⏺ rails-reviewer エージェントを使用してコードをレビューします。
+
+⏺ rails-reviewer(Review Rails controller code)
+  ⎿  Done (1 tool use · 22.6k tokens · 45s)                                                                                                     
+
+⏺ レビュー結果
+
+  rails-reviewer によるレビュー結果です。
+
+  ---
+   Critical: セキュリティ
+
+  Task.all は認証・認可のチェックがありません。ユーザー自身のタスクのみ表示する場合、重大なセキュリティホールになります。
+
+  # 修正案
+  def index
+    @tasks = current_user.tasks
+  end
+
+  ---
+  High: パフォーマンス
+
+  N+1クエリのリスク: ビューで関連モデルにアクセスする場合、includes が必要です。
+
+  @tasks = Task.includes(:user)
+
+  大量データ対策: ページネーション未実装だと、データ量が増えた際にメモリ問題が発生します。
+
+  @tasks = Task.page(params[:page])  # kaminari使用
+
+  ---
+   Low: コードスタイル
+
+  1行での記述は可読性が低いため、複数行推奨です。
+
+  # Before
+  def index; @tasks = Task.all; end
+
+  # After
+  def index
+    @tasks = Task.all
+  end
+
+  ---
+  推奨コード例
+
+  def index
+    @tasks = Task
+      .for_user(current_user)
+      .includes(:user)
+      .page(params[:page])
+  end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+</body>
+</html>

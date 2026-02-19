@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-Java"><code>public class TransactionLikeExample {
+    public static void main(String[] args) {
+        try {
+            processStep1();
+            processStep2(); // ここで例外が発生したら、以降は実行されない
+            processStep3();
+        } catch (Exception e) {
+            System.out.println(&quot;処理中断: &quot; + e.getMessage());
+        }
+    }
+
+    public static void processStep1() {
+        System.out.println(&quot;ステップ1 実行中&quot;);
+    }
+
+    public static void processStep2() throws Exception {
+        throw new Exception(&quot;ステップ2で失敗しました&quot;);
+    }
+
+    public static void processStep3() {
+        System.out.println(&quot;ステップ3 実行中&quot;);
+    }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-Java.min.js"></script>
+</body>
+</html>

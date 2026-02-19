@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript" data-line="3,5,11,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,"><code>&quot;use client&quot;
+
+import { useState, useEffect } from &quot;react&quot;;
+import { useParams } from &#x27;next/navigation&#x27;
+import { ResponsePost } from &quot;@/app/_type/ResponsePost&quot;;
+
+export default function showPage() {
+  const [isLoading, setIsLoading] = useState&lt;boolean&gt;(true);
+  const params = useParams();
+  const { id } = params;
+  const [post, setPost] = useState&lt;ResponsePost | null&gt;(null);
+
+  useEffect(()=&gt; {
+    const fetchPost = async() =&gt; {
+      try {
+        const response = await fetch(`/api/posts/${id}`, {
+          headers: {
+            &quot;Content-Type&quot;: &quot;application/json&quot;,
+          },
+        });
+        const { post } = await response.json();
+        setPost(post)
+        setIsLoading(false)
+      } catch(error) {
+        console.log(&quot;APIリクエストエラー&quot;, error);
+        throw new Error(&quot;投稿の取得ができませんでした&quot;);
+      }
+    }
+    fetchPost();
+  },[id])
+
+~ 省略 ~
+}
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

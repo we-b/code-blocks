@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-markdown"><code># プロジェクト概要
+社内の勤怠管理システムのバックエンドAPIです。
+
+## 技術スタック
+- 言語: TypeScript 5.x
+- ランタイム: Node.js 20.x
+- フレームワーク: Express 4.x
+- データベース: PostgreSQL 15.x
+- ORM: Prisma 5.x
+- テスト: Jest
+
+## ディレクトリ構造
+- src/controllers/ - HTTPリクエストハンドラ
+- src/services/ - ビジネスロジック
+- src/repositories/ - データアクセス
+- src/middlewares/ - ミドルウェア
+- src/utils/ - ユーティリティ関数
+
+# コーディング規約
+## 命名規則
+- 変数・関数: camelCase
+- 定数: UPPER_SNAKE_CASE
+- クラス: PascalCase
+- ファイル: kebab-case.ts
+
+## コードスタイル
+- インデント: スペース2つ
+- 引用符: シングルクォート
+- セミコロン: 必須
+- 末尾カンマ: 必須
+
+## コメント
+- 関数にはJSDocを付ける
+- 複雑なロジックには説明を付ける
+
+# 禁止事項
+## 編集禁止
+- .env, .env.*
+- prisma/migrations/
+- package-lock.json
+
+## 実行禁止
+- rm -rf
+- git push --force
+- npx prisma migrate（手動管理）
+
+## 避けるべきパターン
+- any型の使用
+- console.log（loggerを使用）
+- ハードコードされた値</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markdown.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java"><code>package com.example.controller;
+
+import com.example.model.Book;
+import com.example.service.BookService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@RestController
+public class BookController {
+
+    @Autowired
+    private BookService bookService;
+
+    // 書籍の一覧を取得（GET /books）
+    @GetMapping(&quot;/books&quot;)
+    public List&lt;Book&gt; index() {
+        return bookService.findAll();
+    }
+
+    // 新しい書籍を登録（POST /books）
+    @PostMapping(&quot;/books&quot;)
+    public Book create(@RequestBody Book book) {
+        return bookService.save(book);
+    }
+
+    // 書籍の詳細を取得（GET /books/{id}）
+    @GetMapping(&quot;/books/{id}&quot;)
+    public Book show(@PathVariable Long id) {
+        return bookService.findById(id);
+    }
+
+    // 書籍情報を更新（PUT /books/{id}）
+    @PutMapping(&quot;/books/{id}&quot;)
+    public Book update(@PathVariable Long id, @RequestBody Book book) {
+        book.setId(id);
+        return bookService.update(book);
+    }
+
+    // 書籍を削除（DELETE /books/{id}）
+    @DeleteMapping(&quot;/books/{id}&quot;)
+    public void delete(@PathVariable Long id) {
+        bookService.delete(id);
+    }
+}
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>

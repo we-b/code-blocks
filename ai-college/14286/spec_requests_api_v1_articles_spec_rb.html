@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>require &#x27;rails_helper&#x27;
+
+RSpec.describe &#x27;Api::V1::Articles&#x27;, type: :request do
+  describe &#x27;GET /api/v1/articles&#x27; do
+    context &#x27;記事が存在する場合&#x27; do
+      before do
+        create_list(:article, 3, :published)
+      end
+
+      it &#x27;記事一覧を取得できること&#x27; do
+        get &#x27;/api/v1/articles&#x27;
+
+        expect(response).to have_http_status(:ok)
+        json = JSON.parse(response.body)
+        expect(json.length).to eq(3)
+      end
+    end
+
+    context &#x27;記事が存在しない場合&#x27; do
+      it &#x27;空の配列を返すこと&#x27; do
+        get &#x27;/api/v1/articles&#x27;
+
+        expect(response).to have_http_status(:ok)
+        json = JSON.parse(response.body)
+        expect(json).to eq([])
+      end
+    end
+  end
+
+  describe &#x27;GET /api/v1/articles/:id&#x27; do
+    context &#x27;記事が存在する場合&#x27; do
+      let(:article) { create(:article) }
+
+      it &#x27;記事の詳細を取得できること&#x27; do
+        get &quot;/api/v1/articles/#{article.id}&quot;
+
+        expect(response).to have_http_status(:ok)
+        json = JSON.parse(response.body)
+        expect(json[&#x27;id&#x27;]).to eq(article.id)
+        expect(json[&#x27;title&#x27;]).to eq(article.title)
+        expect(json[&#x27;body&#x27;]).to eq(article.body)
+      end
+    end
+
+    context &#x27;記事が存在しない場合&#x27; do
+      it &#x27;404を返すこと&#x27; do
+        get &#x27;/api/v1/articles/999999&#x27;
+
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+  end
+
+  describe &#x27;POST /api/v1/articles&#x27; do
+    context &#x27;正しいパラメータの場合&#x27; do
+      let(:valid_params) do
+        {
+          article: {
+            title: &#x27;テスト記事&#x27;,
+            body: &#x27;これはテスト記事の本文です。&#x27;
+          }
+        }
+      end
+
+      it &#x27;記事を作成できること&#x27; do
+        expect {
+          post &#x27;/api/v1/articles&#x27;, params: valid_params
+        }.to change(Article, :count).by(1)
+
+        expect(response).to have_http_status(:created)
+        json = JSON.parse(response.body)
+        expect(json[&#x27;title&#x27;]).to eq(&#x27;テスト記事&#x27;)
+      end
+    end
+
+    context &#x27;不正なパラメータの場合&#x27; do
+      let(:invalid_params) do
+        {
+          article: {
+            title: &#x27;&#x27;,
+            body: &#x27;&#x27;
+          }
+        }
+      end
+
+      it &#x27;422を返すこと&#x27; do
+        post &#x27;/api/v1/articles&#x27;, params: invalid_params
+
+        expect(response).to have_http_status(:unprocessable_entity)
+        json = JSON.parse(response.body)
+        expect(json[&#x27;errors&#x27;]).to be_present
+      end
+    end
+  end
+
+  describe &#x27;PATCH /api/v1/articles/:id&#x27; do
+    let(:article) { create(:article, title: &#x27;元のタイトル&#x27;) }
+
+    context &#x27;正しいパラメータの場合&#x27; do
+      let(:update_params) do
+        {
+          article: {
+            title: &#x27;更新後のタイトル&#x27;
+          }
+        }
+      end
+
+      it &#x27;記事を更新できること&#x27; do
+        patch &quot;/api/v1/articles/#{article.id}&quot;, params: update_params
+
+        expect(response).to have_http_status(:ok)
+        json = JSON.parse(response.body)
+        expect(json[&#x27;title&#x27;]).to eq(&#x27;更新後のタイトル&#x27;)
+
+        article.reload
+        expect(article.title).to eq(&#x27;更新後のタイトル&#x27;)
+      end
+    end
+
+    context &#x27;記事が存在しない場合&#x27; do
+      it &#x27;404を返すこと&#x27; do
+        patch &#x27;/api/v1/articles/999999&#x27;, params: { article: { title: &#x27;test&#x27; } }
+
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+  end
+
+  describe &#x27;DELETE /api/v1/articles/:id&#x27; do
+    context &#x27;記事が存在する場合&#x27; do
+      let!(:article) { create(:article) }
+
+      it &#x27;記事を削除できること&#x27; do
+        expect {
+          delete &quot;/api/v1/articles/#{article.id}&quot;
+        }.to change(Article, :count).by(-1)
+
+        expect(response).to have_http_status(:no_content)
+      end
+    end
+
+    context &#x27;記事が存在しない場合&#x27; do
+      it &#x27;404を返すこと&#x27; do
+        delete &#x27;/api/v1/articles/999999&#x27;
+
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+  end
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

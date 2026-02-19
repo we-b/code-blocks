@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java"><code>interface Swimmable {
+  void swim();
+}
+
+interface Flyable {
+  void fly();
+}
+
+public class Animal {
+  void eat() {
+    // 食べる処理
+  }
+}
+
+public class Duck extends Animal implements Swimmable, Flyable {
+  @Override
+  public void swim() {
+    // 泳ぐ処理
+  }
+  
+  @Override
+  public void fly() {
+    // 飛ぶ処理
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    Duck duck = new Duck();
+    duck.eat();
+    duck.swim();
+    duck.fly();
+  }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby" data-line="12,13,14,15,16,17,18"><code>require &#x27;rails_helper&#x27;
+
+RSpec.describe Comment, type: :model do
+  before do
+    @comment = FactoryBot.build(:comment)
+  end
+
+  it &#x27;textカラムが空の場合コメントは保存できない&#x27; do
+   # ここに問題2のテストコードを記述
+  end
+
+  it &#x27;ユーザーが紐付いていないとコメントは保存できない&#x27; do
+    # ここに問題3のテストコードを記述
+  end
+
+  it &#x27;ツイートが紐付いていないとコメントは保存できない&#x27; do
+    # ここに問題3のテストコードを記述
+  end
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

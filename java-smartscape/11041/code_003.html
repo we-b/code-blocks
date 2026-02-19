@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java"><code>@PostMapping(&quot;/change-password&quot;)
+public ResponseEntity&lt;String&gt; changePassword(
+        @RequestParam String currentPassword,
+        @RequestParam String newPassword) {
+    // 現在のパスワードを検証
+    if (passwordService.validate(currentPassword)) {
+        passwordService.update(newPassword);
+        return ResponseEntity.ok(&quot;パスワード変更成功&quot;);
+    }
+    return ResponseEntity.status(HttpStatus.FORBIDDEN).body(&quot;現在のパスワードが正しくありません&quot;);
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-rhtml"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;en&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;meta http-equiv=&quot;X-UA-Compatible&quot; content=&quot;ie=edge&quot;&gt;
+    &lt;!-- Font Awesome https://fontawesome.com/start --&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;https://use.fontawesome.com/releases/v5.8.1/css/all.css&quot; integrity=&quot;sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf&quot; crossorigin=&quot;anonymous&quot;&gt;
+    &lt;link href=&quot;https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css&quot; rel=&quot;stylesheet&quot;&gt;
+    &lt;title&gt;Todo List&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;div class=&quot;sm:container mx-auto px-4&quot;&gt;
+    &lt;h2 class=&quot;text-2xl py-8&quot;&gt;ショッピングカート&lt;/h2&gt;
+    &lt;div class=&quot;content flex bg-gray-200  p-4&quot;&gt;
+      &lt;div class=&quot;main w-7/12 bg-gray-200 mr-4&quot;&gt;
+        &lt;div class=&quot;cart&quot;&gt;
+          &lt;div class=&quot;item flex p-4 mb-4 bg-white&quot;&gt;
+            &lt;img src=&quot;space_food.png&quot; class=&quot;w-48 h-48&quot;&gt;
+            &lt;div class=&quot;discription-space p-4&quot;&gt;
+              &lt;p class=&quot;name text-xl mb-4&quot;&gt;宇宙食&lt;/p&gt;
+              &lt;div class=&quot;discription mb-4&quot;&gt;
+                食べやすい宇宙食です。
+              &lt;/div&gt;
+              &lt;p class=&quot;mb-4&quot;&gt;
+                &lt;select class=&quot;item_num&quot; name=&quot;item_num&quot;&gt;
+                &lt;option value=&quot;1&quot;&gt;1&lt;/option&gt;
+                &lt;option value=&quot;2&quot;&gt;2&lt;/option&gt;
+                &lt;option value=&quot;3&quot;&gt;3&lt;/option&gt;
+                &lt;option value=&quot;4&quot;&gt;4&lt;/option&gt;
+                &lt;option value=&quot;5&quot;&gt;5&lt;/option&gt;
+                &lt;/select&gt;
+              &lt;/p&gt;
+              &lt;div class=&quot;amount_box&quot;&gt;
+                &lt;p&gt;￥&lt;span class=&quot;item_amount&quot;&gt;2300&lt;/span&gt;&lt;/p&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;item flex p-4 mb-4 bg-white&quot;&gt;
+            &lt;img src=&quot;fantasy_unicorn_rainbow.png&quot; class=&quot;w-48 h-48&quot;&gt;
+            &lt;div class=&quot;discription-space p-4&quot;&gt;
+              &lt;p class=&quot;name text-xl mb-4&quot;&gt;ぬいぐるみ&lt;/p&gt;
+              &lt;div class=&quot;discription mb-4&quot;&gt;
+                ユニコーンのぬいぐるみです
+              &lt;/div&gt;
+              &lt;p class=&quot;mb-4&quot;&gt;
+                &lt;select class=&quot;item_num&quot; name=&quot;item_num&quot;&gt;
+                &lt;option value=&quot;1&quot;&gt;1&lt;/option&gt;
+                &lt;option value=&quot;2&quot;&gt;2&lt;/option&gt;
+                &lt;option value=&quot;3&quot;&gt;3&lt;/option&gt;
+                &lt;option value=&quot;4&quot;&gt;4&lt;/option&gt;
+                &lt;option value=&quot;5&quot;&gt;5&lt;/option&gt;
+                &lt;/select&gt;
+              &lt;/p&gt;
+              &lt;div class=&quot;amount_box&quot;&gt;
+                &lt;p&gt;￥&lt;span class=&quot;item_amount&quot;&gt;1500&lt;/span&gt;&lt;/p&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class=&quot;item flex p-4 mb-4 bg-white&quot;&gt;
+            &lt;img src=&quot;cthulhu_deep_ones.png&quot; class=&quot;w-48 h-48&quot;&gt;
+            &lt;div class=&quot;discription-space p-4&quot;&gt;
+              &lt;p class=&quot;name text-xl mb-4&quot;&gt;クトゥルフのぬいぐるみ&lt;/p&gt;
+              &lt;div class=&quot;discription mb-4&quot;&gt;
+                名状しがたきものです
+              &lt;/div&gt;
+              &lt;p class=&quot;mb-4&quot;&gt;
+                &lt;select class=&quot;item_num&quot; name=&quot;item_num&quot;&gt;
+                &lt;option value=&quot;1&quot;&gt;1&lt;/option&gt;
+                &lt;option value=&quot;2&quot;&gt;2&lt;/option&gt;
+                &lt;option value=&quot;3&quot;&gt;3&lt;/option&gt;
+                &lt;option value=&quot;4&quot;&gt;4&lt;/option&gt;
+                &lt;option value=&quot;5&quot;&gt;5&lt;/option&gt;
+                &lt;/select&gt;
+              &lt;/p&gt;
+              &lt;div class=&quot;amount_box&quot;&gt;
+                &lt;p&gt;￥&lt;span class=&quot;item_amount&quot;&gt;3700&lt;/span&gt;&lt;/p&gt;
+              &lt;/div&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;side w-4/12&quot;&gt;
+        &lt;div class=&quot;total_amount_box bg-white h-40&quot;&gt;
+          &lt;p class=&quot;p-4 text-2xl&quot;&gt;小計:￥&lt;span id=&quot;cart_amount&quot;&gt;7500&lt;/span&gt;&lt;/p&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+    &lt;script src=&quot;app.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-rhtml.min.js"></script>
+</body>
+</html>

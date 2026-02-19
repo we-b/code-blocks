@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-plaintext"><code>
+# ☓:Gearクラスが車輪に関係するリム、タイヤの情報を持っている
+
+# 自転車のギアを表すGearクラスが、「車輪のリムの直径、タイヤの厚み」まで責任を持ってしまっている
+# Wheelクラスを作り、rim, tireの定義を移すべき
+
+class Gear
+  attr_reader :chainring, :cog, :rim, :tire
+  def initialize(chainring, cog, rim, tire)
+    @chainring = chainring
+    @cog       = cog
+    @rim       = rim
+    @tire      = tire
+  end
+
+  def ratio
+    chainring / cog.to_f
+  end
+
+  def gear_inches
+    ratio * (rim + (tire * 2))
+  end
+end
+
+# 下記のコードはギアに関する情報しか渡していないにも関わらずエラーになる
+puts Gear.new(52, 11).ratio
+# ArgumentError: wrong number of arguments (2 for 4)
+
+
+# ◯:Wheelクラスを作り、車輪に関する定義を移す
+
+class Gear
+  attr_reader :chainring, :cog, :wheel
+  def initialize(chainring, cog, wheel=nil)
+    @chainring = chainring
+    @cog       = cog
+    @wheel     = wheel
+  end
+
+  def ratio
+    chainring / cog.to_f
+  end
+
+  def gear_inches
+    ratio * wheel.diameter
+  end
+end
+
+class Wheel
+  attr_reader :rim, :tire
+
+  def initialize(rim, tire)
+    @rim       = rim
+    @tire      = tire
+  end
+
+  def diameter
+    rim + (tire * 2)
+  end
+
+end
+
+
+@wheel = Wheel.new(26, 1.5)
+puts @wheel.circumference
+# -&gt; 91.106186954104
+
+puts Gear.new(52, 11, @wheel).gear_inches
+# -&gt; 137.090909090909
+
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

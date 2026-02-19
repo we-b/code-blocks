@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-bash"><code> PASS  tests/index.test.js
+  Webアプリケーションのテスト
+    ページ遷移のテスト
+      トップページ遷移のテスト
+        ✓ トップページに正しく遷移できる (186 ms)
+        ✓ 新規投稿画面に正しく遷移できる (9 ms)
+      トップページの遷移に失敗
+        ✓ 未定義のパスにアクセスした時、リダイレクトして302エラーを返す (7 ms)
+    投稿のテスト
+      ✓ 新しい投稿を保存できる (45 ms)
+      ✓ 空のcontentで投稿しようとするとエラーが発生する (47 ms)
+
+Test Suites: 1 passed, 1 total
+Tests:       5 passed, 5 total
+Snapshots:   0 total
+Time:        1.524 s, estimated 2 s
+Ran all test suites.</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+</body>
+</html>

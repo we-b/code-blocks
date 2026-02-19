@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java"><code>public interface PaymentStrategy {
+  void pay(int amount);
+}
+
+public class CreditCardPayment implements PaymentStrategy {
+  @Override
+  public void pay(int amount) {
+    System.out.println(&quot;クレジットカードで&quot; + amount + &quot;円支払いました。&quot;);
+  }
+}
+
+public class BankTransferPayment implements PaymentStrategy {
+  @Override
+  public void pay(int amount) {
+    System.out.println(&quot;銀行振込で&quot; + amount + &quot;円支払いました。&quot;);
+  }
+}
+
+public class ShoppingCart {
+  private PaymentStrategy paymentStrategy;
+
+  public void setPaymentStrategy(PaymentStrategy paymentStrategy) {
+    this.paymentStrategy = paymentStrategy;
+  }
+
+  public void checkout(int amount) {
+      if (paymentStrategy == null) {
+        throw new IllegalStateException(&quot;支払い方法が設定されていません。&quot;);
+      }
+      paymentStrategy.pay(amount);
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    ShoppingCart cart = new ShoppingCart();
+
+    try {
+      cart.setPaymentStrategy(new CreditCardPayment());
+      cart.checkout(1000);
+
+      cart.setPaymentStrategy(new BankTransferPayment());
+      cart.checkout(1500);
+
+    } catch (IllegalStateException e) {
+      System.out.println(e.getMessage()); 
+    }
+  }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>

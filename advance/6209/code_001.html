@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>require &#x27;./TechBurger&#x27;
+require &#x27;minitest/autorun&#x27;
+
+module FoodInterfaceTest
+  def test_implements_the_name_interface
+    assert_respond_to(@object, :name)
+  end
+
+  def test_implements_the_price_interface
+    assert_respond_to(@object, :price)
+  end
+end
+
+class TechBurgerTest &lt; Minitest::Test
+  include FoodInterfaceTest
+  def setup
+    @teriyaki = @object = TechBurger.new(name: &#x27;テリヤキバーガーセット&#x27;, price: 600)
+  end
+
+  def test_name
+    assert_equal &#x27;テリヤキバーガーセット&#x27;, @teriyaki.name
+  end
+
+  def test_price
+    assert_equal 660, @teriyaki.price
+  end
+end
+
+class TechGyudonTest &lt; Minitest::Test
+  include FoodInterfaceTest
+  def setup
+    @butadon = @object = TechGyudon.new(name: &#x27;テック豚丼&#x27;, price: 400)
+  end
+
+  def test_name
+    assert_equal &#x27;テック豚丼&#x27;, @butadon.name
+  end
+
+  def test_price
+    assert_equal 440, @butadon.price
+  end
+end
+
+class OrderConfirmationTest &lt; Minitest::Test
+  def setup
+    @food = Minitest::Mock.new
+    @sales = Minitest::Mock.new
+    @input = 0
+  end
+
+  def test_transaction
+    oc = OrderConfirmation.new([@food], 0, @sales)
+    @food.expect(:name, &#x27;テック豚丼&#x27;)
+    @food.expect(:name, &#x27;テック豚丼&#x27;)
+    @food.expect(:price, 440)
+    @sales.expect(:update, 440, [@food])
+    assert_output(stdout =
+                   &quot;メニューを選び、投入する金額を入力してください。\n&quot; +
+                   &quot;[0] 商品名：テック豚丼 税込み価格：440円\n&quot; +
+                   &quot;テック豚丼が選択されました\n&quot;) { oc.transaction }
+    @sales.verify
+    @food.verify
+  end
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

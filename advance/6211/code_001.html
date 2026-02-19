@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>require &#x27;./TechBurger&#x27;
+require &#x27;minitest/autorun&#x27;
+
+class TechBurgerTest &lt; Minitest::Test
+  def setup
+    @teriyaki = TechBurger.new(name: &#x27;テリヤキバーガーセット&#x27;, price: 600)
+  end
+
+  def test_name
+    assert_equal &#x27;テリヤキバーガーセット&#x27;, @teriyaki.name
+  end
+
+  def test_price
+    assert_equal 660, @teriyaki.price
+  end
+end
+
+class OrderConfirmationTest &lt; Minitest::Test
+  def setup
+    foods = [
+      { name: &#x27;テリヤキバーガーセット&#x27;, price: 600 },
+      { name: &#x27;ビッグテックバーガーセット&#x27;, price: 800 },
+      { name: &#x27;テックキッズセット&#x27;, price: 380 }
+    ]
+    @foods = foods.map { |f| TechBurger.new({ name: f[:name], price: f[:price] }) }
+    @sales = Minitest::Mock.new
+    @input = rand(1)
+  end
+
+  def test_transaction
+    oc = OrderConfirmation.new(@foods, @sales, @input)
+    @sales.expect(:update, 660, [@foods[@input]])
+    oc.transaction
+    @sales.verify
+  end
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

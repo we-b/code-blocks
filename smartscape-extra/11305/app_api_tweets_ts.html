@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript" data-line="6,22,23,24,25,26,27,28,29,30,31,32,33,34"><code>import axios from &#x27;axios&#x27;;
+import { TweetData } from &#x27;../_interfaces/TweetData&#x27;;
+
+const api = axios.create({
+  baseURL: &#x27;http://localhost:8080/api&#x27;,
+  withCredentials: true,
+});
+
+export const findAllTweets = async (): Promise&lt;TweetData[]&gt; =&gt; {
+  try {
+    const response = await api.get(&#x27;/tweets/&#x27;);
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.error(&#x27;APIリクエストエラー:&#x27;, error.response?.data);
+      throw new Error(&#x27;ツイートの取得に失敗しました&#x27;);
+    }
+    throw error;
+  }
+};
+
+export const createTweet = async (tweetForm: { image: string; text: string; }): Promise&lt;TweetData&gt; =&gt; {
+  try {
+    const response = await api.post(&#x27;/tweets/&#x27;, tweetForm);
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.error(&#x27;APIリクエストエラー:&#x27;, error.response?.data);
+      const messages = error.response?.data?.messages;
+      throw new Error(messages ? messages.join(&#x27;, &#x27;) : &#x27;ツイートの作成に失敗しました&#x27;);
+    }
+    throw error;
+  }
+};</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

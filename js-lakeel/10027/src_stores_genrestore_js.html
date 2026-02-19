@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript" data-line="10,11,12,13,14,15,,16,17,18,19,20,21,22,23"><code>import { defineStore } from &#x27;pinia&#x27;
+import api from &#x27;../api/axios&#x27;
+import { ref } from &#x27;vue&#x27;
+export const useGenreStore = defineStore(&#x27;genre&#x27;, () =&gt; {
+  const genres = ref([]);
+  
+//(省略)
+
+  // 保存処理を実施するためのリクエスト
+  async function addGenre(newGenre){
+    try {
+      const response = await api.post(&#x27;/genres&#x27;, newGenre)
+      const addedGenre = response.data
+      // 追加したジャンルデータをgenresに追加する。
+      genres.value.push({
+        id: addedGenre.id,
+        name: addedGenre.name
+      })
+    } catch (error) {
+      console.log(&quot;保存ができませんでした&quot;, error);
+    }
+  }
+  return { genres, fetchAllGenres, addGenre }
+})</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

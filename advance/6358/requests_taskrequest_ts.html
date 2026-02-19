@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript" data-line="4,6,13,14,15,16,17,28,29,30,31,32"><code>import axiosBase from &quot;axios&quot;;
+import { TaskType } from &quot;../interfaces/TaskType&quot;;
+
+type action = &quot;fetchTasks&quot; | &quot;createTasks&quot; | &quot;updateTasks&quot; | &quot;deleteTasks&quot; | &quot;updateStatus&quot;;
+
+type parameter = { data: TaskType; status?: number };
+
+const api = axiosBase.create({
+  baseURL: &quot;http://localhost:3001/tasks&quot;,
+  responseType: &quot;json&quot;,
+});
+
+export const taskRequest: (
+  action: action,
+  parameter?: parameter
+) =&gt; any = async (action: action, parameter?: parameter) =&gt; {
+  if (parameter) {
+    switch (action) {
+      case &quot;createTasks&quot;:
+        const createTasks = await api.post(&quot;/&quot;, parameter.data);
+        return createTasks.data;
+      case &quot;updateTasks&quot;:
+        const updateTasks = await api.put(`/${parameter.data.id}`, parameter.data);
+        return updateTasks.data;
+      case &quot;deleteTasks&quot;:
+        const deleteTasks = await api.delete(`/${parameter.data.id}`);
+        return deleteTasks.data;
+      case &quot;updateStatus&quot;:
+        const updateStatus = await api.post(`/${parameter.data.id}/status`, {
+          status: parameter.status,
+        });
+        return updateStatus.data;
+      default:
+        return null;
+    }
+  } else {
+    switch (action) {
+      case &quot;fetchTasks&quot;:
+        const fetchTasks = await api.get(&quot;/&quot;);
+        return fetchTasks.data;
+      default:
+        return null;
+    }
+  }
+};</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java" data-line="7,8,9,12,14,17,20,21,22,23,32,33,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65"><code>package in.tech_camp.chat_app.system;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpSession;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+
+import in.tech_camp.chat_app.ChatAppApplication;
+import in.tech_camp.chat_app.entity.UserEntity;
+import in.tech_camp.chat_app.factories.UserFormFactory;
+import in.tech_camp.chat_app.form.UserForm;
+import in.tech_camp.chat_app.service.UserService;
+
+@ActiveProfiles(&quot;test&quot;)
+@SpringBootTest(classes = ChatAppApplication.class)
+@AutoConfigureMockMvc
+public class UserIntegrationTest {
+  @Autowired
+  private MockMvc mockMvc;
+
+  @Autowired
+  private UserService userService;
+
+  // 省略
+
+  @Test
+  public void ログインに成功しトップページに遷移する() throws Exception {
+    // 予め、ユーザーをDBに保存する
+    UserForm userForm = UserFormFactory.createUser();
+    UserEntity userEntity = new UserEntity();
+    userEntity.setEmail(userForm.getEmail());
+    userEntity.setName(userForm.getName());
+    userEntity.setPassword(userForm.getPassword());
+    userService.createUserWithEncryptedPassword(userEntity);
+
+    // サインインページに遷移する
+    mockMvc.perform(get(&quot;/users/login&quot;))
+            .andExpect(status().isOk())
+            .andExpect(view().name(&quot;users/login&quot;));
+
+    // 保存したユーザーでログインする
+    MvcResult loginResult = mockMvc.perform(post(&quot;/login&quot;)
+                                      .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+                                      .param(&quot;email&quot;, userForm.getEmail())
+                                      .param(&quot;password&quot;, userForm.getPassword())
+                                      .with(csrf()))
+                              .andExpect(status().isFound())
+                              .andExpect(redirectedUrl(&quot;/&quot;))
+                              .andReturn();
+
+    // トップページに再度アクセスし、ログインできていることを確認する
+    mockMvc.perform(get(&quot;/&quot;).session((MockHttpSession)loginResult.getRequest().getSession()))
+            .andExpect(status().isOk())
+            .andExpect(view().name(&quot;rooms/index&quot;));
+  }
+
+  // 省略
+}
+
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

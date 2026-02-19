@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-markup" data-line="20,21,22,23,24"><code>// 省略
+
+   &lt;form th:action=&quot;@{/rooms}&quot; th:method=&quot;post&quot; th:object=&quot;${roomForm}&quot;&gt;
+      &lt;div class=&#x27;chat-room-form__field&#x27;&gt;
+        &lt;div class=&#x27;chat-room-form__field--left&#x27;&gt;
+          &lt;label class=&quot;chat-room-form__label&quot; for=&quot;room_name&quot;&gt;チャットルーム名&lt;/label&gt;
+        &lt;/div&gt;
+        &lt;div class=&#x27;chat-room-form__field--right&#x27;&gt;
+          &lt;input type=&quot;text&quot; name=&quot;name&quot;  id=&quot;room_name&quot; class=&quot;chat__room_name chat-room-form__input&quot; placeholder=&quot;チャットルーム名を入力してください&quot;&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&#x27;chat-room-form__field&#x27;&gt;
+      &lt;/div&gt;
+      &lt;div class=&#x27;chat-room-form__field&#x27;&gt;
+        &lt;div class=&#x27;chat-room-form__field--left&#x27;&gt;
+          &lt;label class=&#x27;chat-room-form__label&#x27; for=&#x27;chat_room_チャットメンバー&#x27;&gt;チャットメンバー&lt;/label&gt;
+        &lt;/div&gt;
+        &lt;div class=&#x27;chat-room-form__field--right&#x27;&gt;
+          &lt;select&gt;
+            &lt;option&gt;チャットするユーザーを選択してください&lt;/option&gt;
+            &lt;option&gt;ユーザー1&lt;/option&gt;
+            &lt;option&gt;ユーザー2&lt;/option&gt;
+          &lt;/select&gt;  
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&#x27;chat-room-form__field&#x27;&gt;
+        &lt;div class=&#x27;chat-room-form__field--left&#x27;&gt;&lt;/div&gt;
+        &lt;div class=&#x27;chat-room-form__field--right&#x27;&gt;
+          &lt;input type=&quot;submit&quot; value=&quot;Create Room&quot; class=&quot;chat-room-form__action-btn&quot; data-disable-with=&quot;Create Room&quot;&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/form&gt;
+
+// 省略</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

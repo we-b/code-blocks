@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code># 生物クラス
+class Creature
+  # 生物は全て呼吸を行う
+  def breathing
+    puts &#x27;酸素を吸い二酸化炭素を排出します&#x27;
+  end
+end
+
+# 動物クラス
+class Animal &lt; Creature
+  # 動物は移動できる
+  def move
+    puts &#x27;自由に移動する&#x27;
+  end
+end
+
+# 植物クラス
+class Plant &lt; Creature
+  # 植物は光合成ができる
+  def photosynthesis
+    puts &#x27;二酸化炭素を吸い酸素を排出します&#x27;
+  end
+end
+
+
+require &#x27;forwardable&#x27;
+# ミドリムシクラス
+class Euglena &lt; Creature
+  extend Forwardable
+  def_delegators :@animal, :move
+  def_delegators :@plant, :photosynthesis
+
+  def initialize(animal, plant)
+    @animal = animal
+    @plant = plant
+  end
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

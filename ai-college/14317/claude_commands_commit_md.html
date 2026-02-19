@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-markdown"><code>---
+description: AIによる自動コミットメッセージ生成とコミット実行
+argument-hint: [commit-type]
+allowed-tools: Bash(git add:*), Bash(git status:*), Bash(git commit:*), Bash(git diff:*)
+---
+
+# 自動コミット
+
+## 現在のGit状態
+!`git status`
+
+## 変更内容
+!`git diff --staged`
+
+## タスク
+上記の変更内容を分析し、以下の形式でコミットを作成してください。
+
+### コミットメッセージ形式
+- タイプ: $ARGUMENTS（feat, fix, docs, style, refactor, test, choreのいずれか）
+- 形式: `&lt;タイプ&gt;: &lt;簡潔な説明&gt;`
+- 本文: 変更の詳細（必要な場合）
+
+### 指示
+1. 変更内容を理解する
+2. 適切なコミットメッセージを作成する
+3. `git commit -m &quot;メッセージ&quot;` を実行する
+
+コミットタイプが指定されていない場合は、変更内容から適切なタイプを判断してください。</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markdown.min.js"></script>
+</body>
+</html>

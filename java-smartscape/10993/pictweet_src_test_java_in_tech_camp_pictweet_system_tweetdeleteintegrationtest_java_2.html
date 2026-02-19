@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java" data-line="3,5,6,7,9,10,11,12,13,14,15,16,17,18,19,27,28,30,31,42,43,45,46,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100"><code>package in.tech_camp.pictweet.system;
+
+import java.util.List;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+
+import static org.hamcrest.Matchers.containsString;
+import static org.hamcrest.Matchers.not;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpSession;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+
+（省略）
+
+@ActiveProfiles(&quot;test&quot;)
+@SpringBootTest(classes = PictweetApplication.class)
+@AutoConfigureMockMvc
+public class TweetDeleteIntegrationTest {
+
+（省略）
+
+  @Autowired
+  private MockMvc mockMvc;
+
+  private int initialCount;
+  private int afterCount;
+
+（省略）
+
+    @Nested
+  class ツイート削除ができるとき {
+    @Test
+    public void ログインしたユーザーは自らが投稿したツイートの削除ができる() throws Exception {
+      // ツイート1を投稿したユーザーでログインする
+      MvcResult loginResult = mockMvc.perform(post(&quot;/login&quot;)
+          .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+          .param(&quot;email&quot;, userForm1.getEmail())
+          .param(&quot;password&quot;, userForm1.getPassword())
+          .with(csrf()))
+          .andReturn();
+
+      MockHttpSession session  = (MockHttpSession)loginResult.getRequest().getSession();
+      assertNotNull(session);
+
+      // ツイート1に「削除」へのリンクがあることを確認する
+      MvcResult pageResult = mockMvc.perform(get(&quot;/&quot;).session(session))
+          .andReturn();
+      String topPageContent = pageResult.getResponse().getContentAsString();
+      Document topPageDocument = Jsoup.parse(topPageContent);
+      Element deleteMenuElement = topPageDocument.selectFirst(&quot;form[action=&#x27;/tweets/&quot; + tweetEntity1.getId() + &quot;/delete&#x27;]&quot;);
+      assertNotNull(deleteMenuElement);
+      Element deleteButtonElement = deleteMenuElement.selectFirst(&quot;input[type=&#x27;submit&#x27;]&quot;);
+      assertNotNull(deleteButtonElement);
+      assertEquals(&quot;削除&quot;, deleteButtonElement.val());
+
+      List&lt;TweetEntity&gt; tweetsListBeforeDeletion = tweetRepository.findAll();
+      initialCount = tweetsListBeforeDeletion.size();
+
+      // 投稿を削除する
+      mockMvc.perform(post(&quot;/tweets/{tweetId}/delete&quot;,tweetEntity1.getId()).session(session)
+          .with(csrf()))
+          .andExpect(status().isFound())
+          .andExpect(redirectedUrl(&quot;/&quot;));
+
+      // 投稿を削除するとレコードの数が1減ることを確認する
+      List&lt;TweetEntity&gt; tweetsListAfterDeletion = tweetRepository.findAll();
+      afterCount = tweetsListAfterDeletion.size();
+      assertEquals(initialCount - 1, afterCount);
+
+      // トップページにはツイート1の内容が存在しないことを確認する（画像）
+      MvcResult pageResultAfterEdit = mockMvc.perform(get(&quot;/&quot;))
+          .andReturn();
+      String pageContentAfterEdit = pageResultAfterEdit.getResponse().getContentAsString();
+      Document documentAfterEdit = Jsoup.parse(pageContentAfterEdit);
+      Element divElement = documentAfterEdit.selectFirst(&quot;.content_post[style=&#x27;background-image: url(&quot; + tweetForm1.getImage() + &quot;);&#x27;]&quot;);
+      assertNull(divElement);
+
+      // トップページにはツイート1の内容が存在しないことを確認する（テキスト）
+      mockMvc.perform(get(&quot;/&quot;))
+          .andExpect(content().string(not(containsString(tweetEntity1.getText()))));
+    }
+  }
+
+（省略）
+
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

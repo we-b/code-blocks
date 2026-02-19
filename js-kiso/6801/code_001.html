@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-erb" data-line="3,5"><code>    &lt;div class=&#x27;store-btn&#x27;&gt;
+      &lt;%# 以下を削除する %&gt;
+      &lt;%= link_to image_tag(&quot;https://linkmaker.itunes.apple.com/ja-jp/badge-lrg.svg?releaseDate=2011-09-21&amp;kind=iossoftware&amp;bubble=ios_apps&quot;, class:&quot;apple-btn&quot;), &quot;#&quot; %&gt;
+      &lt;%# 以下を追記する %&gt;
+      &lt;%= link_to image_tag(&quot;app-store.svg&quot;, class:&quot;apple-btn&quot;), &quot;#&quot; %&gt;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-erb.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

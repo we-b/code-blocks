@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>class Beverage
+ @@tax = 0.1
+ attr_reader :name, :price
+ def initialize(args)
+   @name = args.fetch(:name, &#x27;サイダー&#x27;)
+   @price = args.fetch(:price, 120)
+ end
+
+ def price
+   @price + (@price * @@tax).floor
+ end
+end
+
+class Tabaco
+ @@tax = 0.6
+ attr_reader :brand, :cost, :tax
+ def initialize(args)
+   @brand = args.fetch(:brand, &#x27;テックタバコ&#x27;)
+   @cost = args.fetch(:cost, 300)
+ end
+
+ def cost
+   @cost + (@cost * @@tax).floor
+ end
+end
+
+class VendingMachine
+ attr_reader :products
+ def initialize(products)
+   @products = products
+ end
+ def transaction
+   display_anounce
+   product = take_order
+   serve_item(product)
+ end
+
+ private
+
+ attr_reader :products
+
+ def display_anounce
+   puts &#x27;購入したい商品を以下から選んで、金額を入力してください&#x27;
+   products.each_with_index do |product, i|
+     puts &quot;[#{i}] 商品名：#{product.name} 税込み価格：#{product.price}円&quot;
+   end
+ end
+
+ def take_order
+   product = products[gets.to_i]
+   puts &quot;#{product.name}が選択されました&quot;
+   product
+ end
+
+ def serve_item(product)
+   # 適正金額が受け取れるまで繰り返す。
+   while true do
+     payment = gets.to_i
+     charge = calc_change(payment, product.price)
+     if charge &gt;= 0
+       break
+     else
+       puts &quot;入力金額が不足しています。金額を再入力してください。&quot;
+     end
+   end
+     puts &quot;お釣りは#{charge}円です。ご利用ありがとうございました。&quot;
+ end
+
+ def calc_change(payment, price)
+   payment - price
+ end
+end
+
+tabacos = [
+ { brand: &#x27;第一タバコ&#x27;, cost: 120 },
+ { brand: &#x27;サムライ&#x27;, cost: 100 },
+ { brand: &#x27;キャッツアイ&#x27;, cost: 80 }
+]
+
+@tabacos = tabacos.map{ |b| Tabaco.new(brand: b[:brand], cost: b[:cost]) }
+vm = VendingMachine.new(@tabacos)
+vm.transaction
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

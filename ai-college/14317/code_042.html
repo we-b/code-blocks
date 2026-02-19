@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript"><code>const DISCOUNT_RATES = {
+  PREMIUM_LOYAL: 0.3,
+  PREMIUM_REGULAR: 0.2,
+  PREMIUM_NEW: 0.1,
+  FREQUENT_BUYER: 0.05,
+  DEFAULT: 0
+};
+
+function getDiscount(user) {
+  if (user.isPremium &amp;&amp; user.purchaseCount &gt; 10) {
+    return user.membershipYears &gt; 5
+      ? DISCOUNT_RATES.PREMIUM_LOYAL
+      : DISCOUNT_RATES.PREMIUM_REGULAR;
+  }
+  if (user.isPremium) return DISCOUNT_RATES.PREMIUM_NEW;
+  if (user.purchaseCount &gt; 20) return DISCOUNT_RATES.FREQUENT_BUYER;
+  return DISCOUNT_RATES.DEFAULT;
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

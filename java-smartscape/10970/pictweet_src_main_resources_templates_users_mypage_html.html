@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-markup" data-line="15,16,17"><code>&lt;!DOCTYPE html&gt;
+&lt;html xmlns:th=&quot;http://www.thymeleaf.org&quot; lang=&quot;ja&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;link th:href=&quot;@{/css/style.css}&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;&gt;
+  &lt;title&gt;PicTweet&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+&lt;div th:insert=&quot;~{header :: header}&quot;&gt;&lt;/div&gt;
+
+&lt;div class=&quot;contents row&quot;&gt;
+  &lt;p th:text=&quot;${nickname} + &#x27;さんの投稿一覧&#x27;&quot;&gt;&lt;/p&gt;
+
+  &lt;div th:each=&quot;tweet : ${tweets}&quot;&gt;
+    &lt;div th:replace=&quot;~{tweets/tweet :: content(tweet=${tweet})}&quot;&gt;&lt;/div&gt;
+  &lt;/div&gt; 
+&lt;/div&gt;
+
+&lt;div th:insert=&quot;~{footer :: footer}&quot;&gt;&lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

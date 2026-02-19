@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python" data-line="3,5,6,7,20,21,22,23,24,25,26,27,28,29,30,31,32,33"><code>from django.urls import reverse_lazy
+from django.views import generic
+from django.contrib.auth import login,get_user_model
+from .forms import CustomUserCreationForm
+from django.views.generic import ListView
+from django.shortcuts import get_object_or_404
+from tweets.models import Tweet
+
+class SignUpView(generic.CreateView):
+    form_class = CustomUserCreationForm
+    success_url = reverse_lazy(&#x27;Tweets:index&#x27;)  # 登録完了後にリダイレクトするURL
+    template_name = &#x27;users/sign_up.html&#x27;
+
+    def form_valid(self, form):
+        response = super().form_valid(form)
+        user = form.save()
+        login(self.request, user)
+        return response
+
+class UserPageView(ListView):
+    model = Tweet
+    template_name = &#x27;users/mypage.html&#x27;
+    context_object_name = &#x27;tweets&#x27;
+
+    def get_queryset(self):
+        user_id = self.kwargs.get(&#x27;pk&#x27;)
+        self.user = get_object_or_404(get_user_model(), pk=user_id)
+        return Tweet.objects.filter(user=self.user).order_by(&#x27;-created_at&#x27;)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context[&#x27;profile_user&#x27;] = self.user
+        return context</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>
