@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+
     <style>
         body { margin: 0; padding: 0; background-color: #2d2d2d; }
         pre { margin: 0 !important; border-radius: 0; border: none; }
@@ -14,12 +13,15 @@
     </style>
 </head>
 <body>
-<pre class="language-javascript line-numbers" data-line="2"><code> &lt;tbody&gt;
-  &lt;tr v-for="goods in filterGoodsByStatusId(status)" :key="goods.id"&gt;
-//(省略)
-&lt;/tbody&gt;</code></pre>
+<pre class="language-plaintext"><code>この関数では、配列statusListの中から引数で渡されたstatusのインデックスを検索します。filterメソッドで検索したインデックスと一致するstatusを持つgoodsデータを検索し、一致するデータのみで新しく配列を作成します。
+
+この関数の戻り値を用いて、ステータス毎にリストを表示していきます。
+
+### &lt;i class=&quot;icon pen&quot;&gt;&lt;/i&gt;繰り返し処理の記述を編集しましょう
+
+以下のように記述を修正しましょう。
+</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-numbers/prism-line-numbers.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+
 </body>
 </html>
