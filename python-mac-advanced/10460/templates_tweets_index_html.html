@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-markup" data-line="8,9,10,11,12,13,14,15,16,17,18,19,20,21,22"><code>{% extends &quot;base.html&quot; %}
+{% load static %}
+{% block content %}
+
+&lt;div class=&quot;contents row&quot;&gt;
+    {% for tweet in tweets %}
+    &lt;div class=&quot;content_post&quot; style=&quot;{% if tweet.image %}background-image: url(&#x27;{{ tweet.image.url }}&#x27;);{% endif %}&quot;&gt;
+        &lt;div class=&quot;more&quot;&gt;
+            &lt;span&gt;&lt;img src=&quot;{% static &#x27;images/arrow_top.png&#x27; %}&quot;&gt;&lt;/span&gt;
+            &lt;ul class=&quot;more_list&quot;&gt;
+                &lt;li&gt;
+                    &lt;form action=&quot;{% url &#x27;Tweets:delete&#x27; tweet.id %}&quot; method=&quot;post&quot;&gt;
+                        {% csrf_token %}
+                        &lt;input type=&quot;submit&quot; class=&quot;delete-btn&quot; value=&quot;削除&quot;&gt;
+                    &lt;/form&gt;
+                &lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
+        &lt;p&gt;{{ tweet.text }}&lt;/p&gt;
+        &lt;span class=&quot;name&quot;&gt;
+            {{ tweet.name }}
+        &lt;/span&gt;
+    &lt;/div&gt;
+    {% endfor %}
+&lt;/div&gt;
+
+{% endblock content %}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

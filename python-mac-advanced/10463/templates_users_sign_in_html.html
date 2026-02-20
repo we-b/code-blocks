@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-markup"><code>{% extends &quot;base.html&quot; %}
+{% block content %}
+
+&lt;form method=&quot;post&quot;&gt;
+  {% csrf_token %}
+
+    &lt;div class=&quot;contents row&quot;&gt;
+        &lt;div class=&quot;container&quot;&gt;
+            &lt;h2&gt;Log in&lt;/h2&gt;
+            &lt;div class=&quot;field&quot;&gt;
+                {{ form.username.label_tag }}
+                {{ form.username }}
+                {% if form.username.errors %}
+                &lt;ul class=&quot;errorlist&quot;&gt;
+                    {% for error in form.username.errors %}
+                        &lt;li&gt;{{ error }}&lt;/li&gt;
+                    {% endfor %}
+                &lt;/ul&gt;
+                {% endif %}
+            &lt;/div&gt;
+
+            &lt;div class=&quot;field&quot;&gt;
+                {{ form.password.label_tag  }}&lt;a&gt;(英数字含む8文字以上)&lt;/a&gt;
+                {{ form.password }}
+                {% if form.password.errors %}
+                &lt;ul class=&quot;errorlist&quot;&gt;
+                    {% for error in form.password.errors %}
+                        &lt;li&gt;{{ error }}&lt;/li&gt;
+                    {% endfor %}
+                &lt;/ul&gt;
+                {% endif %}
+            &lt;/div&gt;
+
+            &lt;div class=&quot;actions&quot;&gt;
+                &lt;input type=&quot;submit&quot; value=&quot;Log in&quot;&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+&lt;/form&gt;
+{% endblock content %}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-plaintext"><code>% python manage.py test -v 2
+Found 2 test(s).
+Creating test database for alias &#x27;default&#x27; (&#x27;test_pictweet&#x27;)...
+Operations to perform:
+  Synchronize unmigrated apps: django_extensions, messages, staticfiles
+  Apply all migrations: auth, comments, contenttypes, sessions, tweets, users
+Synchronizing apps without migrations:
+  Creating tables...
+    Running deferred SQL...
+Running migrations:
+  Applying contenttypes.0001_initial... OK
+  Applying contenttypes.0002_remove_content_type_name... OK
+  Applying auth.0001_initial... OK
+  Applying auth.0002_alter_permission_name_max_length... OK
+  Applying auth.0003_alter_user_email_max_length... OK
+  Applying auth.0004_alter_user_username_opts... OK
+  Applying auth.0005_alter_user_last_login_null... OK
+  Applying auth.0006_require_contenttypes_0002... OK
+  Applying auth.0007_alter_validators_add_error_messages... OK
+  Applying auth.0008_alter_user_username_max_length... OK
+  Applying auth.0009_alter_user_last_name_max_length... OK
+  Applying auth.0010_alter_group_name_max_length... OK
+  Applying auth.0011_update_proxy_permissions... OK
+  Applying auth.0012_alter_user_first_name_max_length... OK
+  Applying users.0001_initial... OK
+  Applying tweets.0001_initial... OK
+  Applying tweets.0002_tweet_user... OK
+  Applying comments.0001_initial... OK
+  Applying sessions.0001_initial... OK
+  Applying tweets.0003_remove_tweet_name... OK
+System check identified no issues (0 silenced).
+test_email_cannot_be_blank (tests.models.test_users.UserModelTestCase) ... テスト実行
+ok
+test_nickname_cannot_be_blank (tests.models.test_users.UserModelTestCase) ... テスト実行
+ok
+
+----------------------------------------------------------------------
+Ran 2 tests in 0.004s
+
+OK
+Destroying test database for alias &#x27;default&#x27; (&#x27;test_pictweet&#x27;)...</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

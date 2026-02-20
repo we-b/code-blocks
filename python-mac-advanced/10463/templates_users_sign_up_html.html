@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-markup"><code>{% extends &quot;base.html&quot; %}
+{% block content %}
+
+&lt;form method=&quot;post&quot;&gt;
+  {% csrf_token %}
+
+    &lt;div class=&quot;contents row&quot;&gt;
+        &lt;div class=&quot;container&quot;&gt;
+            &lt;h2&gt;Sign up&lt;/h2&gt;
+            {% if form.errors %}
+            &lt;div class=&quot;error&quot;&gt;
+                &lt;p&gt;入力にエラーがあります。もう一度ご確認ください。&lt;/p&gt;
+                {{ form.non_field_errors }}
+            &lt;/div&gt;
+        {% endif %}
+            &lt;div class=&quot;field&quot;&gt;
+                {{ form.nickname.label_tag }}
+                {{ form.nickname }}
+                {% if form.nickname.errors %}
+                &lt;ul class=&quot;errorlist&quot;&gt;
+                    {% for error in form.nickname.errors %}
+                        &lt;li&gt;{{ error }}&lt;/li&gt;
+                    {% endfor %}
+                &lt;/ul&gt;
+                {% endif %}
+            &lt;/div&gt;
+
+            &lt;div class=&quot;field&quot;&gt;
+                {{ form.email.label_tag  }}
+                {{ form.email }}
+                {% if form.email.errors %}
+                &lt;ul class=&quot;errorlist&quot;&gt;
+                    {% for error in form.email.errors %}
+                        &lt;li&gt;{{ error }}&lt;/li&gt;
+                    {% endfor %}
+                &lt;/ul&gt;
+                {% endif %}
+            &lt;/div&gt;
+
+            &lt;div class=&quot;field&quot;&gt;
+                {{ form.password1.label_tag  }}&lt;a&gt;(英数字含む8文字以上)&lt;/a&gt;
+                {{ form.password1 }}
+                {% if form.password1.errors %}
+                &lt;ul class=&quot;errorlist&quot;&gt;
+                    {% for error in form.password1.errors %}
+                        &lt;li&gt;{{ error }}&lt;/li&gt;
+                    {% endfor %}
+                &lt;/ul&gt;
+                {% endif %}
+            &lt;/div&gt;
+
+            &lt;div class=&quot;field&quot;&gt;
+                {{ form.password2.label_tag  }}
+                {{ form.password2 }}
+                {% if form.password2.errors %}
+                &lt;ul class=&quot;errorlist&quot;&gt;
+                    {% for error in form.password2.errors %}
+                        &lt;li&gt;{{ error }}&lt;/li&gt;
+                    {% endfor %}
+                &lt;/ul&gt;
+                {% endif %}
+            &lt;/div&gt;
+
+            &lt;div class=&quot;actions&quot;&gt;
+                &lt;input type=&quot;submit&quot; value=&quot;Sign Up&quot;&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+&lt;/form&gt;
+{% endblock content %}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>
