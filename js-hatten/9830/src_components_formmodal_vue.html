@@ -16,7 +16,7 @@
 <pre class="language-javascript" data-line="4,7,8,9,14"><code>&lt;script setup&gt;
 (省略)
 
-const emit = defineEmits(&#x27;close-modal&#x27;)  //追加
+const emit = defineEmits([&#x27;close-modal&#x27;])  //追加
 
 // closeModal関数を追加
 const closeModal = () =&gt; {
