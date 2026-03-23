@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java" data-line="3,10,12,13,16,17,18,19,20,23,37,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74"><code>package in.tech_camp.chat_app.system;
+
+import java.sql.Timestamp;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mock.web.MockHttpSession;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.web.servlet.MockMvc;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+
+import in.tech_camp.chat_app.ChatAppApplication;
+import in.tech_camp.chat_app.entity.MessageEntity;
+import in.tech_camp.chat_app.entity.RoomEntity;
+import in.tech_camp.chat_app.entity.RoomUserEntity;
+import in.tech_camp.chat_app.entity.UserEntity;
+import in.tech_camp.chat_app.factories.MessageFromFactory;
+import in.tech_camp.chat_app.factories.RoomFormFactory;
+import in.tech_camp.chat_app.factories.UserFormFactory;
+import in.tech_camp.chat_app.form.MessageForm;
+import in.tech_camp.chat_app.form.RoomForm;
+import in.tech_camp.chat_app.form.UserForm;
+import in.tech_camp.chat_app.repository.MessageRepository;
+import in.tech_camp.chat_app.repository.RoomRepository;
+import in.tech_camp.chat_app.repository.RoomUserRepository;
+import in.tech_camp.chat_app.service.UserService;
+import in.tech_camp.chat_app.support.LoginSupport;
+
+@ActiveProfiles(&quot;test&quot;)
+@SpringBootTest(classes = ChatAppApplication.class)
+@AutoConfigureMockMvc
+public class RoomIntegrationTest {
+// 省略
+
+  @Test
+  public void チャットルームを削除すると関連するメッセージがすべて削除されている() throws Exception {
+    // サインインする
+    MockHttpSession session = LoginSupport.login(mockMvc, userForm1);
+
+    // 作成したチャットルームへ遷移する
+    mockMvc.perform(get(&quot;/rooms/{roomId}/messages&quot;, roomEntity.getId()).session(session))
+            .andExpect(status().isOk())
+            .andExpect(view().name(&quot;messages/index&quot;));;
+
+    // メッセージ情報を5つDBに追加する
+    for (int i = 0; i &lt; 5; i++) {
+        MessageEntity message = new MessageEntity();
+        message.setContent(messageForm.getContent());
+        message.setCreatedAt(new Timestamp(System.currentTimeMillis()));
+        message.setUser(userEntity1);
+        message.setRoom(roomEntity);
+        messageRepository.insert(message);
+    }
+
+    long initialCount = messageRepository.count();
+
+    // チャットルームを削除するとトップページに遷移することを確認する
+    mockMvc.perform(post(&quot;/rooms/{roomId}/delete&quot;, roomEntity.getId()).session(session).with(csrf()))
+        .andExpect(status().isFound())
+        .andExpect(redirectedUrl(&quot;/&quot;));
+        
+    // 作成した5つのメッセージが削除されていることを確認する
+    long afterCount = messageRepository.count();
+    assertEquals(initialCount - 5, afterCount);
+  }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

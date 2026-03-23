@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code>posts = Post.objects.all()
+# =&gt; Postモデル（postsテーブル）の全てのデータを取得する
+
+post = Post.objects.get(id=2)
+# =&gt; Postモデル（postsテーブル）の2番目のデータを取得する
+
+new_post = Post.objects.create(title=&#x27;New Post&#x27;, content=&#x27;This is a new post content&#x27;)
+# =&gt; 新しいレコードを生成して保存する
+
+post = Post.objects.get(id=1)
+post.title = &#x27;Updated Title&#x27;
+post.save()
+# =&gt; 既存のレコードを更新して保存する</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

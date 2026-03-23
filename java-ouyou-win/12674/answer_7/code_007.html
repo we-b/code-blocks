@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-markup"><code>  &lt;div class=&quot;messages&quot;&gt;
+    &lt;div th:each=&quot;message : ${messages}&quot; class=&quot;message&quot;&gt;
+      &lt;div class=&quot;upper-message&quot;&gt;
+        &lt;div class=&quot;message-user&quot; th:text=&quot;${message.user.name}&quot;&gt;ユーザー名&lt;/div&gt;
+        &lt;div class=&quot;message-date&quot; th:text=&quot;${message.createdAt}&quot;&gt;日付&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;lower-message&quot;&gt;
+        &lt;div class=&quot;message-content&quot; th:text=&quot;${message.content}&quot;&gt;メッセージ内容&lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

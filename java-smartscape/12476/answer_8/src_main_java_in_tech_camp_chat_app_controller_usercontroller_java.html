@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java" data-line="6,7,9,11,12,15,18,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42"><code>package in.tech_camp.chat_app.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import in.tech_camp.chat_app.entity.UserEntity;
+import in.tech_camp.chat_app.form.UserForm;
+import in.tech_camp.chat_app.repository.UserRepository;
+import lombok.AllArgsConstructor;
+
+@Controller
+@AllArgsConstructor
+public class UserController {
+
+  private final UserRepository userRepository;
+
+  @GetMapping(&quot;/users/sign_up&quot;)
+  public String showSignUp(Model model){
+    model.addAttribute(&quot;userForm&quot;, new UserForm());
+    return &quot;users/signUp&quot;;
+  }
+
+  @PostMapping(&quot;/user&quot;)
+  public String createUser(@ModelAttribute(&quot;userForm&quot;) UserForm userForm, Model model) {
+    UserEntity userEntity = new UserEntity();
+    userEntity.setName(userForm.getName());
+    userEntity.setEmail(userForm.getEmail());
+    userEntity.setPassword(userForm.getPassword());
+
+    try {
+      userRepository.insert(userEntity);
+    } catch (Exception e) {
+      System.out.println(&quot;エラー：&quot; + e);
+      model.addAttribute(&quot;userForm&quot;, userForm);
+      return &quot;users/signUp&quot;;
+    }
+
+    return &quot;redirect:/&quot;;
+  }
+
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

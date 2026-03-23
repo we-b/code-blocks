@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java" data-line="6,8,9,11,33,34,39,40,41,46,47,48,53,54,55,56,61,62,63,71,72,73,74,75,80,81,82,83,88,89,90,91,92,97,98,99,100"><code>package in.tech_camp.chat_app.form;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+import static org.mockito.ArgumentMatchers.anyString;
+import org.mockito.Mockito;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.mock.web.MockMultipartFile;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.validation.BindingResult;
+
+import in.tech_camp.chat_app.factories.MessageFromFactory;
+
+@ActiveProfiles(&quot;test&quot;)
+@SpringBootTest
+public class MessageFormUnitTest {
+  private MessageForm messageForm;
+  private BindingResult bindingResult;
+
+  @BeforeEach
+  public void setUp() {
+    messageForm = MessageFromFactory.createMessage();
+    bindingResult = Mockito.mock(BindingResult.class);
+  }
+
+  @Nested
+  class メッセージが投稿できる場合 {
+    @Test
+    public void contentとimageが存在していれば保存できる () {
+      messageForm.validateMessage(bindingResult);
+      verify(bindingResult, never()).rejectValue(anyString(), anyString(), anyString());
+    }
+
+    @Test
+    public void contentが空でも保存できる () {
+      messageForm.setContent(&quot;&quot;);
+      messageForm.validateMessage(bindingResult);
+      verify(bindingResult, never()).rejectValue(anyString(), anyString(), anyString());
+    }
+
+    @Test
+    public void contentがnullでも保存できる () {
+      messageForm.setContent(null);
+      messageForm.validateMessage(bindingResult);
+      verify(bindingResult, never()).rejectValue(anyString(), anyString(), anyString());
+    }
+
+    @Test
+    public void imageが空でも保存できる () {
+      MockMultipartFile emptyFile = new MockMultipartFile(&quot;image&quot;, &quot;empty.jpg&quot;, &quot;image/jpeg&quot;, new byte[0]);
+      messageForm.setImage(emptyFile);
+      messageForm.validateMessage(bindingResult);
+      verify(bindingResult, never()).rejectValue(anyString(), anyString(), anyString());
+    }
+
+    @Test
+    public void imageがnullでも保存できる () {
+      messageForm.setImage(null);
+      messageForm.validateMessage(bindingResult);
+      verify(bindingResult, never()).rejectValue(anyString(), anyString(), anyString());
+    }
+  }
+
+  @Nested
+  class メッセージが投稿できない場合 {
+    @Test
+    public void contentが空かつimageが空ファイルだと保存できない() {
+      messageForm.setContent(&quot;&quot;);
+      MockMultipartFile emptyFile = new MockMultipartFile(&quot;image&quot;, &quot;empty.jpg&quot;, &quot;image/jpeg&quot;, new byte[0]);
+      messageForm.setImage(emptyFile);
+      messageForm.validateMessage(bindingResult);
+      verify(bindingResult).rejectValue(&quot;Content&quot;, &quot;error.Message&quot;, &quot;Please enter either content or image&quot;);
+    }
+
+    @Test
+    public void contentが空かつimageがnullだと保存できない() {
+      messageForm.setContent(&quot;&quot;);
+      messageForm.setImage(null);
+      messageForm.validateMessage(bindingResult);
+      verify(bindingResult).rejectValue(&quot;Content&quot;, &quot;error.Message&quot;,&quot;Please enter either content or image&quot;);
+    }
+
+    @Test
+    public void contentがnullかつimageが空ファイルだと保存できない() {
+      messageForm.setContent(null);
+      MockMultipartFile emptyFile = new MockMultipartFile(&quot;image&quot;, &quot;empty.jpg&quot;, &quot;image/jpeg&quot;, new byte[0]);
+      messageForm.setImage(emptyFile);
+      messageForm.validateMessage(bindingResult);
+      verify(bindingResult).rejectValue(&quot;Content&quot;,&quot;error.Message&quot;,&quot;Please enter either content or image&quot;);
+    }
+
+    @Test
+    public void contentがnullかつimageがnullだと保存できない() {
+      messageForm.setContent(null);
+      messageForm.setImage(null);
+      messageForm.validateMessage(bindingResult);
+      verify(bindingResult).rejectValue(&quot;Content&quot;,&quot;error.Message&quot;,&quot;Please enter either content or image&quot;);
+    }
+  }
+}
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>
