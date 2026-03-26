@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-markup" data-line="5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22"><code>（省略）
+  &lt;header class=&quot;header&quot;&gt;
+    &lt;div class=&quot;header__bar row&quot;&gt;
+      &lt;h1 class=&quot;grid-6&quot;&gt;&lt;a href=&quot;/&quot;&gt;PicTweet&lt;/a&gt;&lt;/h1&gt;
+      {% if user.is_authenticated %}
+        &lt;div class=&quot;user_nav grid-6&quot;&gt;
+          &lt;span&gt;{{ user.nickname }}
+            &lt;ul class=&quot;user__info&quot;&gt;
+                &lt;li&gt;
+                  &lt;a href=&quot;&quot;&gt;マイページ&lt;/a&gt;
+                  &lt;a href=&quot;{% url &#x27;users:logout&#x27; %}&quot;&gt;ログアウト&lt;/a&gt;
+                &lt;/li&gt;
+            &lt;/ul&gt;
+          &lt;/span&gt;
+          &lt;a class=&quot;post&quot; href=&quot;{% url &#x27;Tweets:create&#x27; %}&quot;&gt;投稿する&lt;/a&gt;
+        &lt;/div&gt;
+      {% else %}
+        &lt;div class=&quot;grid-6&quot;&gt;
+          &lt;a class=&quot;post&quot; href={% url &quot;users:sign_in&quot; %}&gt;ログイン&lt;/a&gt;
+          &lt;a class=&quot;post&quot; href={% url &quot;users:sign_up&quot; %}&gt;新規登録&lt;/a&gt;
+        &lt;/div&gt;
+      {% endif %}
+    &lt;/div&gt;
+  &lt;/header&gt;
+（省略）</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

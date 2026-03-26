@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript" data-line="6,7,8,9,10,11,12,13"><code>function post (){
+  const form = document.querySelector(&#x27;form&#x27;);
+  const csrfToken = document.querySelector(&#x27;[name=csrfmiddlewaretoken]&#x27;).value;
+  form.addEventListener(&#x27;submit&#x27;, () =&gt; {
+    const formData = new FormData(form);
+    fetch(&#x27;&#x27;, {
+      method: &#x27;POST&#x27;,
+      body: formData,
+      headers: {
+          &#x27;X-Requested-With&#x27;: &#x27;XMLHttpRequest&#x27;,
+          &#x27;X-CSRFToken&#x27;: csrfToken
+      }
+    })
+  });
+};
+
+window.addEventListener(&#x27;DOMContentLoaded&#x27;, post);</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code>class TestUserSignUpFailureCase(TestUser):
+    # 誤った情報ではユーザー新規登録ができずに新規登録ページへ戻ってくる
+    def test_user_cannot_signup_with_invalid_information(self):
+        # トップページに移動する
+        self.driver.get(f&quot;{self.live_server_url}/&quot;)
+        
+        # トップページにサインアップページへ遷移するボタンがあることを確認する
+        signup_link = self.driver.find_element(By.LINK_TEXT, &quot;新規登録&quot;)
+        self.assertTrue(signup_link.is_displayed())
+        
+        # 新規登録ページへ移動する
+        self.driver.get(f&quot;{self.live_server_url}/users/sign_up/&quot;)
+        
+        # 誤ったユーザー情報を入力する（全て空欄）
+        self.driver.find_element(By.NAME, &quot;nickname&quot;).send_keys(&quot;&quot;)
+        self.driver.find_element(By.NAME, &quot;email&quot;).send_keys(&quot;&quot;)
+        self.driver.find_element(By.NAME, &quot;password1&quot;).send_keys(&quot;&quot;)
+        self.driver.find_element(By.NAME, &quot;password2&quot;).send_keys(&quot;&quot;)
+        
+        # サインアップボタンを押してもユーザーモデルのカウントは上がらないことを確認する
+        user_count = User.objects.count()
+        self.driver.find_element(By.CSS_SELECTOR, &quot;input[type=&#x27;submit&#x27;]&quot;).click()
+        self.assertEqual(User.objects.count(), user_count)
+        
+        # 新規登録ページへ戻されることを確認する
+        current_url = self.driver.current_url
+        self.assertTrue(&quot;/users/sign_up/&quot; in current_url)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

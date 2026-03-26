@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code>from django.db import transaction
+from .models import BankAccount
+
+def transfer_money(sender_account_number, receiver_account_number, amount):
+    try:
+        with transaction.atomic():
+            sender = BankAccount.objects.select_for_update().get(account_number=sender_account_number)
+            receiver = BankAccount.objects.select_for_update().get(account_number=receiver_account_number)
+
+            if sender.balance &lt; amount:
+                raise ValueError(&quot;送金元の口座の残高が不足しています。&quot;)
+
+            sender.balance -= amount
+            sender.save()
+
+            receiver.balance += amount
+            receiver.save()
+    except BankAccount.DoesNotExist:
+        print(&quot;送金先または送金元の口座が存在しません。&quot;)
+    except Exception as e:
+        print(f&quot;送金に失敗しました: {e}&quot;)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>
