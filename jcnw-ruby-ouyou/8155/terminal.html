@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-bash"><code>% rails c
+[1] pry(main)&gt; @user = FactoryBot.build(:user)
+  (4.3ms)  SET NAMES utf8,  @@SESSION.sql_mode = CONCAT(CONCAT(@@sql_mode, &#x27;,STRICT_ALL_TABLES&#x27;), &#x27;,NO_AUTO_VALUE_ON_ZERO&#x27;),  @@SESSION.sql_auto_is_null = 0, @@SESSION.wait_timeout = 2147483
+=&gt; #&lt;User id: nil, email: &quot;judie@gmail.com&quot;, created_at: nil, updated_at: nil, nickname: &quot;GP&quot;&gt;
+[2] pry(main)&gt; @user.valid?
+  User Exists? (10.3ms)  SELECT 1 AS one FROM `users` WHERE `users`.`email` = BINARY &#x27;judie@gmail.com&#x27; LIMIT 1
+=&gt; true</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+</body>
+</html>

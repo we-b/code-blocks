@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>require &#x27;rails_helper&#x27;
+
+# ツイート投稿、編集、削除の結合テストコードは省略しています
+# ツイート削除の結合テストコードに続いて記述しましょう
+
+RSpec.describe &#x27;ツイート詳細&#x27;, type: :system do
+  before do
+    @tweet = FactoryBot.create(:tweet)
+  end
+  it &#x27;ログインしたユーザーはツイート詳細ページに遷移してコメント投稿欄が表示される&#x27; do
+    # ログインする
+    # ツイートに「詳細」へのリンクがあることを確認する
+    # 詳細ページに遷移する
+    # 詳細ページにツイートの内容が含まれている
+    # コメント用のフォームが存在する
+  end
+  it &#x27;ログインしていない状態でツイート詳細ページに遷移できるもののコメント投稿欄が表示されない&#x27; do
+    # トップページに移動する
+    # ツイートに「詳細」へのリンクがあることを確認する
+    # 詳細ページに遷移する
+    # 詳細ページにツイートの内容が含まれている
+    # フォームが存在しないことを確認する
+    # 「コメントの投稿には新規登録/ログインが必要です」が表示されていることを確認する
+  end
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

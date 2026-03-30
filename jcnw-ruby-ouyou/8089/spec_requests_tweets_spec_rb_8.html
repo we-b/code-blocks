@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby" data-line="11,12,13,14,15,16,17,18,19,20"><code>require &#x27;rails_helper&#x27;
+describe TweetsController, type: :request do
+
+  before do
+    @tweet = FactoryBot.create(:tweet)
+  end
+
+  #indexアクションにリクエストした際のテストコードは省略しています。
+  #indexアクションのテストコードに続いて記述してください。
+
+  describe &#x27;GET #show&#x27; do
+    it &#x27;showアクションにリクエストすると正常にレスポンスが返ってくる&#x27; do 
+    end
+    it &#x27;showアクションにリクエストするとレスポンスに投稿済みのツイートのテキストが存在する&#x27; do 
+    end
+    it &#x27;showアクションにリクエストするとレスポンスに投稿済みのツイートの画像URLが存在する&#x27; do 
+    end
+    it &#x27;showアクションにリクエストするとレスポンスにコメント一覧表示部分が存在する&#x27; do 
+    end
+  end 
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-bash"><code>[1] pry(main)&gt; user.errors
+=&gt; #&lt;ActiveModel::Errors:0x00007fba4d3e0a80
+ @base=#&lt;User id: nil, email: &quot;&quot;, created_at: nil, updated_at: nil, nickname: &quot;test&quot;&gt;,
+ @details={:email=&gt;[{:error=&gt;:blank}]},
+ @messages={:email=&gt;[&quot;can&#x27;t be blank&quot;]}&gt;
+[2] pry(main)&gt; user.errors.full_messages
+=&gt; [&quot;Email can&#x27;t be blank&quot;]</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+</body>
+</html>
