@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-bash"><code># 足し算
+irb(main):001:0&gt; 1000 + 2000
+=&gt; 3000
+
+# 引き算
+irb(main):002:0&gt; 3000 - 1500
+=&gt; 1500
+
+# 掛け算
+irb(main):003:0&gt; 50 * 40
+=&gt; 2000
+
+# 割り算
+irb(main):004:0&gt; 600 / 15
+=&gt; 40
+
+# 剰余演算（5 ÷ 2をした余り）
+irb(main):005:0&gt; 5 % 2
+=&gt; 1</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-bash"><code># 文字列と数値を連結させようとするとエラーが発生
+irb(main):001:0&gt; &quot;i am &quot; + 20 + &quot; years old.&quot;
+Traceback (most recent call last):
+        5: from /Users/daihi/.rbenv/versions/2.7.0/bin/irb:23:in `&lt;main&gt;&#x27;
+        4: from /Users/daihi/.rbenv/versions/2.7.0/bin/irb:23:in `load&#x27;
+        3: from /Users/daihi/.rbenv/versions/2.7.0/lib/ruby/gems/2.7.0/gems/irb-1.2.1/exe/irb:11:in `&lt;top (required)&gt;&#x27;
+        2: from (irb):1
+        1: from (irb):1:in `+&#x27;
+TypeError (no implicit conversion of Integer into String)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+</body>
+</html>

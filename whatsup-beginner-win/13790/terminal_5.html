@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-bash"><code>% rails s
+# rails sコマンドを実行すると、以下のように情報が一気に表示され、コマンドが入力できなくなります
+
+=&gt; Booting Puma
+=&gt; Rails 7.1.4.3 application starting in development
+=&gt; Run `bin/rails server --help` for more startup options
+Puma starting in single mode...
+* Puma version: 5.6.5 (ruby 3.2.0-p0) (&quot;Birdie&#x27;s Version&quot;)
+*  Min threads: 5
+*  Max threads: 5
+*  Environment: development
+*          PID: 41905
+* Listening on http://127.0.0.1:3000
+* Listening on http://[::1]:3000
+* Listening on http://127.51.68.120:3000
+Use Ctrl-C to stop</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+</body>
+</html>

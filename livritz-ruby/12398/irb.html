@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-bash"><code># 1は20より小さいか？
+irb(main):001:0&gt; 1 &lt; 20
+=&gt; true
+
+# 5は5以下か？
+irb(main):002:0&gt; 5 &lt;= 5
+=&gt; true
+
+# 1は20より大きいか？
+irb(main):003:0&gt; 1 &gt; 20
+=&gt; false
+
+# 5は5以上か？
+irb(main):004:0&gt; 5 &gt;= 5
+=&gt; true
+
+# 2 × 5は10と等しいか？
+irb(main):005:0&gt; 2 * 5 == 10
+=&gt; true
+
+# 10は20と等しいか？
+irb(main):006:0&gt; 10 == 20
+=&gt; false</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+</body>
+</html>

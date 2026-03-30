@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby" data-line="29"><code>source &quot;https://rubygems.org&quot;
+git_source(:github) { |repo| &quot;https://github.com/#{repo}.git&quot; }
+
+ruby &quot;3.2.0&quot;
+
+# Bundle edge Rails instead: gem &quot;rails&quot;, github: &quot;rails/rails&quot;, branch: &quot;main&quot;
+gem &quot;rails&quot;, &quot;~&gt; 7.0.0&quot;
+
+# The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
+gem &quot;sprockets-rails&quot;
+
+# Use mysql as the database for Active Record
+gem &quot;mysql2&quot;, &quot;~&gt; 0.5&quot;
+
+# Use the Puma web server [https://github.com/puma/puma]
+gem &quot;puma&quot;, &quot;~&gt; 5.0&quot;
+
+...
+（中略）
+...
+
+group :test do
+  # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
+  gem &quot;capybara&quot;
+  gem &quot;selenium-webdriver&quot;
+  gem &quot;webdrivers&quot;
+end
+
+gem &#x27;pry-rails&#x27;
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

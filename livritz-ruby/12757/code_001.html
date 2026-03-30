@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>prefecture = [&#x27;北海道&#x27;, &#x27;青森&#x27;, &#x27;...(省略)...&#x27;, &#x27;沖縄&#x27;]
+
+def select_prefecture(prefecture, category)
+  num = gets.to_i
+  if category == &#x27;birthplace&#x27;
+    birthplace = prefecture[num]
+    puts birthplace
+  elsif category == &#x27;address&#x27;
+    address = prefecture[num]
+    puts address
+  elsif category == &#x27;work_address&#x27;
+    work_address = prefecture[num]
+    puts work_address
+  end
+end
+
+select_prefecture(prefecture, &#x27;birthplace&#x27;)
+select_prefecture(prefecture, &#x27;address&#x27;)
+select_prefecture(prefecture, &#x27;work_address&#x27;)
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

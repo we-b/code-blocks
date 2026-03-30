@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-markup" data-line="18"><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;TechChat&lt;/title&gt;
+    &lt;%= csrf_meta_tags %&gt;
+    &lt;%= csp_meta_tag %&gt;
+    &lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.googleapis.com&quot;&gt;   
+    &lt;link rel=&quot;preconnect&quot; href=&quot;https://fonts.gstatic.com&quot; crossorigin&gt;
+    &lt;link href=&quot;https://fonts.googleapis.com/css2?family=Roboto:wght@100&amp;display=swap&quot; rel=&quot;stylesheet&quot;&gt;
+    &lt;%= stylesheet_link_tag &#x27;application&#x27;, media: &#x27;all&#x27;, &#x27;data-turbolinks-track&#x27;: &#x27;reload&#x27; %&gt;
+    &lt;%= javascript_pack_tag &#x27;application&#x27;, &#x27;data-turbolinks-track&#x27;: &#x27;reload&#x27; %&gt;
+  &lt;/head&gt;
+
+  &lt;body&gt;
+    &lt;header&gt;
+      &lt;div class=&#x27;header-contents&#x27;&gt;
+        &lt;div class=&#x27;logo&#x27;&gt;
+          &lt;%= link_to &#x27;TechChat&#x27;, root_path %&gt;
+        &lt;/div&gt;
+        &lt;div class=&#x27;post-button&#x27;&gt;
+          &lt;%= link_to &#x27;質問する&#x27;, new_question_path %&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/header&gt;
+
+    &lt;%= yield %&gt;
+  &lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

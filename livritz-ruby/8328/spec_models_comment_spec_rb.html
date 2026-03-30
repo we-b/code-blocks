@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby" data-line="15,16,17,21,22,23"><code>require &#x27;rails_helper&#x27;
+
+RSpec.describe Comment, type: :model do
+  before do
+    @comment = FactoryBot.build(:comment)
+  end
+
+  it &#x27;textカラムが空の場合コメントは保存できない&#x27; do
+    @comment.text = &#x27;&#x27;
+    @comment.valid?
+    expect(@comment.errors.full_messages).to include(&quot;Text can&#x27;t be blank&quot;)
+  end
+
+  it &#x27;ユーザーが紐付いていないとコメントは保存できない&#x27; do
+    @comment.user = nil
+    @comment.valid?
+    expect(@comment.errors.full_messages).to include(&#x27;User must exist&#x27;)
+  end
+
+  it &#x27;ツイートが紐付いていないとコメントは保存できない&#x27; do
+    @comment.tweet = nil
+    @comment.valid?
+    expect(@comment.errors.full_messages).to include(&#x27;Tweet must exist&#x27;)
+  end
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

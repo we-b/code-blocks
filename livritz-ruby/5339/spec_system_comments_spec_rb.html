@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby" data-line="9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26"><code>require &#x27;rails_helper&#x27;
+
+RSpec.describe &#x27;コメント投稿&#x27;, type: :system do
+  before do
+    @tweet = FactoryBot.create(:tweet)
+    @comment = Faker::Lorem.sentence
+  end
+  it &#x27;ログインしたユーザーはツイート詳細ページでコメント投稿できる&#x27; do
+    # ログインする
+    visit new_user_session_path
+    fill_in &#x27;Email&#x27;, with: @tweet.user.email
+    fill_in &#x27;Password&#x27;, with: @tweet.user.password
+    find(&#x27;input[name=&quot;commit&quot;]&#x27;).click
+    expect(current_path).to eq(root_path)
+    # ツイート詳細ページに遷移する
+    visit tweet_path(@tweet)
+    # フォームに情報を入力する
+    fill_in &#x27;comment_text&#x27;, with: @comment
+    # コメントを送信すると、Commentモデルのカウントが1上がることを確認する
+    expect{
+      find(&#x27;input[name=&quot;commit&quot;]&#x27;).click
+    }.to change { Comment.count }.by(1)
+    # 詳細ページにリダイレクトされることを確認する
+    expect(current_path).to eq(tweet_path(@tweet))
+    # 詳細ページ上に先ほどのコメント内容が含まれていることを確認する
+    expect(page).to have_content @comment
+  end
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>
