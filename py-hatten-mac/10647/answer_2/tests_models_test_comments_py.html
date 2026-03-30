@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code>from django.test import TestCase
+from django.core.exceptions import ValidationError
+from ..factories.users import UserFactory
+from ..factories.tweets import TweetFactory
+from ..factories.comments import CommentFactory
+
+class CommentModelTestCase(TestCase):
+    def setUp(self):
+        self.user = UserFactory.create()
+        self.tweet = TweetFactory.create(user=self.user)
+        self.comment = CommentFactory.build(user=self.user,tweet=self.tweet)
+
+    def test_text_cannot_be_blank(self):
+        self.comment.text = &#x27;&#x27;
+        with self.assertRaises(ValidationError) as cm:
+            self.comment.full_clean()
+
+        self.assertIn(&#x27;text&#x27;, cm.exception.message_dict)
+        self.assertEqual(cm.exception.message_dict[&#x27;text&#x27;], [&quot;このフィールドは空ではいけません。&quot;])</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>
