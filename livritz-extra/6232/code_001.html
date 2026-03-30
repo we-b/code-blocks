@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>class Product
+  def sell
+    notification
+    output_price
+  end
+
+  private
+
+  def output_price
+    raise &#x27;サブクラスで価格の表示は行ってください&#x27;
+  end
+
+  def notification
+    puts &#x27;商品をお買い求めですか？&#x27;
+    puts &#x27;商品の購入にはカードもしくは現金が使えます&#x27;
+  end
+end
+
+class Bicycle &lt; Product
+  def initialize
+    @name = &#x27;自転車&#x27;
+  end
+
+  private
+
+  def output_price
+    puts &#x27;商品の値段は20000円です&#x27;
+  end
+end
+
+class GameCassette &lt; Product
+  def initialize
+    @name = &#x27;ゲームカセット&#x27;
+  end
+
+  private
+
+  def output_price
+    puts &#x27;商品の値段は5000円です&#x27;
+  end
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

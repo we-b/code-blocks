@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>class FileManager
+  def initialize(path)
+    # path名のファイルを作成。
+    @file = File.open(path, &quot;w&quot;)
+    @line_number = 1
+  end
+
+  def write_line_with_number(text)
+    @file.print(&quot;#{@line_number}:#{text}&quot;)
+    @file.print(&quot;\n&quot;)
+    @line_number += 1
+  end
+
+  def write_line_with_blank(text)
+    @file.print(text)
+    @file.print(&quot;\n\n&quot;)
+  end
+end
+
+line_file = FileManager.new(&#x27;line.txt&#x27;)
+line_file.write_line_with_number(&#x27;1行目へ記述するテキストです。&#x27;)
+line_file.write_line_with_number(&#x27;2行目へ記述するテキストです。&#x27;)
+line_file.write_line_with_number(&#x27;3行目へ記述するテキストです。&#x27;)
+
+blank_file = FileManager.new(&#x27;blank.txt&#x27;)
+blank_file.write_line_with_blank(&#x27;1行目に記述し、次は1行空行にします。&#x27;)
+blank_file.write_line_with_blank(&#x27;3行目に記述し、次は1行空行にします。&#x27;)
+blank_file.write_line_with_blank(&#x27;5行目に記述し、次は1行空行にします。&#x27;)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

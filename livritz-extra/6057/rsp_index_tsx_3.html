@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript" data-line="15,16,20,21"><code>import React from &quot;react&quot;;
+import { Link } from &quot;react-router-dom&quot;;
+import Hand from &quot;../../components/hand&quot;;
+
+enum HandType {
+  Rock,
+  Scissors,
+  Paper
+}
+
+interface State {
+  selectHand: HandType;
+}
+
+// ジェネリックでStateの型をinterface Stateに設定
+export default class Index extends React.Component&lt;{}, State&gt; {
+  constructor(props: {}) {
+    super(props);
+    this.state = {
+// Stateの値の型が決まったので、Enum型HandTypeに値を置き換える
+      selectHand: HandType.Rock,
+    };
+  }
+
+
+  render() {
+// 以下略</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

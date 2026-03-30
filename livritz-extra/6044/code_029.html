@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>
+# 従業員クラス
+class Employee
+  attr_reader :name, :salary
+
+  # 初期化時に、名前と給料と、担当上司を設定
+  def initialize(name, salary, manager)
+    @name = name
+    @salary = salary
+    @manager = manager
+  end
+
+  # 給料を更新するメソッド。上司への通知もここで行う
+  def salary=(new_salary)
+    @salary = new_salary
+    @manager.update(self) # 情報を上司に送信
+  end
+end
+
+# 上司クラス
+class Maneger
+  def update(changed_employee)
+    puts &quot;#{changed_employee.name}さんの給料は#{changed_employee.salary}円です！&quot;
+  end
+end
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

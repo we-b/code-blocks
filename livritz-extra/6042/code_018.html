@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby" data-line="10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,29,30,31,32,36,37,38,39"><code>class Mail
+  def initialize
+    @name = &quot;田中 太郎&quot;
+    @mail_addr = &quot;sample@test.com&quot;
+    @company = &quot;株式会社テックキャンプ &quot;
+    @addr = &quot;東京都渋谷区1-1-1&quot;
+    @line = &quot;■----------------------------------■&quot;
+  end
+
+  # メールを実際に出力するメソッド
+  def output_mail
+  end
+
+  private
+  # 挨拶を定義するメソッド
+  def output_greeting
+  end
+
+  # 抽象メソッド
+  def output_body
+  end
+
+  # 会社情報を定義するメソッド
+  def output_info
+  end
+end
+
+class DoneMail &lt; Mail
+  private
+  # 抽象メソッドを上書き
+  def output_body
+  end
+end
+
+class IntroductionMail &lt; Mail
+  private
+  # 抽象メソッドを上書き
+  def output_body
+  end
+end
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

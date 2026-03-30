@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>puts &#x27;名前を入力してください&#x27;
+name       = gets.chomp
+puts &#x27;部署名を入力してください&#x27;
+department = gets.chomp
+puts &#x27;社員番号を入力してください&#x27;
+number     = gets.to_i
+puts &#x27;メールアドレスを入力してください&#x27;
+address    = gets.chomp
+
+puts &quot;社員情報が登録できました&quot;
+puts &quot;名前:#{name}&quot;
+puts &quot;部署名:#{department}&quot;
+puts &quot;社員番号:#{number}&quot;
+puts &quot;メールアドレス:#{address}&quot;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

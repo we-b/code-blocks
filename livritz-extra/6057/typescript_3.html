@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript"><code>// インターフェイスを定義
+[①]
+
+class Store{
+ display_food = ([②]): [③]{
+   console.log(product.name)
+ }
+ display_price = ([②]): [③]{
+   console.log(product.name)
+ }
+
+}
+  
+const product: [④] = {
+ genre: &quot;食べ物&quot;,
+ name: &quot;肉まん&quot;,
+ price: 170
+}
+
+const store = new Store()
+store.display_food(product)
+store.display_price(product)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

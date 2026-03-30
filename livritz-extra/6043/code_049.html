@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>class Mail
+  attr_reader :name, :mail_addr, :company, :addr, :line
+  attr_accessor :elements
+  def initialize(elements)
+    @name = &#x27;田中 太郎&#x27;
+    @mail_addr = &#x27;sample@test.com&#x27;
+    @company = &#x27;株式会社テックキャンプ &#x27;
+    @addr = &#x27;東京都渋谷区1-1-1&#x27;
+    @line = &#x27;■----------------------------------■&#x27;
+    @elements = elements
+  end
+  def output_mail
+    puts &quot;お世話になっております、#{name}です。&quot;
+    constract_sentence
+    puts line
+    puts &quot;#{name}\n#{mail_addr}\n#{company}\n#{addr}&quot;
+    puts line
+  end
+
+  private
+  def constract_sentence
+    elements.each do |element|
+      element.call
+    end
+  end
+end
+
+AGREEMENT = lambda do
+    puts &#x27;この度は、ご契約ありがとうございました。&#x27;
+end
+
+INTRODUCTION_PRODUCT = lambda do
+    puts &#x27;この度は、商品のご紹介です。弊社で取り扱っている「〇〇」は多くのお客様にご使用されています。&#x27;
+    puts &#x27;体験会を10/10 10:00より行っておりますので、是非ご参加ください。&#x27;
+end
+
+INFO_VACATION = lambda do
+  puts &quot;\n年末年始の休暇のお知らせ&quot;
+  puts &#x27;2020年12月29日 ～ 2021年1月3日&#x27;
+  puts &#x27;新年の営業は1月4日午前9時からとなります。&#x27;
+end
+
+INFO_CAMPAIGN = lambda do
+  puts &quot;\nまた、弊社では1月4日より「新年キャンペーン」を開催いたします。&quot;
+  puts &#x27;キャンペーンの詳細&#x27;
+  puts &quot;開催期間：#{@term}&quot;
+  puts &#x27;対象商品：〇〇 30％OFF(他のキャンペーンとは併用不可)&#x27;
+end
+
+@term = &#x27;開催期間：1月4日(月曜日) 〜 1月8日(金曜日)&#x27;
+
+elements = [ INTRODUCTION_PRODUCT, INFO_CAMPAIGN ]
+mail = Mail.new(elements)
+mail.output_mail
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

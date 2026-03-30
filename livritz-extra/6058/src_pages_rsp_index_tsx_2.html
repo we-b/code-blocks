@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript" data-line="6,10,13,15,19,27,28,29,30,31,32"><code>import React from &quot;react&quot;;
+import { Link } from &quot;react-router-dom&quot;;
+import Hand from &quot;../../components/hand&quot;;
+import { HandType } from &quot;../../interfaces/handType&quot;;
+
+interface Props {}
+
+interface State {
+  selectHand: HandType;
+  enemyHand: HandType;
+}
+
+export default class Index extends React.Component&lt;Props, State&gt; {
+  handTypes: HandType[] = [HandType.Rock, HandType.Scissors, HandType.Paper];
+  constructor(props: Props) {
+    super();
+    this.state = {
+      selectHand: HandType.Rock,
+      enemyHand:HandType.Rock,
+    };
+  }
+
+  componentDidMount() {
+    alert(&quot;手を選ぶと、勝敗が決まるよ！\n手を選んでね！&quot;);
+  }
+
+  componentDidUpdate(prevProps: Props, prevState: State) {
+    if (prevState.selectHand !== this.state.selectHand) {
+      const enemyHand: HandType = Math.floor(Math.random() * 3);
+      this.setState({ enemyHand: enemyHand });
+    }
+  }
+
+  handleOnClick = (val: HandType): void =&gt; {
+    this.setState({ selectHand: val });
+  };
+
+  render() {
+    return (
+      &lt;div
+        style={{
+          display: &quot;flex&quot;,
+          flexDirection: &quot;column&quot;,
+          alignItems: &quot;center&quot;,
+        }}
+      &gt;
+        &lt;h1&gt;じゃんけんページ&lt;/h1&gt;
+        &lt;div style={{ display: &quot;flex&quot; }}&gt;
+          {this.handTypes.map((handType: HandType) =&gt; (
+            &lt;Hand selectHand={handType} selectedHand={this.state.selectHand} clickHand={this.handleOnClick} /&gt;
+          ))}
+        &lt;/div&gt;
+        &lt;Link to=&quot;/&quot;&gt;
+          &lt;h1&gt;じゃんけんを終了する&lt;/h1&gt;
+          &lt;h4&gt;※戦績が発表されます。&lt;/h4&gt;
+        &lt;/Link&gt;
+      &lt;/div&gt;
+    );
+  }
+}
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

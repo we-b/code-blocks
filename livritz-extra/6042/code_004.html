@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>class Mail
+  def initialize
+    @name = &#x27;田中 太郎&#x27;
+    @mail_addr = &#x27;sample@test.com&#x27;
+    @company = &#x27;株式会社テックキャンプ&#x27;
+    @addr = &#x27;東京都渋谷区1-1-1&#x27;
+    @line = &#x27;■----------------------------------■&#x27;
+  end
+  def output_mail(format)
+    puts &quot;お世話になっております、#{@name}です。&quot;
+    if(format == &#x27;契約完了&#x27;)
+      puts &#x27;この度は、ご契約ありがとうございました。&#x27;
+
+    elsif (format == &#x27;商品紹介&#x27;)
+      puts &quot;お世話になっております、#{@name}です。&quot;
+      puts &#x27;この度は、商品のご紹介です。弊社で取り扱っている「〇〇」は多くのお客様にご使用されています。&#x27;
+      puts &#x27;体験会を10/10 10:00より行っておりますので、是非ご参加ください。&#x27;
+
+    elsif (format == &#x27;会社紹介&#x27;)
+      puts &#x27;先日は突然のご挨拶に対応していただき、誠にありがとうございました。&#x27;
+      puts &#x27;この度は、弊社サービスが御社の〇〇事業でお役に立てると思い、ご連絡を差し上げた次第です。&#x27;
+      puts &#x27;よろしければ、ぜひご連絡ください。&#x27;
+
+    elsif (format == &#x27;退職の挨拶&#x27;)
+      puts &#x27;このたび、一身上の都合により３月末で退社することになり、本日が最終出社日となりました。&#x27;
+      puts &#x27;本来であれば直接ご挨拶をすべきところ、メールでの挨拶にて失礼いたします。&#x27;
+      puts &#x27;在籍中はいたらぬ点もあったかと思いますが、お世話になりありがとうございました。&#x27;
+      puts &#x27;退職後の連絡先は下記になりますので、今後ともご連絡いただけると幸いです。&#x27;
+      puts &#x27;メール：hoge@mail.com&#x27;
+      puts &#x27;携帯：080-XXXX-XXXX&#x27;
+    end
+    puts @line
+    puts &quot;#{@name}\n#{@mail_addr}\n#{@company}\n#{@addr}&quot;
+    puts @line
+  end
+end
+mail = Mail.new
+mail.output_mail(&#x27;契約完了&#x27;)
+mail.output_mail(&#x27;商品紹介&#x27;)
+mail.output_mail(&#x27;会社紹介&#x27;)
+mail.output_mail(&#x27;退職の挨拶&#x27;)
+
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

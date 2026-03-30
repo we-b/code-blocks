@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-plaintext"><code>module AdsHelper
+  def ad(ad_type, image_count)
+    if ad_type == &quot;gif&quot;
+      ad_instance = Gif.new
+    elsif ad_type == &quot;image&quot;
+      ad_instance = Image.new
+    elsif ad_type == &quot;movie&quot;
+      ad_instance = Movie.new
+    end
+    ad_instance.return_html(ad_type, image_count)
+  end
+  #中略
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>
