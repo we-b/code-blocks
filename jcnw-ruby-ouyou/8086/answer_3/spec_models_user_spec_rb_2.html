@@ -13,10 +13,10 @@
     </style>
 </head>
 <body>
-<pre class="language-plaintext"><code>＠担当ライフコーチ
-見積もりを記入したので、確認をお願いします。
-〜ここに要件定義書のURLを添付しましょう〜</code></pre>
+<pre class="language-ruby"><code>it &#x27;passwordが空だと登録できない&#x27; do
+  user = User.new(nickname: &#x27;abe&#x27;, email: &#x27;kkk@gmail.com&#x27;, password: &#x27;&#x27;, password_confirmation: &#x27;00000000&#x27;)
+end</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
 </body>
 </html>

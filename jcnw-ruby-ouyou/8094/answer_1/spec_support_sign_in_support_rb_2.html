@@ -13,10 +13,16 @@
     </style>
 </head>
 <body>
-<pre class="language-plaintext"><code>＠担当ライフコーチ
-見積もりを記入したので、確認をお願いします。
-〜ここに要件定義書のURLを添付しましょう〜</code></pre>
+<pre class="language-ruby"><code>module SignInSupport
+  def sign_in(user)
+    visit new_user_session_path
+    fill_in &#x27;Email&#x27;, with: user.email
+    fill_in &#x27;Password&#x27;, with: user.password
+    find(&#x27;input[name=&quot;commit&quot;]&#x27;).click
+    expect(page).to have_current_path(root_path)
+  end
+end</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
 </body>
 </html>
