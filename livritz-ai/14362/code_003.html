@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>以下の仕様に基づき、網羅的なテストコードをJest + TypeScriptで生成し、
+「overtime.test.ts」として保存してください。
+
+【仕様】
+- 15分単位は「切り上げ」
+- 18:00ちょうどは残業に含まない（18:01から）
+- 日付跨ぎ（23:00-25:00）は終了日の残業とする
+- ...（その他回答した仕様）
+
+【含めるべきケース】
+正常系、境界値（18:00, 18:01）、異常系（null）、エッジケース（日付跨ぎ）</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>
