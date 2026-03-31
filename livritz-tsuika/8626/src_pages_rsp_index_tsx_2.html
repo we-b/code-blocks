@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript" data-line="11,12,13"><code>import React from &quot;react&quot;;
+import { Link } from &quot;react-router-dom&quot;;
+import Hand from &quot;../../components/hand&quot;;
+
+enum HandType {
+  Rock,
+  Scissors,
+  Paper
+}
+
+interface State {
+  selectHand: HandType;
+}
+
+export default class Index extends React.Component {
+
+  constructor() {
+    super();
+    this.state = {
+      selectHand: 0,
+    };
+  }
+
+  handleOnClick = (val) =&gt; {
+    this.setState({selectHand: val});
+  }
+
+  render() {
+    const handTypes = [0,1,2]
+    return (
+      &lt;div
+        style={{
+          display: &quot;flex&quot;,
+          alignItems: &quot;center&quot;,
+          flexDirection: &quot;column&quot;,
+        }}
+      &gt;
+        &lt;h1&gt;じゃんけんページ&lt;/h1&gt;
+        &lt;div style={{ display: &quot;flex&quot; }}&gt;
+          {handTypes.map((handType) =&gt; (
+            &lt;Hand selectHand={handType} selectedHand={this.state.selectHand} clickHand={this.handleOnClick} /&gt;
+          ))}
+        &lt;/div&gt;
+        &lt;Link to=&quot;/&quot;&gt;
+          &lt;h1&gt;じゃんけんを終了する&lt;/h1&gt;
+          &lt;h4&gt;※戦績が発表されます。&lt;/h4&gt;
+        &lt;/Link&gt;
+      &lt;/div&gt;
+    );
+  }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

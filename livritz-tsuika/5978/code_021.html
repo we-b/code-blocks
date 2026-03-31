@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code># 印刷機クラス
+class Printer
+def initialize(jobs)
+  @jobs = jobs
+end
+
+# ① 印刷待ちリストに追加された順に印刷できるように末尾に追加するようにしている
+def add_job(job)
+  @jobs &lt;&lt; job
+  puts &quot;#{job}を印刷待ちリストに追加します&quot;
+end
+
+# ② 印刷待ちリストに追加された順に印刷できるように印刷待ちリストの先頭を印刷
+def print
+  puts &quot;#{@jobs.shift}を印刷します&quot;
+  # ③ shiftメソッドを使用しないと元々の配列の先頭が消えない
+end
+
+def display_jobs
+  # ④ TODO: 画面に表示させるフォーマットを整える
+  puts &#x27;印刷待ちのページ&#x27;
+  puts @jobs
+end
+
+end
+
+jobs = [&#x27;１ページ目&#x27;, &#x27;２ページ目&#x27;, &#x27;３ページ目&#x27;, &#x27;４ページ目&#x27;]
+printer = Printer.new(jobs)
+printer.add_job(&#x27;５ページ目&#x27;)
+printer.print
+printer.display_jobs</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>
