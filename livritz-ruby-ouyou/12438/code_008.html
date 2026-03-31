@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-bash"><code># idが3未満のtweetsテーブルのインスタンスを配列で取得
+[1] pry(main)&gt; Tweet.where(&#x27;id &lt; 3&#x27;)
+=&gt; [＃&lt;Tweet id: 1, image: &quot;test1.jpg&quot;, text: &quot;いい景色だ。&quot;, created_at: &quot;2014-12-06 00:00:00&quot;, updated_at: &quot;2014-12-06 00:00:00&quot;, user_id: 1&gt;,＃&lt;Tweet id: 2, image: &quot;test2.jpg&quot;, text: &quot;Thank you!&quot;, created_at: &quot;2014-12-07 00:00:00&quot;, updated_at: &quot;2014-12-07 00:00:00&quot;, user_id: 2&gt;]
+
+# idが3未満かつuser_idが1のtweetsテーブルのインスタンスを配列で取得
+[2] pry(main)&gt; Tweet.where(&#x27;id &lt; 3&#x27;).where(user_id: 1)
+=&gt; [＃&lt;Tweet id: 1, image: &quot;test1.jpg&quot;, text: &quot;いい景色だ。&quot;, created_at: &quot;2014-12-06 00:00:00&quot;, updated_at: &quot;2014-12-06 00:00:00&quot;, user_id: 1&gt;]</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+</body>
+</html>
