@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>require &#x27;rails_helper&#x27;
+
+RSpec.describe User, type: :model do
+  before do
+    @user = FactoryBot.build(:user)
+  end
+
+  describe &#x27;ユーザー新規登録&#x27; do
+    context &#x27;新規登録できる場合&#x27; do
+      it &quot;nameとemail、passwordとpassword_confirmationが存在すれば登録できる&quot; do
+        expect(@user).to be_valid
+      end
+    end
+    context &#x27;新規登録できない場合&#x27; do
+      it &quot;nameが空では登録できない&quot; do
+        @user.name = &#x27;&#x27;
+        @user.valid?
+        expect(@user.errors.full_messages).to include(&quot;Name can&#x27;t be blank&quot;)
+      end
+      it &quot;emailが空では登録できない&quot; do
+        @user.email = &#x27;&#x27;
+        @user.valid?
+        expect(@user.errors.full_messages).to include(&quot;Email can&#x27;t be blank&quot;)
+      end
+      it &quot;passwordが空では登録できない&quot; do
+        @user.password = &#x27;&#x27;
+        @user.valid?
+        expect(@user.errors.full_messages).to include(&quot;Password can&#x27;t be blank&quot;)
+      end
+      it &#x27;passwordが5文字以下では登録できない&#x27; do
+        @user.password = &#x27;12345&#x27;
+        @user.password_confirmation = &#x27;12345&#x27;
+        @user.valid?
+        expect(@user.errors.full_messages).to include(&#x27;Password is too short (minimum is 6 characters)&#x27;)
+      end
+      it &#x27;passwordが129文字以上では登録できない&#x27; do
+        @user.password =  Faker::Internet.password(min_length: 129, max_length: 150)
+        @user.password_confirmation =  @user.password
+        @user.valid?
+        expect(@user.errors.full_messages).to include(&#x27;Password is too long (maximum is 128 characters)&#x27;)
+      end
+      it &#x27;passwordとpassword_confirmationが不一致では登録できない&#x27; do
+        @user.password = &#x27;123456&#x27;
+        @user.password_confirmation = &#x27;1234567&#x27;
+        @user.valid?
+        expect(@user.errors.full_messages).to include(&quot;Password confirmation doesn&#x27;t match Password&quot;)
+      end
+      it &#x27;重複したemailが存在する場合は登録できない&#x27; do
+        @user.save
+        another_user = FactoryBot.build(:user, email: @user.email)
+        another_user.valid?
+        expect(another_user.errors.full_messages).to include(&#x27;Email has already been taken&#x27;)
+      end
+      it &#x27;emailは@を含まないと登録できない&#x27; do
+        @user.email = &#x27;testmail&#x27;
+        @user.valid?
+        expect(@user.errors.full_messages).to include(&#x27;Email is invalid&#x27;)
+      end
+    end
+  end
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>
