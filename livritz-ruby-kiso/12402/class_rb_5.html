@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby" data-line="14,15,16,17,18"><code>class Car
+  def initialize(car_name, car_model, capacity)
+    @name = car_name
+    @model = car_model
+    @capacity = capacity
+  end
+
+  def self.run
+    puts &#x27;走行します&#x27;
+  end
+
+  def ride_car(ride_number)
+    @ride_number = ride_number
+    if ride_number &gt; @capacity
+      puts &quot;#{@name}は、乗車定員が#{@capacity}人なので、#{ride_number}人は乗れません。&quot;
+    else
+      puts &quot;#{ride_number}人乗車できました。&quot;
+    end
+  end
+end
+
+fire_truck = Car.new(&#x27;消防車&#x27;, &#x27;大型車&#x27;, 5)
+fire_truck.ride_car(3)
+
+Car.run</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

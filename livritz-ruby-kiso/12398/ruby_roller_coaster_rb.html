@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby" data-line="10,11,12,13,14,15,23,24,25,26,27,28,36,37,38,39,40,41"><code>ride_count = 0
+friends = []
+
+friend = {}
+puts &quot;お友達の名前は？&quot;
+friend[:name] = gets.chomp
+puts &quot;お友達の身長は？&quot;
+friend[:height] = gets.to_i
+friends &lt;&lt; friend
+if friend[:height] &gt;= 130
+  puts &quot;#{friend[:name]}くんは乗車できます&quot;
+  ride_count += 1
+else
+  puts &quot;#{friend[:name]}くんは乗車できません！&quot;
+end
+
+friend = {}
+puts &quot;お友達の名前は？&quot;
+friend[:name] = gets.chomp
+puts &quot;お友達の身長は？&quot;
+friend[:height] = gets.to_i
+friends &lt;&lt; friend
+if friend[:height] &gt;= 130
+  puts &quot;#{friend[:name]}くんは乗車できます&quot;
+  ride_count += 1
+else
+  puts &quot;#{friend[:name]}くんは乗車できません！&quot;
+end
+
+friend = {}
+puts &quot;お友達の名前は？&quot;
+friend[:name] = gets.chomp
+puts &quot;お友達の身長は？&quot;
+friend[:height] = gets.to_i
+friends &lt;&lt; friend
+if friend[:height] &gt;= 130
+  puts &quot;#{friend[:name]}くんは乗車できます&quot;
+  ride_count += 1
+else
+  puts &quot;#{friend[:name]}くんは乗車できません！&quot;
+end
+
+puts &quot;乗車するのは#{ride_count}人です&quot;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>
