@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby" data-line="4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37"><code>require &#x27;rails_helper&#x27;
+
+RSpec.describe DonationAddress, type: :model do
+  describe &#x27;寄付情報の保存&#x27; do
+    before do
+      user = FactoryBot.create(:user)
+      @donation_address = FactoryBot.build(:donation_address, user_id: user.id)
+    end
+
+    context &#x27;内容に問題ない場合&#x27; do
+      it &#x27;すべての値が正しく入力されていれば保存できること&#x27; do
+      end
+      it &#x27;cityは空でも保存できること&#x27; do
+      end
+      it &#x27;house_numberは空でも保存できること&#x27; do
+      end
+      it &#x27;building_nameは空でも保存できること&#x27; do
+      end
+    end
+
+    context &#x27;内容に問題がある場合&#x27; do
+      it &#x27;postal_codeが空だと保存できないこと&#x27; do
+      end
+      it &#x27;postal_codeが半角のハイフンを含んだ正しい形式でないと保存できないこと&#x27; do
+      end
+      it &#x27;prefectureを選択していないと保存できないこと&#x27; do
+      end
+      it &#x27;priceが空だと保存できないこと&#x27; do
+      end
+      it &#x27;priceが全角数字だと保存できないこと&#x27; do
+      end
+      it &#x27;priceが1円未満では保存できないこと&#x27; do
+      end
+      it &#x27;priceが1,000,000円を超過すると保存できないこと&#x27; do
+      end
+      it &#x27;userが紐付いていないと保存できないこと&#x27; do
+      end
+    end
+  end
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

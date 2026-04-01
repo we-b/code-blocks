@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby" data-line="10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64"><code>require &#x27;rails_helper&#x27;
+
+RSpec.describe DonationAddress, type: :model do
+  describe &#x27;寄付情報の保存&#x27; do
+    before do
+      user = FactoryBot.create(:user)
+      @donation_address = FactoryBot.build(:donation_address, user_id: user.id)
+    end
+
+    context &#x27;内容に問題ない場合&#x27; do
+      it &#x27;すべての値が正しく入力されていれば保存できること&#x27; do
+        expect(@donation_address).to be_valid
+      end
+      it &#x27;cityは空でも保存できること&#x27; do
+        @donation_address.city = &#x27;&#x27;
+        expect(@donation_address).to be_valid
+      end
+      it &#x27;house_numberは空でも保存できること&#x27; do
+        @donation_address.house_number = &#x27;&#x27;
+        expect(@donation_address).to be_valid
+      end
+      it &#x27;building_nameは空でも保存できること&#x27; do
+        @donation_address.building_name = &#x27;&#x27;
+        expect(@donation_address).to be_valid
+      end
+    end
+
+    context &#x27;内容に問題がある場合&#x27; do
+      it &#x27;postal_codeが空だと保存できないこと&#x27; do
+        @donation_address.postal_code = &#x27;&#x27;
+        @donation_address.valid?
+        expect(@donation_address.errors.full_messages).to include(&quot;Postal code can&#x27;t be blank&quot;)
+      end
+      it &#x27;postal_codeが半角のハイフンを含んだ正しい形式でないと保存できないこと&#x27; do
+        @donation_address.postal_code = &#x27;1234567&#x27;
+        @donation_address.valid?
+        expect(@donation_address.errors.full_messages).to include(&#x27;Postal code is invalid. Include hyphen(-)&#x27;)
+      end
+      it &#x27;prefectureを選択していないと保存できないこと&#x27; do
+        @donation_address.prefecture = 0
+        @donation_address.valid?
+        expect(@donation_address.errors.full_messages).to include(&quot;Prefecture can&#x27;t be blank&quot;)
+      end
+      it &#x27;priceが空だと保存できないこと&#x27; do
+        @donation_address.price = nil
+        @donation_address.valid?
+        expect(@donation_address.errors.full_messages).to include(&quot;Price can&#x27;t be blank&quot;)
+      end
+      it &#x27;priceが全角数字だと保存できないこと&#x27; do
+        @donation_address.price = &#x27;２０００&#x27;
+        @donation_address.valid?
+        expect(@donation_address.errors.full_messages).to include(&#x27;Price is invalid&#x27;)
+      end
+      it &#x27;priceが1円未満では保存できないこと&#x27; do
+        @donation_address.price = 0
+        @donation_address.valid?
+        expect(@donation_address.errors.full_messages).to include(&#x27;Price is invalid&#x27;)
+      end
+      it &#x27;priceが1,000,000円を超過すると保存できないこと&#x27; do
+        @donation_address.price = 1000001
+        @donation_address.valid?
+        expect(@donation_address.errors.full_messages).to include(&#x27;Price is invalid&#x27;)
+      end
+      it &#x27;userが紐付いていないと保存できないこと&#x27; do
+        @donation_address.user_id = nil
+        @donation_address.valid?
+        expect(@donation_address.errors.full_messages).to include(&quot;User can&#x27;t be blank&quot;)
+      end
+    end
+  end
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

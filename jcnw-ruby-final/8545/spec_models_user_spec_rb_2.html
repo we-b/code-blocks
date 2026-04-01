@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby" data-line="9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46"><code>require &#x27;rails_helper&#x27;
+
+RSpec.describe User, type: :model do
+  describe &#x27;新規登録&#x27; do
+    before do
+      @user = FactoryBot.build(:user)
+    end
+
+    context &#x27;内容に問題ない場合&#x27; do
+      it &#x27;すべての情報があれば登録できる&#x27; do
+        expect(@user).to be_valid
+      end
+    end
+
+    context &#x27;内容に問題がある場合&#x27; do
+      it &#x27;nameが空だと保存できないこと&#x27; do
+        @user.name = &#x27;&#x27;
+        @user.valid?
+        expect(@user.errors.full_messages).to include(&quot;Name can&#x27;t be blank&quot;)
+      end
+      it &#x27;nameが全角日本語でないと保存できないこと&#x27; do
+        @user.name = &#x27;suzuki&#x27;
+        @user.valid?
+        expect(@user.errors.full_messages).to include(&#x27;Name is invalid. Input full-width characters.&#x27;)
+      end
+      it &#x27;name_readingが空だと保存できないこと&#x27; do
+        @user.name_reading = &#x27;&#x27;
+        @user.valid?
+        expect(@user.errors.full_messages).to include(&quot;Name reading can&#x27;t be blank&quot;)
+      end
+      it &#x27;name_readingが全角カタカナでないと保存できないこと&#x27; do
+        @user.name_reading = &#x27;すずき&#x27;
+        @user.valid?
+        expect(@user.errors.full_messages).to include(&#x27;Name reading is invalid. Input full-width katakana characters.&#x27;)
+      end
+      it &#x27;nicknameが空だと保存できないこと&#x27; do
+        @user.nickname = &#x27;&#x27;
+        @user.valid?
+        expect(@user.errors.full_messages).to include(&quot;Nickname can&#x27;t be blank&quot;)
+      end
+      it &#x27;nicknameが半角でないと保存できないこと&#x27; do
+        @user.nickname = &#x27;鈴木&#x27;
+        @user.valid?
+        expect(@user.errors.full_messages).to include(&#x27;Nickname is invalid. Input half-width characters.&#x27;)
+      end
+    end
+  end
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>
