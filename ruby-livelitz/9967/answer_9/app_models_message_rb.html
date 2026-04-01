@@ -13,23 +13,13 @@
     </style>
 </head>
 <body>
-<pre class="language-ruby" data-line="8,9,10,11,12"><code>class MessagesController &lt; ApplicationController
+<pre class="language-ruby" data-line="5"><code>class Message &lt; ApplicationRecord
+  belongs_to :room
+  belongs_to :user
 
- # 中略
-
-  def create
-    @room = Room.find(params[:room_id])
-    @message = @room.messages.new(message_params)
-    if @message.save
-      redirect_to room_messages_path(@room)
-    else
-      render :index, status: :unprocessable_entity
-    end
-  end
-
- # 中略
-
- end</code></pre>
+  validates :content, presence: true
+end
+</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>

@@ -13,9 +13,13 @@
     </style>
 </head>
 <body>
-<pre class="language-ruby" data-line="8,9,10,11,12"><code>class MessagesController &lt; ApplicationController
+<pre class="language-ruby" data-line="6,15"><code>class MessagesController &lt; ApplicationController
 
- # 中略
+ def index
+    @message = Message.new
+    @room = Room.find(params[:room_id])
+    @messages = @room.messages.includes(:user)
+  end
 
   def create
     @room = Room.find(params[:room_id])
@@ -23,13 +27,18 @@
     if @message.save
       redirect_to room_messages_path(@room)
     else
+      @messages = @room.messages.includes(:user)
       render :index, status: :unprocessable_entity
     end
   end
 
- # 中略
+  private
 
- end</code></pre>
+  def message_params
+    params.require(:message).permit(:content).merge(user_id: current_user.id)
+  end
+end
+</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>

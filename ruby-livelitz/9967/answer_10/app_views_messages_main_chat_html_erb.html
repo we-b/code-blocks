@@ -13,25 +13,28 @@
     </style>
 </head>
 <body>
-<pre class="language-ruby" data-line="8,9,10,11,12"><code>class MessagesController &lt; ApplicationController
+<pre class="language-erb" data-line="9"><code>&lt;div class=&quot;chat-header&quot;&gt;
+  &lt;div class=&quot;left-header&quot;&gt;
+    &lt;div class=&quot;header-title&quot;&gt;
+      &lt;%= @room.name%&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;right-header&quot;&gt;
+    &lt;div class=&quot;header-button&quot;&gt;
+      &lt;%= link_to &quot;チャットを終了する&quot;, room_path(@room), data: { turbo_method: :delete } %&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
 
- # 中略
+&lt;div class=&quot;messages&quot;&gt;
+  &lt;%= render partial: &#x27;message&#x27;, collection: @messages %&gt;
+&lt;/div&gt;
 
-  def create
-    @room = Room.find(params[:room_id])
-    @message = @room.messages.new(message_params)
-    if @message.save
-      redirect_to room_messages_path(@room)
-    else
-      render :index, status: :unprocessable_entity
-    end
-  end
-
- # 中略
-
- end</code></pre>
+&lt;%= form_with model: [@room, @message], html: {class: &quot;form&quot;}, local: true do |f|%&gt;
+  省略
+&lt;% end %&gt;</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-erb.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
 </body>
 </html>
