@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-plaintext"><code># 使用する基本イメージとして OpenJDK を指定
+FROM openjdk:21-jdk-slim
+
+# 作業ディレクトリを作成
+WORKDIR /app
+
+# プロジェクト全体をコピーする
+COPY . . 
+
+# Gradle を使用してアプリをビルド
+RUN chmod +x gradlew &amp;&amp; ./gradlew build -x test
+
+# JARファイルを指定してアプリを実行
+CMD [&quot;java&quot;, &quot;-jar&quot;, &quot;build/libs/firstapp-0.0.1-SNAPSHOT.jar&quot;]</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>
