@@ -13,23 +13,9 @@
     </style>
 </head>
 <body>
-<pre class="language-ruby" data-line="8,9,10,11,12"><code>class MessagesController &lt; ApplicationController
-
- # 中略
-
-  def create
-    @room = Room.find(params[:room_id])
-    @message = @room.messages.new(message_params)
-    if @message.save
-      redirect_to room_messages_path(@room)
-    else
-      render :index, status: :unprocessable_entity
-    end
-  end
-
- # 中略
-
- end</code></pre>
+<pre class="language-ruby" data-line="2"><code># 中略
+  pending &quot;add some examples to (or delete) #{__FILE__}&quot;  # 削除
+# 中略</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>

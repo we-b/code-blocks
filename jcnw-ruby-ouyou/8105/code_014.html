@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+
     <style>
         body { margin: 0; padding: 0; background-color: #2d2d2d; }
         pre { margin: 0 !important; border-radius: 0; border: none; }
@@ -13,19 +13,19 @@
     </style>
 </head>
 <body>
-<pre class="language-ruby" data-line="6"><code>class MessagesController &lt; ApplicationController
+<pre class="language-plaintext"><code># 中略
 
- def index
-    @message = Message.new
-    @room = Room.find(params[:room_id])
-    @messages = @room.messages.includes(:user)
- end
+# コメントアウトを外す
+Rails.root.glob(&#x27;spec/support/**/*.rb&#x27;).sort_by(&amp;:to_s).each { |f| require f }
 
 # 中略
 
-end</code></pre>
+RSpec.configure do |config|
+  # 追記
+  config.include SignInSupport
+
+  # 中略</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+
 </body>
 </html>

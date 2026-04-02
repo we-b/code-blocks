@@ -13,23 +13,18 @@
     </style>
 </head>
 <body>
-<pre class="language-ruby" data-line="8,9,10,11,12"><code>class MessagesController &lt; ApplicationController
+<pre class="language-ruby" data-line="7"><code>class User &lt; ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
 
- # 中略
+  validates :name, presence: true
 
-  def create
-    @room = Room.find(params[:room_id])
-    @message = @room.messages.new(message_params)
-    if @message.save
-      redirect_to room_messages_path(@room)
-    else
-      render :index, status: :unprocessable_entity
-    end
-  end
-
- # 中略
-
- end</code></pre>
+  has_many :room_users
+  has_many :rooms, through: :room_users
+  has_many :messages
+end</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>

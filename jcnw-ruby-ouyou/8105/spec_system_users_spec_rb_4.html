@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+
     <style>
         body { margin: 0; padding: 0; background-color: #2d2d2d; }
         pre { margin: 0 !important; border-radius: 0; border: none; }
@@ -13,25 +13,28 @@
     </style>
 </head>
 <body>
-<pre class="language-ruby" data-line="8,9,10,11,12"><code>class MessagesController &lt; ApplicationController
+<pre class="language-ruby"><code>require &#x27;rails_helper&#x27;
 
- # 中略
+RSpec.describe &#x27;ユーザーログイン機能&#x27;, type: :system do
 
-  def create
-    @room = Room.find(params[:room_id])
-    @message = @room.messages.new(message_params)
-    if @message.save
-      redirect_to room_messages_path(@room)
-    else
-      render :index, status: :unprocessable_entity
-    end
+  # 中略
+
+  it &#x27;ログインに失敗し、再びサインインページに戻ってくる&#x27; do
+    # 予め、ユーザーをDBに保存する
+
+    # トップページに遷移する
+
+    # ログインしていない場合、サインインページに遷移していることを確認する
+
+    # 誤ったユーザー情報を入力する
+
+    # ログインボタンをクリックする
+
+    # サインインページに戻ってきていることを確認する
+
   end
-
- # 中略
-
- end</code></pre>
+end</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
 </body>
 </html>

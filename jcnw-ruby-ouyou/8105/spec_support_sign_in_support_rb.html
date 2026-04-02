@@ -13,23 +13,16 @@
     </style>
 </head>
 <body>
-<pre class="language-ruby" data-line="8,9,10,11,12"><code>class MessagesController &lt; ApplicationController
-
- # 中略
-
-  def create
-    @room = Room.find(params[:room_id])
-    @message = @room.messages.new(message_params)
-    if @message.save
-      redirect_to room_messages_path(@room)
-    else
-      render :index, status: :unprocessable_entity
-    end
+<pre class="language-ruby" data-line="1,2,3,4,5,6,7,8,9,10"><code>module SignInSupport
+  def sign_in(user)
+    visit root_path
+    fill_in &#x27;user_email&#x27;, with: user.email
+    fill_in &#x27;user_password&#x27;, with: user.password
+    click_on(&#x27;Log in&#x27;)
+    sleep 1
+    expect(page).to have_current_path(root_path)
   end
-
- # 中略
-
- end</code></pre>
+end</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>

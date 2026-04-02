@@ -13,23 +13,17 @@
     </style>
 </head>
 <body>
-<pre class="language-ruby" data-line="8,9,10,11,12"><code>class MessagesController &lt; ApplicationController
-
- # 中略
-
-  def create
-    @room = Room.find(params[:room_id])
-    @message = @room.messages.new(message_params)
-    if @message.save
-      redirect_to room_messages_path(@room)
-    else
-      render :index, status: :unprocessable_entity
+<pre class="language-ruby" data-line="7,8,9"><code>FactoryBot.define do
+  factory :message do
+    content {Faker::Lorem.sentence}
+    association :user
+    association :room
+  
+    after(:build) do |message|
+      message.image.attach(io: File.open(&#x27;public/images/test_image.png&#x27;), filename: &#x27;test_image.png&#x27;)
     end
   end
-
- # 中略
-
- end</code></pre>
+end</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>

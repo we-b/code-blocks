@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>require &#x27;rails_helper&#x27;
+
+RSpec.describe &#x27;メッセージ投稿機能&#x27;, type: :system do
+  before do
+    # 中間テーブルを作成して、usersテーブルとroomsテーブルのレコードを作成する
+    @room_user = FactoryBot.create(:room_user)
+  end
+
+  context &#x27;投稿に失敗したとき&#x27; do
+    it &#x27;送る値が空の為、メッセージの送信に失敗する&#x27; do
+      # サインインする
+      sign_in(@room_user.user)
+
+      # 作成されたチャットルームへ遷移する
+      click_on(@room_user.room.name)
+
+      # DBに保存されていないことを確認する
+
+      # 元のページに戻ってくることを確認する
+
+    end
+  end
+
+  context &#x27;投稿に成功したとき&#x27; do
+    it &#x27;テキストの投稿に成功すると、投稿一覧に遷移して、投稿した内容が表示されている&#x27; do
+      # サインインする
+      sign_in(@room_user.user)
+
+      # 作成されたチャットルームへ遷移する
+      click_on(@room_user.room.name)
+
+      # 値をテキストフォームに入力する
+
+      # 送信した値がDBに保存されていることを確認する
+
+      # 投稿一覧画面に遷移していることを確認する
+
+      # 送信した値がブラウザに表示されていることを確認する
+
+    end
+
+    it &#x27;画像の投稿に成功すると、投稿一覧に遷移して、投稿した画像が表示されている&#x27; do
+      # サインインする
+      sign_in(@room_user.user)
+
+      # 作成されたチャットルームへ遷移する
+      click_on(@room_user.room.name)
+
+      # 添付する画像を定義する
+      image_path = Rails.root.join(&#x27;public/images/test_image.png&#x27;)
+
+      # 画像選択フォームに画像を添付する
+
+      # 送信した値がDBに保存されていることを確認する
+
+      # 投稿一覧画面に遷移していることを確認する
+
+      # 送信した画像がブラウザに表示されていることを確認する
+
+    end
+
+    it &#x27;テキストと画像の投稿に成功する&#x27; do
+      # サインインする
+      sign_in(@room_user.user)
+
+      # 作成されたチャットルームへ遷移する
+      click_on(@room_user.room.name)
+
+      # 添付する画像を定義する
+      image_path = Rails.root.join(&#x27;public/images/test_image.png&#x27;)
+
+      # 画像選択フォームに画像を添付する
+
+      # 値をテキストフォームに入力する
+
+      # 送信した値がDBに保存されていることを確認する
+
+      # 送信した値がブラウザに表示されていることを確認する
+
+      # 送信した画像がブラウザに表示されていることを確認する
+
+    end
+  end
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>
