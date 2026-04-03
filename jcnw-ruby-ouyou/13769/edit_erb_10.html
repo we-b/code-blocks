@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before, .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-erb" data-line="6"><code>&lt;div class='account-page' id='account-page'&gt;
+  &lt;div class='account-page__inner clearfix'&gt;
+    &lt;div class='account-page__inner--left account-page__header'&gt;
+      &lt;h2&gt;Edit Account&lt;/h2&gt;
+      &lt;h5&gt;アカウントの編集&lt;/h5&gt;
+      &lt;%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete }, class: 'btn'%&gt;
+      &lt;%= link_to "チャットページに戻る", :back, class: 'btn'%&gt;
+    &lt;/div&gt;
+    &lt;div class='account-page__inner--right user-form'&gt;
+      &lt;%= form_with model: current_user, local: true do |f|%&gt;
+        &lt;div class='field'&gt;
+          &lt;div class='field-label'&gt;
+            &lt;%= f.label :name%&gt;
+          &lt;/div&gt;
+          &lt;div class='field-input'&gt;
+            &lt;%= f.text_field :name, autofocus: true%&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class='field'&gt;
+          &lt;div class='field-label'&gt;
+            &lt;%= f.label :email%&gt;
+          &lt;/div&gt;
+          &lt;div class='field-input'&gt;
+            &lt;%= f.email_field :email%&gt;
+          &lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class='actions'&gt;
+          &lt;%= f.submit "Update", class: 'btn'%&gt;
+        &lt;/div&gt;
+      &lt;% end %&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-erb.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>
