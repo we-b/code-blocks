@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-tsx" data-line="11,12,14,15,16,17,18,20,21,22,23,24,34,37,38,39,40,41"><code>import { useState, useEffect } from &quot;react&quot;;
+import { Chat } from &quot;./types&quot;;
+import api from &quot;./api/axios&quot;;
+import ChatForm from &quot;./components/ChatForm&quot;;
+import ChatCard from &quot;./components/ChatCard&quot;;
+import ChatModal from &quot;./components/ChatModal&quot;;
+import &quot;./App.css&quot;;
+
+function App() {
+  const [chats, setChats] = useState&lt;Chat[]&gt;([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedChat, setSelectedChat] = useState&lt;Chat | null&gt;(null);
+
+  // モーダルを開く
+  const openModal = (chat: Chat) =&gt; {
+    setSelectedChat(chat);
+    setIsModalOpen(true);
+  };
+
+  // モーダルを閉じる
+  const closeModal = () =&gt; {
+    setIsModalOpen(false);
+    setSelectedChat(null);
+  };
+
+  // (fetchChats、useEffect、addChatは省略)
+
+  return (
+    &lt;div className=&quot;app&quot;&gt;
+      &lt;h1&gt;Comment App&lt;/h1&gt;
+      &lt;ChatForm onSubmit={addChat} /&gt;
+      &lt;div className=&quot;chat-list&quot;&gt;
+        {chats.map((chat) =&gt; (
+          &lt;ChatCard key={chat.id} chat={chat} onClickChat={openModal} /&gt;
+        ))}
+      &lt;/div&gt;
+      &lt;ChatModal
+        isOpen={isModalOpen}
+        chat={selectedChat}
+        onClose={closeModal}
+      /&gt;
+    &lt;/div&gt;
+  );
+}
+
+export default App;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-tsx.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

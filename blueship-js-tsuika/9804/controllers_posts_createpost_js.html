@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-JavaScript" data-line="7,10,11,12,13,21,17"><code>//prisma読み込み
+const { PrismaClient } = require(&#x27;@prisma/client&#x27;);
+const prisma = new PrismaClient();
+
+// 投稿処理
+module.exports = async(req, res) =&gt; {
+  const { content } = req.body;
+
+  try {
+    if (!content || !content.trim()) {
+      console.log(&quot;データ登録にエラーがありました&quot;);
+      return res.status(400).send({message: &#x27;Content cannot be empty&#x27;});
+    }
+
+    await prisma.post.create({data: {content: req.body.content}});
+    console.log(&quot;データ登録に成功しました&quot;);
+    res.redirect(&quot;/posts&quot;); //トップページへ遷移するコードをこちらに移動しました
+  } catch(error) {
+    console.log(&quot;データ登録にエラーがありました&quot;);
+    console.log(error);
+    return res.status(400).send({message: error.message});
+  }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-JavaScript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-tsx" data-line="5,6,12,14,17,18,19,20,21,22,23,24,25,26,27,36"><code>import React from &quot;react&quot;;
+import Modal from &quot;react-modal&quot;;
+import { GoodsBody } from &quot;./GoodsBody&quot;;
+import { GenreBody } from &quot;./GenreBody&quot;;
+import { DetailBody } from &quot;./DetailBody&quot;;
+import { Goods } from &quot;../types&quot;;
+
+Modal.setAppElement(&quot;#root&quot;);
+
+type Props = {
+  isOpen: boolean;
+  body: &quot;goods&quot; | &quot;genre&quot; | &quot;details&quot;;
+  onClose: () =&gt; void;
+  goods?: Goods | null;
+};
+
+export const FormModal: React.FC&lt;Props&gt; = ({ isOpen, body, onClose, goods }) =&gt; {
+  const renderBody = () =&gt; {
+    if (body === &quot;goods&quot;) {
+      return &lt;GoodsBody onClose={onClose} /&gt;;
+    } else if (body === &quot;genre&quot;) {
+      return &lt;GenreBody onClose={onClose} /&gt;;
+    } else if (body === &quot;details&quot;) {
+      return &lt;DetailBody onClose={onClose} goods={goods!} /&gt;;
+    }
+    return null;
+  };
+
+  return (
+    &lt;Modal
+      isOpen={isOpen}
+      onRequestClose={onClose}
+      className=&quot;modal-content&quot;
+      overlayClassName=&quot;modal-overlay&quot;
+    &gt;
+      {renderBody()}
+    &lt;/Modal&gt;
+  );
+};</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-tsx.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-tsx" data-line="3,10,17,18,19,20,21,22,23,24,25"><code>import React, { useState, useContext } from &quot;react&quot;;
+import { DataContext } from &quot;../App&quot;;
+import api from &quot;../api/axios&quot;;
+import { FormModal } from &quot;./FormModal&quot;;
+import { Goods, Genre } from &quot;../types&quot;;
+
+// (省略)
+
+export const DetailBody: React.FC&lt;Props&gt; = ({ onClose, goods }) =&gt; {
+  const { state, dispatch } = useContext(DataContext);
+  const [showEditModal, setShowEditModal] = useState(false);
+
+  // stateから最新のgoodsデータを取得
+  const latestGoods =
+    state.goods.find((g: Goods) =&gt; g.id === goods.id) || goods;
+
+  const deleteGoods = async (goods: Goods) =&gt; {
+    try {
+      await api.delete(`/goods/${goods.id}`);
+      dispatch({ type: &quot;REMOVE_GOODS&quot;, payload: goods.id });
+      onClose();
+    } catch (error) {
+      console.error(&quot;リストの削除に失敗しました&quot;, error);
+    }
+  };
+
+// (省略)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-tsx.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-tsx" data-line="4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,32,34,35,36,37"><code>  // 送信処理
+  const goodsSubmit = async () =&gt; {
+    try {
+      if (isEditing) {
+        // 編集処理
+        const updateData = {
+          name,
+          quantity,
+          genreId: Number(genreId),
+          statusId,
+        };
+        const response = await api.put(
+          `/goods/${initialGoods!.id}`,
+          updateData
+        );
+        dispatch({ type: &quot;UPDATE_GOODS&quot;, payload: response.data });
+        onClose();
+      } else {
+        const newGoods = {
+          name,
+          quantity: Number(quantity),
+          genreId: Number(genreId),
+          statusId,
+        };
+        const response = await api.post(&quot;/goods&quot;, newGoods);
+        dispatch({ type: &quot;ADD_GOODS&quot;, payload: response.data });
+        setName(&quot;&quot;);
+        setQuantity(&quot;&quot;);
+        setGenreId(&quot;&quot;);
+        setStatusId(0);
+        onClose();
+      }
+    } catch (error) {
+      console.error(
+        `${isEditing ? &quot;更新&quot; : &quot;保存&quot;}に失敗しました。`,
+        error
+      );
+    }
+  };</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-tsx.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

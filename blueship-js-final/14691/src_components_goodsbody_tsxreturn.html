@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-tsx" data-line="3,4,5"><code>  return (
+    &lt;div className=&quot;modal_body&quot;&gt;
+      &lt;h2 className=&quot;input_menu&quot;&gt;
+        {isEditing ? &quot;リストの編集&quot; : &quot;リストの追加&quot;}
+      &lt;/h2&gt;
+      &lt;form className=&quot;goods_form&quot;&gt;
+        &lt;input
+          type=&quot;text&quot;
+          className=&quot;form_input&quot;
+          placeholder=&quot;品目&quot;
+          value={name}
+          onChange={(e) =&gt; setName(e.target.value)}
+        /&gt;
+        &lt;input
+          type=&quot;text&quot;
+          className=&quot;form_input&quot;
+          placeholder=&quot;数量&quot;
+          value={quantity}
+          onChange={(e) =&gt; setQuantity(e.target.value)}
+        /&gt;
+        &lt;select
+          className=&quot;form_input&quot;
+          value={genreId}
+          onChange={(e) =&gt; setGenreId(e.target.value)}
+        &gt;
+          &lt;option value=&quot;&quot;&gt;ジャンルを選択&lt;/option&gt;
+          {state.genres.map((genre: Genre) =&gt; (
+            &lt;option key={genre.id} value={genre.id}&gt;
+              {genre.name}
+            &lt;/option&gt;
+          ))}
+        &lt;/select&gt;
+        &lt;select
+          className=&quot;form_input&quot;
+          value={statusId}
+          onChange={(e) =&gt; setStatusId(Number(e.target.value))}
+        &gt;
+          {statusList.map((status, index) =&gt; (
+            &lt;option key={index} value={index}&gt;
+              {status}
+            &lt;/option&gt;
+          ))}
+        &lt;/select&gt;
+        &lt;input
+          className=&quot;input_submit&quot;
+          type=&quot;button&quot;
+          value=&quot;送信&quot;
+          onClick={goodsSubmit}
+        /&gt;
+      &lt;/form&gt;
+    &lt;/div&gt;
+  );</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-tsx.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

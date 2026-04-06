@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript" data-line="11,12,15,"><code>import React from &quot;react&quot;;
+import { TaskType } from &quot;../../interfaces/TaskType&quot;;
+import { Select } from &quot;../select&quot;;
+import &quot;./style.css&quot;;
+
+interface Props {
+  task: TaskType;
+}
+
+export const Task = (props: Props) =&gt; {
+  const isExpired = new Date(props.task.deadlineDate) &lt; new Date();
+  const backgroundColor = isExpired ? &quot;#ffcccc&quot; : &quot;white&quot;;
+
+  return (
+    &lt;div className=&quot;task&quot; style={{ backgroundColor: backgroundColor }}&gt;
+      &lt;span className=&quot;task_date&quot;&gt;{props.task.deadlineDate}&lt;/span&gt;
+      &lt;div className=&quot;task_text_contents&quot;&gt;
+        &lt;h3 className=&quot;task_title&quot;&gt;{props.task.name}&lt;/h3&gt;
+        &lt;p className=&quot;task_sentence&quot;&gt;{props.task.explanation}&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;task_input_contents&quot;&gt;
+        &lt;Select /&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+};</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

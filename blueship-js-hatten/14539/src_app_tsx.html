@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript"><code>import React from &quot;react&quot;;
+import { Routes, Route } from &quot;react-router-dom&quot;;
+import { Home } from &quot;./pages/home&quot;;
+import { SearchResult } from &quot;./pages/searchResult&quot;;
+
+function App() {
+  return (
+    &lt;div className=&quot;App&quot;&gt;
+      &lt;Routes&gt;
+        &lt;Route path=&quot;/&quot; element={&lt;Home /&gt;} /&gt;
+        &lt;Route path=&quot;/search&quot; element={&lt;SearchResult /&gt;} /&gt;
+      &lt;/Routes&gt;
+    &lt;/div&gt;
+  );
+}
+
+export default App;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-tsx" data-line="12,29,30,31,32,33,34,37,38,39,40,41,42,43,44,45,46,49,50,51,52,53,54,55,56,57,58,61,62,63,64,65,66,67,68"><code>import { useForm } from &quot;react-hook-form&quot;;
+import api from &quot;../api/axios&quot;;
+
+type RegisterFormData = {
+  nickname: string;
+  email: string;
+  password: string;
+  password_confirmation: string;
+};
+
+const UserForm = () =&gt; {
+  const { register, handleSubmit, formState: { errors }, watch } = useForm&lt;RegisterFormData&gt;();
+
+  const onSubmit = async (data: RegisterFormData) =&gt; {
+    try {
+      const response = await api.post(&quot;/register&quot;, data);
+      console.log(&quot;登録成功:&quot;, response.data);
+      alert(&quot;ユーザーの登録が完了しました&quot;);
+    } catch (error) {
+      console.error(&quot;登録失敗:&quot;, error);
+    }
+  };
+
+  return (
+    &lt;&gt;
+      &lt;h2&gt;ユーザー登録&lt;/h2&gt;
+      &lt;form onSubmit={handleSubmit(onSubmit)} noValidate&gt;
+        &lt;label htmlFor=&quot;nickname&quot;&gt;ニックネーム&lt;/label&gt;
+        {/* 必須(required)のバリデーション追加 */}
+        &lt;input type=&quot;text&quot; id=&quot;nickname&quot; className=&quot;input-field&quot;
+          {...register(&quot;nickname&quot;, {
+            required: &quot;Nickname is required&quot;
+          })}
+        /&gt;
+
+        &lt;label htmlFor=&quot;email&quot;&gt;メールアドレス&lt;/label&gt;
+        {/* 必須(required)、emailパターンに関するバリデーション追加 */}
+        &lt;input type=&quot;email&quot; id=&quot;email&quot; className=&quot;input-field&quot;
+          {...register(&quot;email&quot;, {
+            required: &quot;Email is required&quot;,
+            pattern: {
+              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+              message: &quot;Invalid email address&quot;
+            }
+          })}
+        /&gt;
+
+        &lt;label htmlFor=&quot;password&quot;&gt;パスワード&lt;/label&gt;
+        {/* 必須(required)、最小文字数に関するバリデーション追加 */}
+        &lt;input type=&quot;password&quot; id=&quot;password&quot; className=&quot;input-field&quot;
+          {...register(&quot;password&quot;, {
+            required: &quot;Password is required&quot;,
+            minLength: {
+              value: 6,
+              message: &quot;Password must be at least 6 characters long&quot;
+            }
+          })}
+        /&gt;
+
+        &lt;label htmlFor=&quot;password-confirmation&quot;&gt;確認用パスワード&lt;/label&gt;
+        {/* 必須(required)、passwordとの一致に関するバリデーション追加 */}
+        &lt;input type=&quot;password&quot; id=&quot;password-confirmation&quot; className=&quot;input-field&quot;
+          {...register(&quot;password_confirmation&quot;, {
+            required: &quot;Password Confirmation is required&quot;,
+            validate: (value) =&gt;
+              value === watch(&quot;password&quot;) || &quot;Password confirmation does not match password&quot;
+          })}
+        /&gt;
+
+        &lt;input type=&quot;submit&quot; value=&quot;登録&quot; id=&quot;submit-btn&quot; /&gt;
+      &lt;/form&gt;
+    &lt;/&gt;
+  );
+};
+
+export default UserForm;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-tsx.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

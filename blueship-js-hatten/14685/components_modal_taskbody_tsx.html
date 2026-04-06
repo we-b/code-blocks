@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript" data-line="1,4,7,8,9,11,12,13,14,15,16,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,41,42,43,51,54,55,56,57,58,60,61,62,63,65,66,67,68,69,70,72,73,74,75,76,77"><code>import React, { useContext, useState } from &quot;react&quot;;
+import { DataContext } from &quot;../../pages/home&quot;;
+import { Select } from &quot;../select&quot;;
+import { taskRequest } from &quot;../../requests/taskRequest&quot;;
+import &quot;./style.css&quot;;
+
+interface Props {
+  handleClose: () =&gt; void;
+}
+
+export const TaskBody = (props: Props) =&gt; {
+  const { data, dispatch } = useContext(DataContext);
+  const [taskName, setTaskName] = useState(&quot;&quot;);
+  const [taskExplanation, setTaskExplanation] = useState(&quot;&quot;);
+  const [taskDeadlineDate, setTaskDeadlineDate] = useState(&quot;&quot;);
+  const [taskGenreId, setTaskGenreId] = useState(0);
+
+  const handleCreate = async () =&gt; {
+    if (taskName.trim() === &quot;&quot;) return;
+    await taskRequest(&quot;createTasks&quot;, {
+      data: {
+        name: taskName,
+        explanation: taskExplanation,
+        deadlineDate: taskDeadlineDate,
+        status: 0,
+        genreId: taskGenreId,
+      },
+    });
+    const tasksResponse = await taskRequest(&quot;fetchTasks&quot;);
+    dispatch({
+      type: &quot;tasksUpdate&quot;,
+      payload: { tasksData: tasksResponse, genresData: [] },
+    });
+    setTaskName(&quot;&quot;);
+    setTaskExplanation(&quot;&quot;);
+    setTaskDeadlineDate(&quot;&quot;);
+    setTaskGenreId(0);
+    props.handleClose();
+  };
+
+  const changeSelectGenreId = (e: React.ChangeEvent&lt;HTMLSelectElement&gt;) =&gt; {
+    setTaskGenreId(Number(e.target.value));
+  };
+
+  return (
+    &lt;form className=&quot;modal_body&quot;&gt;
+      &lt;h2 className=&quot;input_menu&quot;&gt;タスクを追加&lt;/h2&gt;
+      &lt;div&gt;
+        &lt;h4 className=&quot;input_title&quot;&gt;ジャンル&lt;/h4&gt;
+        &lt;div className=&quot;task_genre&quot;&gt;
+          &lt;Select genres={data.genresData} changeSelect={changeSelectGenreId} /&gt;
+        &lt;/div&gt;
+        &lt;h4 className=&quot;input_title&quot;&gt;タイトル&lt;/h4&gt;
+        &lt;input
+          type=&quot;text&quot;
+          value={taskName}
+          onChange={(e) =&gt; setTaskName(e.target.value)}
+        /&gt;
+        &lt;h4 className=&quot;input_title&quot;&gt;説明&lt;/h4&gt;
+        &lt;textarea
+          value={taskExplanation}
+          onChange={(e) =&gt; setTaskExplanation(e.target.value)}
+        /&gt;
+        &lt;h4 className=&quot;input_title&quot;&gt;期限&lt;/h4&gt;
+        &lt;input
+          className=&quot;input_date&quot;
+          type=&quot;date&quot;
+          value={taskDeadlineDate}
+          onChange={(e) =&gt; setTaskDeadlineDate(e.target.value)}
+        /&gt;
+      &lt;/div&gt;
+      &lt;input
+        className=&quot;input_submit&quot;
+        type=&quot;button&quot;
+        value=&quot;送信&quot;
+        onClick={handleCreate}
+      /&gt;
+    &lt;/form&gt;
+  );
+};</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

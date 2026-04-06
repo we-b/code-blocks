@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript" data-line="11,12,13,14,15,16,17,18,19,20"><code>import axiosBase from &quot;axios&quot;;
+
+type action = &quot;fetchTasks&quot; | &quot;createTasks&quot;;
+
+const api = axiosBase.create({
+  baseURL: &quot;http://localhost:3100/tasks&quot;,
+  responseType: &quot;json&quot;,
+});
+
+export const taskRequest: (action: action) =&gt; any = (action: action) =&gt; {
+  switch (action) {
+    case &quot;fetchTasks&quot;:
+      const fetchTasks = api.get(&quot;/&quot;);
+      return fetchTasks.data;
+    case &quot;createTasks&quot;:
+      const createTasks = api.post(&quot;/&quot;, &quot;Hello World&quot;);
+      return createTasks.data;
+    default:
+      return null;
+  }
+};</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

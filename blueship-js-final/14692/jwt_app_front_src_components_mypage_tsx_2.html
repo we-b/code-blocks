@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-tsx"><code>import React, { useState, useEffect } from &quot;react&quot;;
+import { ShowList } from &quot;./ShowList&quot;;
+import api from &quot;../api/axios&quot;;
+
+type Book = {
+  id: number;
+  title: string;
+  review: string;
+};
+
+export const MyPage: React.FC = () =&gt; {
+  const [filterBooks, setFilterBooks] = useState&lt;Book[]&gt;([]);
+
+  useEffect(() =&gt; {
+    const fetchMyBooks = async () =&gt; {
+      try {
+        const response = await api.get(&quot;/mybook&quot;, {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem(&quot;jwt&quot;)}`,
+          },
+        });
+        setFilterBooks(response.data);
+      } catch (error) {
+        console.log(&quot;データの取得ができませんでした&quot;, error);
+      }
+    };
+    fetchMyBooks();
+  }, []);
+
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;マイページ&lt;/h1&gt;
+      &lt;ShowList books={filterBooks} /&gt;
+    &lt;/div&gt;
+  );
+};</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-tsx.min.js"></script>
+</body>
+</html>

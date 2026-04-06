@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-tsx" data-line="1,12,13,14,15,16,17,18,19,20,22,23,24,25,43,44,45"><code>import { useState, useEffect } from &quot;react&quot;;
+import { Chat } from &quot;./types&quot;;
+import api from &quot;./api/axios&quot;;
+import ChatForm from &quot;./components/ChatForm&quot;;
+import ChatCard from &quot;./components/ChatCard&quot;;
+import ChatModal from &quot;./components/ChatModal&quot;;
+import &quot;./App.css&quot;;
+
+function App() {
+  const [chats, setChats] = useState&lt;Chat[]&gt;([]);
+
+  // チャット一覧を取得
+  const fetchChats = async () =&gt; {
+    try {
+      const response = await api.get(&quot;/chats&quot;);
+      setChats(response.data);
+    } catch (error) {
+      console.error(&quot;チャットの取得に失敗しました&quot;, error);
+    }
+  };
+
+  // 初回マウント時にチャットを取得
+  useEffect(() =&gt; {
+    fetchChats();
+  }, []);
+
+  // チャットを追加
+  const addChat = async (title: string, content: string) =&gt; {
+    try {
+      const response = await api.post(&quot;/chats&quot;, { title, content });
+      const addedChat: Chat = response.data;
+      setChats((prev) =&gt; [...prev, addedChat]);
+    } catch (error) {
+      console.error(&quot;チャットの保存に失敗しました&quot;, error);
+    }
+  };
+
+  return (
+    &lt;div className=&quot;app&quot;&gt;
+      &lt;h1&gt;Comment App&lt;/h1&gt;
+      &lt;ChatForm onSubmit={addChat} /&gt;
+      &lt;div className=&quot;chat-list&quot;&gt;
+        {chats.map((chat) =&gt; (
+          &lt;ChatCard key={chat.id} chat={chat} onClickChat={() =&gt; {}} /&gt;
+        ))}
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-tsx.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

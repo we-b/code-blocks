@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-tsx" data-line="5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,39"><code>export const Top: React.FC = () =&gt; {
+  // (省略)
+
+  // handleSignOutの後に追記
+  // タスクの保存処理
+  const submitTask = async (e: React.FormEvent) =&gt; {
+    e.preventDefault();
+
+    // ログインユーザーの確認
+    const currentUser = auth.currentUser;
+    if (!currentUser) {
+      console.log(&quot;ログインが必要です&quot;);
+      return;
+    }
+
+    // makerIdに現在ログイン中のユーザーのuidを設定
+    const makerId = currentUser.uid;
+
+    try {
+      const response = await axios.post(&quot;http://localhost:3100/tasks&quot;, {
+        content,
+        makerId,
+        assigneeId,
+      });
+      // 取得したtaskデータをtasksの配列に追加
+      setTasks((prev) =&gt; [...prev, response.data]);
+
+      // 入力フォームのリセット
+      setContent(&quot;&quot;);
+      setAssigneeId(&quot;&quot;);
+    } catch (error) {
+      console.log(&quot;タスク保存中にエラーが発生しました&quot;, error);
+    }
+  };
+
+  return (
+    &lt;div&gt;
+      {/* (省略) */}
+      &lt;form className=&quot;task-form&quot; onSubmit={submitTask}&gt;
+        {/* (省略) */}
+      &lt;/form&gt;
+      {/* (省略) */}
+    &lt;/div&gt;
+  );
+};</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-tsx.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

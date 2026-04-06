@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-tsx" data-line="1,2,7,8,9,10,15,17,18,19,20,21,22,23,24,25,26,27,52,53,54,55,56,57,64"><code>import React, { useState, useEffect } from &quot;react&quot;;
+import axios from &quot;axios&quot;;
+import { useNavigate } from &quot;react-router-dom&quot;;
+import { auth, signOut } from &quot;../firebase&quot;;
+import { TaskList } from &quot;./TaskList&quot;;
+
+type FirebaseUser = {
+  uid: string;
+  displayName: string;
+};
+
+export const Top: React.FC = () =&gt; {
+  const navigate = useNavigate();
+  const displayName = auth.currentUser?.displayName;
+  const [allUsers, setAllUsers] = useState&lt;FirebaseUser[]&gt;([]);
+
+  useEffect(() =&gt; {
+    const fetchUsers = async () =&gt; {
+      try {
+        const response = await axios.get(&quot;http://localhost:3100/users&quot;);
+        setAllUsers(response.data);
+      } catch (error) {
+        console.log(&quot;ユーザーデータの取得ができませんでした&quot;, error);
+      }
+    };
+    fetchUsers();
+  }, []);
+
+  const handleSignOut = async () =&gt; {
+    // (省略)
+  };
+
+  return (
+    &lt;div&gt;
+      &lt;div className=&quot;header&quot;&gt;
+        &lt;h1&gt;タスク管理アプリ&lt;/h1&gt;
+        &lt;button className=&quot;logout&quot; onClick={handleSignOut}&gt;
+          ログアウト
+        &lt;/button&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;user-name&quot;&gt;
+        &lt;span&gt;こんにちは{displayName}さん&lt;/span&gt;
+      &lt;/div&gt;
+      &lt;form className=&quot;task-form&quot;&gt;
+        &lt;div className=&quot;input-area&quot;&gt;
+          &lt;label htmlFor=&quot;content&quot;&gt;タスク内容&lt;/label&gt;
+          &lt;textarea id=&quot;content&quot; placeholder=&quot;タスクを入力してください&quot; /&gt;
+        &lt;/div&gt;
+        &lt;div className=&quot;input-area&quot;&gt;
+          &lt;label htmlFor=&quot;assignee&quot;&gt;対応者&lt;/label&gt;
+          &lt;select&gt;
+            &lt;option value=&quot;&quot;&gt;対応者を選択&lt;/option&gt;
+            {allUsers.map((user) =&gt; (
+              &lt;option key={user.uid} value={user.uid}&gt;
+                {user.displayName}
+              &lt;/option&gt;
+            ))}
+          &lt;/select&gt;
+        &lt;/div&gt;
+        &lt;button type=&quot;submit&quot; className=&quot;submitBtn&quot;&gt;
+          保存
+        &lt;/button&gt;
+      &lt;/form&gt;
+      &lt;TaskList tasks={[]} users={allUsers} /&gt;
+    &lt;/div&gt;
+  );
+};</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-tsx.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

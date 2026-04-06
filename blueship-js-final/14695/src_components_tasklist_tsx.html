@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-tsx" data-line="6,7,21,22,23,24,26,27,28,29,36,38"><code>import React from &quot;react&quot;;
+
+type Task = {
+  id: number;
+  content: string;
+  makerId: string;
+  assigneeId: string;
+};
+
+type User = {
+  uid: string;
+  displayName: string;
+};
+
+type TaskListProps = {
+  tasks: Task[];
+  users: User[];
+};
+
+export const TaskList: React.FC&lt;TaskListProps&gt; = ({ tasks, users }) =&gt; {
+  const formattedMakerName = (task: Task): string =&gt; {
+    const maker = users.find((u) =&gt; u.uid === task.makerId);
+    return maker ? maker.displayName : &quot;不明なユーザー&quot;;
+  };
+
+  const formattedAssigneeName = (task: Task): string =&gt; {
+    const assignee = users.find((u) =&gt; u.uid === task.assigneeId);
+    return assignee ? assignee.displayName : &quot;不明なユーザー&quot;;
+  };
+
+  return (
+    &lt;div&gt;
+      &lt;ul className=&quot;task-lists&quot;&gt;
+        {tasks.map((task) =&gt; (
+          &lt;li className=&quot;task-list&quot; key={task.id}&gt;
+            &lt;p className=&quot;task-title&quot;&gt;作成者: {formattedMakerName(task)}&lt;/p&gt;
+            &lt;p&gt;内容: {task.content}&lt;/p&gt;
+            &lt;p&gt;担当者: {formattedAssigneeName(task)}&lt;/p&gt;
+          &lt;/li&gt;
+        ))}
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  );
+};</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-tsx.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

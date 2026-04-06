@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript" data-line="10,11,12,13,19"><code>import axiosBase from &quot;axios&quot;;
+
+type action = &quot;fetchGenres&quot; | &quot;createGenres&quot;;
+
+const api = axiosBase.create({
+  baseURL: &quot;http://localhost:3100/genres&quot;,
+  responseType: &quot;json&quot;,
+});
+
+export const genreRequest: (action: action, parameter?: any) =&gt; any = async (
+  action: action,
+  parameter?: any
+) =&gt; {
+  switch (action) {
+    case &quot;fetchGenres&quot;:
+      const fetchGenres = await api.get(&quot;/&quot;);
+      return fetchGenres.data;
+    case &quot;createGenres&quot;:
+      const createGenres = await api.post(&quot;/&quot;, parameter.data);
+      return createGenres.data;
+    default:
+      return null;
+  }
+};</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

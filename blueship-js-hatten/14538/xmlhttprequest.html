@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript"><code>// XMLHttpRequestのインスタンスを作成する
+const XHR = new XMLHttpRequest();
+// openメソッドを使用してリクエストを作成する
+XHR.open(&quot;GET&quot;, &quot;/article&quot;, true);
+// responseTypeプロパティを使用してレスポンスの形式がJSONになるように設定する
+XHR.responseType = &quot;json&quot;;
+// リクエストを送る
+XHR.send();
+// リクエストが成功した際の処理を定義する
+XHR.onload = () =&gt; {
+  // 画面上のlistとidがついた要素を取得する
+  const list = document.getElementById(&quot;list&quot;);
+
+  // レスポンスはXHR.responseに入っており、XHR.response.dataの部分に目的のデータが入っている
+  const data = XHR.response.data;
+  // 画面に挿入したいHTMLを作成している
+  const html = `
+    &lt;div class=&quot;article&quot;&gt;
+      &lt;div class=&quot;title&quot;&gt;${data.title}&lt;/div&gt;
+      &lt;div class=&quot;content&quot;&gt;${data.content}&lt;/div&gt;
+    &lt;/div&gt;
+  `;
+
+  // 画面上のlistとidがついた要素の最後にHTMLを挿入している
+  list.insertAdjacentHTML(&quot;afterend&quot;, html);
+
+};</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

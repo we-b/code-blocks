@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-tsx" data-line="4,6,12,14,15,16,17,18,19,20,21,22,23,29,30,31"><code>import React, { useState, useEffect } from &quot;react&quot;;
+import { ShowList } from &quot;./ShowList&quot;;
+import api from &quot;../api/axios&quot;;
+import { auth, onAuthStateChanged, signOut } from &quot;../firebase&quot;;
+import { User } from &quot;firebase/auth&quot;;
+import { useNavigate } from &quot;react-router-dom&quot;;
+
+// (省略)
+
+export const Top: React.FC = () =&gt; {
+  // (省略)
+  const navigate = useNavigate();
+
+  const handleSignOut = async () =&gt; {
+    try {
+      await signOut(auth);
+      // サインアウトしたらjwtをremoveする
+      localStorage.removeItem(&quot;jwt&quot;);
+      navigate(&quot;/&quot;);
+    } catch (error) {
+      console.log(&quot;サインアウトに失敗しました&quot;, error);
+    }
+  };
+
+  // (省略)
+
+  return (
+    &lt;div&gt;
+      &lt;div&gt;
+        &lt;button onClick={handleSignOut}&gt;ログアウト&lt;/button&gt;
+      &lt;/div&gt;
+      &lt;div&gt;
+        &lt;form&gt;
+          {/* (省略) */}
+        &lt;/form&gt;
+        &lt;ShowList books={books} /&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+};</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-tsx.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

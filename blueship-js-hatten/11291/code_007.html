@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-plaintext"><code>Installing template dependencies using npm...
+npm ERR! code ERESOLVE
+npm ERR! ERESOLVE unable to resolve dependency tree
+npm ERR! 
+npm ERR! While resolving: practice_app@0.1.0
+npm ERR! Found: react@19.0.0
+npm ERR! node_modules/react
+npm ERR!   react@&quot;^19.0.0&quot; from the root project
+npm ERR! 
+npm ERR! Could not resolve dependency:
+npm ERR! peer react@&quot;^18.0.0&quot; from @testing-library/react@13.4.0
+npm ERR! node_modules/@testing-library/react
+npm ERR!   @testing-library/react@&quot;^13.0.0&quot; from the root project
+npm ERR! 
+npm ERR! Fix the upstream dependency conflict, or retry
+npm ERR! this command with --force or --legacy-peer-deps
+npm ERR! to accept an incorrect (and potentially broken) dependency resolution.
+npm ERR! 
+npm ERR! 
+npm ERR! For a full report see:
+npm ERR! /Users/tech-camp/.npm/_logs/2024-12-25T02_22_18_368Z-eresolve-report.txt
+
+npm ERR! A complete log of this run can be found in: /Users/tech-camp/.npm/_logs/2024-12-25T02_22_18_368Z-debug-0.log
+npm install --no-audit --save @testing-library/jest-dom@^5.14.1 @testing-library/react@^13.0.0 @testing-library/user-event@^13.2.1 web-vitals@^2.1.0 failed</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

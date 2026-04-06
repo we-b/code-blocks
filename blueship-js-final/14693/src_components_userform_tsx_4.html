@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-tsx" data-line="12,24,36,46"><code>// (省略)
+  return (
+    &lt;&gt;
+      &lt;h2&gt;ユーザー登録&lt;/h2&gt;
+      &lt;form onSubmit={handleSubmit(onSubmit)} noValidate&gt;
+        &lt;label htmlFor=&quot;nickname&quot;&gt;ニックネーム&lt;/label&gt;
+        &lt;input type=&quot;text&quot; id=&quot;nickname&quot; className=&quot;input-field&quot;
+          {...register(&quot;nickname&quot;, {
+            required: &quot;Nickname is required&quot;
+          })}
+        /&gt;
+        {errors.nickname &amp;&amp; &lt;p className=&quot;error-message&quot;&gt;{errors.nickname.message}&lt;/p&gt;}
+
+        &lt;label htmlFor=&quot;email&quot;&gt;メールアドレス&lt;/label&gt;
+        &lt;input type=&quot;email&quot; id=&quot;email&quot; className=&quot;input-field&quot;
+          {...register(&quot;email&quot;, {
+            required: &quot;Email is required&quot;,
+            pattern: {
+              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+              message: &quot;Invalid email address&quot;
+            }
+          })}
+        /&gt;
+        {errors.email &amp;&amp; &lt;p className=&quot;error-message&quot;&gt;{errors.email.message}&lt;/p&gt;}
+
+        &lt;label htmlFor=&quot;password&quot;&gt;パスワード&lt;/label&gt;
+        &lt;input type=&quot;password&quot; id=&quot;password&quot; className=&quot;input-field&quot;
+          {...register(&quot;password&quot;, {
+            required: &quot;Password is required&quot;,
+            minLength: {
+              value: 6,
+              message: &quot;Password must be at least 6 characters long&quot;
+            }
+          })}
+        /&gt;
+        {errors.password &amp;&amp; &lt;p className=&quot;error-message&quot;&gt;{errors.password.message}&lt;/p&gt;}
+
+        &lt;label htmlFor=&quot;password-confirmation&quot;&gt;確認用パスワード&lt;/label&gt;
+        &lt;input type=&quot;password&quot; id=&quot;password-confirmation&quot; className=&quot;input-field&quot;
+          {...register(&quot;password_confirmation&quot;, {
+            required: &quot;Password Confirmation is required&quot;,
+            validate: (value) =&gt;
+              value === watch(&quot;password&quot;) || &quot;Password confirmation does not match password&quot;
+          })}
+        /&gt;
+        {errors.password_confirmation &amp;&amp; &lt;p className=&quot;error-message&quot;&gt;{errors.password_confirmation.message}&lt;/p&gt;}
+
+        &lt;input type=&quot;submit&quot; value=&quot;登録&quot; id=&quot;submit-btn&quot; /&gt;
+      &lt;/form&gt;
+    &lt;/&gt;
+  );
+// (省略)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-tsx.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

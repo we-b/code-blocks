@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-tsx" data-line="2,11,14,15,16,17,18,19,20,21,22,23,33,35"><code>import { useState, useEffect } from &quot;react&quot;;
+import { Chat, Comment } from &quot;./types&quot;;
+import api from &quot;./api/axios&quot;;
+import ChatForm from &quot;./components/ChatForm&quot;;
+import ChatCard from &quot;./components/ChatCard&quot;;
+import ChatModal from &quot;./components/ChatModal&quot;;
+import &quot;./App.css&quot;;
+
+function App() {
+  const [chats, setChats] = useState&lt;Chat[]&gt;([]);
+  const [comments, setComments] = useState&lt;Comment[]&gt;([]);
+  // (isModalOpen、selectedChatは省略)
+
+  // コメントを追加
+  const addComment = async (content: string, chatId: number) =&gt; {
+    try {
+      const response = await api.post(&quot;/comments&quot;, { content, chatId });
+      const addedComment: Comment = response.data;
+      setComments((prev) =&gt; [...prev, addedComment]);
+    } catch (error) {
+      console.error(&quot;コメントの保存に失敗しました&quot;, error);
+    }
+  };
+
+  // (省略)
+
+  return (
+    &lt;div className=&quot;app&quot;&gt;
+      {/* (省略) */}
+      &lt;ChatModal
+        isOpen={isModalOpen}
+        chat={selectedChat}
+        comments={comments}
+        onClose={closeModal}
+        onAddComment={addComment}
+      /&gt;
+    &lt;/div&gt;
+  );
+}
+
+export default App;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-tsx.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

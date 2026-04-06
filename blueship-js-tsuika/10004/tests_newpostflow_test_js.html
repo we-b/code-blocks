@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-JavaScript"><code>describe(&#x27;新規投稿フローのテスト&#x27;, () =&gt; {
+
+  it(&#x27;新規投稿ページへの遷移をテストする&#x27;, async () =&gt; {
+    await page.goto(&#x27;http://localhost:3000/posts&#x27;);
+    await page.click(&#x27;text=&quot;新規投稿&quot;&#x27;);
+    expect(await page.url()).toContain(&#x27;http://localhost:3000/posts/create&#x27;);
+  });
+});</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-JavaScript.min.js"></script>
+</body>
+</html>

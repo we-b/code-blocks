@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript" data-line="1,2,7,8,9,10,11,12,13,14,15,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37"><code>import React, { useState } from &quot;react&quot;;
+import { useNavigate, Link } from &quot;react-router-dom&quot;;
+import DoneAll from &quot;@mui/icons-material/DoneAll&quot;;
+import &quot;./style.css&quot;;
+
+export const Header = () =&gt; {
+  const [searchKeyword, setSearchKeyword] = useState(&quot;&quot;);
+  const navigate = useNavigate();
+
+  const handleSubmit = (e: React.FormEvent) =&gt; {
+    e.preventDefault();
+    if (searchKeyword.trim()) {
+      navigate(`/search?q=${searchKeyword}`);
+    }
+  };
+
+  return (
+    &lt;div className=&quot;header&quot;&gt;
+      &lt;div className=&quot;header_left&quot;&gt;
+        &lt;DoneAll className=&quot;header_icon&quot; fontSize=&quot;large&quot; /&gt;
+        &lt;Link to=&quot;/&quot; className=&quot;header_title&quot;&gt;Task Checker&lt;/Link&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;header_center&quot;&gt;
+        &lt;form onSubmit={handleSubmit} className=&quot;search_container&quot;&gt;
+          &lt;input
+            value={searchKeyword}
+            onChange={(e) =&gt; setSearchKeyword(e.target.value)}
+            placeholder=&quot;タイトルで検索&quot;
+            className=&quot;search_input&quot;
+            type=&quot;search&quot;
+            aria-label=&quot;検索&quot;
+          /&gt;
+          &lt;button type=&quot;submit&quot; className=&quot;search_button&quot;&gt;
+            検索
+          &lt;/button&gt;
+        &lt;/form&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+};</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

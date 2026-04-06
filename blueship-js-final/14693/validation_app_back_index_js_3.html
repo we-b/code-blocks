@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript" data-line="8,9,11,12,14,15,16,17,18,19,20"><code>app.post(
+  &#x27;/register&#x27;,
+  [
+  // ニックネームのバリデーション
+  body(&#x27;nickname&#x27;).notEmpty().withMessage(&#x27;Nickname is required&#x27;)
+  .matches(/^[ぁ-んァ-ヴー一-龥]+$/).withMessage(&#x27;Nickname should be in full-width Hiragana, Katakana, or Kanji characters.&#x27;),
+
+  // emailが必須(emailの形式)であること
+  body(&#x27;email&#x27;).notEmpty().withMessage(&#x27;Email is required&#x27;).isEmail().withMessage(&#x27;Invalid email address&#x27;),
+
+  // passwordのバリデーションチェック(6文字以上であること)
+  body(&#x27;password&#x27;).notEmpty().withMessage(&#x27;Password is required&#x27;).isLength({ min: 6 }).withMessage(&#x27;Password must be at least 6 characters long&#x27;),
+
+  // 確認用passwordのバリデーション(passwordと確認用passwordが一致すること)
+  body(&#x27;password_confirmation&#x27;).notEmpty().withMessage(&#x27;Password Confirmation is required&#x27;).custom((value, { req }) =&gt; {
+    if ( value !== req.body.password) {
+      throw new Error(&quot;Password confirmation does not match password&quot;);
+    }
+    return true;
+  })
+],
+//(省略)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-tsx" data-line="14,15,16,17,18,19,20,21,22,27,29,32,35,38"><code>import { useForm } from &quot;react-hook-form&quot;;
+import api from &quot;../api/axios&quot;;
+
+type RegisterFormData = {
+  nickname: string;
+  email: string;
+  password: string;
+  password_confirmation: string;
+};
+
+const UserForm = () =&gt; {
+  const { register, handleSubmit, formState: { errors } } = useForm&lt;RegisterFormData&gt;();
+
+  const onSubmit = async (data: RegisterFormData) =&gt; {
+    try {
+      const response = await api.post(&quot;/register&quot;, data);
+      console.log(&quot;登録成功:&quot;, response.data);
+      alert(&quot;ユーザーの登録が完了しました&quot;);
+    } catch (error) {
+      console.error(&quot;登録失敗:&quot;, error);
+    }
+  };
+
+  return (
+    &lt;&gt;
+      &lt;h2&gt;ユーザー登録&lt;/h2&gt;
+      &lt;form onSubmit={handleSubmit(onSubmit)} noValidate&gt;
+        &lt;label htmlFor=&quot;nickname&quot;&gt;ニックネーム&lt;/label&gt;
+        &lt;input type=&quot;text&quot; id=&quot;nickname&quot; className=&quot;input-field&quot; {...register(&quot;nickname&quot;)} /&gt;
+
+        &lt;label htmlFor=&quot;email&quot;&gt;メールアドレス&lt;/label&gt;
+        &lt;input type=&quot;email&quot; id=&quot;email&quot; className=&quot;input-field&quot; {...register(&quot;email&quot;)} /&gt;
+
+        &lt;label htmlFor=&quot;password&quot;&gt;パスワード&lt;/label&gt;
+        &lt;input type=&quot;password&quot; id=&quot;password&quot; className=&quot;input-field&quot; {...register(&quot;password&quot;)} /&gt;
+
+        &lt;label htmlFor=&quot;password-confirmation&quot;&gt;確認用パスワード&lt;/label&gt;
+        &lt;input type=&quot;password&quot; id=&quot;password-confirmation&quot; className=&quot;input-field&quot; {...register(&quot;password_confirmation&quot;)} /&gt;
+
+        &lt;input type=&quot;submit&quot; value=&quot;登録&quot; id=&quot;submit-btn&quot; /&gt;
+      &lt;/form&gt;
+    &lt;/&gt;
+  );
+};
+
+export default UserForm;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-tsx.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

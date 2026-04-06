@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript"><code>【悪い例】インスタンスを作成する際にマジックナンバーを用いて値を代入している
+// コードを見ただけでは「type: 1」がどういった商品タイプを示しているのか分からない
+const newProduct = await prisma.product.create({ data: {name: &#x27;hogehoge&#x27;, type: 1 }});
+
+【良い例】コメントアウトで数字の説明をしている
+// type: 1は日本産の商品
+const newProduct = await prisma.product.create({ data: {name: &#x27;hogehoge&#x27;, type: 1 }});
+
+【良い例】定数を定義して値を代入していて、コードを読むだけで「type: 1」が日本に関連した商品であることがわかる
+const JAPANESE_PRODUCT_TYPE = 1;
+const newProduct = await prisma.product.create({ data: {name: &#x27;hogehoge&#x27;, type: JAPANESE_PRODUCT_TYPE }});</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

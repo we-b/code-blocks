@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-tsx" data-line="1,8,12,13,14,15,16,17,18,19,20,21,22"><code>import React, { useState } from &quot;react&quot;;
+
+type Props = {
+  onClose: () =&gt; void;
+};
+
+export const GenreBody: React.FC&lt;Props&gt; = ({ onClose }) =&gt; {
+  const [genreName, setGenreName] = useState(&quot;&quot;);
+
+  return (
+    &lt;div className=&quot;modal_body&quot;&gt;
+      &lt;h2 className=&quot;input_menu&quot;&gt;ジャンル編集&lt;/h2&gt;
+      &lt;form&gt;
+        &lt;input
+          className=&quot;input_genre&quot;
+          type=&quot;text&quot;
+          placeholder=&quot;ジャンル名&quot;
+          value={genreName}
+          onChange={(e) =&gt; setGenreName(e.target.value)}
+        /&gt;
+        &lt;input className=&quot;input_submit&quot; type=&quot;button&quot; value=&quot;追加&quot; /&gt;
+      &lt;/form&gt;
+    &lt;/div&gt;
+  );
+};</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-tsx.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

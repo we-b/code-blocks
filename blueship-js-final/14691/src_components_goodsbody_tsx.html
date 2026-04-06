@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-tsx" data-line="4,8,11,14,15,16,17,21"><code>import React, { useState, useContext } from &quot;react&quot;;
+import api from &quot;../api/axios&quot;;
+import { DataContext } from &quot;../App&quot;;
+import { Goods, Genre } from &quot;../types&quot;;
+
+type Props = {
+  onClose: () =&gt; void;
+  goods: Goods | null;
+};
+
+export const GoodsBody: React.FC&lt;Props&gt; = ({ onClose, goods: initialGoods }) =&gt; {
+  const { state, dispatch } = useContext(DataContext);
+
+  const [name, setName] = useState(initialGoods?.name || &quot;&quot;);
+  const [quantity, setQuantity] = useState(initialGoods?.quantity?.toString() || &quot;&quot;);
+  const [genreId, setGenreId] = useState(initialGoods?.genreId?.toString() || &quot;&quot;);
+  const [statusId, setStatusId] = useState(initialGoods?.statusId ?? 0);
+
+  const statusList = [&quot;未購入&quot;, &quot;購入済み&quot;];
+
+  const isEditing = initialGoods?.id !== undefined;
+
+// (省略)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-tsx.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

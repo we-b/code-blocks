@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript" data-line="4,7,12,13,14,15,16,17,18,19"><code>import { useReducer } from &quot;react&quot;;
+import { TaskType } from &quot;../interfaces/TaskType&quot;;
+
+【ここを編集】
+
+export const useFilterTasks = (): any =&gt; {
+  【ここを編集】
+
+  const reducer = (tasks: TaskType[], action: filterAction) =&gt; {
+    switch (action.type) {
+      case &quot;filterTask&quot;:
+        const id: number = Number(【ここを編集】);
+        if (id === 0) {
+          return 【ここを編集】;
+        } else {
+          return action.payload.tasks.filter((task: TaskType) =&gt; {
+            return id === task.genreId;
+          });
+        }
+    }
+  };
+
+  const [filteredTasks, tasksDispatch] = useReducer(reducer, initialData);
+  return [filteredTasks, tasksDispatch];
+};
+
+
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

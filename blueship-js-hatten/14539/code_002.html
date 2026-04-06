@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-plaintext"><code>import React from &quot;react&quot;;
+【ここを編集】
+import &quot;./style.css&quot;;
+
+【ここを編集】
+
+const renderOption = (props: Props) =&gt; {
+  return (
+    props.genres &amp;&amp;
+    props.genres.map((genre: GenreType) =&gt; (
+      &lt;option key={【ここを編集】} value={【ここを編集】}&gt;
+        {【ここを編集】}
+      &lt;/option&gt;
+    ))
+  );
+};
+
+export const Select = (【ここを編集】) =&gt; {
+  return (
+    &lt;select className=&quot;select&quot;&gt;
+      {props.genres !== undefined &amp;&amp; &lt;option value={0}&gt;&lt;/option&gt;}
+      {renderOption(props)}
+    &lt;/select&gt;
+  );
+};
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

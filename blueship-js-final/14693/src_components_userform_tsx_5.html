@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-tsx" data-line="5,6,7"><code>// (省略)
+        &lt;label htmlFor=&quot;nickname&quot;&gt;ニックネーム&lt;/label&gt;
+        &lt;input type=&quot;text&quot; id=&quot;nickname&quot; className=&quot;input-field&quot;
+          {...register(&quot;nickname&quot;, {
+            required: &quot;Nickname is required&quot;,
+            validate: (value) =&gt;
+              /^[ぁ-んァ-ヴー一-龥]+$/.test(value) || &quot;Nickname should be in full-width Hiragana, Katakana, or Kanji characters.&quot;
+          })}
+        /&gt;
+        {errors.nickname &amp;&amp; &lt;p className=&quot;error-message&quot;&gt;{errors.nickname.message}&lt;/p&gt;}
+// (省略)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-tsx.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

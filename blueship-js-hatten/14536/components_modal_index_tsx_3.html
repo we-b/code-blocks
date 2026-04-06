@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript" data-line="5,6,7,8,9,10,11,12,13,14,15,16"><code>import React, { useState } from &quot;react&quot;;
+import Modal from &quot;react-modal&quot;;
+
+const customStyles = {
+  overlay: {
+    backgroundColor: &quot;rgb(80, 80, 80, 0.8)&quot;,
+  },
+  content: {
+    top: &quot;10%&quot;,
+    left: &quot;60%&quot;,
+    right: &quot;50%&quot;,
+    height: &quot;75vh&quot;,
+    width: &quot;20vw&quot;,
+    marginLeft: &quot;-30vw&quot;,
+    padding: &quot;2vw 10vw&quot;,
+  },
+};
+
+export const FormModal = () =&gt; {
+  const [isOpen, setIsOpen] = useState(false);
+  const handleOpen = () =&gt; {
+    setIsOpen(true);
+  };
+  const handleClose = () =&gt; {
+    setIsOpen(false);
+  };
+
+  Modal.setAppElement(&quot;#root&quot;);
+
+  return (
+    &lt;div&gt;
+      &lt;button onClick={handleOpen}&gt;開くボタン&lt;/button&gt;
+      &lt;Modal
+        isOpen={isOpen}
+        style={customStyles}
+      &gt;
+      &lt;/Modal&gt;
+    &lt;/div&gt;
+  );
+};</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

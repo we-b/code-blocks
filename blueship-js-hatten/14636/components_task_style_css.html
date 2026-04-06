@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-css"><code>.task {
+  background-color: white;
+  max-height: 350px;
+  width: 300px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+  position: relative;
+  cursor: pointer;
+  top: 0;
+  transition: top left ease 0.2s;
+}
+
+.task:hover {
+  top: -2px;
+  left: -2px;
+  box-shadow: 0 5px 8px rgba(0, 0, 0, 0.1);
+}
+
+.task_text_contents {
+  padding: 30px 45px 0 20px;
+}
+
+.task_title {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: rgb(70, 70, 70);
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
+.task_sentence {
+  overflow: hidden;
+  color: rgb(70, 70, 70);
+  font-size: 12px;
+  text-align: start;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.task_date {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  color: rgb(133, 133, 133);
+  font-size: 11px;
+}
+
+.task_input_contents {
+  padding: 0 20px 20px 20px;
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript"><code>// 「健康状態」の状態管理をするreducer関数
+
+const reducer = (state, action) =&gt; {
+  switch (action.type) {
+    case &#x27;食事&#x27;:
+      return {weight: state.weight + 5, fat: state.fat + 5 };
+    case &#x27;サウナ&#x27;:
+      return {weight: state.weight - 5, fat: state.fat - 5 };
+    case &#x27;筋トレ&#x27;:
+      return {weight: state.weight + 5, fat: state.fat - 5 };
+  }
+}
+
+// reducer関数に「現在の状態」と「アクション」を渡すと、新しい状態が返ってくる
+let health = {weight: 60, fat: 15}
+
+health = reducer(health, {type: &#x27;食事&#x27;})
+console.log(&#x27;食事後: &#x27;, health)
+// =&gt; {weight: 65, fat: 20}
+
+health = reducer(health, {type: &#x27;サウナ&#x27;})
+console.log(&#x27;サウナ後: &#x27;, health)
+// =&gt; {weight: 60, fat: 15}
+
+health = reducer(health, {type: &#x27;筋トレ&#x27;})
+console.log(&#x27;筋トレ後: &#x27;, health)
+// =&gt; {weight: 65, fat: 10}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

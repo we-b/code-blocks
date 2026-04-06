@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-tsx" data-line="8,42,43,44,45,46,47,48,49,50"><code>import React, { useState } from &quot;react&quot;;
+import { useNavigate, Link } from &quot;react-router-dom&quot;;
+import { auth, createUserWithEmailAndPassword } from &quot;../firebase&quot;;
+
+export const SignUp: React.FC = () =&gt; {
+  const [email, setEmail] = useState(&quot;&quot;);
+  const [password, setPassword] = useState(&quot;&quot;);
+  const [nickname, setNickname] = useState(&quot;&quot;);
+  const navigate = useNavigate();
+
+  const handleSignUp = async () =&gt; {
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      navigate(&quot;/top&quot;);
+    } catch (error) {
+      console.log(&quot;ユーザー登録できませんでした&quot;, error);
+    }
+  };
+
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;新規登録&lt;/h1&gt;
+      &lt;form&gt;
+        &lt;div className=&quot;form_element&quot;&gt;
+          &lt;label htmlFor=&quot;email&quot;&gt;メールアドレス&lt;/label&gt;
+          &lt;input
+            type=&quot;email&quot;
+            id=&quot;email&quot;
+            value={email}
+            onChange={(e) =&gt; setEmail(e.target.value)}
+          /&gt;
+        &lt;/div&gt;
+        &lt;div className=&quot;form_element&quot;&gt;
+          &lt;label htmlFor=&quot;password&quot;&gt;パスワード&lt;/label&gt;
+          &lt;input
+            type=&quot;password&quot;
+            id=&quot;password&quot;
+            value={password}
+            onChange={(e) =&gt; setPassword(e.target.value)}
+          /&gt;
+        &lt;/div&gt;
+        &lt;div className=&quot;form_element&quot;&gt;
+          &lt;label htmlFor=&quot;nickname&quot;&gt;ニックネーム&lt;/label&gt;
+          &lt;input
+            type=&quot;text&quot;
+            id=&quot;nickname&quot;
+            value={nickname}
+            onChange={(e) =&gt; setNickname(e.target.value)}
+          /&gt;
+        &lt;/div&gt;
+        &lt;input type=&quot;button&quot; value=&quot;新規登録&quot; onClick={handleSignUp} /&gt;
+      &lt;/form&gt;
+      &lt;p style={{ textAlign: &quot;center&quot; }}&gt;
+        既にアカウントをお持ちの方は&lt;Link to=&quot;/&quot;&gt;こちら&lt;/Link&gt;
+      &lt;/p&gt;
+    &lt;/div&gt;
+  );
+};</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-tsx.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>
