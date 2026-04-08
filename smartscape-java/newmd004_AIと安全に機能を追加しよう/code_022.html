@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-plaintext"><code>BUILD SUCCESSFUL
+
+TaskControllerTest
+  GET /tasks - タスク一覧取得
+    ✓ タスク一覧を取得できること
+    ✓ タスクが0件の場合、空配列を返すこと
+  GET /tasks/{id} - タスク詳細取得
+    ✓ 指定IDのタスクを取得できること
+    ✓ 存在しないIDの場合、404エラーを返すこと
+  POST /tasks - タスク作成
+    ✓ タスクを作成できること
+    ✓ タイトルが空の場合、400エラーを返すこと
+    ✓ 不正なステータスの場合、400エラーを返すこと
+    ✓ ステータス省略時はtodoが設定されること
+  POST /tasks - 優先度機能のテスト
+    ✓ 優先度「high」を指定してタスクを作成できること
+    ✓ 優先度「low」を指定してタスクを作成できること
+    ✓ 優先度を指定しない場合、デフォルト値「medium」が設定されること
+    ✓ タスク作成後のレスポンスJSONに priority が含まれること
+  ...</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-bash"><code>% docker image build --tag myapp:20240401 .
+[+] Building 313.5s (9/9) FINISHED                                                                                                    docker:desktop-linux
+ =&gt; [internal] load build definition from Dockerfile                                                                                                  0.1s
+ =&gt; =&gt; transferring dockerfile: 432B                                                                                                                  0.0s
+ =&gt; [internal] load metadata for docker.io/library/openjdk:21-jdk-slim                                                                                3.7s
+ =&gt; [internal] load .dockerignore                                                                                                                     0.0s
+ =&gt; =&gt; transferring context: 138B                                                                                                                     0.0s
+ =&gt; [1/4] FROM docker.io/library/openjdk:21-jdk-slim@sha256:7072053847a8a05d7f3a14ebc778a90b38c50ce7e8f199382128a53385160688                         73.4s
+ =&gt; =&gt; resolve docker.io/library/openjdk:21-jdk-slim@sha256:7072053847a8a05d7f3a14ebc778a90b38c50ce7e8f199382128a53385160688                          0.0s
+ =&gt; =&gt; sha256:e088daf5e2873f2880c7242c6f0efaa68da81f560783e3e1049ba57ca152e20a 953B / 953B                                                            0.0s
+ =&gt; =&gt; sha256:a48f4cb737303e18b873b859fa7b779610a67a01e2d33c0b453d05fc1a4bb7b0 4.77kB / 4.77kB                                                        0.0s
+ =&gt; =&gt; sha256:a803e7c4b030119420574a882a52b6431e160fceb7620f61b525d49bc2d58886 29.12MB / 29.12MB                                                     12.2s
+ =&gt; =&gt; sha256:b4972576c83dad66aa1e4f6d08e74f9e551e721a7cb2dc5370fe8da1af5b11e8 4.01MB / 4.01MB                                                        6.5s
+ =&gt; =&gt; sha256:af800cd8441e394f9ec3832393ff933c52e165c0965089937e3fb16ea395ea19 204.31MB / 204.31MB                                                   46.1s
+ =&gt; =&gt; sha256:7072053847a8a05d7f3a14ebc778a90b38c50ce7e8f199382128a53385160688 547B / 547B                                                            0.0s
+ =&gt; =&gt; extracting sha256:a803e7c4b030119420574a882a52b6431e160fceb7620f61b525d49bc2d58886                                                            15.6s
+ =&gt; =&gt; extracting sha256:b4972576c83dad66aa1e4f6d08e74f9e551e721a7cb2dc5370fe8da1af5b11e8                                                             1.2s
+ =&gt; =&gt; extracting sha256:af800cd8441e394f9ec3832393ff933c52e165c0965089937e3fb16ea395ea19                                                            26.4s
+ =&gt; [internal] load build context                                                                                                                     0.2s
+ =&gt; =&gt; transferring context: 194.79kB                                                                                                                 0.2s
+ =&gt; [2/4] WORKDIR /app                                                                                                                                2.2s
+ =&gt; [3/4] COPY . .                                                                                                                                    0.1s
+ =&gt; [4/4] RUN chmod +x gradlew &amp;&amp; ./gradlew build -p app                                                                                            227.8s
+ =&gt; exporting to image                                                                                                                                5.8s 
+ =&gt; =&gt; exporting layers                                                                                                                               5.7s 
+ =&gt; =&gt; writing image sha256:174b7190f1c34f40327b473b8438583e861b082f8a5db2f9d701052a67a01ea4                                                          0.0s 
+ =&gt; =&gt; naming to docker.io/library/myapp:20240401                                                                                                     0.0s 
+                                                                                                                                                           
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/7zod294v0aw0gvxz9sr2dobdh </code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+</body>
+</html>

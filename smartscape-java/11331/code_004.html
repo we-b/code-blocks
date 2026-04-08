@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-plaintext"><code>■解決したいこと
+ChatAppのmessages/index.html.hamlを表示した際に、
+
+NoMethodError in Messages#index
+undefined method messages_path for
+
+とエラーが表示される。
+
+■自力で調べた内容
+No methodエラーについて、基礎カリキュラムを再度確認した。
+
+■仮説と検証作業の結果
+「undefined method messages_path for」と表示されたので、ルーティングがおかしいと判断した。カリキュラムのroutes.rbの記述と見比べたが、間違った箇所は無かった。</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

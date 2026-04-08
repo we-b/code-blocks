@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-plaintext"><code>TaskController の責務分析
+
+| 責務                | 該当コード                    |
+|---------------------|------------------------------|
+| HTTPリクエストの受付  | @GetMapping, @PostMapping 等 |
+| バリデーション       | errors.add(&quot;タイトルは必須です&quot;) 等 |
+| エンティティの組み立て | new Task() + setter 呼び出し |
+| データベースへの保存   | taskRepository.save(task)   |
+| レスポンスの組み立て   | Map&lt;String, Object&gt; の手動生成 |
+| エラーハンドリング     | ResponseEntity.status(BAD_REQUEST) |
+
+問題点:
+1. 単一責任の原則に違反 — 6つ以上の責務が1クラスに集中
+2. コードの重複 — レスポンスMapの組み立てが4か所で繰り返されている
+3. テストの困難さ — ビジネスロジックがControllerに直書きされているため、
+   単体テストが書きにくい
+4. 変更への脆弱性 — バリデーションルールの変更が Controller の修正を必要とする</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

@@ -13,21 +13,20 @@
     </style>
 </head>
 <body>
-<pre class="language-markup" data-line="6"><code>// 省略
+<pre class="language-markup" data-line="7"><code>// 省略
 
- &lt;div class=&quot;chat-header&quot;&gt;
-    &lt;div class=&quot;left-header&quot;&gt;
-      &lt;div class=&quot;header-title&quot;&gt;
-        hogefuga
+  &lt;div class=&quot;messages&quot;&gt;
+    &lt;div th:each=&quot;message : ${messages}&quot; class=&quot;message&quot;&gt;
+      &lt;div class=&quot;upper-message&quot;&gt;
+        &lt;div class=&quot;message-user&quot; th:text=&quot;${message.user.name}&quot;&gt;ユーザー名&lt;/div&gt;
+        &lt;div class=&quot;message-date&quot; th:text=&quot;${#dates.format(message.createdAt, &#x27;yyyy/MM/dd HH:mm:ss&#x27;)}&quot;&gt;日付&lt;/div&gt;
       &lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class=&quot;right-header&quot;&gt;
-      &lt;div class=&quot;header-button&quot;&gt;
-        &lt;a href=&quot;#&quot;&gt;チャットを終了する&lt;/a&gt;
+      &lt;div class=&quot;lower-message&quot;&gt;
+        &lt;div class=&quot;message-content&quot; th:text=&quot;${message.content}&quot;&gt;メッセージ内容&lt;/div&gt;
       &lt;/div&gt;
     &lt;/div&gt;
   &lt;/div&gt;
-
+ 
 // 省略</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>

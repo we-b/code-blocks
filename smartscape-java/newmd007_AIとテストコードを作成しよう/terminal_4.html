@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-bash"><code>次に、結合テストのコードを生成してください。
+
+- 対象: POST /tasks/{id}/duplicate というAPI
+- テスト内容（正常系）: 正常なリクエストを送るとタスクが複製され、データベースのレコードが確実に1件増えること、正しくレスポンスが返されること（先ほどのリストの6番相当）
+- テスト内容（異常系）: 不正な値でリクエストを行った場合、適切にエラーが返されること（先ほどのリストの8-1,8-2,8-3相当）
+- 「7. 属性の検証」、「8. 異常系」の8-4、8-5、8-6、「9. 複数回複製」は今回のテストの対象外とします。生成しないでください。
+- 出力先: 既存の TaskControllerTest.java に @Nested クラスとして追記
+
+※既存のテストコードの構造は保持しつつ、追記する形で出力してください。</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+</body>
+</html>

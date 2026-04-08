@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java"><code>    // ※コンストラクタに TaskDuplicateService を追加し、フィールドに保持する
+    private final TaskDuplicateService taskDuplicateService;
+
+    // タスク複製
+    @PostMapping(&quot;/{id}/duplicate&quot;)
+    public ResponseEntity&lt;?&gt; duplicate(@PathVariable Long id) {
+        try {
+            Task duplicated = taskDuplicateService.duplicate(id);
+
+            Map&lt;String, Object&gt; taskMap = new LinkedHashMap&lt;&gt;();
+            taskMap.put(&quot;id&quot;, duplicated.getId());
+            taskMap.put(&quot;title&quot;, duplicated.getTitle());
+            taskMap.put(&quot;content&quot;, duplicated.getContent());
+            taskMap.put(&quot;status&quot;, duplicated.getStatus());
+            taskMap.put(&quot;priority&quot;, duplicated.getPriority());
+
+            if (duplicated.getGenre() != null) {
+                Map&lt;String, Object&gt; genreMap = new LinkedHashMap&lt;&gt;();
+                genreMap.put(&quot;id&quot;, duplicated.getGenre().getId());
+                genreMap.put(&quot;name&quot;, duplicated.getGenre().getName());
+                taskMap.put(&quot;genre&quot;, genreMap);
+            } else {
+                taskMap.put(&quot;genre&quot;, null);
+            }
+
+            taskMap.put(&quot;created_at&quot;, duplicated.getCreatedAt());
+            taskMap.put(&quot;updated_at&quot;, duplicated.getUpdatedAt());
+
+            return ResponseEntity.ok(taskMap);
+        } catch (RuntimeException e) {
+            Map&lt;String, String&gt; error = new HashMap&lt;&gt;();
+            error.put(&quot;error&quot;, &quot;タスクが見つかりません&quot;);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+        }
+    }</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>

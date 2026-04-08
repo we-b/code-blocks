@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-markdown"><code># Task Checker API
+
+## プロジェクト概要
+タスク管理のバックエンドREST API
+
+## 技術スタック
+- Java 17
+- Spring Boot 3.x
+- Gradle（ビルドツール）
+- H2 Database（インメモリDB）
+- JUnit 5 + Mockito（テスト）
+
+## 開発ルール
+
+### 一般
+- テストは必ず書く（JUnit 5）
+- コミットメッセージは日本語で記述
+
+### バリデーション
+- エラーメッセージは日本語で記述
+
+### テスト規約
+- テストクラス名: 対象クラス名 + Test（例: TaskControllerTest）
+- @DisplayNameで日本語のテスト名を付ける
+- @Nestedでテストをグループ化する</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markdown.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-plaintext"><code>
+roomに関する情報は`roomId`をビューに渡しています。
+チャットルーム名を表示するにはデータベースから情報を取得する必要があります。
+
+### ✏️ チャット画面のヘッダーにチャットルーム名を表示しましょう
+
+&lt;div class=&quot;challenge&quot;&gt;
+  &lt;h3&gt;👑 問題8：チャット画面のヘッダーにチャットルーム名を表示しましょう&lt;/h3&gt;
+  &lt;h5&gt;注意：これまでroomIdを渡し表示してきた部分もこのタイミングでRoomEntityに置き換えましょう&lt;/h5&gt;
+  &lt;div class=&quot;challenge_box&quot;&gt;
+&lt;curriculum-question-container data-order=&#x27;8&#x27;&gt;&lt;/curriculum-question-container&gt;
+&lt;details style=&quot;border:1px solid #d0d7de; border-radius:6px; padding:8px 12px; margin:8px 0; background:#f6f8fa;&quot;&gt;&lt;summary style=&quot;cursor:pointer; font-weight:bold; color:#d65f4c;&quot;&gt;模範解答を見る（問題8）&lt;/summary&gt;&lt;div style=&quot;padding:12px 4px;&quot;&gt;&lt;h1 style=&quot;font-size:20px; margin:12px 0 6px;&quot;&gt;問題8の解答と解説&lt;/h1&gt;
+&lt;p style=&quot;margin:8px 0;&quot;&gt;&lt;strong&gt;問題8：チャット画面のヘッダーにチャットルーム名を表示しましょう&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 style=&quot;font-size:18px; margin:12px 0 6px;&quot;&gt;模範解答&lt;/h2&gt;
+&lt;pre style=&quot;background:#2d2d2d; color:#f8f8f2; padding:12px; overflow-x:auto; border-radius:4px;&quot;&gt;&lt;code&gt;// 省略
+
+@Controller
+@AllArgsConstructor
+public class MessageController {
+  private final UserRepository userRepository;
+
+  private final RoomUserRepository roomUserRepository;
+
+  private final RoomRepository roomRepository;
+
+  private final MessageRepository messageRepository;
+
+  @GetMapping(&quot;/rooms/{roomId}/messages&quot;)
+  public String showMessages(@PathVariable(&quot;roomId&quot;) Integer roomId,@AuthenticationPrincipal CustomUserDetail currentUser, Model model){
+    UserEntity user = userRepository.findById(currentUser.getId());
+    model.addAttribute(&quot;user&quot;, user);
+    List&amp;lt;RoomUserEntity&amp;gt; roomUserEntities = roomUserRepository.findByUserId(currentUser.getId());
+    List&amp;lt;RoomEntity&amp;gt; roomList = roomUserEntities.stream()
+        .map(RoomUserEntity::getRoom)
+        .collect(Collectors.toList());
+    model.addAttribute(&quot;rooms&quot;, roomList);
+
+    model.addAttribute(&quot;messageForm&quot;, new MessageForm());
+    
+    RoomEntity room = roomRepository.findById(roomId);
+    model.addAttribute(&quot;room&quot;, room);
+
+    List&amp;lt;MessageEntity&amp;gt; messages = messageRepository.findByRoomId(roomId);
+    model.addAttribute(&quot;messages&quot;, messages);
+    return &quot;messages/index&quot;;
+  }
+
+// 省略
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;pre style=&quot;background:#2d2d2d; color:#f8f8f2; padding:12px; overflow-x:auto; border-radius:4px;&quot;&gt;&lt;code&gt;&amp;lt;!DOCTYPE html&amp;gt;
+&amp;lt;html xmlns:th=&quot;http://www.thymeleaf.org&quot; lang=&quot;ja&quot;&amp;gt;
+&amp;lt;div th:fragment=&quot;main_chat&quot;&amp;gt;
+  &amp;lt;div class=&quot;chat-header&quot;&amp;gt;
+    &amp;lt;div class=&quot;left-header&quot;&amp;gt;
+      &amp;lt;div class=&quot;header-title&quot; th:text=&quot;${room.name}&quot;&amp;gt;ルーム名&amp;lt;/div&amp;gt;
+    &amp;lt;/div&amp;gt;
+    &amp;lt;div class=&quot;right-header&quot;&amp;gt;
+      &amp;lt;div class=&quot;header-button&quot;&amp;gt;
+        &amp;lt;a href=&quot;#&quot;&amp;gt;チャットを終了する&amp;lt;/a&amp;gt;
+      &amp;lt;/div&amp;gt;
+    &amp;lt;/div&amp;gt;
+  &amp;lt;/div&amp;gt;
+  
+  &amp;lt;div class=&quot;messages&quot;&amp;gt;
+  // 省略
+  &amp;lt;/div&amp;gt;
+  
+  &amp;lt;form th:action=&quot;@{/rooms/{roomId}/messages(roomId=${room.id})}&quot; method=&quot;post&quot; th:object=&quot;${messageForm}&quot; class=&quot;form&quot;&amp;gt;
+    &amp;lt;div class=&quot;form-input&quot;&amp;gt;
+      &amp;lt;input th:field=&quot;*{content}&quot; class=&quot;form-message&quot; placeholder= &quot;type a message&quot;&amp;gt;
+      &amp;lt;label class=&quot;form-image&quot;&amp;gt;
+        &amp;lt;span class=&quot;image-file&quot;&amp;gt;画像&amp;lt;/span&amp;gt;
+        &amp;lt;input type=&quot;file&quot; class=&quot;hidden&quot;&amp;gt;
+      &amp;lt;/label&amp;gt;
+    &amp;lt;/div&amp;gt;
+    &amp;lt;input class=&quot;form-submit&quot; type=&quot;submit&quot; value=&quot;送信&quot;&amp;gt;  
+  &amp;lt;/form&amp;gt;
+&amp;lt;/div&amp;gt;
+&amp;lt;/html&amp;gt;&lt;/code&gt;&lt;/pre&gt;
+&lt;h2 style=&quot;font-size:18px; margin:12px 0 6px;&quot;&gt;解説&lt;/h2&gt;
+&lt;p style=&quot;margin:8px 0;&quot;&gt;コントローラーでは、これまでビューに&lt;code style=&quot;background:#f4f4f4; padding:2px 4px; border-radius:3px;&quot;&gt;roomId&lt;/code&gt;を渡していたところを、データベースから取得したデータ&lt;code style=&quot;background:#f4f4f4; padding:2px 4px; border-radius:3px;&quot;&gt;RoomEntity&lt;/code&gt;を渡すようにします。&lt;/p&gt;
+&lt;pre style=&quot;background:#2d2d2d; color:#f8f8f2; padding:12px; overflow-x:auto; border-radius:4px;&quot;&gt;&lt;code&gt;    //変更前
+    model.addAttribute(&quot;roomId&quot;, roomId);
+
+    //変更後
+    RoomEntity room = roomRepository.findById(roomId);
+    model.addAttribute(&quot;room&quot;, room);&lt;/code&gt;&lt;/pre&gt;
+&lt;p style=&quot;margin:8px 0;&quot;&gt;ビューでは、渡された&lt;code style=&quot;background:#f4f4f4; padding:2px 4px; border-radius:3px;&quot;&gt;RoomEntity&lt;/code&gt;を使用してルーム名を表示します。&lt;/p&gt;
+&lt;pre style=&quot;background:#2d2d2d; color:#f8f8f2; padding:12px; overflow-x:auto; border-radius:4px;&quot;&gt;&lt;code&gt;    &amp;lt;div class=&quot;left-header&quot;&amp;gt;
+      &amp;lt;div class=&quot;header-title&quot; th:text=&quot;${room.name}&quot;&amp;gt;ルーム名&amp;lt;/div&amp;gt;
+    &amp;lt;/div&amp;gt;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

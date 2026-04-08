@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-plaintext"><code>分析結果をまとめます。
+
+  アプリケーション概要
+
+  このアプリは タスク管理のバックエンドREST API で、Spring Boot 3.xで構築されたJSONを返すAPIです。
+
+  ---
+  データ構造
+
+  genres テーブル
+  - id (Long, PK, AUTO) - ジャンルID
+  - name (String, NOT NULL) - ジャンル名
+  - created_at / updated_at - タイムスタンプ
+
+  tasks テーブル
+  - id (Long, PK, AUTO) - タスクID
+  - title (String, NOT NULL) - タスクのタイトル
+  - content (String) - タスクの詳細内容
+  - status (String) - ステータス（todo / doing / done）
+  - genre_id (Long, FK) - ジャンルID
+  - created_at / updated_at - タイムスタンプ
+
+  リレーション
+  - Genre has many Tasks
+  - Task belongs to Genre (ManyToOne)
+
+  ---
+  API エンドポイント
+
+  Tasks API
+  - GET    /tasks       - タスク一覧取得
+  - GET    /tasks/{id}  - タスク詳細取得
+  - POST   /tasks       - タスク作成
+  - PUT    /tasks/{id}  - タスク更新
+  - DELETE /tasks/{id}  - タスク削除
+
+  Genres API
+  - GET    /genres      - ジャンル一覧取得
+  - POST   /genres      - ジャンル作成
+  - DELETE /genres/{id} - ジャンル削除
+
+  ---
+  テスト
+  - TaskControllerTest: 10テスト（CRUD操作、バリデーション、エッジケース）
+  - GenreControllerTest: 5テスト（CRUD操作）</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

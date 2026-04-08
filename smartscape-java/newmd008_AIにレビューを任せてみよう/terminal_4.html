@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-bash"><code>⏺ 現在の実装を確認してレビューします。
+
+⏺ Read(src/main/java/.../service/TaskDuplicateService.java)
+  ⎿  Read 25 lines
+
+⏺ Read(src/main/java/.../controller/TaskController.java)
+  ⎿  Read 300 lines
+
+⏺ ---
+  コードレビュー: タスクの複製機能
+
+  1. コーディング規約
+
+  問題点
+
+  | ファイル                     | 行              | 問題              | 重要度 |
+  |--------------------------|----------------|-----------------|-----|
+  | TaskDuplicateService:19  | &quot;todo&quot;         | マジックナンバー（文字列定数）の使用 | 中   |
+  | TaskDuplicateService:14  | &quot;(コピー)&quot;        | サフィックスがハードコード     | 低   |
+  | TaskController:duplicate | taskMap組み立て    | レスポンス変換の重複コード    | 中   |
+
+  改善案
+
+  1-1. マジックナンバーの排除 (TaskDuplicateService)
+  // Before
+  duplicated.setStatus(&quot;todo&quot;);
+
+  // After（定数として定義）
+  private static final String INITIAL_STATUS = &quot;todo&quot;;
+  duplicated.setStatus(INITIAL_STATUS);
+
+  1-2. レスポンス変換の重複
+  Controller内で Map への変換処理が各メソッドにコピペされている。
+  共通のヘルパーメソッドか、DTOクラスに切り出すべき。
+
+  ---
+  2. 基本的なセキュリティ
+
+  問題点
+
+  | ファイル                    | 行                           | 問題           | 重要度 |
+  |-------------------------|-------------------------------|--------------|-----|
+  | TaskDuplicateService:13 | RuntimeException              | 汎用例外の使用       | 中   |
+  | TaskController:duplicate| catch (RuntimeException e)    | 例外の握り潰し       | 中   |
+
+  改善案
+
+  2-1. 適切な例外クラスの使用
+  // Before
+  .orElseThrow(() -&gt; new RuntimeException(&quot;Task not found&quot;));
+
+  // After（Spring の標準例外を使用）
+  import org.springframework.web.server.ResponseStatusException;
+  import org.springframework.http.HttpStatus;
+
+  .orElseThrow(() -&gt; new ResponseStatusException(
+      HttpStatus.NOT_FOUND, &quot;Task not found&quot;));
+
+  ---
+  3. パフォーマンス
+
+  問題点
+
+  | ファイル                     | 行           | 問題            | 重要度 |
+  |--------------------------|-------------|---------------|-----|
+  | TaskController:index     | findAll()   | N+1クエリの可能性    | 中   |
+
+  改善案
+
+  3-1. N+1クエリの防止
+  // Repositoryにカスタムクエリを追加
+  @Query(&quot;SELECT t FROM Task t LEFT JOIN FETCH t.genre&quot;)
+  List&lt;Task&gt; findAllWithGenre();
+
+  ---
+  まとめ
+
+  | 観点       | 重要度「高」の問題 | 重要度「中」の問題           |
+  |----------|-----------|---------------------|
+  | コーディング規約 | なし        | マジックナンバー、レスポンス変換の重複 |
+  | セキュリティ   | なし        | 汎用例外の使用、例外の握り潰し     |
+  | パフォーマンス  | なし        | N+1クエリの可能性          |</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+</body>
+</html>
