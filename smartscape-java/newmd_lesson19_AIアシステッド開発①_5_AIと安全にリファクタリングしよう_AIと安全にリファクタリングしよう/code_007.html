@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-plaintext"><code>リファクタリング計画: create アクションの Service 層化
+
+---
+ステップ1: TaskService クラスの作成
+
+新しいファイル: src/main/java/com/example/taskchecker/service/TaskService.java
+
+責務の再設計:
+| 責務               | リファクタリング前   | リファクタリング後    |
+|-------------------|---------------|-----------------|
+| HTTPリクエストの受付 | Controller    | Controller      |
+| バリデーション       | Controller    | Service         |
+| エンティティの組み立て | Controller  | Service         |
+| データベースへの保存   | Controller  | Service         |
+| レスポンスの組み立て   | Controller  | Controller      |
+
+---
+ステップ2: TaskService に create ロジックを移動
+
+- バリデーション処理を Service に移動
+- エンティティの組み立て処理を Service に移動
+- 保存処理を Service に移動
+- 結果を返すための仕組み（成功/失敗 + エラーメッセージ）を用意
+
+---
+ステップ3: Controller の修正
+
+- create メソッドから Service を呼び出すように変更
+- Controller にはリクエストの受付とレスポンスの返却のみ残す
+
+---
+ステップ4: テスト実行
+
+- 既存のテストがすべて成功することを確認
+- リファクタリングによって振る舞いが変わっていないことを保証</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

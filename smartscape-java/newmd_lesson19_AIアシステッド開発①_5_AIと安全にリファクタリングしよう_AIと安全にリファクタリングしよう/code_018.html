@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-plaintext"><code>TaskController.java（create部分が大幅にスリム化）
+├── タスク一覧取得
+├── タスク詳細取得
+├── タスク作成 → TaskService.createTask() を呼び出すだけ
+├── タスク更新
+└── タスク削除
+
+TaskService.java（新規作成）
+└── createTask()
+    ├── バリデーション
+    ├── エンティティの組み立て
+    ├── ジャンルの検索・関連付け
+    └── データベースへの保存</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

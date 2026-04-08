@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>⏺ Issue #1 の対応を開始します。まず、カスタムコマンドを実行してブランチを作成します。
+
+&gt; /create_branch_from_issue is running… 1
+
+⏺ まず、リポジトリ情報を確認してからIssue情報を取得します。
+
+⏺ Bash(git remote -v | head -1)
+  ⎿  origin     https://github.com/your-name/task-checker-api.git (fetch)
+
+⏺ github - get_issue (MCP)(owner: &quot;your-name&quot;, repo: &quot;task-checker-api&quot;, issue_number: 1)
+  ⎿  {
+       &quot;url&quot;: &quot;https://api.github.com/repos/your-name/task-checker-api/issues/1&quot;,
+       ...
+     }
+
+⏺ Issue #1の情報を取得しました：
+  - タイトル: テスト
+  - 本文: テスト用のIssueです
+
+  ブランチ名を生成してチェックアウトします。
+
+⏺ Bash(git checkout -b feature/issue-1-test)
+  ⎿  Switched to a new branch &#x27;feature/issue-1-test&#x27;
+
+⏺ ブランチ feature/issue-1-test を作成し、チェックアウトしました。
+
+  ---
+  Issue #1 の内容確認
+
+  | 項目   | 内容           |
+  |------|--------------|
+  | タイトル | テスト          |
+  | 本文   | テスト用のIssueです |
+  | 状態   | Open         |
+
+  このIssueは「テスト用」とのことで、具体的な実装内容が記載されていません。
+
+  質問: このIssueで具体的にどのような作業を行いたいですか？実装したい機能や修正したいバグの詳細を教えてください。</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

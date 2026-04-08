@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java"><code>public class ImageCache {
+    // キー: 画像ID, 値: 画像データ(byte配列)
+    private static Map&lt;String, byte[]&gt; cache = new HashMap&lt;&gt;();
+
+    public static void addImage(String imageId, byte[] imageData) {
+        // 画像サイズが大きい場合、大量のメモリを消費する可能性がある
+        cache.put(imageId, imageData);
+        System.out.println(imageId + &quot; をキャッシュに追加しました。現在のキャッシュサイズ: &quot; + cache.size());
+    }
+
+    public static byte[] getImage(String imageId) {
+        return cache.get(imageId);
+    }
+
+    // 問題点: キャッシュから削除する仕組みがない！
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>

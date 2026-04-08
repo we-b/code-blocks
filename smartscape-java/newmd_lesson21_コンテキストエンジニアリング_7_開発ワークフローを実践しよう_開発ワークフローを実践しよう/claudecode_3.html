@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>&gt; yes、修正してください。
+
+⏺ 修正を開始します。
+
+・・省略・・
+
+⏺ ---
+  実装完了報告
+
+  テスト結果
+
+  | カテゴリ            | 件数  | 結果        |
+  |-----------------|-----|-----------|
+  | 今回追加 (report関連) | 12件 | ✅ 全てパス    |
+  | 既存テスト           | XX件 | ✅ 全てパス    |
+
+  変更ファイル一覧
+
+  | ファイル                                      | 変更内容                           |
+  |---------------------------------------------|--------------------------------|
+  | TaskController.java                         | report アクション追加（Service呼び出し）  |
+  | TaskReportService.java                      | 新規作成 - 統計ロジック                |
+  | TaskReportServiceTest.java                  | 新規作成 - サービス単体テスト             |
+  | TaskControllerTest.java                     | 結合テスト追加                       |
+
+  レスポンス形式
+
+  {
+    &quot;totalCount&quot;: 10,
+    &quot;countByStatus&quot;: {
+      &quot;todo&quot;: 3,
+      &quot;doing&quot;: 4,
+      &quot;done&quot;: 3
+    },
+    &quot;completionRate&quot;: 30.0
+  }
+
+  ---
+  コミットしてよろしいですか？
+  - yes: コミットして完了
+  - fix: 追加の修正が必要</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

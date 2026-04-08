@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java"><code>public class Cooking {
+  private String type;
+
+  public Cooking(String type) {
+    this.type = type;
+  }
+
+  public void prepareDish() {
+    gatherIngredients();
+
+    // 条件分岐を使って、料理の種類に応じた調理方法を呼び出す
+    if (type.equals(&quot;カレー&quot;)) {
+      cookCurry();
+    } else if (type.equals(&quot;パスタ&quot;)) {
+      cookPasta();
+    }
+
+    serve();
+  }
+
+  private void gatherIngredients() {
+    System.out.println(&quot;材料を集める&quot;);
+  }
+
+  private void cookCurry() {
+    System.out.println(&quot;食材を煮込む&quot;);
+  }
+
+  private void cookPasta() {
+    System.out.println(&quot;パスタを茹でる&quot;);
+    System.out.println(&quot;トッピングと和える&quot;);
+  }
+
+  private void serve() {
+    System.out.println(&quot;盛り付ける&quot;);
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    Cooking curryCooking = new Cooking(&quot;カレー&quot;);
+    curry.prepareDish();
+
+    Cooking pastaCooking = new Cooking(&quot;パスタ&quot;);
+    pasta.prepareDish();
+  }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>

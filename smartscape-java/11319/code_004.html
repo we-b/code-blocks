@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-plaintext"><code>public abstract class Robot {
+  public abstract void operate();
+}
+
+public class CleaningRobot extends Robot {
+  @Override
+  public void operate() {
+    System.out.println(&quot;掃除を開始します。&quot;);
+  }
+}
+
+public class CookingRobot extends Robot {
+  @Override
+  public void operate() {
+    System.out.println(&quot;料理を開始します。&quot;);
+  }
+}
+
+public abstract class RobotFactory {
+  public Robot createRobot() {
+    return createRobotType();
+  }
+
+  protected abstract Robot createRobotType();
+}
+
+public class CleaningRobotFactory extends RobotFactory {
+  @Override
+  protected Robot createRobotType() {
+    Robot cleaningRobot = new CleaningRobot();
+    // cleaningRobotに部屋の間取りデータを読み込む処理
+    return cleaningRobot;
+  }
+}
+
+public class CookingRobotFactory extends RobotFactory {
+  @Override
+  protected Robot createRobotType() {
+    Robot cookingRobot = new CookingRobot();
+    // cookingRobotにメニューやレシピのデータを読み込む処理
+    return cookingRobot;
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    RobotFactory cleaningRobotFactory = new CleaningRobotFactory();
+    Robot cleaningRobot = cleaningRobotFactory.createRobot();
+    cleaningRobot.operate();
+    
+    RobotFactory cookingRobotFactory = new CookingRobotFactory();
+    Robot cookingRobot = cookingRobotFactory.createRobot();
+    cookingRobot.operate();
+  }
+}
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

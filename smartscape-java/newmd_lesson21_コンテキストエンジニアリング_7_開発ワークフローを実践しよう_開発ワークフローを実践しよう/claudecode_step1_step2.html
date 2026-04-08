@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>次に、コードベースを調査して実装計画を策定します。SerenaMCPを使用します。
+
+⏺ serena - read_memory (MCP)(memory_file_name: &quot;codebase_structure&quot;)
+  ⎿  { &quot;result&quot;: &quot;# コードベース構造\n...&quot; }
+
+・・省略・・
+
+⏺ ---
+  調査結果サマリー
+
+  | 項目             | 内容                                    |
+  |----------------|---------------------------------------|
+  | Taskのstatus   | todo, doing, done (String型)           |
+  | 既存のJSON形式      | camelCase使用                           |
+  | Service層       | TaskService, TaskDuplicateService が既存  |
+  | テスト            | JUnit 5 + MockMvc                     |
+
+  ---
+  実装計画（TDD）
+
+  Step 1: テスト追加 (Red)
+
+  - TaskReportServiceの単体テストを作成
+  - GET /tasks/report の結合テストを作成
+
+  Step 2: テスト実行 → 失敗確認 (Red)
+
+  ./gradlew test で失敗を確認
+
+  Step 3: 最小限の実装 (Green)
+
+  1. TaskReportService.java を新規作成（@Service）
+  2. TaskController.java に report アクション追加
+  3. ルーティングはSpringBootの@GetMappingで自動設定
+
+  Step 4: テスト再実行 → 成功確認 (Green)
+
+  Step 5: リファクタリング (Refactor)
+
+  ---
+  この TDD 順序で進めてよろしいですか？ (yes で承認)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

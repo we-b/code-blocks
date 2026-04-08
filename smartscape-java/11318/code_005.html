@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java"><code>public class Product {
+  private String name;
+
+  public Product(String name) {
+    this.name = name;
+  }
+
+  public void sell() {
+    if (name.equals(&quot;自転車&quot;)) {
+      System.out.println(&quot;商品をお買い求めですか？&quot;);
+      System.out.println(&quot;商品の購入にはカードもしくは現金が使えます&quot;);
+      System.out.println(&quot;商品の値段は20000円です&quot;);
+    } else if (name.equals(&quot;ゲームカセット&quot;)) {
+      System.out.println(&quot;商品をお買い求めですか？&quot;);
+      System.out.println(&quot;商品の購入にはカードもしくは現金が使えます&quot;);
+      System.out.println(&quot;商品の値段は5000円です&quot;);
+    }
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    Product bicycle = new Product(&quot;自転車&quot;);
+    bicycle.sell();
+    
+    Product gameCassette = new Product(&quot;ゲームカセット&quot;);
+    gameCassette.sell();
+  }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>

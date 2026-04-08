@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-plaintext"><code>import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+
+public class RegexExample {
+    public static void main(String[] args) {
+        // 検索対象の文字列
+        String text = &quot;hello@example.com&quot;;
+
+        // 正規表現パターン
+        Pattern pattern = Pattern.compile(&quot;@.+&quot;);
+
+        // パターンを元にMatcherを作成
+        Matcher matcher = pattern.matcher(text);
+
+        // マッチ結果の確認
+        if (matcher.find()) {
+            System.out.println(&quot;マッチ結果: &quot; + matcher.group());
+        } else {
+            System.out.println(&quot;マッチしませんでした。&quot;);
+        }
+    }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

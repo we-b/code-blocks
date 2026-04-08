@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript"><code>// （1）変数の定義
+const name = &quot;Tom&quot;;
+
+//（2）console.logなどのメソッド（メソッドについては次の章で詳しく解説します）
+console.log(name);
+
+//（3）関数式（無名関数）
+const hello = function(){
+};
+
+//（4）関数式（即時関数）
+(function hello() {
+})();
+
+//（5）関数式（アロー関数）
+const hello = () =&gt; {
+};</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

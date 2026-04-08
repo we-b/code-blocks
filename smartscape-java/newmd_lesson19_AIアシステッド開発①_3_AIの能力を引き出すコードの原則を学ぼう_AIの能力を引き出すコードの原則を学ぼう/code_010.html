@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java"><code>// OK例：ガード節で早期リターンし、ネストを浅く保つ
+public String processUser(User user) {
+    // userが存在しない場合は、ここで処理を終了
+    if (user == null) {
+        return &quot;ユーザーが見つかりません&quot;;
+    }
+
+    // userがアクティブでない場合は、ここで処理を終了
+    if (!user.isActive()) {
+        return &quot;ユーザーが無効です&quot;;
+    }
+
+    // 権限がない場合は、ここで処理を終了
+    if (!user.hasPermission()) {
+        return &quot;権限がありません&quot;;
+    }
+
+    // ここからがメインの処理
+    return &quot;処理が完了しました: &quot; + user.getName();
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>

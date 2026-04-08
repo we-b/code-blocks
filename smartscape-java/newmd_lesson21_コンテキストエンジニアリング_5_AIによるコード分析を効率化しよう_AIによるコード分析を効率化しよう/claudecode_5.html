@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>⏺ Taskエンティティのフィールド一覧を取得します。
+
+⏺ serena - find_symbol (MCP)(name_path_pattern: &quot;Task&quot;, depth: 1, include_body: false)
+  ⎿ {
+      &quot;result&quot;: &quot;[{\&quot;name_path\&quot;: \&quot;Task\&quot;, \&quot;kind\&quot;: \&quot;Class\&quot;, \&quot;body_location\&quot;: {\&quot;start_line\&quot;: 0, \&quot;end_line\&quot;: 42}, \&quot;children\&quot;: [{\&quot;name\&quot;: \&quot;id\&quot;, \&quot;name_path\&quot;: \&quot;Task/id\&quot;, \&quot;kind\&quot;: \&quot;Field\&quot;}, {\&quot;name\&quot;: \&quot;title\&quot;, ...
+    ]}]&quot;
+
+⏺ serena - get_symbols_overview (MCP)(relative_path: &quot;src/main/java/com/example/taskchecker/model/Task.java&quot;)
+  ⎿  {
+       &quot;result&quot;: &quot;[{\&quot;name_path\&quot;: \&quot;Task\&quot;, \&quot;kind\&quot;: 5}]&quot;
+     }
+
+⏺ Taskエンティティに定義されているフィールドは以下の通りです：
+
+  | フィールド名   | 型              | 説明             |
+  |-----------|----------------|----------------|
+  | id        | Long           | タスクID（主キー）     |
+  | title     | String         | タスクのタイトル       |
+  | content   | String         | タスクの詳細内容       |
+  | status    | String         | ステータス          |
+  | priority  | String         | 優先度            |
+  | genreId   | Long           | ジャンルID（外部キー）   |
+  | createdAt | LocalDateTime  | 作成日時           |
+  | updatedAt | LocalDateTime  | 更新日時           |</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

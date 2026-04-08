@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java"><code>public class AdService {
+
+  public void displayAd(String adType, int imageCount) {
+    displayHeader();
+    displayBody(adType, imageCount);
+    displayFooter();
+  }
+
+  private void displayHeader() {
+    System.out.println(&quot;株式会社〇〇&quot;);
+  }
+
+  private void displayBody(String adType, int imageCount) {
+    switch (adType) {
+      case &quot;gif&quot;:
+        if (imageCount == 2) {
+          System.out.println(&quot;GIF広告: 2つの画像を表示&quot;);
+        } else {
+          System.out.println(&quot;GIF広告: 1つの画像を表示&quot;);
+        }
+        break;
+      case &quot;image&quot;:
+        System.out.println(&quot;画像広告を表示&quot;);
+        break;
+      case &quot;movie&quot;:
+        System.out.println(&quot;動画広告を表示&quot;);
+        break;
+      default:
+        System.out.println(&quot;デフォルト画像を表示&quot;);
+        break;
+    }
+  }
+
+  private void displayFooter() {
+    System.out.println(&quot;詳しくはこちら&quot;);
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+      AdService adService = new AdService();
+      adService.displayAd(&quot;gif&quot;, 1);         // GIF広告を表示
+      adService.displayAd(&quot;image&quot;, 0);       // 画像広告を表示
+      adService.displayAd(&quot;movie&quot;, 0);       // ムービー広告を表示
+      adService.displayAd(&quot;unknown&quot;, 0);     // 未知の広告形式
+  }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>

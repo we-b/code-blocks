@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java"><code>public class ShoppingCart {
+  private void payWithCreditCard(int amount) {
+    System.out.println(&quot;クレジットカードで&quot; + amount + &quot;円支払いました。&quot;);
+  }
+
+  private void payWithBankTransfer(int amount) {
+    System.out.println(&quot;銀行振込で&quot; + amount + &quot;円支払いました。&quot;);
+  }
+
+  public void checkout(String paymentMethod, int amount) {
+    switch (paymentMethod) {
+      case &quot;CreditCard&quot;:
+        payWithCreditCard(amount);
+        break;
+      case &quot;BankTransfer&quot;:
+        payWithBankTransfer(amount);
+        break;
+      default:
+        System.out.println(&quot;無効な支払い方法です。&quot;);
+        break;
+    }
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    ShoppingCart cart = new Payment();
+
+    cart.pay(&quot;CreditCard&quot;, 1000);
+    cart.pay(&quot;BankTransfer&quot;, 2000);
+    cart.pay(&quot;InvalidMethod&quot;, 500);
+  }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>

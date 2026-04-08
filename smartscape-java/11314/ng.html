@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java"><code>// 大きなインターフェース
+public interface CompleteCar {
+  void 走る();
+  void 自動走行();
+  void 衝突回避();
+}
+
+// 全ての機能を実装したクラス
+public class AutonomousCar implements CompleteCar {
+  public void 走る() {
+    System.out.println(&quot;通常走行します&quot;);
+  }
+
+  public void 自動走行() {
+    System.out.println(&quot;自動走行を開始します。&quot;);
+  }
+
+  public void 衝突回避() {
+    System.out.println(&quot;衝突回避機能が有効になりました。&quot;);
+  }
+}
+
+// 通常の車クラス
+public class RegularCar implements CompleteCar {
+  public void 走る() {
+    System.out.println(&quot;走行します&quot;);
+  }
+
+  // 自動走行や衝突回避機能の実装はないが、文法的に実装する必要がある
+  public void 自動走行() {
+    throw new UnsupportedOperationException(&quot;この車は自動走行機能を持っていません。&quot;);
+  }
+
+  public void 衝突回避() {
+    throw new UnsupportedOperationException(&quot;この車は衝突回避機能を持っていません。&quot;);
+  }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>

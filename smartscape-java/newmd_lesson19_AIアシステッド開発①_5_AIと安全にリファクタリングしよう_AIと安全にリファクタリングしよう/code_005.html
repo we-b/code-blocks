@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-plaintext"><code>リファクタリング案
+
+---
+案1: Service層の導入（@Service パターン）
+
+ビジネスロジックを専用のServiceクラスに切り出す。
+
+@Service
+public class TaskService {
+    private final TaskRepository taskRepository;
+
+    public Task createTask(TaskCreateRequest request) {
+        Task task = new Task();
+        task.setTitle(request.getTitle());
+        // ...
+        return taskRepository.save(task);
+    }
+}
+
+| メリット                     | デメリット            |
+|---------------------------|-------------------|
+| ビジネスロジックのテストが容易  | クラス数が増加        |
+| 再利用可能（API、バッチ処理等） | シンプルなCRUDには過剰な場合も |
+| Controllerが薄くなる        | 設計の一貫性が必要      |
+
+---
+案2: DTO（Data Transfer Object）パターン
+
+リクエスト/レスポンスの変換を専用クラスに分離。
+
+public class TaskResponse {
+    private Long id;
+    private String title;
+    // ...
+
+    public static TaskResponse from(Task task) {
+        TaskResponse response = new TaskResponse();
+        response.id = task.getId();
+        // ...
+        return response;
+    }
+}
+
+| メリット                | デメリット            |
+|-----------------------|-------------------|
+| レスポンス組み立ての重複を解消 | 小規模アプリには冗長     |
+| エンティティの内部構造を隠蔽   | マッピングコードが増える   |
+
+---
+案3: Bean Validation の活用
+
+バリデーションをアノテーションで宣言的に定義。
+
+public class TaskCreateRequest {
+    @NotBlank(message = &quot;タイトルは必須です&quot;)
+    private String title;
+
+    @Pattern(regexp = &quot;todo|doing|done&quot;)
+    private String status;
+}
+
+| メリット                | デメリット            |
+|-----------------------|-------------------|
+| バリデーションロジックの集約  | 複雑なルールには不向き   |
+| 宣言的で読みやすい          | カスタムバリデーションが必要な場合も |
+
+---
+推奨: Service層の導入から始める
+
+現在のコード規模を考慮すると、まずService層を導入し、
+ControllerからビジネスロジックをServiceに移動するのが最もバランスが良いです。</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

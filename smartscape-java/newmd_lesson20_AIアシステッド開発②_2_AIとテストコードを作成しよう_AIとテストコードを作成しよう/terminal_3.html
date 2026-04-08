@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-bash"><code>まず単体テストのコードを生成してください。
+今回は設計の一貫性を保つため、TaskDuplicateService というサービスクラスを作成して実装します。
+
+- 対象: TaskDuplicateService クラスの duplicate(Long taskId) メソッド
+- テスト内容: 先ほどのリストの「1〜5」の全て（属性の引き継ぎ、特別な処理、境界値など）
+- テストフレームワーク: JUnit 5 + @SpringBootTest
+- 出力先: src/test/java/com/example/taskchecker/service/TaskDuplicateServiceTest.java
+- @Nested と @DisplayName を使ってカテゴリ別に整理してください</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-plaintext"><code>これからテスト駆動開発で実装を進めます。ゴールとなるテストコードを先に作成しましょう。
+
+既存の TaskControllerTest.java を参考にして、以下のテストケースを
+TaskControllerTest.java 内の新しい @Nested クラスとして追加してください。
+
+テストケース:
+1. 優先度「high」を指定してタスクを作成できること
+2. 優先度「low」を指定してタスクを作成できること
+3. 優先度を指定しない場合、デフォルト値「medium」が設定されること
+4. タスク作成後のレスポンスJSONに priority フィールドが含まれること
+
+既存のテストのスタイル（@Nested、@DisplayName、MockMvc等）に合わせてください。</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

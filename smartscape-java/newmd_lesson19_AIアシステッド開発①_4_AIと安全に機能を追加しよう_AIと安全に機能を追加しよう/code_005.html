@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-plaintext"><code>優先度機能追加の開発計画
+
+ステップ1: Taskエンティティの修正
+- Task.java に priority フィールド（String型）を追加
+- @PrePersist で デフォルト値 &quot;medium&quot; を設定
+- getter / setter を追加
+
+ステップ2: TaskControllerの修正
+- タスク作成API（POST /tasks）で priority パラメータを受け取れるようにする
+- タスク更新API（PUT /tasks/{id}）で priority を更新できるようにする
+- レスポンスの Map に priority を含めるようにする
+- バリデーション追加（low / medium / high のいずれかであること）
+
+ステップ3: 初期データの更新
+- data.sql に priority カラムの値を追加
+
+ステップ4: テストの追加・修正
+- 優先度を指定してタスクを作成できるテスト
+- デフォルト値が medium になるテスト
+- 不正な優先度の場合にエラーになるテスト
+- レスポンスに priority が含まれるテスト
+
+ステップ5: 動作確認
+- アプリケーション起動、ブラウザ / curl での確認</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

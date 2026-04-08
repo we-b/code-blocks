@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-md"><code>## Step 3: 実装・レビュー・修正サイクル
+1.  承認された計画に基づき、実装を行います。
+2.  実装完了後、** `springboot-reviewer` サブエージェントを呼び出し、コードレビューを実行させます。**
+3.  実装内容とレビュー結果をユーザーに報告します。
+4.  **【ユーザー承認】**: 報告書を提示し、承認を求めます。
+    -   `yes`: コミットして完了。
+    -   `fix`: 指摘に基づき修正し、再度レビューからやり直す。</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-md.min.js"></script>
+</body>
+</html>

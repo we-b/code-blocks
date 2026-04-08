@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-markup" data-line="10,11,12"><code>// 省略
+
+      &lt;div class=&#x27;chat-room-form__field&#x27;&gt;
+        &lt;div class=&#x27;chat-room-form__field--left&#x27;&gt;
+          &lt;label class=&#x27;chat-room-form__label&#x27; for=&#x27;chat_room_チャットメンバー&#x27;&gt;チャットメンバー&lt;/label&gt;
+        &lt;/div&gt;
+        &lt;div class=&#x27;chat-room-form__field--right&#x27;&gt;
+          &lt;select&gt;
+            &lt;option&gt;チャットするユーザーを選択してください&lt;/option&gt;
+            &lt;div th:each=&quot;user : ${users}&quot;&gt;
+              &lt;option th:text=&quot;${user.name}&quot;&gt;&lt;/option&gt;
+            &lt;/div&gt;
+          &lt;/select&gt;  
+        &lt;/div&gt;
+      &lt;/div&gt;
+
+// 省略</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

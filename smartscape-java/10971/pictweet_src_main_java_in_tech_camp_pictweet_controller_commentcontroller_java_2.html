@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java" data-line="3,5,6,7,8,9,12,13,14,15,16,17,18,19,26,28,30,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61"><code>package in.tech_camp.pictweet.controller;
+
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import in.tech_camp.pictweet.custom_user.CustomUserDetail;
+import in.tech_camp.pictweet.entity.CommentEntity;
+import in.tech_camp.pictweet.entity.TweetEntity;
+import in.tech_camp.pictweet.form.CommentForm;
+import in.tech_camp.pictweet.repository.CommentRepository;
+import in.tech_camp.pictweet.repository.TweetRepository;
+import in.tech_camp.pictweet.repository.UserRepository;
+import in.tech_camp.pictweet.validation.ValidationOrder;
+import lombok.AllArgsConstructor;
+
+@Controller
+@AllArgsConstructor
+public class CommentController {
+
+  private final CommentRepository commentRepository;
+
+  private final UserRepository userRepository;
+
+  private final TweetRepository tweetRepository;
+
+  @PostMapping(&quot;/tweets/{tweetId}/comment&quot;)
+  public String createComment(@PathVariable(&quot;tweetId&quot;) Integer tweetId, 
+                            @ModelAttribute(&quot;commentForm&quot;) @Validated(ValidationOrder.class) CommentForm commentForm,
+                            BindingResult result,
+                            @AuthenticationPrincipal CustomUserDetail currentUser, Model model) {
+
+    TweetEntity tweet = tweetRepository.findById(tweetId);
+
+    if (result.hasErrors()) {
+        model.addAttribute(&quot;errorMessages&quot;, result.getAllErrors());
+        model.addAttribute(&quot;tweet&quot;, tweet);
+        model.addAttribute(&quot;commentForm&quot;, commentForm);
+        return &quot;tweets/detail&quot;;
+    }
+
+    CommentEntity comment = new CommentEntity();
+    comment.setText(commentForm.getText());
+    comment.setTweet(tweet);
+    comment.setUser(userRepository.findById(currentUser.getId()));
+
+    try {
+      commentRepository.insert(comment);
+    } catch (Exception e) {
+      model.addAttribute(&quot;tweet&quot;, tweet);
+      model.addAttribute(&quot;commentForm&quot;, commentForm);
+      System.out.println(&quot;エラー：&quot; + e);
+      return &quot;tweets/detail&quot;;
+    }
+
+    return &quot;redirect:/tweets/&quot; + tweetId;
+  }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

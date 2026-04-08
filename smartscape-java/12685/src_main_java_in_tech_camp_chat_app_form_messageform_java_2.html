@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java" data-line="3,6,7,12,17,18,19,20,21"><code>package in.tech_camp.chat_app.form;
+
+import org.springframework.validation.BindingResult;
+import org.springframework.web.multipart.MultipartFile;
+
+// import in.tech_camp.chat_app.validation.ValidationPriority1; 　削除
+// import jakarta.validation.constraints.NotBlank; 　削除
+import lombok.Data;
+
+@Data
+public class MessageForm {
+  // @NotBlank(message = &quot;Name can&#x27;t be blank&quot;,groups = ValidationPriority1.class) 　削除
+  private String content;
+
+  private MultipartFile image;
+
+  public void validateMessage(BindingResult result) {
+    if ((content == null || content.isEmpty()) &amp;&amp; (image == null || image.isEmpty())) {
+      result.rejectValue(&quot;Content&quot;, &quot;error.Message&quot;, &quot;Please enter either content or image&quot;);
+    }
+  }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

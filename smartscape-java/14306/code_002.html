@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>requirement_v2.md の要件に基づき、勤怠管理システムのデータモデルを
+3つの異なるアプローチで設計し、「datamodels.md」に保存してください。
+
+【3つのアプローチ】
+案A: シンプル型（テーブル数最小、小規模向け）
+案B: バランス型（正規化と実用性のバランス、一般向け）
+案C: 高拡張性型（将来の変更に強い、大規模向け）
+
+【出力内容】
+各案ごとに以下を含めてください:
+1. 設計思想と適用シーン
+2. テーブル定義（YAML形式）
+3. ER図（Mermaid記法）
+4. メリット・デメリット
+5. 推定される実装難易度</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

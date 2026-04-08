@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java"><code>@PostMapping
+public ResponseEntity&lt;?&gt; create(@RequestBody Map&lt;String, Object&gt; requestBody) {
+    Map&lt;String, Object&gt; result = taskService.createTask(requestBody);
+
+    if (!(boolean) result.get(&quot;success&quot;)) {
+        Map&lt;String, Object&gt; errorResponse = new HashMap&lt;&gt;();
+        errorResponse.put(&quot;errors&quot;, result.get(&quot;errors&quot;));
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
+    }
+
+    Task savedTask = (Task) result.get(&quot;task&quot;);
+
+    // レスポンス組み立て
+    Map&lt;String, Object&gt; taskMap = new LinkedHashMap&lt;&gt;();
+    taskMap.put(&quot;id&quot;, savedTask.getId());
+    taskMap.put(&quot;title&quot;, savedTask.getTitle());
+    // ... （レスポンスの組み立て）
+
+    return ResponseEntity.status(HttpStatus.CREATED).body(taskMap);
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>

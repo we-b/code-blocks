@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java"><code>package com.example.taskchecker.service;
+
+import com.example.taskchecker.entity.Genre;
+import com.example.taskchecker.entity.Task;
+import com.example.taskchecker.repository.GenreRepository;
+import com.example.taskchecker.repository.TaskRepository;
+import org.junit.jupiter.api.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import static org.assertj.core.api.Assertions.*;
+
+@SpringBootTest
+class TaskDuplicateServiceTest {
+
+    @Autowired
+    private TaskDuplicateService taskDuplicateService;
+
+    @Autowired
+    private TaskRepository taskRepository;
+
+    @Autowired
+    private GenreRepository genreRepository;
+
+    private Genre testGenre;
+
+    @BeforeEach
+    void setUp() {
+        taskRepository.deleteAll();
+        genreRepository.deleteAll();
+        testGenre = genreRepository.save(new Genre(&quot;テストジャンル&quot;));
+    }
+
+    // ============================================================
+    // 1. 正常系 - 属性の引き継ぎ
+    // ============================================================
+    @Nested
+    @DisplayName(&quot;属性の引き継ぎ&quot;)
+    class AttributeInheritanceTests {
+
+        @Test
+        @DisplayName(&quot;title が正しく引き継がれ、末尾に「(コピー)」が追加される&quot;)
+        void shouldCopyTitleWithSuffix() {
+            Task original = createTask(&quot;買い物&quot;, &quot;内容&quot;, &quot;todo&quot;, &quot;medium&quot;);
+
+            Task duplicated = taskDuplicateService.duplicate(original.getId());
+
+            assertThat(duplicated.getTitle()).isEqualTo(&quot;買い物(コピー)&quot;);
+        }
+
+        @Test
+        @DisplayName(&quot;content がそのまま引き継がれる&quot;)
+        void shouldCopyContent() {
+            Task original = createTask(&quot;タスク&quot;, &quot;詳細な説明文です&quot;, &quot;todo&quot;, &quot;medium&quot;);
+
+            Task duplicated = taskDuplicateService.duplicate(original.getId());
+
+            assertThat(duplicated.getContent()).isEqualTo(&quot;詳細な説明文です&quot;);
+        }
+
+        @Test
+        @DisplayName(&quot;genre がそのまま引き継がれる&quot;)
+        void shouldCopyGenre() {
+            Task original = createTask(&quot;タスク&quot;, &quot;内容&quot;, &quot;todo&quot;, &quot;medium&quot;);
+
+            Task duplicated = taskDuplicateService.duplicate(original.getId());
+
+            assertThat(duplicated.getGenre().getId()).isEqualTo(testGenre.getId());
+        }
+
+        @Test
+        @DisplayName(&quot;priority が low の場合、そのまま引き継がれる&quot;)
+        void shouldCopyPriorityLow() {
+            Task original = createTask(&quot;タスク&quot;, &quot;内容&quot;, &quot;todo&quot;, &quot;low&quot;);
+
+            Task duplicated = taskDuplicateService.duplicate(original.getId());
+
+            assertThat(duplicated.getPriority()).isEqualTo(&quot;low&quot;);
+        }
+
+        @Test
+        @DisplayName(&quot;priority が medium の場合、そのまま引き継がれる&quot;)
+        void shouldCopyPriorityMedium() {
+            Task original = createTask(&quot;タスク&quot;, &quot;内容&quot;, &quot;todo&quot;, &quot;medium&quot;);
+
+            Task duplicated = taskDuplicateService.duplicate(original.getId());
+
+            assertThat(duplicated.getPriority()).isEqualTo(&quot;medium&quot;);
+        }
+
+        @Test
+        @DisplayName(&quot;priority が high の場合、そのまま引き継がれる&quot;)
+        void shouldCopyPriorityHigh() {
+            Task original = createTask(&quot;タスク&quot;, &quot;内容&quot;, &quot;todo&quot;, &quot;high&quot;);
+
+            Task duplicated = taskDuplicateService.duplicate(original.getId());
+
+            assertThat(duplicated.getPriority()).isEqualTo(&quot;high&quot;);
+        }
+    }
+
+    // ============================================================
+    // 2. 正常系 - 特別な処理
+    // ============================================================
+    @Nested
+    @DisplayName(&quot;特別な処理&quot;)
+    class SpecialProcessingTests {
+
+        @Test
+        @DisplayName(&quot;status が done のタスクを複製すると、新タスクは todo になる&quot;)
+        void shouldResetStatusFromDone() {
+            Task original = createTask(&quot;タスク&quot;, &quot;内容&quot;, &quot;done&quot;, &quot;medium&quot;);
+
+            Task duplicated = taskDuplicateService.duplicate(original.getId());
+
+            assertThat(duplicated.getStatus()).isEqualTo(&quot;todo&quot;);
+        }
+
+        @Test
+        @DisplayName(&quot;status が doing のタスクを複製すると、新タスクは todo になる&quot;)
+        void shouldResetStatusFromDoing() {
+            Task original = createTask(&quot;タスク&quot;, &quot;内容&quot;, &quot;doing&quot;, &quot;medium&quot;);
+
+            Task duplicated = taskDuplicateService.duplicate(original.getId());
+
+            assertThat(duplicated.getStatus()).isEqualTo(&quot;todo&quot;);
+        }
+
+        @Test
+        @DisplayName(&quot;status が todo のタスクを複製すると、新タスクも todo になる&quot;)
+        void shouldKeepStatusTodo() {
+            Task original = createTask(&quot;タスク&quot;, &quot;内容&quot;, &quot;todo&quot;, &quot;medium&quot;);
+
+            Task duplicated = taskDuplicateService.duplicate(original.getId());
+
+            assertThat(duplicated.getStatus()).isEqualTo(&quot;todo&quot;);
+        }
+    }
+
+    // ============================================================
+    // 3. 正常系 - 境界値・エッジケース
+    // ============================================================
+    @Nested
+    @DisplayName(&quot;境界値・エッジケース&quot;)
+    class EdgeCaseTests {
+
+        @Test
+        @DisplayName(&quot;title が非常に長い文字列でも、末尾に「(コピー)」が追加される&quot;)
+        void shouldHandleLongTitle() {
+            String longTitle = &quot;あ&quot;.repeat(100);
+            Task original = createTask(longTitle, &quot;内容&quot;, &quot;todo&quot;, &quot;medium&quot;);
+
+            Task duplicated = taskDuplicateService.duplicate(original.getId());
+
+            assertThat(duplicated.getTitle()).isEqualTo(longTitle + &quot;(コピー)&quot;);
+        }
+
+        @Test
+        @DisplayName(&quot;title に既に「(コピー)」が含まれるタスクを複製すると、「(コピー)(コピー)」になる&quot;)
+        void shouldAppendCopySuffixToAlreadyCopiedTitle() {
+            Task original = createTask(&quot;タスク(コピー)&quot;, &quot;内容&quot;, &quot;todo&quot;, &quot;medium&quot;);
+
+            Task duplicated = taskDuplicateService.duplicate(original.getId());
+
+            assertThat(duplicated.getTitle()).isEqualTo(&quot;タスク(コピー)(コピー)&quot;);
+        }
+
+        @Test
+        @DisplayName(&quot;content が null のタスクを複製すると、新タスクの content も null になる&quot;)
+        void shouldHandleNullContent() {
+            Task original = createTask(&quot;タスク&quot;, null, &quot;todo&quot;, &quot;medium&quot;);
+
+            Task duplicated = taskDuplicateService.duplicate(original.getId());
+
+            assertThat(duplicated.getContent()).isNull();
+        }
+
+        @Test
+        @DisplayName(&quot;content が空文字のタスクを複製すると、新タスクの content も空文字になる&quot;)
+        void shouldHandleEmptyContent() {
+            Task original = createTask(&quot;タスク&quot;, &quot;&quot;, &quot;todo&quot;, &quot;medium&quot;);
+
+            Task duplicated = taskDuplicateService.duplicate(original.getId());
+
+            assertThat(duplicated.getContent()).isEqualTo(&quot;&quot;);
+        }
+    }
+
+    // ============================================================
+    // 4. 正常系 - データの独立性
+    // ============================================================
+    @Nested
+    @DisplayName(&quot;データの独立性&quot;)
+    class DataIndependenceTests {
+
+        @Test
+        @DisplayName(&quot;複製後、元タスクと新タスクのIDが異なる&quot;)
+        void shouldHaveDifferentId() {
+            Task original = createTask(&quot;タスク&quot;, &quot;内容&quot;, &quot;todo&quot;, &quot;medium&quot;);
+
+            Task duplicated = taskDuplicateService.duplicate(original.getId());
+
+            assertThat(duplicated.getId()).isNotEqualTo(original.getId());
+        }
+
+        @Test
+        @DisplayName(&quot;複製によってタスクが1件増加する&quot;)
+        void shouldIncrementTaskCount() {
+            Task original = createTask(&quot;タスク&quot;, &quot;内容&quot;, &quot;todo&quot;, &quot;medium&quot;);
+            long countBefore = taskRepository.count();
+
+            taskDuplicateService.duplicate(original.getId());
+
+            assertThat(taskRepository.count()).isEqualTo(countBefore + 1);
+        }
+
+        @Test
+        @DisplayName(&quot;複製後、元タスクを更新しても新タスクに影響しない&quot;)
+        void shouldBeIndependentFromOriginal() {
+            Task original = createTask(&quot;タスク&quot;, &quot;元の説明&quot;, &quot;todo&quot;, &quot;medium&quot;);
+
+            Task duplicated = taskDuplicateService.duplicate(original.getId());
+
+            // 元タスクを更新
+            original.setTitle(&quot;更新後のタスク&quot;);
+            original.setContent(&quot;更新後の説明&quot;);
+            taskRepository.save(original);
+
+            // 複製したタスクは影響を受けない
+            Task reloaded = taskRepository.findById(duplicated.getId()).orElseThrow();
+            assertThat(reloaded.getTitle()).isEqualTo(&quot;タスク(コピー)&quot;);
+            assertThat(reloaded.getContent()).isEqualTo(&quot;元の説明&quot;);
+        }
+    }
+
+    // ============================================================
+    // 5. 異常系
+    // ============================================================
+    @Nested
+    @DisplayName(&quot;異常系&quot;)
+    class ErrorTests {
+
+        @Test
+        @DisplayName(&quot;存在しないタスクIDを指定すると例外がスローされる&quot;)
+        void shouldThrowExceptionForNonExistentId() {
+            assertThatThrownBy(() -&gt;
+                taskDuplicateService.duplicate(999999L)
+            ).isInstanceOf(RuntimeException.class);
+        }
+    }
+
+    // ============================================================
+    // ヘルパーメソッド
+    // ============================================================
+    private Task createTask(String title, String content,
+                            String status, String priority) {
+        Task task = new Task();
+        task.setTitle(title);
+        task.setContent(content);
+        task.setStatus(status);
+        task.setPriority(priority);
+        task.setGenre(testGenre);
+        return taskRepository.save(task);
+    }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>

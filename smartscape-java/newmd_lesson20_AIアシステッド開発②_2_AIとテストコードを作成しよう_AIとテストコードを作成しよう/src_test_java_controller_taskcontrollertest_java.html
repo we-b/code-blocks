@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java"><code>    // ============================================================
+    // POST /tasks/{id}/duplicate - タスク複製API
+    // ============================================================
+    @Nested
+    @DisplayName(&quot;POST /tasks/{id}/duplicate - タスク複製&quot;)
+    class DuplicateTests {
+
+        // ----------------------------------------------------------
+        // 6. 正常系 - HTTPレスポンス
+        // ----------------------------------------------------------
+        @Nested
+        @DisplayName(&quot;正常系&quot;)
+        class SuccessTests {
+
+            @Test
+            @DisplayName(&quot;正常にリクエストすると HTTP 200 OK が返される&quot;)
+            void shouldReturn200Ok() throws Exception {
+                Task original = new Task(&quot;元のタスク&quot;, &quot;説明&quot;, &quot;done&quot;, testGenre);
+                original.setPriority(&quot;high&quot;);
+                Task saved = taskRepository.save(original);
+
+                mockMvc.perform(post(&quot;/tasks/&quot; + saved.getId() + &quot;/duplicate&quot;)
+                                .contentType(MediaType.APPLICATION_JSON))
+                        .andExpect(status().isOk());
+            }
+
+            @Test
+            @DisplayName(&quot;レスポンスに複製されたタスクの情報が含まれる&quot;)
+            void shouldContainDuplicatedTaskInResponse() throws Exception {
+                Task original = new Task(&quot;元のタスク&quot;, &quot;説明&quot;, &quot;doing&quot;, testGenre);
+                original.setPriority(&quot;high&quot;);
+                Task saved = taskRepository.save(original);
+
+                mockMvc.perform(post(&quot;/tasks/&quot; + saved.getId() + &quot;/duplicate&quot;)
+                                .contentType(MediaType.APPLICATION_JSON))
+                        .andExpect(status().isOk())
+                        .andExpect(jsonPath(&quot;$.title&quot;).value(&quot;元のタスク(コピー)&quot;))
+                        .andExpect(jsonPath(&quot;$.status&quot;).value(&quot;todo&quot;))
+                        .andExpect(jsonPath(&quot;$.priority&quot;).value(&quot;high&quot;));
+            }
+
+            @Test
+            @DisplayName(&quot;タスクが1件追加される&quot;)
+            void shouldIncrementTaskCount() throws Exception {
+                Task original = new Task(&quot;元のタスク&quot;, &quot;説明&quot;, &quot;todo&quot;, testGenre);
+                Task saved = taskRepository.save(original);
+                long countBefore = taskRepository.count();
+
+                mockMvc.perform(post(&quot;/tasks/&quot; + saved.getId() + &quot;/duplicate&quot;)
+                                .contentType(MediaType.APPLICATION_JSON))
+                        .andExpect(status().isOk());
+
+                assertThat(taskRepository.count()).isEqualTo(countBefore + 1);
+            }
+
+            @Test
+            @DisplayName(&quot;元のタスクは削除されない&quot;)
+            void shouldNotDeleteOriginalTask() throws Exception {
+                Task original = new Task(&quot;元のタスク&quot;, &quot;説明&quot;, &quot;todo&quot;, testGenre);
+                Task saved = taskRepository.save(original);
+
+                mockMvc.perform(post(&quot;/tasks/&quot; + saved.getId() + &quot;/duplicate&quot;)
+                                .contentType(MediaType.APPLICATION_JSON))
+                        .andExpect(status().isOk());
+
+                assertThat(taskRepository.existsById(saved.getId())).isTrue();
+            }
+        }
+
+        // ----------------------------------------------------------
+        // 8. 異常系 - HTTPエラー
+        // ----------------------------------------------------------
+        @Nested
+        @DisplayName(&quot;異常系&quot;)
+        class ErrorTests {
+
+            @Test
+            @DisplayName(&quot;存在しない task_id を指定すると HTTP 404 が返される&quot;)
+            void shouldReturn404ForNonExistentId() throws Exception {
+                mockMvc.perform(post(&quot;/tasks/999999/duplicate&quot;)
+                                .contentType(MediaType.APPLICATION_JSON))
+                        .andExpect(status().isNotFound());
+            }
+
+            @Test
+            @DisplayName(&quot;タスクは作成されない&quot;)
+            void shouldNotCreateTaskForNonExistentId() throws Exception {
+                long countBefore = taskRepository.count();
+
+                mockMvc.perform(post(&quot;/tasks/999999/duplicate&quot;)
+                                .contentType(MediaType.APPLICATION_JSON))
+                        .andExpect(status().isNotFound());
+
+                assertThat(taskRepository.count()).isEqualTo(countBefore);
+            }
+
+            @Test
+            @DisplayName(&quot;負の値の task_id を指定すると HTTP 404 が返される&quot;)
+            void shouldReturn404ForNegativeId() throws Exception {
+                mockMvc.perform(post(&quot;/tasks/-1/duplicate&quot;)
+                                .contentType(MediaType.APPLICATION_JSON))
+                        .andExpect(status().isNotFound());
+            }
+        }
+    }</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>

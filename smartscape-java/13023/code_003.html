@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java"><code>// 自動車クラスの定義
+class Car {
+    // 属性（フィールド）
+    String brand; // ブランド名
+    int speed;    // 現在のスピード
+
+    // コンストラクタ（初期化メソッド）: 新しい車を生成するときに呼び出され、ブランド名を設定します
+    public Car(String brand) {
+        this.brand = brand;
+        this.speed = 0; // 初期スピードは0
+    }
+
+    // メソッド: 車のスピードを上げる処理
+    public void accelerate(int increment) {
+        speed += increment; // スピードを上げる
+        System.out.println(brand + &quot;のスピードが &quot; + speed + &quot; km/h になりました。&quot;);
+    }
+
+    // メソッド: 車を止める処理
+    public void brake() {
+        speed = 0; // スピードを止める
+        System.out.println(brand + &quot;が止まりました。&quot;);
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        // 自動車クラスからインスタンスを生成する
+        Car car1 = new Car(&quot;トヨタ&quot;);
+        Car car2 = new Car(&quot;ホンダ&quot;);
+
+        // メソッドを使って動作を実行する
+        car1.accelerate(50); // 出力: トヨタのスピードが 50 km/h になりました。
+        car2.accelerate(60); // 出力: ホンダのスピードが 60 km/h になりました。
+
+        car1.brake(); // 出力: トヨタが止まりました。
+    }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>

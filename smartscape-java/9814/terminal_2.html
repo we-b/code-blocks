@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-bash"><code>% docker image build --tag myapp:20240401 .
+[+] Building 6.3s (11/11) FINISHED                         docker:desktop-linux
+ =&gt; [internal] load build definition from Dockerfile                       0.1s
+ =&gt; =&gt; transferring dockerfile: 651B                                       0.0s
+ =&gt; [internal] load metadata for docker.io/library/node:lts                2.2s
+ =&gt; [auth] library/node:pull token for registry-1.docker.io                0.0s
+ =&gt; [internal] load .dockerignore                                          0.0s
+ =&gt; =&gt; transferring context: 63B                                           0.0s
+ =&gt; [1/5] FROM docker.io/library/node:lts@sha256:e06aae17c40c7a6b5296ca6f  0.0s
+ =&gt; [internal] load build context                                          0.0s
+ =&gt; =&gt; transferring context: 47.72kB                                       0.0s
+ =&gt; CACHED [2/5] WORKDIR /app                                              0.0s
+ =&gt; [3/5] COPY ./package*.json .                                           0.1s
+ =&gt; [4/5] RUN npm install                                                  3.6s
+ =&gt; [5/5] COPY . .                                                         0.0s
+ =&gt; exporting to image                                                     0.1s
+ =&gt; =&gt; exporting layers                                                    0.1s
+ =&gt; =&gt; writing image sha256:bed45d2df49243ebbf81dc3f8e74fb1d11f1e2986d678  0.0s
+ =&gt; =&gt; naming to docker.io/library/myapp:20240401                          0.0s
+
+View build details: docker-desktop://dashboard/build/desktop-linux/desktop-linux/dwlz7uowneoz7ejfxyg8fikxs</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-bash"><code>レビュー結果を確認し、以下についてコード修正をすることにしました。
+まずは改めて変更計画を立ててください。
+
+1. マジックナンバーの排除: &quot;todo&quot; や &quot;(コピー)&quot; を定数（private static final）として定義してください。
+2. 例外の改善: RuntimeException を ResponseStatusException に変更してください。
+3. パフォーマンス改善: TaskRepository に JOIN FETCH を使ったカスタムクエリを追加してください。
+4. 設計改善（案A）: duplicate メソッドから buildDuplicate メソッドを切り出してください。</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+</body>
+</html>

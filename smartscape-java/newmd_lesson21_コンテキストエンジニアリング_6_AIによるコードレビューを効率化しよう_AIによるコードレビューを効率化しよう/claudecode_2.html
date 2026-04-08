@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>⏺ springboot-reviewer エージェントを使用してコードをレビューします。
+
+⏺ springboot-reviewer(Review SpringBoot controller code)
+  ⎿  Done (1 tool use · 22.6k tokens · 45s)
+
+⏺ レビュー結果
+
+  springboot-reviewer によるレビュー結果です。
+
+  ---
+  Critical: アーキテクチャ（C-01 Thin Controller違反）
+
+  統計計算ロジック（フィルタリング、カウント、完了率計算）がControllerに直接記述されています。
+  これらのビジネスロジックはService層に委譲すべきです。
+
+  ---
+  High: DI設計（S-01 コンストラクタインジェクション違反）
+
+  @Autowired フィールドインジェクションが使用されています。
+  private final + コンストラクタインジェクションに変更してください。
+
+  ---
+  推奨修正例
+
+  // Service層にビジネスロジックを分離
+  @Service
+  public class TaskReportService {
+      private final TaskRepository taskRepository;
+
+      public TaskReportService(TaskRepository taskRepository) {
+          this.taskRepository = taskRepository;
+      }
+
+      public Map&lt;String, Object&gt; generateReport() {
+          // ビジネスロジックをここに集約
+      }
+  }
+
+  // Controllerはリクエスト/レスポンスの橋渡しに徹する
+  @RestController
+  public class TaskController {
+      private final TaskReportService taskReportService;
+
+      public TaskController(TaskReportService taskReportService) {
+          this.taskReportService = taskReportService;
+      }
+
+      @GetMapping(&quot;/tasks/report&quot;)
+      public ResponseEntity&lt;Map&lt;String, Object&gt;&gt; report() {
+          return ResponseEntity.ok(taskReportService.generateReport());
+      }
+  }</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

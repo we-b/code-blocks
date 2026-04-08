@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java" data-line="4,28,29,30"><code>package in.tech_camp.pictweet.form;
+import java.util.Set;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+import org.springframework.test.context.ActiveProfiles;
+
+import in.tech_camp.pictweet.validation.ValidationPriority1;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
+
+@ActiveProfiles(&quot;test&quot;)
+public class UserFormUnitTest {
+    @Test
+    public void nicknameが空の場合バリデーションエラーが発生する() {
+        // UserFormのインスタンスを初期化
+        UserForm userForm = new UserForm();
+        userForm.setNickname(&quot;&quot;); // 空のニックネーム
+        userForm.setEmail(&quot;test@test.com&quot;); // メールアドレス
+        userForm.setPassword(&quot;techcamp123&quot;); // パスワード
+        userForm.setPasswordConfirmation(&quot;techcamp123&quot;);// 確認用パスワード
+        // バリデーションの実行
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set&lt;ConstraintViolation&lt;UserForm&gt;&gt; violations = validator.validate(userForm, ValidationPriority1.class);
+        // アサーション
+        assertEquals(1, violations.size());
+        assertEquals(&quot;Nickname can&#x27;t be blank&quot;, violations.iterator().next().getMessage());
+    }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

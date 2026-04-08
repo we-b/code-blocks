@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java"><code>package com.example.taskchecker.service;
+
+import com.example.taskchecker.entity.Genre;
+import com.example.taskchecker.entity.Task;
+import com.example.taskchecker.repository.GenreRepository;
+import com.example.taskchecker.repository.TaskRepository;
+import org.springframework.stereotype.Service;
+
+import java.util.*;
+
+@Service
+public class TaskService {
+
+    private final TaskRepository taskRepository;
+    private final GenreRepository genreRepository;
+
+    public TaskService(TaskRepository taskRepository, GenreRepository genreRepository) {
+        this.taskRepository = taskRepository;
+        this.genreRepository = genreRepository;
+    }
+
+    /**
+     * タスクを作成する
+     * @param requestBody リクエストボディ
+     * @return 作成結果（Taskまたはエラーリスト）
+     */
+    public Map&lt;String, Object&gt; createTask(Map&lt;String, Object&gt; requestBody) {
+        Map&lt;String, Object&gt; result = new HashMap&lt;&gt;();
+
+        // バリデーション
+        List&lt;String&gt; errors = new ArrayList&lt;&gt;();
+
+        if (requestBody.get(&quot;title&quot;) == null
+                || requestBody.get(&quot;title&quot;).toString().trim().isEmpty()) {
+            errors.add(&quot;タイトルは必須です&quot;);
+        }
+
+        String status = &quot;todo&quot;;
+        if (requestBody.get(&quot;status&quot;) != null) {
+            status = requestBody.get(&quot;status&quot;).toString();
+            if (!status.equals(&quot;todo&quot;) &amp;&amp; !status.equals(&quot;doing&quot;)
+                    &amp;&amp; !status.equals(&quot;done&quot;)) {
+                errors.add(&quot;ステータスは todo, doing, done のいずれかを指定してください&quot;);
+            }
+        }
+
+        if (requestBody.get(&quot;priority&quot;) != null) {
+            String priority = requestBody.get(&quot;priority&quot;).toString();
+            if (!priority.equals(&quot;low&quot;) &amp;&amp; !priority.equals(&quot;medium&quot;)
+                    &amp;&amp; !priority.equals(&quot;high&quot;)) {
+                errors.add(&quot;優先度は low, medium, high のいずれかを指定してください&quot;);
+            }
+        }
+
+        if (!errors.isEmpty()) {
+            result.put(&quot;success&quot;, false);
+            result.put(&quot;errors&quot;, errors);
+            return result;
+        }
+
+        // エンティティの組み立て
+        Task task = new Task();
+        task.setTitle(requestBody.get(&quot;title&quot;).toString().trim());
+
+        if (requestBody.get(&quot;content&quot;) != null) {
+            task.setContent(requestBody.get(&quot;content&quot;).toString());
+        }
+
+        task.setStatus(status);
+
+        if (requestBody.get(&quot;priority&quot;) != null) {
+            task.setPriority(requestBody.get(&quot;priority&quot;).toString());
+        }
+
+        // ジャンルの関連付け
+        if (requestBody.get(&quot;genre_id&quot;) != null) {
+            Long genreId;
+            try {
+                genreId = Long.parseLong(requestBody.get(&quot;genre_id&quot;).toString());
+            } catch (NumberFormatException e) {
+                result.put(&quot;success&quot;, false);
+                result.put(&quot;errors&quot;, List.of(&quot;genre_id は数値で指定してください&quot;));
+                return result;
+            }
+
+            Optional&lt;Genre&gt; genreOpt = genreRepository.findById(genreId);
+            if (genreOpt.isEmpty()) {
+                result.put(&quot;success&quot;, false);
+                result.put(&quot;errors&quot;, List.of(&quot;指定されたジャンルが見つかりません&quot;));
+                return result;
+            }
+            task.setGenre(genreOpt.get());
+        }
+
+        // 保存
+        Task savedTask = taskRepository.save(task);
+
+        result.put(&quot;success&quot;, true);
+        result.put(&quot;task&quot;, savedTask);
+        return result;
+    }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>

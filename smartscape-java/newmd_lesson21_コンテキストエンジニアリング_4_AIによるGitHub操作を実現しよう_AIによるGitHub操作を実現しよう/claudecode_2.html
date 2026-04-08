@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>⏺ まず、リポジトリの情報を確認してからIssueを取得します。
+
+⏺ Bash(git remote -v)
+  ⎿  origin     https://github.com/your-name/task-checker-api.git (fetch)
+     origin     https://github.com/your-name/task-checker-api.git (push)
+
+⏺ github - get_issue (MCP)(owner: &quot;your-name&quot;, repo: &quot;task-checker-api&quot;, issue_number: 1)
+  ⎿  {
+       &quot;url&quot;: &quot;https://api.github.com/repos/your-name/task-checker-api/issues/1&quot;,
+       ...
+     }
+
+⏺ Issue #1 の内容
+
+  | 項目   | 内容           |
+  |------|--------------|
+  | タイトル | テスト          |
+  | 本文   | テスト用のIssueです |
+  | 状態   | Open         |
+
+  これはテスト用のIssueのようです。実際に取り組むべきIssueは別にありますか？</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

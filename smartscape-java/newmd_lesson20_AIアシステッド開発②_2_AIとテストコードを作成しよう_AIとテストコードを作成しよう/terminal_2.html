@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-bash"><code>⏺ まず、既存のコードベースを確認して、Taskエンティティとコントローラーの構造を把握します。
+
+⏺ Read(src/main/java/com/example/taskchecker/entity/Task.java)
+  ⎿  Read 112 lines
+
+⏺ Read(src/main/java/com/example/taskchecker/controller/TaskController.java)
+  ⎿  Read 283 lines
+
+⏺ Read(src/main/java/com/example/taskchecker/service/TaskService.java)
+  ⎿  Read 45 lines
+
+⏺ コードベースを確認しました。Task エンティティの構造を把握した上で、テストケースを整理します。
+
+  ---
+  タスク複製機能 テストケース一覧
+
+  単体テスト（サービスクラス）
+
+  1. 正常系 - 属性の引き継ぎ
+
+  | No. | テストケース                           | 期待結果                      |
+  |-----|----------------------------------|---------------------------|
+  | 1-1 | title が正しく引き継がれ、末尾に「(コピー)」が追加される | 元: &quot;買い物&quot; → 新: &quot;買い物(コピー)&quot;  |
+  | 1-2 | content がそのまま引き継がれる              | 元と同じ値がセットされる              |
+  | 1-3 | genre が正しく引き継がれる                 | 元と同じ Genre が関連付けられる       |
+  | 1-4 | priority が &quot;low&quot; の場合、そのまま引き継がれる | priority: &quot;low&quot; が保持される    |
+  | 1-5 | priority が &quot;medium&quot; の場合、引き継がれる  | priority: &quot;medium&quot; が保持される |
+  | 1-6 | priority が &quot;high&quot; の場合、引き継がれる    | priority: &quot;high&quot; が保持される   |
+
+  2. 正常系 - 特別な処理
+
+  | No. | テストケース                    | 期待結果                    |
+  |-----|---------------------------|-------------------------|
+  | 2-1 | status が &quot;done&quot; のタスクを複製   | 新タスクの status は &quot;todo&quot;   |
+  | 2-2 | status が &quot;doing&quot; のタスクを複製  | 新タスクの status は &quot;todo&quot;   |
+  | 2-3 | status が &quot;todo&quot; のタスクを複製   | 新タスクの status は &quot;todo&quot;   |
+
+  3. 正常系 - 境界値・エッジケース
+
+  | No. | テストケース                      | 期待結果                         |
+  |-----|-----------------------------|-----------------------------|
+  | 3-1 | title が非常に長い文字列のタスクを複製      | 末尾に「(コピー)」が追加される             |
+  | 3-2 | title に既に「(コピー)」が含まれるタスクを複製 | &quot;タスク(コピー)(コピー)&quot; になる           |
+  | 3-3 | content が null のタスクを複製      | 新タスクの content も null         |
+  | 3-4 | content が空文字のタスクを複製         | 新タスクの content も空文字           |
+  | 3-5 | genre が null のタスクを複製        | 新タスクの genre も null（要確認：外部キー制約） |
+
+  4. 正常系 - データの独立性
+
+  | No. | テストケース                     | 期待結果                |
+  |-----|--------------------------|--------------------|
+  | 4-1 | 複製後、元タスクと新タスクが別レコードである    | ID が異なる             |
+  | 4-2 | 複製後、元タスクを更新しても新タスクに影響しない  | 独立したレコードとして動作       |
+  | 4-3 | 複製によってタスクが1件増加する          | Task の件数が +1       |
+
+  5. 異常系
+
+  | No. | テストケース            | 期待結果                          |
+  |-----|--------------------|-------------------------------|
+  | 5-1 | 存在しない task_id を指定  | 例外がスローされる                     |
+
+  ---
+  結合テスト（API リクエスト）
+
+  6. 正常系 - HTTPレスポンス
+
+  | No. | テストケース                                    | 期待結果                 |
+  |-----|-------------------------------------------|----------------------|
+  | 6-1 | POST /tasks/{id}/duplicate で正常に複製          | HTTP 200 OK          |
+  | 6-2 | レスポンスに複製されたタスクの情報が含まれる                    | 複製されたタスクの属性が返却       |
+  | 6-3 | DBにタスクが1件追加される                            | Task の件数が +1        |
+
+  7. 正常系 - 属性の検証（API経由）
+
+  | No. | テストケース                       | 期待結果                            |
+  |-----|------------------------------|---------------------------------|
+  | 7-1 | レスポンスの title に「(コピー)」が付与されている | title: &quot;元のタイトル(コピー)&quot;            |
+  | 7-2 | レスポンスの status が初期ステータス       | status: &quot;todo&quot;                  |
+  | 7-3 | レスポンスの priority が元タスクと同じ     | priority が正しく引き継がれる             |
+  | 7-4 | レスポンスの content が元タスクと同じ      | content が正しく引き継がれる              |
+
+  8. 異常系 - HTTPエラー
+
+  | No. | テストケース                | 期待結果                               |
+  |-----|-----------------------|------------------------------------|
+  | 8-1 | 存在しない task_id を指定     | HTTP 404 Not Found                 |
+  | 8-2 | 不正な task_id 形式（文字列など） | HTTP 400 Bad Request or 404        |
+  | 8-3 | task_id に負の値を指定       | HTTP 404 Not Found                 |
+  | 8-4 | GET メソッドでアクセス         | HTTP 405 Method Not Allowed or 404 |
+  | 8-5 | PUT メソッドでアクセス         | HTTP 405 Method Not Allowed or 404 |
+  | 8-6 | DELETE メソッドでアクセス      | HTTP 405 Method Not Allowed or 404 |
+
+  9. 複数回複製
+
+  | No. | テストケース        | 期待結果                    |
+  |-----|---------------|------------------------|
+  | 9-1 | 同じタスクを連続で2回複製 | 2つの独立した新タスクが作成される       |
+  | 9-2 | 複製したタスクをさらに複製 | &quot;タスク(コピー)(コピー)&quot; が作成される |</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+</body>
+</html>

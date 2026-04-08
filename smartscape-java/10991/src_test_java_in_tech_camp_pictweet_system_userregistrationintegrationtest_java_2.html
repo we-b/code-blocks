@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java" data-line="11,12,13,26,27,28"><code>package in.tech_camp.pictweet.system;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.web.servlet.MockMvc;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;  // import追加
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;  // import追加
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;   // import追加
+
+import in.tech_camp.pictweet.factory.UserFormFactory;
+import in.tech_camp.pictweet.form.UserForm;
+import in.tech_camp.pictweet.PictweetApplication;
+
+// (省略)
+
+   @Nested
+   class ユーザー新規登録ができるとき {
+     @Test
+     void 正しい情報を入力すればユーザー新規登録ができてトップページに移動する() throws Exception {
+        // トップページにアクセス
+        mockMvc.perform(get(&quot;/&quot;))
+                .andExpect(status().isOk())
+                .andExpect(view().name(&quot;tweets/index&quot;))
+        // トップページにサインアップページへ遷移するボタンが存在することを確認
+        // 新規登録ページにアクセス
+        // ユーザー情報を入力する
+        // トップページにリダイレクトされることを確認
+        // 新規登録に成功するとユーザーテーブルのカウントが1上がる
+      }
+    }</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

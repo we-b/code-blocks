@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-plaintext"><code>計画のステップ2に従い、TaskControllerを修正してください。
+
+以下の変更を加えてください。
+1. タスク作成（POST /tasks）で priority パラメータを受け取れるようにする
+2. タスク更新（PUT /tasks/{id}）で priority を更新できるようにする
+3. すべてのレスポンス（一覧、詳細、作成、更新）の Map に priority を含める
+4. priority のバリデーション追加（low, medium, high のいずれかであること）</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

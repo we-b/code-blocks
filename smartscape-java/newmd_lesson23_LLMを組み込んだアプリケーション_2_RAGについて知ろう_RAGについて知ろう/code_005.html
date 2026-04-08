@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>【システムプロンプト】
+以下のコンテキスト情報に基づいて、ユーザーの質問に正確に回答してください。
+コンテキストに含まれない情報については「情報がありません」と回答してください。
+
+【コンテキスト（検索結果）】
+---
+有給休暇の申請方法は、社内ポータルの「勤怠管理」から行います。
+申請は休暇取得日の3営業日前までに提出する必要があります。
+上長の承認後、人事部に自動通知されます。
+---
+
+【ユーザーの質問】
+休みを取るにはどうすればいい？</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java"><code>// OK例：実装の背景（Why）を説明しているコメント
+public int calculateFinalPrice(int price, boolean isReducedTaxRate) {
+    // 通常の消費税率は10%
+    double taxRate = 0.10;
+
+    // 軽減税率対象商品の場合、特別な税率を適用する。
+    // このビジネスルールは、2019年10月1日の法改正に基づく。詳細は仕様書XXXを参照。
+    if (isReducedTaxRate) {
+        taxRate = 0.08;
+    }
+
+    // パフォーマンス上の理由から、BigDecimalではなくint型で計算している。
+    // 金額は円単位（小数点以下なし）のため、この方法で精度の問題は発生しない。
+    int finalPrice = (int) Math.floor(price * (1 + taxRate));
+
+    return finalPrice;
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>
