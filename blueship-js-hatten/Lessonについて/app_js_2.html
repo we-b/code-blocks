@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript" data-line="7,8,9,10,11,12,13,14,24,25,26,27,30,31,32,33,34"><code>//商品の個数を選択するセレクター
+const selector = document.querySelectorAll(&#x27;.item_num&#x27;);
+
+//商品の金額
+const item_amounts = document.querySelectorAll(&#x27;.item_amount&#x27;);
+
+//合計金額表示の下に警告表示を出す関数
+const createCaution = () =&gt; {
+  const amountBox = document.querySelector(&#x27;.total_amount_box&#x27;);
+    const html = `
+    &lt;p class=&quot;caution px-2 text-pink-600&quot;&gt;カートの合計金額の上限は10000円に設定されています。&lt;/p&gt;
+    `;
+    amountBox.innerHTML += html;
+}
+
+// 商品の個数選択時に「合計金額を計算する」イベントをセット
+selector.forEach(function(s) {
+  s.addEventListener(&#x27;change&#x27;, e =&gt; {
+    // 全部の金額を取得し、個数分足し合わせる
+    let total_amount = 0;
+    item_amounts.forEach(function(s, index) {
+      total_amount = total_amount + parseInt(s.innerHTML) * selector[index].value
+    });
+    if (total_amount &lt; 10000) {
+      if (document.querySelector(&#x27;.caution&#x27;)){
+        document.querySelector(&#x27;.caution&#x27;).remove();
+      }
+      const cart_amount = document.querySelector(&#x27;#cart_amount&#x27;);
+      cart_amount.innerHTML = total_amount;
+    } else {
+      if (!document.querySelector(&#x27;.caution&#x27;)){
+        createCaution();
+      }
+    }
+  });
+});
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

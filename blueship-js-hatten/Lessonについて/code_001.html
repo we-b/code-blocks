@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-markup"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;link href=&quot;css/style.css&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;&gt;
+  &lt;title&gt;PicTweet&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+&lt;header&gt;
+  &lt;div class=&quot;header-bar&quot;&gt;
+    &lt;h1&gt;&lt;a href=&quot;/&quot;&gt;PicTweet&lt;/a&gt;&lt;/h1&gt;
+    &lt;nav&gt;
+      &lt;ul&gt;
+        &lt;li&gt;&lt;a href=&quot;/users/123&quot;&gt;マイページ&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;/tweets/new&quot;&gt;新規投稿&lt;/a&gt;&lt;/li&gt;
+        &lt;li&gt;&lt;a href=&quot;/logout&quot;&gt;ログアウト&lt;/a&gt;&lt;/li&gt;
+      &lt;/ul&gt;
+    &lt;/nav&gt;
+  &lt;/div&gt;
+&lt;/header&gt;
+
+&lt;div class=&quot;contents row&quot;&gt;
+  &lt;p&gt;サンプルユーザーさんの投稿一覧&lt;/p&gt;
+
+  &lt;div class=&quot;tweet&quot;&gt; &lt;div class=&quot;tweet-header&quot;&gt;
+      &lt;a href=&quot;/users/123&quot;&gt;サンプルユーザー&lt;/a&gt;
+      &lt;span class=&quot;timestamp&quot;&gt;2025/06/16 12:05&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;tweet-body&quot;&gt;
+      &lt;img src=&quot;images/sample1.jpg&quot; alt=&quot;投稿画像1&quot;&gt;
+      &lt;p&gt;これは1つ目の投稿のサンプルです。きれいな景色でした。&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;tweet-footer&quot;&gt;
+      &lt;a href=&quot;/tweets/1/edit&quot;&gt;編集&lt;/a&gt;
+      &lt;a href=&quot;/tweets/1/delete&quot;&gt;削除&lt;/a&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;tweet&quot;&gt; &lt;div class=&quot;tweet-header&quot;&gt;
+      &lt;a href=&quot;/users/123&quot;&gt;サンプルユーザー&lt;/a&gt;
+      &lt;span class=&quot;timestamp&quot;&gt;2025/06/15 20:30&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;tweet-body&quot;&gt;
+      &lt;img src=&quot;images/sample2.jpg&quot; alt=&quot;投稿画像2&quot;&gt;
+      &lt;p&gt;これは2つ目の投稿のサンプルです。今日のランチです。&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;tweet-footer&quot;&gt;
+      &lt;a href=&quot;/tweets/2/edit&quot;&gt;編集&lt;/a&gt;
+      &lt;a href=&quot;/tweets/2/delete&quot;&gt;削除&lt;/a&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;footer&gt;
+  &lt;p&gt;&amp;copy; 2025 PicTweet.&lt;/p&gt;
+&lt;/footer&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>
