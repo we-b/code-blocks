@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript" data-line="4,16,23"><code>&#x27;use client&#x27;;
+import { useForm } from &#x27;react-hook-form&#x27;;
+import { useState } from &#x27;react&#x27;;
+import { useRouter } from &#x27;next/navigation&#x27;;
+import Header from &#x27;@/app/_components/Header&#x27;;
+import { signUp } from &#x27;@/app/api/users&#x27;;
+
+interface SignUpForm {
+  nickname: string;
+  email: string;
+  password: string;
+  passwordConfirmation: string;
+}
+
+const SignUpPage = () =&gt; {
+  const router = useRouter();
+  const { register, handleSubmit, formState: { errors }, watch } = useForm&lt;SignUpForm&gt;();
+  const [errorMessages, setErrorMessages] = useState&lt;string[]&gt;([]);
+
+  const onSubmit = async (formData: SignUpForm) =&gt; {
+    try {
+      await signUp(formData);
+      router.push(&#x27;/&#x27;);
+    } catch (error) {
+      setErrorMessages([error instanceof Error ? error.message : &#x27;エラーが発生しました&#x27;]);
+    }
+  };
+
+（省略）</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

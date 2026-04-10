@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript" data-line="2,8,9,14,15,16,18,19,20,21,22,23,24,25,26,27,28,29,30,31,33,34,35"><code>&#x27;use client&#x27;
+import { useEffect, useState } from &#x27;react&#x27;
+import Link from &#x27;next/link&#x27;
+import Header from &#x27;@/app/_components/Header&#x27;
+import Footer from &#x27;@/app/_components/Footer&#x27;
+import { TweetData } from &#x27;@/app/_interfaces/TweetData&#x27;
+import { useAuthContext } from &#x27;@/app/context/AuthContext&#x27;
+import { useParams } from &#x27;next/navigation&#x27;
+import { findTweetById } from &#x27;@/app/api/tweets&#x27;
+
+const ShowTweetDetailPage = () =&gt; {
+  const { user } = useAuthContext()
+
+  const params = useParams()
+  const tweetId = params.tweetId
+  const [tweet, setTweet] = useState&lt;TweetData | null&gt;(null)
+
+  useEffect(() =&gt; {
+    const getTweet = async () =&gt; {
+      if (tweetId) {
+        try {
+          const response = await findTweetById(Number(tweetId))
+          setTweet(response)
+        } catch (error) {
+          setTweet(null)
+          console.error(&#x27;ツイートの取得に失敗しました:&#x27;, error)
+        } 
+      }
+    }
+    getTweet()
+  }, [tweetId])
+
+  if (!tweet) {
+    return null
+  }
+
+  return (
+    &lt;&gt;
+      &lt;Header /&gt;
+      &lt;div className=&quot;contents row&quot;&gt;
+        &lt;div className=&quot;content_post&quot; style={{ backgroundImage: `url(${tweet.image})` }}&gt;
+          { user?.isAuthenticated &amp;&amp; user.id == tweet.user.id ? (
+            &lt;div className=&quot;more&quot;&gt;
+              &lt;span&gt;&lt;img src=&quot;/images/arrow_top.png&quot; alt=&quot;Arrow Top&quot; /&gt;&lt;/span&gt;
+              &lt;ul className=&quot;more_list&quot;&gt;
+                &lt;li&gt;
+                  &lt;Link href={`/`} className=&quot;update-btn&quot;&gt;編集&lt;/Link&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                  &lt;form action={`/`} method=&quot;post&quot;&gt;
+                    &lt;input type=&quot;submit&quot; className=&quot;delete-btn&quot; value=&quot;削除&quot; /&gt;
+                  &lt;/form&gt;
+                &lt;/li&gt;
+              &lt;/ul&gt;
+            &lt;/div&gt;
+          ) : null}
+          &lt;p&gt;{tweet.text}&lt;/p&gt;
+          &lt;span className=&quot;name&quot;&gt;
+            &lt;Link href={`/`}&gt;
+              &lt;span&gt;投稿者&lt;/span&gt;&lt;span&gt;{tweet.user.nickname}&lt;/span&gt;
+            &lt;/Link&gt;
+          &lt;/span&gt;
+        &lt;/div&gt;
+        &lt;p&gt;コメントを表示する場所です&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;Footer /&gt;
+    &lt;/&gt;
+  )
+}
+
+export default ShowTweetDetailPage</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

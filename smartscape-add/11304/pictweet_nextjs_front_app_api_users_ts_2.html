@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript" data-line="2,6,21,22,23,24,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58"><code>import axios from &#x27;axios&#x27;;
+import qs from &#x27;qs&#x27;;
+
+const api = axios.create({
+  baseURL: &#x27;http://localhost:8080/api&#x27;,
+  withCredentials: true,
+});
+
+interface SignUpForm {
+  nickname: string;
+  email: string;
+  password: string;
+  passwordConfirmation: string;
+}
+
+interface UserResponse {
+  id: number;
+  nickname: string;
+}
+
+interface LoginCredentials {
+  email: string;
+  password: string;
+}
+
+export const signUp = async (formData: SignUpForm): Promise&lt;UserResponse&gt; =&gt; {
+  try {
+    const response = await api.post&lt;UserResponse&gt;(&#x27;/users/&#x27;, formData);
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.error(&#x27;Sign up error:&#x27;, error.response?.data);
+      const messages = error.response?.data?.messages;
+      throw new Error(messages ? messages.join(&#x27;, &#x27;) : &#x27;登録に失敗しました&#x27;);
+    }
+    throw error;
+  }
+};
+
+export const login = async (credentials: LoginCredentials): Promise&lt;UserResponse&gt; =&gt; {
+  try {
+    const response = await api.post&lt;UserResponse &gt;(&#x27;/login&#x27;, qs.stringify({
+      email: credentials.email,
+      password: credentials.password,
+    }), {
+      headers: { &#x27;Content-Type&#x27;: &#x27;application/x-www-form-urlencoded&#x27; }
+    });
+    return response.data;
+
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      console.error(&#x27;Login error:&#x27;, error.response?.data);
+      const messages = error.response?.data?.messages;
+      throw new Error(messages ? messages.join(&#x27;, &#x27;) : &#x27;ログインに失敗しました&#x27;);
+    }
+    throw error;
+  }
+};</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

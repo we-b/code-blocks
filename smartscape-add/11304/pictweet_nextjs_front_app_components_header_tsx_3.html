@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript" data-line="2,3,5,8,10,11,12,13,14,15,16,17,18,19"><code>&#x27;use client&#x27;
+import { FormEvent } from &#x27;react&#x27;;
+import { useRouter } from &#x27;next/navigation&#x27;;
+import Link from &#x27;next/link&#x27;
+import { logout } from &#x27;@/app/api/users&#x27;;
+
+const Header = () =&gt; {
+  const router = useRouter()
+
+  const handleLogout = async (e: FormEvent) =&gt; {
+    e.preventDefault()
+    try {
+      await logout()
+      router.push(&#x27;/&#x27;)
+    } catch (error) {
+      console.error(&#x27;Logout failed:&#x27;, error)
+      alert(&#x27;ログアウトに失敗しました。&#x27;)
+    }
+  }
+
+（省略）</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

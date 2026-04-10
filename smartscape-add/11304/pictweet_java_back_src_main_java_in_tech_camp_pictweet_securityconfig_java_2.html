@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java" data-line="14,16,17,38,40,45,46,47,48,49,50,51,52,53,54,55,56,59,60,61,62,63,64,65,66,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90"><code>package in.tech_camp.pictweet;
+
+import java.util.List;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+
+import in.tech_camp.pictweet.custom_user.CustomUserDetail;
+import jakarta.servlet.http.HttpServletResponse;
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+                .csrf(AbstractHttpConfigurer::disable)
+                .cors(cors -&gt; cors
+                    .configurationSource(request -&gt; {
+                        var corsConfiguration = new org.springframework.web.cors.CorsConfiguration();
+                        corsConfiguration.setAllowedOrigins(List.of(&quot;http://localhost:3000&quot;));
+                        corsConfiguration.setAllowedMethods(List.of(&quot;GET&quot;, &quot;POST&quot;, &quot;PUT&quot;, &quot;DELETE&quot;, &quot;OPTIONS&quot;, &quot;PATCH&quot;));
+                        corsConfiguration.setAllowCredentials(true);
+                        corsConfiguration.setAllowedHeaders(List.of(&quot;*&quot;));
+                        return corsConfiguration;
+                    })
+                )
+                .authorizeHttpRequests(authorizeRequests -&gt; authorizeRequests
+                        .requestMatchers(HttpMethod.GET, &quot;/css/**&quot;, &quot;/images/**&quot;, &quot;/tweets/{id:[0-9]+}&quot;,&quot;/users/{id:[0-9]+}&quot;,&quot;/tweets/search&quot;,&quot;/error&quot;).permitAll()
+                        .requestMatchers(HttpMethod.GET, &quot;/api/tweets/&quot;).permitAll()
+                        .requestMatchers(HttpMethod.POST, &quot;/api/users/&quot;, &quot;/api/login&quot;).permitAll()
+                        .anyRequest().authenticated())
+                        //上記以外のリクエストは認証されたユーザーのみ許可されます(要ログイン)
+
+                .formLogin(login -&gt; login
+                    .loginProcessingUrl(&quot;/api/login&quot;)
+                    .usernameParameter(&quot;email&quot;)
+                    .successHandler(authenticationSuccessHandler())
+                    .failureHandler((request, response, exception) -&gt; {
+                        response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                        response.setContentType(&quot;application/json&quot;);
+                        response.setCharacterEncoding(&quot;UTF-8&quot;);
+                        response.getWriter().write(
+                            &quot;{\&quot;error\&quot;:\&quot;Invalid credentials\&quot;}&quot;
+                        );
+                    })
+                )
+
+                .logout(logout -&gt; logout
+                    .logoutUrl(&quot;/api/logout&quot;)
+                    .logoutSuccessHandler((request, response, authentication) -&gt; {
+                        response.setStatus(HttpServletResponse.SC_OK);
+                        response.setContentType(&quot;application/json&quot;);
+                        response.setCharacterEncoding(&quot;UTF-8&quot;);
+                        response.getWriter().write(&quot;{\&quot;success\&quot;:true}&quot;);
+                    })
+                );
+        return http.build();
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+    @Bean
+    public AuthenticationSuccessHandler authenticationSuccessHandler() {
+        return (request, response, authentication) -&gt; {
+            CustomUserDetail userDetails = (CustomUserDetail) authentication.getPrincipal();
+
+            response.setStatus(HttpServletResponse.SC_OK);
+            response.setContentType(&quot;application/json&quot;);
+            response.setCharacterEncoding(&quot;UTF-8&quot;);
+            response.getWriter().write(String.format(
+                &quot;{\&quot;id\&quot;:%d,\&quot;nickname\&quot;:\&quot;%s\&quot;,\&quot;email\&quot;:\&quot;%s\&quot;}&quot;,
+                userDetails.getId(),
+                userDetails.getNickname(),
+                userDetails.getUsername()
+            ));
+        };
+    }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

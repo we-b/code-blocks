@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript" data-line="6,34,35,36,41"><code>&#x27;use client&#x27;
+import { useEffect, useState } from &#x27;react&#x27;;
+import Header from &#x27;@/app/_components/Header&#x27;;
+import Footer from &#x27;@/app/_components/Footer&#x27;;
+import TweetList from &#x27;@/app/_components/TweetList&#x27;;
+import SearchForm from &#x27;@/app/_components/SearchForm&#x27;;
+import { findAllTweets, deleteTweet } from &#x27;@/app/api/tweets&#x27;;
+import { TweetData } from &#x27;@/app/_interfaces/TweetData&#x27;;
+
+const IndexPage = () =&gt; {
+  const [tweets, setTweets] = useState&lt;TweetData[]&gt;([]);
+
+  useEffect(() =&gt; {
+    const getTweets = async () =&gt; {
+      try {
+        const response = await findAllTweets();
+        setTweets(response);
+      } catch (error) {
+        console.error(&#x27;ツイートの取得に失敗しました:&#x27;, error);
+      }
+    };
+    getTweets();
+  }, []);
+
+  const handleDeleteTweet = async (tweetId: number) =&gt; {
+    try {
+      await deleteTweet(tweetId);
+      setTweets(tweets.filter((tweet) =&gt; tweet.id !== tweetId));
+    } catch (error) {
+      console.error(&#x27;ツイートの削除に失敗しました:&#x27;, error);
+    }
+  };
+
+  const handleSearch = (query: string) =&gt; {
+    // 検索ボタンを押した時の処理
+  };
+
+  return (
+    &lt;div&gt;
+      &lt;Header /&gt;
+      &lt;SearchForm onSearch={handleSearch} /&gt;
+      &lt;div className=&quot;contents&quot;&gt;
+        &lt;TweetList tweets={tweets} onDeleteTweet={handleDeleteTweet}/&gt;
+      &lt;/div&gt;
+      &lt;Footer /&gt;
+    &lt;/div&gt;
+  );
+}
+
+export default IndexPage;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

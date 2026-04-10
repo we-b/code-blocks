@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript"><code>import axios from &#x27;axios&#x27;;
+
+const api = axios.create({ Axiosを使用するための設定 });
+
+// GETメソッド
+const response = await api.get&lt;戻り値の型&gt;(&#x27;https://api.example.com/data&#x27;)
+
+// POSTメソッド
+const response = await api.post&lt;戻り値の型&gt;(&#x27;https://api.example.com/data&#x27;, APIに送信したいデータ)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

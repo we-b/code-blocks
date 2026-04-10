@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript"><code>import { useForm } from &#x27;react-hook-form&#x27;;
+
+interface TweetForm {
+  text: string;
+  image: string;
+}
+
+interface TweetFormProps {
+  initialData: TweetForm;
+  errorMessages: string[];
+  onSubmit: (data: TweetForm) =&gt; void;
+}
+
+const TweetForm =  ({ errorMessages, onSubmit, initialData }: TweetFormProps ) =&gt; {
+
+  const { register, handleSubmit, formState: { errors } } = useForm&lt;TweetForm&gt;({
+    defaultValues: initialData
+  });
+
+  return (
+    &lt;form onSubmit={handleSubmit(onSubmit)}&gt;
+      {errorMessages.map((error, index) =&gt; (
+        &lt;div key={index} className=&quot;error-message&quot;&gt;{error}&lt;/div&gt;
+      ))}
+      
+      {errors.image &amp;&amp; &lt;span className=&quot;error-message&quot;&gt;{errors.image.message}&lt;/span&gt;}
+      &lt;input
+        type=&quot;text&quot;
+        {...register(&#x27;image&#x27;)}
+        placeholder=&quot;Image Url&quot;
+      /&gt;
+
+      {errors.text &amp;&amp; &lt;span className=&quot;error-message&quot;&gt;{errors.text.message}&lt;/span&gt;}
+      &lt;textarea
+          {...register(&#x27;text&#x27;, { required: &quot;Text can&#x27;t be blank&quot; })} 
+          placeholder=&quot;text&quot;
+          rows={10}
+      /&gt;
+
+      &lt;input type=&quot;submit&quot; value=&quot;SEND&quot; /&gt;
+    &lt;/form&gt;
+  );
+};
+          
+export default TweetForm;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+</body>
+</html>

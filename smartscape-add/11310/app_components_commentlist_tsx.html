@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript"><code>&#x27;use client&#x27;;
+import Link from &#x27;next/link&#x27;;
+import { CommentData } from &#x27;@/app/_interfaces/CommentData&#x27;
+
+interface CommentListProps {
+  comments: CommentData[];
+}
+
+const CommentList = ({ comments }: CommentListProps) =&gt; {
+
+  return (
+    &lt;div className=&quot;comments&quot;&gt;
+      &lt;h4&gt;＜コメント一覧＞&lt;/h4&gt;
+      &lt;ul&gt;
+        {comments.map(comment =&gt; (
+          &lt;li key={comment.id}&gt;
+            &lt;strong&gt;
+              &lt;Link href={`/users/${comment.user.id}`}&gt;{comment.user.nickname}&lt;/Link&gt;：
+            &lt;/strong&gt;
+            &lt;span&gt;{comment.text}&lt;/span&gt;
+          &lt;/li&gt;
+        ))}
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  );
+};
+
+export default CommentList;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript"><code>&#x27;use client&#x27;
+import Header from &#x27;@/app/_components/Header&#x27;;
+import Footer from &#x27;@/app/_components/Footer&#x27;;
+
+const SearchPage = () =&gt; {
+
+  return (
+    &lt;&gt;
+      &lt;Header /&gt;
+      &lt;p&gt;検索フォームを表示する場所です&lt;/p&gt;
+      &lt;div className=&quot;contents row&quot;&gt;
+        &lt;p&gt;検索結果を表示する場所です&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;Footer /&gt;
+    &lt;/&gt;
+  );
+};
+
+export default SearchPage;
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+</body>
+</html>

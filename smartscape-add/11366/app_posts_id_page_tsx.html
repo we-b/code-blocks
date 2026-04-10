@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript"><code>&quot;use client&quot;
+
+import { useState } from &quot;react&quot;;
+
+export default function showPage() {
+  const [isLoading, setIsLoading] = useState&lt;boolean&gt;(true);
+
+  return(
+    &lt;&gt;
+      &lt;h2&gt;詳細ページ&lt;/h2&gt;
+      {isLoading ? (
+        &lt;p&gt;読み込み中...&lt;/p&gt;
+      ) : (
+        &lt;div className=&#x27;post&#x27;&gt;
+          &lt;p&gt;内容：&lt;/p&gt;
+          &lt;p&gt;投稿日：&lt;/p&gt;
+        &lt;/div&gt;
+      )}
+    &lt;/&gt;
+  )
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>
