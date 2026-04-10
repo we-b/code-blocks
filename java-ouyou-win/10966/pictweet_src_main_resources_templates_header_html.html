@@ -13,20 +13,20 @@
     </style>
 </head>
 <body>
-<pre class="language-markup" data-line="5,6,7,8,9,10,12,13,14,15"><code>&lt;header xmlns:th="http://www.thymeleaf.org" th:fragment="header" class="header"&gt;
-  &lt;div class="header__bar row"&gt;
-    &lt;h1 class="grid-6"&gt;&lt;a th:href="@{/}"&gt;PicTweet&lt;/a&gt;&lt;/h1&gt;
+<pre class="language-markup" data-line="5,6,7,8,9,10,12,13,14,15"><code>&lt;header xmlns:th=&quot;http://www.thymeleaf.org&quot; th:fragment=&quot;header&quot; class=&quot;header&quot;&gt;
+  &lt;div class=&quot;header__bar row&quot;&gt;
+    &lt;h1 class=&quot;grid-6&quot;&gt;&lt;a th:href=&quot;@{/}&quot;&gt;PicTweet&lt;/a&gt;&lt;/h1&gt;
 
-    &lt;div class="user_nav grid-6" th:if="${#authorization.expression('isAuthenticated()')}"&gt;
-      &lt;form th:action="@{/logout}" method="post" style="display:inline-block"&gt;
-        &lt;input class="logout-btn" type="submit" value="ログアウト"/&gt;
+    &lt;div class=&quot;user_nav grid-6&quot; th:if=&quot;${#authorization.expression(&#x27;isAuthenticated()&#x27;)}&quot;&gt;
+      &lt;form th:action=&quot;@{/logout}&quot; method=&quot;post&quot; style=&quot;display:inline-block&quot;&gt;
+        &lt;input class=&quot;logout-btn&quot; type=&quot;submit&quot; value=&quot;ログアウト&quot;/&gt;
       &lt;/form&gt;
-      &lt;a class="post" th:href="@{/tweets/new}"&gt;投稿する&lt;/a&gt;
+      &lt;a class=&quot;post&quot; th:href=&quot;@{/tweets/new}&quot;&gt;投稿する&lt;/a&gt;
     &lt;/div&gt;
 
-    &lt;div class="grid-6" th:if="${#authorization.expression('!isAuthenticated()')}"&gt;
-      &lt;a class="post" th:href="@{/users/sign_up}"&gt;新規登録&lt;/a&gt;
-      &lt;a class="post" th:href="@{/users/login}"&gt;ログイン&lt;/a&gt;
+    &lt;div class=&quot;grid-6&quot; th:if=&quot;${#authorization.expression(&#x27;!isAuthenticated()&#x27;)}&quot;&gt;
+      &lt;a class=&quot;post&quot; th:href=&quot;@{/users/sign_up}&quot;&gt;新規登録&lt;/a&gt;
+      &lt;a class=&quot;post&quot; th:href=&quot;@{/users/login}&quot;&gt;ログイン&lt;/a&gt;
     &lt;/div&gt;
   &lt;/div&gt;
 &lt;/header&gt;</code></pre>

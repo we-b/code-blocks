@@ -13,34 +13,10 @@
     </style>
 </head>
 <body>
-<pre class="language-java" data-line="6,21,22,23,24,25,26,27"><code>package in.tech_camp.pictweet.controller;
-
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
-（省略）
-
-@Controller
-@AllArgsConstructor
-public class UserController {
-
-（省略）
-
-  @GetMapping(&quot;/users/login&quot;)
-  public String showLogin(){
-      return &quot;users/login&quot;;
-  }
-
-  @GetMapping(&quot;/login&quot;)
-  public String showLoginWithError(@RequestParam(value = &quot;error&quot;) String error, Model model) {
-    if (error != null) {
-      model.addAttribute(&quot;loginError&quot;, &quot;Invalid email or password.&quot;);
-    }
-    return &quot;users/login&quot;;
-  }
-}</code></pre>
+<pre class="language-java" data-line="2"><code>               .authorizeHttpRequests(authorizeRequests -&gt; authorizeRequests
+                        .requestMatchers(&quot;/css/**&quot;, &quot;/images/**&quot;, &quot;/&quot;, &quot;/users/sign_up&quot;, &quot;/users/login&quot;, &quot;/tweets/{id:[0-9]+}&quot;).permitAll()
+                        .requestMatchers(HttpMethod.POST, &quot;/user&quot;).permitAll()
+                        .anyRequest().authenticated())</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>

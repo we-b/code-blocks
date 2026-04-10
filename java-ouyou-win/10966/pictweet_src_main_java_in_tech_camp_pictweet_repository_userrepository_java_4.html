@@ -13,33 +13,26 @@
     </style>
 </head>
 <body>
-<pre class="language-java" data-line="6,21,22,23,24,25,26,27"><code>package in.tech_camp.pictweet.controller;
+<pre class="language-java" data-line="19,20"><code>package in.tech_camp.pictweet.repository;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Select;
 
-（省略）
+import in.tech_camp.pictweet.entity.UserEntity;
 
-@Controller
-@AllArgsConstructor
-public class UserController {
+@Mapper
+public interface UserRepository {
+  @Insert(&quot;INSERT INTO users (nickname, email, password) VALUES (#{nickname}, #{email}, #{password})&quot;)
+  @Options(useGeneratedKeys = true, keyProperty = &quot;id&quot;)
+  void insert(UserEntity user);
 
-（省略）
+  @Select(&quot;SELECT EXISTS(SELECT 1 FROM users WHERE email = #{email})&quot;)
+  boolean existsByEmail(String email);
 
-  @GetMapping(&quot;/users/login&quot;)
-  public String showLogin(){
-      return &quot;users/login&quot;;
-  }
-
-  @GetMapping(&quot;/login&quot;)
-  public String showLoginWithError(@RequestParam(value = &quot;error&quot;) String error, Model model) {
-    if (error != null) {
-      model.addAttribute(&quot;loginError&quot;, &quot;Invalid email or password.&quot;);
-    }
-    return &quot;users/login&quot;;
-  }
+  @Select(&quot;SELECT * FROM users WHERE email = #{email}&quot;)
+  UserEntity findByEmail(String email);
 }</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>

@@ -32,7 +32,27 @@
     &lt;form th:method=&quot;post&quot; th:action=&quot;@{/login}&quot; class=&quot;new_user&quot;&gt;
 
       &lt;div class=&quot;field&quot;&gt;
-        &lt;label class=&quot;column-title&quot;&gt;Email&lt;/label&gt;&lt;br /&gt;</code></pre>
+        &lt;label class=&quot;column-title&quot;&gt;Email&lt;/label&gt;&lt;br /&gt;
+        &lt;input type=&quot;text&quot; id=&quot;email&quot; name=&quot;email&quot; autofocus=&quot;autofocus&quot; required=&quot;required&quot; /&gt;
+      &lt;/div&gt;
+
+      &lt;div class=&quot;field&quot;&gt;
+        &lt;label class=&quot;password&quot;&gt;Password&lt;/label&gt;&lt;br /&gt;
+        &lt;input type=&quot;password&quot; name=&quot;password&quot; required=&quot;required&quot; autocomplete=&quot;off&quot; /&gt;
+      &lt;/div&gt;
+
+      &lt;div class=&quot;actions&quot;&gt;
+        &lt;input type=&quot;submit&quot; value=&quot;Log in&quot;&gt;
+      &lt;/div&gt;
+    &lt;/form&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div th:insert=&quot;~{footer :: footer}&quot;&gt;&lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 
 </body>

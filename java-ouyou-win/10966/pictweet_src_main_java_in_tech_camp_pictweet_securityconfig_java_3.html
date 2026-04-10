@@ -13,13 +13,10 @@
     </style>
 </head>
 <body>
-<pre class="language-java"><code>.formLogin(login -&gt; login
-                        .loginProcessingUrl(&quot;/login&quot;)
-                        .loginPage(&quot;/users/login&quot;)
-                        .defaultSuccessUrl(&quot;/&quot;, true)               // ログインに成功した場合
-                        .failureUrl(&quot;/login?error&quot;)   // ログインに失敗した場合
-                        .usernameParameter(&quot;email&quot;) 
-                        .permitAll())</code></pre>
+<pre class="language-java"><code>               .authorizeHttpRequests(authorizeRequests -&gt; authorizeRequests
+                        .requestMatchers(&quot;/css/**&quot;, &quot;/images/**&quot;, &quot;/&quot;, &quot;/users/sign_up&quot;, &quot;/users/login&quot;).permitAll()
+                        .requestMatchers(HttpMethod.POST, &quot;/user&quot;).permitAll()
+                        .anyRequest().authenticated())</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
 </body>
