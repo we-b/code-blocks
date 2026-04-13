@@ -13,12 +13,25 @@
     </style>
 </head>
 <body>
-<pre class="language-javascript" data-line="17,18,19,20,21,31,32,33,34,35,45,46,47,48,49"><code>import React from &quot;react&quot;;
+<pre class="language-javascript" data-line="14,15,16,31"><code>import React from &quot;react&quot;;
 import { Link } from &quot;react-router-dom&quot;;
+import Hand from &quot;../../components/hand&quot;;
 
 export default class Index extends React.Component {
+
+  constructor() {
+    super();
+    this.state = {
+      selectHand: 0,
+    };
+  }
+
+  handleOnClick = (val) =&gt; {
+    this.setState({selectHand: val});
+  }
+
   render() {
-    const imgSize = 100;
+    const handTypes = [0,1,2]
     return (
       &lt;div
         style={{
@@ -29,48 +42,9 @@ export default class Index extends React.Component {
       &gt;
         &lt;h1&gt;じゃんけんページ&lt;/h1&gt;
         &lt;div style={{ display: &quot;flex&quot; }}&gt;
-          &lt;button
-            onClick={() =&gt; {
-              console.log(&quot;グーがクリックされました&quot;);
-            }}
-          &gt;
-            &lt;img
-              src={`images/rock.jpeg`}
-              alt=&quot;rock&quot;
-              style={{
-                height: imgSize,
-                width: imgSize,
-              }}
-            /&gt;
-          &lt;/button&gt;
-          &lt;button
-            onClick={() =&gt; {
-              console.log(&quot;パーがクリックされました&quot;);
-            }}
-          &gt;
-            &lt;img
-              src={`images/paper.jpeg`}
-              alt=&quot;paper&quot;
-              style={{
-                height: imgSize,
-                width: imgSize,
-              }}
-            /&gt;
-          &lt;/button&gt;
-          &lt;button
-            onClick={() =&gt; {
-              console.log(&quot;チョキがクリックされました&quot;);
-            }}
-          &gt;
-            &lt;img
-              src={`images/scissors.jpeg`}
-              alt=&quot;scissors&quot;
-              style={{
-                height: imgSize,
-                width: imgSize,
-              }}
-            /&gt;
-          &lt;/button&gt;
+          {handTypes.map((handType) =&gt; (
+            &lt;Hand selectHand={handType} selectedHand={this.state.selectHand} clickHand={this.handleOnClick} /&gt;
+          ))}
         &lt;/div&gt;
         &lt;Link to=&quot;/&quot;&gt;
           &lt;h1&gt;じゃんけんを終了する&lt;/h1&gt;

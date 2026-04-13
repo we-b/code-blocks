@@ -13,11 +13,13 @@
     </style>
 </head>
 <body>
-<pre class="language-javascript"><code>    &lt;p&gt;既にアカウントをお持ちの方はこちらへ&lt;router-link to=&quot;/&quot;&gt;こちら&lt;/router-link&gt;&lt;/p&gt;  &lt;!--追加--&gt;
-  &lt;/div&gt;
-&lt;/template&gt;
-</code></pre>
+<pre class="language-java"><code>  private Timestamp createdAt;
+  @ToString.Exclude
+  private UserEntity user;
+  @ToString.Exclude
+  private List&lt;CommentEntity&gt; comments;
+}</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
 </body>
 </html>

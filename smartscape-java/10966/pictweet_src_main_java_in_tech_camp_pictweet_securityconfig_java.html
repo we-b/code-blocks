@@ -13,49 +13,9 @@
     </style>
 </head>
 <body>
-<pre class="language-java"><code>package in.tech_camp.pictweet;
-
-import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
-import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.SecurityFilterChain;
-
-@Configuration
-@EnableWebSecurity
-public class SecurityConfig {
-
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http
-                .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(authorizeRequests -&gt; authorizeRequests
-                        .requestMatchers(&quot;/css/**&quot;, &quot;/images/**&quot;, &quot;/&quot;, &quot;/users/sign_up&quot;, &quot;/users/login&quot;).permitAll()
-                        .requestMatchers(HttpMethod.POST, &quot;/user&quot;).permitAll()
-                        .anyRequest().authenticated())
-                .formLogin(login -&gt; login
-                        .loginProcessingUrl(&quot;/login&quot;)
-                        .loginPage(&quot;/users/login&quot;)
-                        .defaultSuccessUrl(&quot;/&quot;, true)
-                        .failureUrl(&quot;/login?error&quot;)
-                        .usernameParameter(&quot;email&quot;) 
-                        .permitAll())
-
-                .logout(logout -&gt; logout
+<pre class="language-java"><code>               .logout(logout -&gt; logout
                         .logoutUrl(&quot;/logout&quot;)
-                        .logoutSuccessUrl(&quot;/&quot;));
-
-        return http.build();
-    }
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
-}</code></pre>
+                        .logoutSuccessUrl(&quot;/&quot;));</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
 </body>

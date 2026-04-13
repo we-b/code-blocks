@@ -13,26 +13,28 @@
     </style>
 </head>
 <body>
-<pre class="language-javascript" data-line="2,4,5,17"><code>&lt;script setup&gt;
-import { auth, signInWithEmailAndPassword } from &#x27;../firebase&#x27;;  //追記
-import Header from &#x27;./Header.vue&#x27;
-import { ref } from &#x27;vue&#x27;  //追記
-import { useRouter } from &#x27;vue-router&#x27;; //追記
+<pre class="language-javascript" data-line="5,10,11,12,13,14,15,16,17,18"><code>&lt;script setup&gt;
+import { auth, signInWithEmailAndPassword } from &#x27;../firebase&#x27;;
+import { useRouter } from &#x27;vue-router&#x27;;
 
-(省略)
+const router = useRouter();  //追加
+
+const email = ref(&#x27;&#x27;);
+const password = ref(&#x27;&#x27;);
+
+ //追加
+const handleSignIn = async() =&gt; {
+  try{
+    await signInWithEmailAndPassword(auth, email.value, password.value)
+    router.push(&quot;/home&quot;)
+  }catch(error){
+    console.log(&#x27;ログインに失敗しました&#x27;)
+  }
+}
 &lt;/script&gt;
 
 &lt;template&gt;
-  &lt;Header /&gt;
-  &lt;div class=&quot;form-body&quot;&gt;
-    &lt;h1&gt;ログイン&lt;/h1&gt;
-    &lt;input type=&quot;text&quot; id=&quot;email&quot; v-model=&quot;email&quot; placeholder=&quot;email&quot;&gt;
-    &lt;input type=&quot;password&quot; id=&quot;password&quot;v-model=&quot;password&quot; placeholder=&quot;password&quot;&gt;
-    &lt;button value=&quot;ログイン&quot; @click=&quot;handleSignIn&quot;&gt;ログイン&lt;/button&gt;
-    &lt;p&gt;アカウント作成がお済みでない場合は&lt;router-link to=&quot;/signup&quot;&gt;こちら&lt;/router-link&gt;&lt;/p&gt;  &lt;!--追加--&gt;
-  &lt;/div&gt;
-&lt;/template&gt;
-</code></pre>
+(以下省略)</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
 </body>

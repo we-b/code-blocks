@@ -13,13 +13,21 @@
     </style>
 </head>
 <body>
-<pre class="language-javascript" data-line="6,7,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,51"><code>import React from &quot;react&quot;;
+<pre class="language-javascript" data-line="27"><code>import React from &quot;react&quot;;
 import { Link } from &quot;react-router-dom&quot;;
+import Hand from &quot;../../components/hand&quot;;
 
 export default class Index extends React.Component {
+
+  constructor() {
+    super();
+    this.state = {
+      selectHand: 0,
+    };
+  }
+  
   render() {
-    // CSSで、画像サイズのプロパティの値に利用
-    const imgSize = 100;
+    const handTypes = [0,1,2]
     return (
       &lt;div
         style={{
@@ -30,36 +38,9 @@ export default class Index extends React.Component {
       &gt;
         &lt;h1&gt;じゃんけんページ&lt;/h1&gt;
         &lt;div style={{ display: &quot;flex&quot; }}&gt;
-          &lt;button&gt;
-            &lt;img
-              src={`images/rock.jpeg`}
-              alt=&quot;rock&quot;
-              style={{
-                height: imgSize,
-                width: imgSize,
-              }}
-            /&gt;
-          &lt;/button&gt;
-          &lt;button&gt;
-            &lt;img
-              src={`images/paper.jpeg`}
-              alt=&quot;paper&quot;
-              style={{
-                height: imgSize,
-                width: imgSize,
-              }}
-            /&gt;
-          &lt;/button&gt;
-          &lt;button&gt;
-            &lt;img
-              src={`images/scissors.jpeg`}
-              alt=&quot;scissors&quot;
-              style={{
-                height: imgSize,
-                width: imgSize,
-              }}
-            /&gt;
-          &lt;/button&gt;
+          {handTypes.map((handType) =&gt; (
+            &lt;Hand selectHand={handType} selectedHand={this.state.selectHand}/&gt;
+          ))}
         &lt;/div&gt;
         &lt;Link to=&quot;/&quot;&gt;
           &lt;h1&gt;じゃんけんを終了する&lt;/h1&gt;
@@ -68,7 +49,8 @@ export default class Index extends React.Component {
       &lt;/div&gt;
     );
   }
-}</code></pre>
+}
+</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
 </body>

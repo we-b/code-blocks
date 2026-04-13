@@ -13,10 +13,15 @@
     </style>
 </head>
 <body>
-<pre class="language-javascript"><code>    &lt;p&gt;既にアカウントをお持ちの方はこちらへ&lt;router-link to=&quot;/&quot;&gt;こちら&lt;/router-link&gt;&lt;/p&gt;  &lt;!--追加--&gt;
-  &lt;/div&gt;
-&lt;/template&gt;
-</code></pre>
+<pre class="language-javascript"><code>import { auth, signInWithEmailPassword } from &#x27;../firebase&#x27;;
+
+const SignIn = async() =&gt; {
+  try{
+    await signInWithEmailPassword(auth,メールアドレス, パスワード)
+  }catch(error){
+    console.log(&#x27;ログインに失敗しました&#x27;)
+  }
+}</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 
 </body>

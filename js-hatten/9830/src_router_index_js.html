@@ -13,36 +13,28 @@
     </style>
 </head>
 <body>
-<pre class="language-javascript"><code>import { createRouter, createWebHistory } from &#x27;vue-router&#x27;;
-import SignIn from &#x27;../components/SignIn.vue&#x27;
-import SignUp from &#x27;../components/SignUp.vue&#x27;;
-import Home from &#x27;../components/Home.vue&#x27;;
-import { auth, onAuthStateChanged } from &#x27;../firebase.js&#x27;;
+<pre class="language-javascript"><code>function getCurrentUser(auth) {
+  return new Promise((resolve, reject) =&gt; {
+    const unsubscribe = onAuthStateChanged(auth, (user) =&gt; {
+      unsubscribe();
+      resolve(user);
+    }, reject);
+  });
+}
 
-const routes = [
-  {
-    path: &#x27;/&#x27;,
-    name: &#x27;SignIn&#x27;,
-    component: SignIn
-  },
-  {
-    path: &#x27;/signup&#x27;,
-    name: &#x27;SignUp&#x27;,
-    component: SignUp
-  },
-  {
-    path: &#x27;/home&#x27;,
-    name: &#x27;Home&#x27;,
-    component: Home,
-  },
-]
 
-const router = createRouter({
-  history: createWebHistory(import.meta.env.BASE_URL),
-  routes
+router.beforeEach(async (to, from, next) =&gt; {
+  const currentUser = await getCurrentUser(auth);
+
+  if (!currentUser &amp;&amp; to.path !== &#x27;/&#x27; &amp;&amp; to.path !== &#x27;/signup&#x27;) {
+    next(&#x27;/&#x27;);
+  }else if (currentUser &amp;&amp; (to.path === &#x27;/&#x27; || to.path === &#x27;/signup&#x27;)) {
+    next(&#x27;/home&#x27;);
+  } else {
+    next();
+  }
 });
-
-export default router;</code></pre>
+</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 
 </body>

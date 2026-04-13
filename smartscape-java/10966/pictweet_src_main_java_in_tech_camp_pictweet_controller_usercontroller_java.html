@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
     <style>
         body { margin: 0; padding: 0; background-color: #2d2d2d; }
         pre { margin: 0 !important; border-radius: 0; border: none; }
@@ -13,25 +13,36 @@
     </style>
 </head>
 <body>
-<pre class="language-java"><code>package in.tech_camp.pictweet.controller;
+<pre class="language-java" data-line="6,21,22,23,24,25,26,27"><code>package in.tech_camp.pictweet.controller;
 
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import in.tech_camp.pictweet.form.UserForm;
+（省略）
 
 @Controller
+@AllArgsConstructor
 public class UserController {
 
-  @GetMapping(&quot;/users/sign_up&quot;)
-  public String showSignUp(Model model){
-    model.addAttribute(&quot;userForm&quot;, new UserForm());
-    return &quot;users/signUp&quot;;
+（省略）
+
+  @GetMapping(&quot;/users/login&quot;)
+  public String showLogin(){
+      return &quot;users/login&quot;;
   }
 
+  @GetMapping(&quot;/login&quot;)
+  public String showLoginWithError(@RequestParam(value = &quot;error&quot;) String error, Model model) {
+    if (error != null) {
+      model.addAttribute(&quot;loginError&quot;, &quot;Invalid email or password.&quot;);
+    }
+    return &quot;users/login&quot;;
+  }
 }</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
 </body>
 </html>

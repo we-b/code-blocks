@@ -15,9 +15,9 @@
 <body>
 <pre class="language-java"><code>.formLogin(login -&gt; login
                         .loginProcessingUrl(&quot;/login&quot;)
-                        .loginPage(&quot;/users/login&quot;)  // ログイン画面を表示のパス
-                        .defaultSuccessUrl(&quot;/&quot;, true)
-                        .failureUrl(&quot;/login?error&quot;)
+                        .loginPage(&quot;/users/login&quot;)
+                        .defaultSuccessUrl(&quot;/&quot;, true)               // ログインに成功した場合
+                        .failureUrl(&quot;/login?error&quot;)   // ログインに失敗した場合
                         .usernameParameter(&quot;email&quot;) 
                         .permitAll())</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>

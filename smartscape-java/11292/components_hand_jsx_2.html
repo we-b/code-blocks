@@ -13,26 +13,30 @@
     </style>
 </head>
 <body>
-<pre class="language-javascript" data-line="8,11,12,13,14,15,16,17,18"><code>&lt;script setup&gt;
-(省略)
-import { auth, createUserWithEmailAndPassword } from &#x27;../firebase&#x27;;
-import { useRouter } from &#x27;vue-router&#x27;;
-const email = ref(&#x27;&#x27;);
-const password = ref(&#x27;&#x27;);
+<pre class="language-javascript" data-line="16"><code>import React from &quot;react&quot;;
 
-const router = useRouter();  //追加
-
- //追加
-const handleSignUp = async() =&gt; {
-  try {
-    await createUserWithEmailAndPassword(auth, email.value, password.value)
-    router.push(&quot;/home&quot;);
-  }catch(error) {
-    console.log(&#x27;ユーザー登録できませんでした&#x27;, error)
+export default class Hand extends React.Component {
+  render() {
+    const imgSize = 100;
+    const handTypes = [&quot;rock&quot;, &quot;scissors&quot;, &quot;paper&quot;]
+    return (
+      &lt;div&gt;
+        &lt;button onClick={() =&gt; {}}&gt;
+          &lt;img
+            src={`images/${handTypes[this.props.selectHand]}.jpeg`}
+            alt=&quot;rock&quot;
+            style={{
+              height: imgSize,
+              width: imgSize,
+              opacity: this.props.selectedHand === this.props.selectHand ? &quot;1.0&quot; : &quot;0.3&quot;,
+            }}
+          /&gt;
+        &lt;/button&gt;
+      &lt;/div&gt;
+    );
   }
 }
-&lt;/script&gt;
-(以下省略)</code></pre>
+</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
 </body>
