@@ -13,7 +13,27 @@
     </style>
 </head>
 <body>
-<pre class="language-markup"><code>        &lt;input type=&quot;text&quot; id=&quot;email&quot; name=&quot;email&quot; autofocus=&quot;autofocus&quot; required=&quot;required&quot; /&gt;
+<pre class="language-markup"><code>&lt;!DOCTYPE html&gt;
+&lt;html xmlns:th=&quot;http://www.thymeleaf.org&quot; lang=&quot;ja&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;link th:href=&quot;@{/css/style.css}&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;&gt;
+    &lt;title&gt;PicTweet&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;div th:insert=&quot;~{header :: header}&quot;&gt;&lt;/div&gt;
+
+&lt;div class=&quot;contents row&quot;&gt;
+  &lt;div class=&quot;container&quot;&gt;
+    &lt;h2&gt;Log in&lt;/h2&gt;
+   &lt;p th:if=&quot;${loginError}&quot; class=&quot;login-error&quot; th:text=&quot;${loginError}&quot;&gt;&lt;/p&gt;
+
+    &lt;form th:method=&quot;post&quot; th:action=&quot;@{/login}&quot; class=&quot;new_user&quot;&gt;
+
+      &lt;div class=&quot;field&quot;&gt;
+        &lt;label class=&quot;column-title&quot;&gt;Email&lt;/label&gt;&lt;br /&gt;
+        &lt;input type=&quot;text&quot; id=&quot;email&quot; name=&quot;email&quot; autofocus=&quot;autofocus&quot; required=&quot;required&quot; /&gt;
       &lt;/div&gt;
 
       &lt;div class=&quot;field&quot;&gt;

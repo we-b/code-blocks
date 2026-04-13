@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
     <style>
         body { margin: 0; padding: 0; background-color: #2d2d2d; }
         pre { margin: 0 !important; border-radius: 0; border: none; }
@@ -13,12 +13,27 @@
     </style>
 </head>
 <body>
-<pre class="language-java"><code>  @ToString.Exclude
+<pre class="language-java" data-line="7,15,17"><code>package in.tech_camp.pictweet.entity;
+
+import java.sql.Timestamp;
+import java.util.List;
+
+import lombok.Data;
+import lombok.ToString;
+
+@Data
+public class TweetEntity {
+  private Integer id;
+  private String text;
+  private String image;
+  private Timestamp createdAt;
+  @ToString.Exclude
   private UserEntity user;
   @ToString.Exclude
   private List&lt;CommentEntity&gt; comments;
 }</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
 </body>
 </html>
