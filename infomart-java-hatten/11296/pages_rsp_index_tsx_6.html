@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript" data-line="1,9,10,23,24,25,33,34"><code>import React, { useState, useEffect, useRef } from &quot;react&quot;;
+import { Link } from &quot;react-router-dom&quot;;
+import Hand from &quot;../../components/hand&quot;;
+import { HandType } from &quot;../../interfaces/handType&quot;;
+
+export default function Index() {
+  const handTypes: HandType[] = [HandType.Rock, HandType.Scissors, HandType.Paper];
+
+  const battleCountVal = useRef(0);
+  const winCountVal = useRef(0);
+
+  const [selectHand, setSelectHand] = useState&lt;HandType&gt;(HandType.Rock);
+  const [enemyHand, setEnemyHand] = useState&lt;HandType&gt;(HandType.Rock);
+  const [resultString, setResultString] = useState&lt;string&gt;(
+    &quot;最初はグー、じゃんけん&quot;
+  );
+  const [winCount, setWinCount] = useState&lt;number&gt;(0);
+  const [battleCount, setBattleCount] = useState&lt;number&gt;(0);
+
+  useEffect(() =&gt; {
+    alert(&quot;手を選ぶと、勝敗が決まるよ！\n手を選んでね！&quot;);
+    return () =&gt; {
+      alert(
+        `【戦績】\n${battleCountVal.current}戦中、${winCountVal.current}勝でした。`
+      );
+    };
+  }, []);
+
+  useEffect(() =&gt; {
+    const enemyHand: HandType = Math.floor(Math.random() * 3);
+    setEnemyHand(enemyHand);
+    confirmResult(selectHand, enemyHand);   
+    battleCountVal.current = battleCount;
+    winCountVal.current = winCount;
+  }, [battleCount]);
+
+  const handleOnClick = (val: HandType): void =&gt; {
+    setBattleCount(battleCount + 1);
+    setSelectHand(val);
+  };
+
+  // 省略
+}
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

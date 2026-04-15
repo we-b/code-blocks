@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript" data-line="2,10,11,22,23"><code>import { ResponsePost } from &quot;../_type/ResponsePost&quot;;
+import { useState, useRef } from &quot;react&quot;;
+
+interface PostProps {
+  post: ResponsePost;
+}
+
+export const Post: React.FC&lt;PostProps&gt; = ({post}) =&gt; {
+  const [isEditing, setIsEditing] = useState(false);
+  const content = useRef&lt;HTMLInputElement&gt;(null);
+  const [editContent, setEditContent] = useState(post.content);
+
+  return(
+    &lt;li className=&quot;post&quot;&gt;
+      {isEditing ? (
+        &lt;&gt;
+          &lt;div className=&quot;form&quot;&gt;
+            &lt;input 
+              type=&quot;text&quot;
+              name=&quot;update-content&quot;
+              className=&quot;input-form&quot;
+              ref={content}
+              defaultValue={editContent}
+            /&gt;
+            &lt;button className=&quot;btn&quot;&gt;更新&lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/&gt;
+      ) : (
+        &lt;&gt;
+          &lt;p&gt;{post.content}&lt;/p&gt;
+          &lt;div className=&quot;btn-list&quot;&gt;
+            &lt;button className=&quot;btn&quot; onClick={() =&gt; setIsEditing(true)}&gt;編集&lt;/button&gt;
+          &lt;/div&gt;
+        &lt;/&gt;
+      )}
+    &lt;/li&gt;
+  )
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

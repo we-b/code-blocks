@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java"><code>@Controller
+public class NotificationController {
+
+  @GetMapping(&quot;/sendNotification&quot;)
+  public ResponseEntity&lt;String&gt; sendNotification(@RequestParam String type, @RequestParam String message) {
+    NotificationFactory factory;
+    Notification notification;
+
+    // リクエストパラメータに基づいて適切なファクトリを選ぶ
+    if (&quot;email&quot;.equalsIgnoreCase(type)) {
+        factory = new EmailNotificationFactory();
+    } else if (&quot;sms&quot;.equalsIgnoreCase(type)) {
+        factory = new SmsNotificationFactory();
+    } else {
+        return ResponseEntity.badRequest().body(&quot;Invalid notification type&quot;);
+    }
+
+    // Notificationを送信
+    notification = factory.createNotification();
+    notification.send(message);
+    return ResponseEntity.ok(&quot;Notification sent: &quot; + type);
+  }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>

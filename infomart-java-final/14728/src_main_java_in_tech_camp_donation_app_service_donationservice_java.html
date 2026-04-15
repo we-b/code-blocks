@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java" data-line="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35" data-start="1"><code>package in.tech_camp.donation_app.service;
+
+import in.tech_camp.donation_app.entity.*;
+import in.tech_camp.donation_app.form.DonationAddressForm;
+import in.tech_camp.donation_app.mapper.*;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+@Service
+@RequiredArgsConstructor
+public class DonationService {
+
+    private final DonationMapper donationMapper;
+    private final AddressMapper addressMapper;
+
+    @Transactional
+    public void save(DonationAddressForm form, Long userId) {
+        // 寄付情報を保存し、自動生成されたIDを取得
+        Donation donation = new Donation();
+        donation.setPrice(form.getPrice());
+        donation.setUserId(userId);
+        donationMapper.insert(donation);
+
+        // 住所を保存（donation_idに先ほど保存した寄付情報のIDを指定）
+        Address address = new Address();
+        address.setPostalCode(form.getPostalCode());
+        address.setPrefecture(form.getPrefecture());
+        address.setCity(form.getCity());
+        address.setHouseNumber(form.getHouseNumber());
+        address.setBuildingName(form.getBuildingName());
+        address.setDonationId(donation.getId());
+        addressMapper.insert(address);
+    }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

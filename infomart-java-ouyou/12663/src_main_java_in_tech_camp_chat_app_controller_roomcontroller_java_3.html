@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java" data-line="13,14,17,18,27,29,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62"><code>package in.tech_camp.chat_app.controller;
+
+import java.util.List;
+
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import in.tech_camp.chat_app.custom_user.CustomUserDetail;
+import in.tech_camp.chat_app.entity.RoomEntity;
+import in.tech_camp.chat_app.entity.RoomUserEntity;
+import in.tech_camp.chat_app.entity.UserEntity;
+import in.tech_camp.chat_app.form.RoomForm;
+import in.tech_camp.chat_app.repository.RoomRepository;
+import in.tech_camp.chat_app.repository.RoomUserRepository;
+import in.tech_camp.chat_app.repository.UserRepository;
+import lombok.AllArgsConstructor;
+
+@Controller
+@AllArgsConstructor
+public class RoomController {
+  private final UserRepository userRepository;
+
+  private final RoomRepository roomRepository;
+
+  private final RoomUserRepository roomUserRepository;
+
+  // 省略
+
+ @PostMapping(&quot;/rooms&quot;)
+  public String createRoom(@ModelAttribute(&quot;RoomForm&quot;) RoomForm roomForm, @AuthenticationPrincipal CustomUserDetail currentUser, Model model){
+    RoomEntity roomEntity = new RoomEntity();
+    roomEntity.setName(roomForm.getName());
+    try {
+      roomRepository.insert(roomEntity);
+    } catch (Exception e) {
+      System.out.println(&quot;エラー：&quot; + e);
+      List&lt;UserEntity&gt; users = userRepository.findAllExcept(currentUser.getId());
+      model.addAttribute(&quot;users&quot;, users);
+      model.addAttribute(&quot;roomForm&quot;, new RoomForm());
+      return &quot;rooms/new&quot;;
+    }
+
+    List&lt;Integer&gt; memberIds = roomForm.getMemberIds();
+    for (Integer userId : memberIds) {
+      UserEntity userEntity = userRepository.findById(userId);
+      RoomUserEntity roomUserEntity = new RoomUserEntity();
+      roomUserEntity.setRoom(roomEntity);
+      roomUserEntity.setUser(userEntity);
+      try {
+        roomUserRepository.insert(roomUserEntity);
+      } catch (Exception e) {
+        System.out.println(&quot;エラー：&quot; + e);
+        List&lt;UserEntity&gt; users = userRepository.findAllExcept(currentUser.getId());
+        model.addAttribute(&quot;users&quot;, users);
+        model.addAttribute(&quot;roomForm&quot;, new RoomForm());
+        return &quot;rooms/new&quot;;
+      }
+    }
+    return &quot;redirect:/&quot;;
+  }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

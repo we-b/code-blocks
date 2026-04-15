@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java"><code>class BankAccount {
+    private double balance; // 直接アクセスできないようにする
+
+    // コンストラクタで初期残高を設定
+    public BankAccount(double initialBalance) {
+        if (initialBalance &lt; 0) {
+            throw new IllegalArgumentException(&quot;初期残高は0以上である必要があります&quot;);
+        }
+        this.balance = initialBalance;
+    }
+
+    // ゲッターメソッド（残高を取得する）
+    public double getBalance() {
+        return balance;
+    }
+
+    // 預金メソッド
+    public void deposit(double amount) {
+        if (amount &lt;= 0) {
+            throw new IllegalArgumentException(&quot;預金額は正の値である必要があります&quot;);
+        }
+        balance += amount;
+    }
+
+    // 引き出しメソッド
+    public void withdraw(double amount) {
+        if (amount &lt;= 0) {
+            throw new IllegalArgumentException(&quot;引き出し額は正の値である必要があります&quot;);
+        }
+        if (balance &gt;= amount) {
+            balance -= amount;
+        } else {
+            throw new IllegalArgumentException(&quot;残高不足です&quot;);
+        }
+    }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-plaintext"><code>import java.util.regex.Pattern;
+
+public class PasswordValidation {
+    public static void main(String[] args) {
+        String password = &quot;T2o0k2y0o&quot;;
+
+        // 正規表現のパターン
+        String regex = &quot;^(?=.*[a-zA-Z])(?=.*\\d)[a-zA-Z\\d]+$&quot;;
+        boolean isValid = Pattern.matches(regex, password);
+
+        if (isValid) {
+            System.out.println(&quot;パスワードは英数字混合です: &quot; + password);
+        } else {
+            System.out.println(&quot;パスワードは英数字混合ではありません: &quot; + password);
+        }
+    }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

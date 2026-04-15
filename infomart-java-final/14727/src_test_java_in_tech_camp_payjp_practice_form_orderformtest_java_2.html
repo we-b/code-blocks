@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java" data-line="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72" data-start="1"><code>package in.tech_camp.payjp_practice.form;
+
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.Validation;
+import jakarta.validation.Validator;
+import jakarta.validation.ValidatorFactory;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Nested;
+import org.junit.jupiter.api.Test;
+
+import java.util.Set;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class OrderFormTest {
+
+    private Validator validator;
+
+    @BeforeEach
+    void setUp() {
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        validator = factory.getValidator();
+    }
+
+    @Nested
+    @DisplayName(&quot;内容に問題ない場合&quot;)
+    class WhenValid {
+
+        @Test
+        @DisplayName(&quot;priceとtokenがあれば保存ができること&quot;)
+        void priceとtokenがあれば保存ができること() {
+            OrderForm form = new OrderForm();
+            form.setPrice(3000);
+            form.setToken(&quot;tok_abcdefghijk00000000000000000&quot;);
+
+            Set&lt;ConstraintViolation&lt;OrderForm&gt;&gt; violations = validator.validate(form);
+            assertTrue(violations.isEmpty());
+        }
+    }
+
+    @Nested
+    @DisplayName(&quot;内容に問題がある場合&quot;)
+    class WhenInvalid {
+
+        @Test
+        @DisplayName(&quot;priceが空では保存ができないこと&quot;)
+        void priceが空では保存ができないこと() {
+            OrderForm form = new OrderForm();
+            form.setPrice(null);
+            form.setToken(&quot;tok_abcdefghijk00000000000000000&quot;);
+
+            Set&lt;ConstraintViolation&lt;OrderForm&gt;&gt; violations = validator.validate(form);
+            assertFalse(violations.isEmpty());
+            assertTrue(violations.stream()
+                    .anyMatch(v -&gt; v.getMessage().equals(&quot;金額を入力してください&quot;)));
+        }
+
+        @Test
+        @DisplayName(&quot;tokenが空では登録できないこと&quot;)
+        void tokenが空では登録できないこと() {
+            OrderForm form = new OrderForm();
+            form.setPrice(3000);
+            form.setToken(null);
+
+            Set&lt;ConstraintViolation&lt;OrderForm&gt;&gt; violations = validator.validate(form);
+            assertFalse(violations.isEmpty());
+            assertTrue(violations.stream()
+                    .anyMatch(v -&gt; v.getMessage().equals(&quot;カード情報を正しく入力してください&quot;)));
+        }
+    }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

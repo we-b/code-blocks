@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java"><code>public interface Curry {
+  String getDescription();
+  int cost();
+}
+
+public class SimpleCurry implements Curry {
+  @Override
+  public String getDescription() {
+    return &quot;Basic Curry&quot;;
+  }
+
+  @Override
+  public int cost() {
+    return 500;
+  }
+}
+
+public abstract class CurryDecorator implements Curry {
+  protected Curry decoratedCurry;
+
+  public CurryDecorator(Curry curry) {
+    this.decoratedCurry = curry;
+  }
+
+  @Override
+  public String getDescription() {
+    return decoratedCurry.getDescription();
+  }
+
+  @Override
+  public int cost() {
+    return decoratedCurry.cost();
+  }
+}
+
+public class CheeseDecorator extends CurryDecorator {
+  public CheeseDecorator(Curry curry) {
+    super(curry);
+  }
+
+  @Override
+  public String getDescription() {
+    return decoratedCurry.getDescription() + &quot;, with Cheese&quot;;
+  }
+
+  @Override
+  public int cost() {
+    return decoratedCurry.cost() + 200;
+  }
+}
+
+public class VegetableDecorator extends CurryDecorator {
+  public VegetableDecorator(Curry curry) {
+    super(curry);
+  }
+
+  @Override
+  public String getDescription() {
+    return decoratedCurry.getDescription() + &quot;, with Vegetables&quot;;
+  }
+
+  @Override
+  public int cost() {
+    return decoratedCurry.cost() + 150;
+  }
+}
+
+public class DecoratorPatternExample {
+  public static void main(String[] args) {
+    Curry basicCurry = new SimpleCurry();
+    System.out.println(basicCurry.getDescription() + &quot; Cost: &quot; + basicCurry.cost());
+
+    Curry cheeseCurry = new CheeseDecorator(basicCurry);
+    System.out.println(cheeseCurry.getDescription() + &quot; Cost: &quot; + cheeseCurry.cost());
+
+    Curry vegetableCurry = new VegetableDecorator(basicCurry);
+    System.out.println(vegetableCurry.getDescription() + &quot; Cost: &quot; + vegetableCurry.cost());
+
+    Curry cheeseVegetableCurry = new VegetableDecorator(cheeseCurry);
+    System.out.println(cheeseVegetableCurry.getDescription() + &quot; Cost: &quot; + cheeseVegetableCurry.cost());
+  }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>

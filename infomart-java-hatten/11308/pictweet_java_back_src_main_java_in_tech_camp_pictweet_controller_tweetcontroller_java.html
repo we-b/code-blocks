@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java" data-line="3,4,5,6,7,8,9,10,11,12,13,14,16,17,19,25,34,37"><code>（省略）
+
+  // @GetMapping(&quot;/tweets/{tweetId}/edit&quot;)
+  // public String editTweet(@PathVariable(&quot;tweetId&quot;) Integer tweetId, Model model) {
+  //   TweetEntity tweet = tweetRepository.findById(tweetId);
+
+  //   TweetForm tweetForm = new TweetForm();
+  //   tweetForm.setText(tweet.getText());
+  //   tweetForm.setImage(tweet.getImage());
+
+  //   model.addAttribute(&quot;tweetForm&quot;, tweetForm);
+  //   model.addAttribute(&quot;tweetId&quot;, tweetId);
+  //   return &quot;tweets/edit&quot;;
+  // }
+
+  @PostMapping(&quot;/{tweetId}/update&quot;)
+  public ResponseEntity&lt;?&gt; updateTweet(@RequestBody @Validated(ValidationOrder.class) TweetForm tweetForm,
+                            BindingResult result,
+                            @PathVariable(&quot;tweetId&quot;) Integer tweetId) {
+
+    if (result.hasErrors()) {
+      List&lt;String&gt; errorMessages = result.getAllErrors().stream()
+              .map(DefaultMessageSourceResolvable::getDefaultMessage)
+              .collect(Collectors.toList());
+      return ResponseEntity.badRequest().body(Map.of(&quot;messages&quot;, errorMessages));
+    }
+
+    TweetEntity tweet = tweetRepository.findById(tweetId);
+    tweet.setText(tweetForm.getText());
+    tweet.setImage(tweetForm.getImage());
+
+    try {
+      tweetRepository.update(tweet);
+      return ResponseEntity.ok().body(tweet);
+    } catch (Exception e) {
+        System.out.println(&quot;エラー：&quot; + e);
+        return ResponseEntity.internalServerError().body(Map.of(&quot;messages&quot;, List.of(&quot;Internal Server Error&quot;)));
+    }
+  }
+
+（省略）</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java"><code>import java.util.Scanner;
+
+public class PrefectureSelector {
+
+  // 都道府県を選択する共通メソッド
+  public static String selectPrefecture(String prompt) {
+    String[] prefecture = {&quot;北海道&quot;, &quot;青森&quot;, &quot;...(省略)...&quot;, &quot;沖縄&quot;};
+    Scanner scanner = new Scanner(System.in);
+    System.out.println(prompt + &quot;（0-&quot; + (prefecture.length - 1) + &quot;）:&quot;);
+    int num = scanner.nextInt();
+    return prefecture[num];
+  }
+
+  public static void selectBirthplace() {
+    String birthplace = selectPrefecture(&quot;出生地を選択してください&quot;);
+    System.out.println(&quot;出生地: &quot; + birthplace);
+  }
+
+  public static void selectAddress() {
+    String address = selectPrefecture(&quot;住所を選択してください&quot;);
+    System.out.println(&quot;住所: &quot; + address);
+  }
+
+  public static void selectWorkAddress() {
+    String workAddress = selectPrefecture(&quot;勤務先住所を選択してください&quot;);
+    System.out.println(&quot;勤務先住所: &quot; + workAddress);
+  }
+
+  public static void main(String[] args) {
+    selectBirthplace();
+    selectAddress();
+    selectWorkAddress();
+  }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>

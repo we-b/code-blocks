@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript"><code>&#x27;use client&#x27;;
+import { useForm } from &#x27;react-hook-form&#x27;;
+import Header from &#x27;@/app/_components/Header&#x27;;
+
+interface SignUpForm {
+  nickname: string;
+  email: string;
+  password: string;
+  passwordConfirmation: string;
+}
+
+const SignUpPage = () =&gt; {
+  const { register, handleSubmit, formState: { errors }, watch } = useForm&lt;SignUpForm&gt;();
+
+  const onSubmit = (formData: SignUpForm) =&gt; {
+    // Sign Upをクリックした時の処理
+  };
+
+  return (
+    &lt;&gt;
+      &lt;Header /&gt;
+      &lt;div className=&quot;contents row&quot;&gt;
+        &lt;div className=&quot;container&quot;&gt;
+          &lt;h2&gt;Sign up&lt;/h2&gt;
+
+          &lt;form onSubmit={handleSubmit(onSubmit)} className=&quot;new_user&quot;&gt;
+            &lt;div className=&quot;field&quot;&gt;
+              &lt;label&gt;Nickname&lt;/label&gt;&lt;em&gt;(6 characters maximum)&lt;/em&gt;&lt;br /&gt;
+              {errors.nickname &amp;&amp; &lt;p className=&quot;error-message&quot;&gt;{errors.nickname.message}&lt;/p&gt;}
+              &lt;input
+                type=&quot;text&quot;
+                {...register(&#x27;nickname&#x27;, {
+                  required: &#x27;ニックネームは必須です&#x27;,
+                  maxLength: { value: 6, message: &#x27;ニックネームは長すぎます（最大6文字までです）&#x27; }
+                })}
+              /&gt;
+            &lt;/div&gt;
+
+            &lt;div className=&quot;field&quot;&gt;
+              &lt;label&gt;Email&lt;/label&gt;&lt;br /&gt;
+              {errors.email &amp;&amp; &lt;p className=&quot;error-message&quot;&gt;{errors.email.message}&lt;/p&gt;}
+              &lt;input
+                type=&quot;email&quot;
+                {...register(&#x27;email&#x27;,{
+                  required: &#x27;メールアドレスは必須です&#x27;,
+                  pattern: { value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/, message: &#x27;無効なメールアドレスです&#x27;,}
+              })}
+              /&gt;
+              &lt;/div&gt;
+
+            &lt;div className=&quot;field&quot;&gt;
+              &lt;label&gt;Password&lt;/label&gt;&lt;em&gt;(6 characters minimum)&lt;/em&gt;&lt;br /&gt;
+              {errors.password &amp;&amp; &lt;p className=&quot;error-message&quot;&gt;{errors.password.message}&lt;/p&gt;}
+              &lt;input
+                type=&quot;password&quot;
+                {...register(&#x27;password&#x27;, {
+                  required: &#x27;パスワードは必須です&#x27;,
+                  minLength: { value: 6, message: &#x27;パスワードは6文字以上である必要があります&#x27; },
+                  maxLength: { value: 128, message: &#x27;パスワードは128文字以内である必要があります&#x27; }
+                })}
+              /&gt;
+            &lt;/div&gt;
+
+            &lt;div className=&quot;field&quot;&gt;
+              &lt;label&gt;Password confirmation&lt;/label&gt;&lt;br /&gt;
+              {errors.passwordConfirmation &amp;&amp; &lt;p className=&quot;error-message&quot;&gt;{errors.passwordConfirmation.message}&lt;/p&gt;}
+              &lt;input
+                type=&quot;password&quot;
+                {...register(&#x27;passwordConfirmation&#x27;, {
+                  required: &#x27;確認用パスワードは必須です&#x27;,
+                  validate: (value: string) =&gt; value === watch(&#x27;password&#x27;) || &#x27;確認用パスワードがパスワードと一致しません&#x27;
+                })}
+              /&gt;
+            &lt;/div&gt;
+
+            &lt;div className=&quot;actions&quot;&gt;
+              &lt;input type=&quot;submit&quot; value=&quot;Sign up&quot; /&gt;
+            &lt;/div&gt;
+          &lt;/form&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+    &lt;/&gt;
+  );
+};
+
+export default SignUpPage;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java"><code>public interface Notification {
+  void send(String message);
+}
+
+public class EmailNotification implements Notification {
+  // Emailで送信する処理に必要なフィールドを記述
+
+  @Override
+  public void send(String message) {
+    System.out.println(&quot;Sending Email: &quot; + message);
+    // Emailで送信する処理を記述
+  }
+}
+
+public class SmsNotification implements Notification {
+  // SMSで送信する処理に必要なフィールドを記述
+
+  @Override
+  public void send(String message) {
+    System.out.println(&quot;Sending SMS: &quot; + message);
+    // SMSで送信する処理を記述
+  }
+}
+
+public abstract class NotificationFactory {
+  public abstract Notification createNotification();
+}
+
+public class EmailNotificationFactory extends NotificationFactory {
+  @Override
+  public Notification createNotification() {
+    //実際にはEmailNotificationを作成して返すための設定等がおこなわれる
+    return new EmailNotification();
+  }
+}
+
+public class SmsNotificationFactory extends NotificationFactory {
+  @Override
+  public Notification createNotification() {
+    //実際にはSmsNotificationを作成して返すための設定等がおこなわれる
+    return new SmsNotification();
+  }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>

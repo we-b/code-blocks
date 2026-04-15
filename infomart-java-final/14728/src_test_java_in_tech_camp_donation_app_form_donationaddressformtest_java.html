@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java" data-line="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79,80,81,82,83,84,85,86,87,88,89,90,91,92,93,94,95,96,97,98,99,100,101,102,103,104,105,106,107,108,109,110,111,112,113,114,115,116,117,118,119,120,121,122,123,124,125,126,127,128" data-start="1"><code>package in.tech_camp.donation_app.form;
+
+import jakarta.validation.*;
+import org.junit.jupiter.api.*;
+import java.util.Set;
+
+import static org.junit.jupiter.api.Assertions.*;
+
+class DonationAddressFormTest {
+
+    private Validator validator;
+
+    @BeforeEach
+    void setUp() {
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        validator = factory.getValidator();
+    }
+
+    private DonationAddressForm createValidForm() {
+        DonationAddressForm form = new DonationAddressForm();
+        form.setPostalCode(&quot;123-4567&quot;);
+        form.setPrefecture(1);
+        form.setCity(&quot;千代田区&quot;);
+        form.setHouseNumber(&quot;1-1&quot;);
+        form.setBuildingName(&quot;東京ハイツ&quot;);
+        form.setPrice(2000);
+        return form;
+    }
+
+    @Nested
+    @DisplayName(&quot;内容に問題ない場合&quot;)
+    class ValidCases {
+
+        @Test
+        @DisplayName(&quot;すべての値が正しく入力されていれば有効であること&quot;)
+        void allValid() {
+            DonationAddressForm form = createValidForm();
+            Set&lt;ConstraintViolation&lt;DonationAddressForm&gt;&gt; violations = validator.validate(form);
+            assertTrue(violations.isEmpty());
+        }
+
+        @Test
+        @DisplayName(&quot;cityは空でも有効であること&quot;)
+        void cityCanBeEmpty() {
+            DonationAddressForm form = createValidForm();
+            form.setCity(&quot;&quot;);
+            Set&lt;ConstraintViolation&lt;DonationAddressForm&gt;&gt; violations = validator.validate(form);
+            assertTrue(violations.isEmpty());
+        }
+
+        @Test
+        @DisplayName(&quot;houseNumberは空でも有効であること&quot;)
+        void houseNumberCanBeEmpty() {
+            DonationAddressForm form = createValidForm();
+            form.setHouseNumber(&quot;&quot;);
+            Set&lt;ConstraintViolation&lt;DonationAddressForm&gt;&gt; violations = validator.validate(form);
+            assertTrue(violations.isEmpty());
+        }
+
+        @Test
+        @DisplayName(&quot;buildingNameは空でも有効であること&quot;)
+        void buildingNameCanBeEmpty() {
+            DonationAddressForm form = createValidForm();
+            form.setBuildingName(&quot;&quot;);
+            Set&lt;ConstraintViolation&lt;DonationAddressForm&gt;&gt; violations = validator.validate(form);
+            assertTrue(violations.isEmpty());
+        }
+    }
+
+    @Nested
+    @DisplayName(&quot;内容に問題がある場合&quot;)
+    class InvalidCases {
+
+        @Test
+        @DisplayName(&quot;postalCodeが空だと無効であること&quot;)
+        void postalCodeBlank() {
+            DonationAddressForm form = createValidForm();
+            form.setPostalCode(&quot;&quot;);
+            Set&lt;ConstraintViolation&lt;DonationAddressForm&gt;&gt; violations = validator.validate(form);
+            assertFalse(violations.isEmpty());
+        }
+
+        @Test
+        @DisplayName(&quot;postalCodeがハイフンを含んだ正しい形式でないと無効であること&quot;)
+        void postalCodeInvalidFormat() {
+            DonationAddressForm form = createValidForm();
+            form.setPostalCode(&quot;1234567&quot;);
+            Set&lt;ConstraintViolation&lt;DonationAddressForm&gt;&gt; violations = validator.validate(form);
+            assertFalse(violations.isEmpty());
+        }
+
+        @Test
+        @DisplayName(&quot;prefectureを選択していないと無効であること&quot;)
+        void prefectureNotSelected() {
+            DonationAddressForm form = createValidForm();
+            form.setPrefecture(0);
+            Set&lt;ConstraintViolation&lt;DonationAddressForm&gt;&gt; violations = validator.validate(form);
+            assertFalse(violations.isEmpty());
+        }
+
+        @Test
+        @DisplayName(&quot;priceが空だと無効であること&quot;)
+        void priceNull() {
+            DonationAddressForm form = createValidForm();
+            form.setPrice(null);
+            Set&lt;ConstraintViolation&lt;DonationAddressForm&gt;&gt; violations = validator.validate(form);
+            assertFalse(violations.isEmpty());
+        }
+
+        @Test
+        @DisplayName(&quot;priceが1円未満では無効であること&quot;)
+        void priceLessThanOne() {
+            DonationAddressForm form = createValidForm();
+            form.setPrice(0);
+            Set&lt;ConstraintViolation&lt;DonationAddressForm&gt;&gt; violations = validator.validate(form);
+            assertFalse(violations.isEmpty());
+        }
+
+        @Test
+        @DisplayName(&quot;priceが1,000,000円を超過すると無効であること&quot;)
+        void priceExceedsMillion() {
+            DonationAddressForm form = createValidForm();
+            form.setPrice(1000001);
+            Set&lt;ConstraintViolation&lt;DonationAddressForm&gt;&gt; violations = validator.validate(form);
+            assertFalse(violations.isEmpty());
+        }
+    }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

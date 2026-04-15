@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript" data-line="15,26"><code>&#x27;use client&#x27;;
+import { useForm } from &#x27;react-hook-form&#x27;;
+import { useAuthContext } from &#x27;@/app/context/AuthContext&#x27;;
+
+interface CommentForm {
+  text: string;
+}
+
+interface CommentFormProps {
+  errorMessages: string[];
+  onSubmit: (data: CommentForm) =&gt; void;
+}
+
+const CommentForm = ({ errorMessages, onSubmit }: CommentFormProps) =&gt; {
+  const { register, handleSubmit, formState: { errors }, reset } = useForm&lt;CommentForm&gt;();
+  const { user, isLoading } = useAuthContext();
+
+  if (isLoading) {
+    return &lt;div&gt;Loading...&lt;/div&gt;
+  }
+
+  return (
+    &lt;&gt;
+      {user &amp;&amp; user.isAuthenticated ? (
+        &lt;div&gt;
+          &lt;form onSubmit={handleSubmit((data: CommentForm)=&gt;{onSubmit(data); reset();})}&gt;
+            {errorMessages.map((error, index) =&gt; (
+              &lt;div key={index} className=&quot;error-message&quot;&gt;{error}&lt;/div&gt;
+            ))}
+            {errors.text &amp;&amp; &lt;span className=&quot;error-message&quot;&gt;{errors.text.message}&lt;/span&gt;}
+            &lt;textarea
+              {...register(&#x27;text&#x27;, { required: &quot;コメントは必須です&quot; })}
+              placeholder=&quot;コメントする&quot;
+              rows={2}
+            /&gt;
+            &lt;input type=&quot;submit&quot; value=&quot;SEND&quot; /&gt;
+          &lt;/form&gt;
+        &lt;/div&gt;
+      ) : (
+        &lt;strong&gt;
+          &lt;p&gt;※※※ コメントの投稿には新規登録/ログインが必要です ※※※&lt;/p&gt;
+        &lt;/strong&gt;
+      )}
+    &lt;/&gt;
+  );
+};
+
+export default CommentForm;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

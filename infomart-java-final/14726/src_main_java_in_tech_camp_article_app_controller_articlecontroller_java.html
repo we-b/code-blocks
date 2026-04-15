@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java" data-line="3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52" data-start="1"><code>package in.tech_camp.article_app.controller;
+
+import in.tech_camp.article_app.entity.Article;
+import in.tech_camp.article_app.entity.Genre;
+import in.tech_camp.article_app.form.ArticleForm;
+import in.tech_camp.article_app.mapper.ArticleMapper;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+
+@Controller
+@RequiredArgsConstructor  // finalフィールドを引数に取るコンストラクタをLombokが自動生成
+public class ArticleController {
+
+    private final ArticleMapper articleMapper;
+
+    @GetMapping(&quot;/&quot;)
+    public String index(Model model) {
+        List&lt;Article&gt; articles = articleMapper.findAll();
+        model.addAttribute(&quot;articles&quot;, articles);
+        return &quot;articles/index&quot;;
+    }
+
+    @GetMapping(&quot;/articles/new&quot;)
+    public String newArticle(Model model) {
+        model.addAttribute(&quot;articleForm&quot;, new ArticleForm());
+        model.addAttribute(&quot;genres&quot;, Genre.values());
+        return &quot;articles/new&quot;;
+    }
+
+    @PostMapping(&quot;/articles&quot;)
+    public String create(@Valid @ModelAttribute ArticleForm articleForm,
+                         BindingResult bindingResult,
+                         Model model) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute(&quot;genres&quot;, Genre.values());
+            return &quot;articles/new&quot;;
+        }
+
+        Article article = new Article();
+        article.setTitle(articleForm.getTitle());
+        article.setText(articleForm.getText());
+        article.setGenreId(articleForm.getGenreId());
+        articleMapper.insert(article);
+
+        return &quot;redirect:/&quot;;
+    }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

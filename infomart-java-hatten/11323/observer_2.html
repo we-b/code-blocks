@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java"><code>import java.util.ArrayList;
+import java.util.List;
+
+// Subjectインターフェース
+public interface Subject {
+  void registerObserver(Observer o);
+  void removeObserver(Observer o);
+  void notifyObservers();
+}
+
+// Observerインターフェース
+public interface Observer {
+  void update(float temperature, float humidity, float pressure);
+}
+
+// ConcreteSubject
+public class WeatherData implements Subject {
+  private List&lt;Observer&gt; observers;
+  private float temperature;
+  private float humidity;
+  private float pressure;
+
+  public WeatherData() {
+    observers = new ArrayList&lt;&gt;();
+  }
+
+  @Override 
+  public void registerObserver(Observer o) {
+    observers.add(o);
+  }
+
+  @Override 
+  public void removeObserver(Observer o) {
+    observers.remove(o);
+  }
+
+  @Override 
+  public void notifyObservers() {
+    for (Observer observer : observers) {
+      observer.update(temperature, humidity, pressure);
+    }
+  }
+
+  public void setMeasurements(float temperature, float humidity, float pressure) {
+    this.temperature = temperature;
+    this.humidity = humidity;
+    this.pressure = pressure;
+    notifyObservers();
+  }
+}
+
+// ConcreteObserver
+public class CurrentConditionsDisplay implements Observer {
+
+  @Override
+  public void update(float temperature, float humidity, float pressure) {
+    display(temperature, humidity);
+  }
+
+  private void display(float temperature, float humidity) {
+    System.out.println(&quot;Current conditions: &quot; + temperature + &quot;°C and &quot; + humidity + &quot;% humidity&quot;);
+  }
+}
+
+// Mainクラス
+public class Main {
+  public static void main(String[] args) {
+    // WeatherDataのインスタンスを作成
+    WeatherData weatherData = new WeatherData();
+
+    // オブザーバーのインスタンスを作成し、WeatherDataに登録
+    CurrentConditionsDisplay currentDisplay = new CurrentConditionsDisplay();
+    weatherData.registerObserver(currentDisplay);
+
+    // 測定値を設定し、オブザーバーに通知
+    weatherData.setMeasurements(25.0f, 65.0f, 30.4f);
+    weatherData.setMeasurements(27.0f, 70.0f, 29.2f);
+    weatherData.setMeasurements(22.0f, 80.0f, 28.1f);
+  }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>

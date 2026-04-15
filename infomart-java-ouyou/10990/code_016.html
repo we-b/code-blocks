@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java"><code>TweetEntity tweet1 = new TweetEntity();
+tweet1.setId(1);
+tweet1.setText(&quot;ツイート1&quot;);
+tweet1.setImage(&quot;image1.jpg&quot;);
+
+TweetEntity tweet2 = new TweetEntity();
+tweet2.setId(2);
+tweet2.setText(&quot;ツイート2&quot;);
+tweet2.setImage(&quot;image2.jpg&quot;);
+
+List&lt;TweetEntity&gt; expectedTweetList = Arrays.asList(tweet1, tweet2);</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>

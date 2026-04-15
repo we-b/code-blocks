@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java"><code>public interface Coffee {
+  int cost();
+}
+
+public class SimpleCoffee implements 【 ① 】{
+  @Override
+  public double cost() {
+    return 5.0;
+  }
+}
+
+public abstract class CoffeeDecorator implements 【 ② 】 {
+  protected 【 ③ 】 decoratedCoffee;
+
+  public CoffeeDecorator(Coffee coffee) {
+    this.decoratedCoffee = coffee;
+  }
+
+  @Override
+  public int cost() {
+    return decoratedCoffee.cost();
+  }
+}
+
+public class MilkDecorator extends 【 ④ 】{
+  public MilkDecorator(Coffee coffee) {
+    【 ⑤ 】
+  }
+
+  @Override
+  public int cost() {
+    return decoratedCoffee.cost() + 2.0;
+  }
+}
+
+public class SugarDecorator extends 【 ⑥ 】 {
+  public SugarDecorator(Coffee coffee) {
+    【 ⑦ 】
+  }
+
+  @Override
+  public int cost() {
+    return decoratedCoffee.cost() + 1.0;
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    Coffee coffee = new 【 ⑧ 】;
+    System.out.println(&quot;Simple Coffee Cost: &quot; + coffee.cost());
+
+    Coffee milkCoffee = new MilkDecorator(coffee);
+    System.out.println(&quot;Coffee with Milk Cost: &quot; + milkCoffee.cost());
+
+    Coffee milkAndSugarCoffee = new SugarDecorator(milkCoffee);
+    System.out.println(&quot;Coffee with Milk and Sugar Cost: &quot; + milkAndSugarCoffee.cost());
+  }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>

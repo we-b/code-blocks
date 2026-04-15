@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java" data-line="3,4,5,6,7,13,16,17,18,37,38,39,40,42,43,44,45,46,48,49,50,51,52,53,54,55,56" data-start="1"><code>package in.tech_camp.donation_app.controller;
+
+import in.tech_camp.donation_app.entity.*;
+import in.tech_camp.donation_app.mapper.*;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+@Controller
+@RequiredArgsConstructor
+public class DonationController {
+
+    private final DonationMapper donationMapper;
+    private final AddressMapper addressMapper;
+    private final UserMapper userMapper;
+
+    @GetMapping(&quot;/donations&quot;)
+    public String index() {
+        return &quot;donations/index&quot;;
+    }
+
+    @GetMapping(&quot;/donations/new&quot;)
+    public String newDonation(Model model) {
+        model.addAttribute(&quot;prefectures&quot;, Prefecture.values());
+        return &quot;donations/new&quot;;
+    }
+
+    @PostMapping(&quot;/donations&quot;)
+    public String create(@RequestParam String postalCode,
+                         @RequestParam int prefecture,
+                         @RequestParam(required = false) String city,
+                         @RequestParam(required = false) String houseNumber,
+                         @RequestParam(required = false) String buildingName,
+                         @RequestParam int price,
+                         @AuthenticationPrincipal UserDetails userDetails) {
+        // ログイン中のユーザーを取得
+        User currentUser = userMapper.findByEmail(userDetails.getUsername());
+
+        // 寄付情報を保存
+        Donation donation = new Donation();
+        donation.setPrice(price);
+        donation.setUserId(currentUser.getId());
+        donationMapper.insert(donation);
+
+        // 住所情報を保存
+        Address address = new Address();
+        address.setPostalCode(postalCode);
+        address.setPrefecture(prefecture);
+        address.setCity(city);
+        address.setHouseNumber(houseNumber);
+        address.setBuildingName(buildingName);
+        address.setDonationId(donation.getId());
+        addressMapper.insert(address);
+
+        return &quot;redirect:/donations&quot;;
+    }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

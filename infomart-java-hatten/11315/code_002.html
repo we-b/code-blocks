@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java"><code>public class Human {
+  private String body;
+  private String personality;
+
+  public Human(String body, String personality) {
+    this.body = body;
+    this.personality = personality;
+  }
+}
+
+public class ChildA extends Human {
+  public ChildA(String body, String personality) {
+    super(body, personality);
+  }
+
+  public void outputIndividuality() {
+    System.out.println(&quot;この子は野球が得意です。&quot;);
+  }
+}
+
+public class ChildB extends Human {
+  public ChildB(String body, String personality) {
+    super(body, personality);
+  }
+
+  public void outputIndividuality() {
+    System.out.println(&quot;この子はお笑いが好きで、みんなをいつも笑わせています。&quot;);
+  }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>

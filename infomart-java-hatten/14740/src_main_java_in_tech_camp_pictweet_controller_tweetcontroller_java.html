@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java" data-line="24,33,69,70,71,72,73,74,75,76,77,78,107,133,134,135,136,137,138,139,140,141,142,143,144,145"><code>package in.tech_camp.pictweet.controller;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+
+import in.tech_camp.pictweet.custom_user.CustomUserDetail;
+import in.tech_camp.pictweet.entity.TweetEntity;
+import in.tech_camp.pictweet.form.TweetForm;
+import in.tech_camp.pictweet.form.CommentForm;
+import in.tech_camp.pictweet.form.SearchForm;
+import in.tech_camp.pictweet.repository.TweetRepository;
+import in.tech_camp.pictweet.repository.UserRepository;
+import in.tech_camp.pictweet.service.S3Service;
+import in.tech_camp.pictweet.validation.ValidationOrder;
+import lombok.AllArgsConstructor;
+
+@Controller
+@AllArgsConstructor
+public class TweetController {
+    private final TweetRepository tweetRepository;
+    private final UserRepository userRepository;
+    private final S3Service s3Service;
+
+    @GetMapping(&quot;/&quot;)
+    public String showTweets(Model model) {
+        List&lt;TweetEntity&gt; tweets = tweetRepository.findAll();
+        SearchForm searchForm = new SearchForm();
+        model.addAttribute(&quot;tweets&quot;, tweets);
+        model.addAttribute(&quot;searchForm&quot;, searchForm);
+        return &quot;tweets/index&quot;;
+    }
+
+    @GetMapping(&quot;/tweets/new&quot;)
+    public String showTweetNew(Model model) {
+        model.addAttribute(&quot;tweetForm&quot;, new TweetForm());
+        return &quot;tweets/new&quot;;
+    }
+
+    @PostMapping(&quot;/tweets&quot;)
+    public String createTweet(@ModelAttribute(&quot;tweetForm&quot;) @Validated(ValidationOrder.class) TweetForm tweetForm,
+                              BindingResult result,
+                              @AuthenticationPrincipal CustomUserDetail currentUser,
+                              Model model) {
+
+        if (result.hasErrors()) {
+            List&lt;String&gt; errorMessages = result.getAllErrors().stream()
+                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                    .collect(Collectors.toList());
+            model.addAttribute(&quot;errorMessages&quot;, errorMessages);
+            model.addAttribute(&quot;tweetForm&quot;, tweetForm);
+            return &quot;tweets/new&quot;;
+        }
+
+        TweetEntity tweet = new TweetEntity();
+        tweet.setUser(userRepository.findById(currentUser.getId()));
+        tweet.setText(tweetForm.getText());
+
+        // 画像がアップロードされた場合、S3に保存してURLを取得
+        if (tweetForm.getImage() != null &amp;&amp; !tweetForm.getImage().isEmpty()) {
+            try {
+                String imageUrl = s3Service.uploadFile(tweetForm.getImage());
+                tweet.setImage(imageUrl);
+            } catch (Exception e) {
+                System.out.println(&quot;S3アップロードエラー：&quot; + e);
+                return &quot;redirect:/&quot;;
+            }
+        }
+
+        try {
+            tweetRepository.insert(tweet);
+        } catch (Exception e) {
+            System.out.println(&quot;エラー：&quot; + e);
+            return &quot;redirect:/&quot;;
+        }
+
+        return &quot;redirect:/&quot;;
+    }
+
+    @PostMapping(&quot;/tweets/{tweetId}/delete&quot;)
+    public String deleteTweet(@PathVariable(&quot;tweetId&quot;) Integer tweetId) {
+        try {
+            tweetRepository.deleteById(tweetId);
+        } catch (Exception e) {
+            System.out.println(&quot;エラー：&quot; + e);
+            return &quot;redirect:/&quot;;
+        }
+        return &quot;redirect:/&quot;;
+    }
+
+    @GetMapping(&quot;/tweets/{tweetId}/edit&quot;)
+    public String editTweet(@PathVariable(&quot;tweetId&quot;) Integer tweetId, Model model) {
+        TweetEntity tweet = tweetRepository.findById(tweetId);
+
+        TweetForm tweetForm = new TweetForm();
+        tweetForm.setText(tweet.getText());
+        tweetForm.setExistingImageUrl(tweet.getImage());
+
+        model.addAttribute(&quot;tweetForm&quot;, tweetForm);
+        model.addAttribute(&quot;tweetId&quot;, tweetId);
+        return &quot;tweets/edit&quot;;
+    }
+
+    @PostMapping(&quot;/tweets/{tweetId}/update&quot;)
+    public String updateTweet(@ModelAttribute(&quot;tweetForm&quot;) @Validated(ValidationOrder.class) TweetForm tweetForm,
+                              BindingResult result,
+                              @PathVariable(&quot;tweetId&quot;) Integer tweetId,
+                              Model model) {
+
+        if (result.hasErrors()) {
+            List&lt;String&gt; errorMessages = result.getAllErrors().stream()
+                    .map(DefaultMessageSourceResolvable::getDefaultMessage)
+                    .collect(Collectors.toList());
+            model.addAttribute(&quot;errorMessages&quot;, errorMessages);
+            model.addAttribute(&quot;tweetForm&quot;, tweetForm);
+            model.addAttribute(&quot;tweetId&quot;, tweetId);
+            return &quot;tweets/edit&quot;;
+        }
+
+        TweetEntity tweet = tweetRepository.findById(tweetId);
+        tweet.setText(tweetForm.getText());
+
+        // 新しい画像がアップロードされた場合はS3に保存
+        if (tweetForm.getImage() != null &amp;&amp; !tweetForm.getImage().isEmpty()) {
+            try {
+                String imageUrl = s3Service.uploadFile(tweetForm.getImage());
+                tweet.setImage(imageUrl);
+            } catch (Exception e) {
+                System.out.println(&quot;S3アップロードエラー：&quot; + e);
+                return &quot;redirect:/&quot;;
+            }
+        } else {
+            // 画像が変更されない場合は既存のURLを維持
+            tweet.setImage(tweetForm.getExistingImageUrl());
+        }
+
+        try {
+            tweetRepository.update(tweet);
+        } catch (Exception e) {
+            System.out.println(&quot;エラー：&quot; + e);
+            return &quot;redirect:/&quot;;
+        }
+
+        return &quot;redirect:/&quot;;
+    }
+
+    @GetMapping(&quot;/tweets/{tweetId}&quot;)
+    public String showTweetDetail(@PathVariable(&quot;tweetId&quot;) Integer tweetId, Model model) {
+        TweetEntity tweet = tweetRepository.findById(tweetId);
+        CommentForm commentForm = new CommentForm();
+        model.addAttribute(&quot;tweet&quot;, tweet);
+        model.addAttribute(&quot;commentForm&quot;, commentForm);
+        model.addAttribute(&quot;comments&quot;, tweet.getComments());
+        return &quot;tweets/detail&quot;;
+    }
+
+    @GetMapping(&quot;/tweets/search&quot;)
+    public String searchTweets(@ModelAttribute(&quot;searchForm&quot;) SearchForm searchForm, Model model) {
+        List&lt;TweetEntity&gt; tweets = tweetRepository.findByTextContaining(searchForm.getText());
+        model.addAttribute(&quot;tweets&quot;, tweets);
+        model.addAttribute(&quot;searchForm&quot;, searchForm);
+        return &quot;tweets/search&quot;;
+    }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

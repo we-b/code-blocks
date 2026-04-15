@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java"><code>@Controller
+public class DataController {
+
+  @GetMapping(&quot;/process&quot;)
+  public ResponseEntity&lt;String&gt; processData(@RequestParam String format) {
+    DataProcessor processor;
+    
+    // リクエストパラメータに基づいて適切なプロセッサを選ぶ
+    if (&quot;csv&quot;.equalsIgnoreCase(format)) {
+        processor = new CsvDataProcessor();
+    } else if (&quot;json&quot;.equalsIgnoreCase(format)) {
+        processor = new JsonDataProcessor();
+    } else {
+        return ResponseEntity.badRequest().body(&quot;Invalid data format&quot;);
+    }
+
+    // 生成したプロセッサを使用して処理を実行
+    processor.process();
+    return ResponseEntity.ok(format.toUpperCase() + &quot; data processed&quot;);
+  }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>

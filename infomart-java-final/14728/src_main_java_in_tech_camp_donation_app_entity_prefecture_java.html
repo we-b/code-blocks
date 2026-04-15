@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java" data-line="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39" data-start="1"><code>package in.tech_camp.donation_app.entity;
+
+public enum Prefecture {
+    NONE(0, &quot;--&quot;),
+    HOKKAIDO(1, &quot;北海道&quot;), AOMORI(2, &quot;青森県&quot;), IWATE(3, &quot;岩手県&quot;),
+    MIYAGI(4, &quot;宮城県&quot;), AKITA(5, &quot;秋田県&quot;), YAMAGATA(6, &quot;山形県&quot;),
+    FUKUSHIMA(7, &quot;福島県&quot;), IBARAKI(8, &quot;茨城県&quot;), TOCHIGI(9, &quot;栃木県&quot;),
+    GUNMA(10, &quot;群馬県&quot;), SAITAMA(11, &quot;埼玉県&quot;), CHIBA(12, &quot;千葉県&quot;),
+    TOKYO(13, &quot;東京都&quot;), KANAGAWA(14, &quot;神奈川県&quot;), NIIGATA(15, &quot;新潟県&quot;),
+    TOYAMA(16, &quot;富山県&quot;), ISHIKAWA(17, &quot;石川県&quot;), FUKUI(18, &quot;福井県&quot;),
+    YAMANASHI(19, &quot;山梨県&quot;), NAGANO(20, &quot;長野県&quot;), GIFU(21, &quot;岐阜県&quot;),
+    SHIZUOKA(22, &quot;静岡県&quot;), AICHI(23, &quot;愛知県&quot;), MIE(24, &quot;三重県&quot;),
+    SHIGA(25, &quot;滋賀県&quot;), KYOTO(26, &quot;京都府&quot;), OSAKA(27, &quot;大阪府&quot;),
+    HYOGO(28, &quot;兵庫県&quot;), NARA(29, &quot;奈良県&quot;), WAKAYAMA(30, &quot;和歌山県&quot;),
+    TOTTORI(31, &quot;鳥取県&quot;), SHIMANE(32, &quot;島根県&quot;), OKAYAMA(33, &quot;岡山県&quot;),
+    HIROSHIMA(34, &quot;広島県&quot;), YAMAGUCHI(35, &quot;山口県&quot;), TOKUSHIMA(36, &quot;徳島県&quot;),
+    KAGAWA(37, &quot;香川県&quot;), EHIME(38, &quot;愛媛県&quot;), KOCHI(39, &quot;高知県&quot;),
+    FUKUOKA(40, &quot;福岡県&quot;), SAGA(41, &quot;佐賀県&quot;), NAGASAKI(42, &quot;長崎県&quot;),
+    KUMAMOTO(43, &quot;熊本県&quot;), OITA(44, &quot;大分県&quot;), MIYAZAKI(45, &quot;宮崎県&quot;),
+    KAGOSHIMA(46, &quot;鹿児島県&quot;), OKINAWA(47, &quot;沖縄県&quot;);
+
+    private final int id;
+    private final String name;
+
+    Prefecture(int id, String name) {
+        this.id = id;
+        this.name = name;
+    }
+
+    public int getId() { return id; }
+    public String getName() { return name; }
+
+    public static Prefecture fromId(int id) {
+        for (Prefecture p : Prefecture.values()) {
+            if (p.getId() == id) return p;
+        }
+        throw new IllegalArgumentException(&quot;Invalid prefecture id: &quot; + id);
+    }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

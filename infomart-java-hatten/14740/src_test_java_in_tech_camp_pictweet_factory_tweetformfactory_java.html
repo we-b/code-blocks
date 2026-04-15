@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java" data-line="3,15,16,17,18,19"><code>package in.tech_camp.pictweet.factory;
+
+import org.springframework.mock.web.MockMultipartFile;
+
+import com.github.javafaker.Faker;
+
+import in.tech_camp.pictweet.form.TweetForm;
+
+public class TweetFormFactory {
+    private static final Faker faker = new Faker();
+
+    public static TweetForm createTweet() {
+        TweetForm tweetForm = new TweetForm();
+        tweetForm.setText(faker.lorem().sentence(10));
+        tweetForm.setImage(new MockMultipartFile(
+                &quot;image&quot;,
+                &quot;test-image.jpg&quot;,
+                &quot;image/jpeg&quot;,
+                &quot;test image content&quot;.getBytes()));
+        return tweetForm;
+    }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

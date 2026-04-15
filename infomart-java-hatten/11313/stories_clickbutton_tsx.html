@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript"><code>import React from &quot;react&quot;
+
+interface ButtonProps {
+ primary? :boolean
+ backgroundColor?: string;
+ size?: &#x27;small&#x27; | &#x27;medium&#x27; | &#x27;large&#x27;;
+ label: string
+}
+
+export const ClickButton: React.FC&lt;ButtonProps&gt; = ({ primary, backgroundColor, size, label }) =&gt; {
+ const mode = primary ? &#x27;storybook-button--primary&#x27; : &#x27;storybook-button--secondary&#x27;;
+ return(
+   &lt;button
+     type=&quot;button&quot;
+     className={[&#x27;storybook-button&#x27;, `storybook-button--${size}`, mode].join(&#x27; &#x27;)}
+   &gt;
+     {label}
+     &lt;style jsx&gt;{`
+       button {
+         background-color: ${backgroundColor};
+         padding: 10px 8px
+       }
+     `}&lt;/style&gt;
+   &lt;/button&gt;
+ )
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java" data-line="3,4,5,6,7,8,14,21,31,37,38,39,41,42,43,44,47" data-start="1"><code>package in.tech_camp.donation_app.controller;
+
+import in.tech_camp.donation_app.entity.Prefecture;
+import in.tech_camp.donation_app.entity.User;
+import in.tech_camp.donation_app.form.DonationAddressForm;
+import in.tech_camp.donation_app.mapper.UserMapper;
+import in.tech_camp.donation_app.service.DonationService;
+import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.*;
+
+@Controller
+@RequiredArgsConstructor
+public class DonationController {
+
+    private final DonationService donationService;
+    private final UserMapper userMapper;
+
+    @GetMapping(&quot;/donations&quot;)
+    public String index() {
+        return &quot;donations/index&quot;;
+    }
+
+    @GetMapping(&quot;/donations/new&quot;)
+    public String newDonation(Model model) {
+        model.addAttribute(&quot;donationAddressForm&quot;, new DonationAddressForm());
+        model.addAttribute(&quot;prefectures&quot;, Prefecture.values());
+        return &quot;donations/new&quot;;
+    }
+
+    @PostMapping(&quot;/donations&quot;)
+    public String create(@Valid @ModelAttribute DonationAddressForm donationAddressForm,
+                         BindingResult bindingResult,
+                         Model model,
+                         @AuthenticationPrincipal UserDetails userDetails) {
+        if (bindingResult.hasErrors()) {
+            model.addAttribute(&quot;prefectures&quot;, Prefecture.values());
+            return &quot;donations/new&quot;;
+        }
+
+        User currentUser = userMapper.findByEmail(userDetails.getUsername());
+        donationService.save(donationAddressForm, currentUser.getId());
+        return &quot;redirect:/donations&quot;;
+    }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript"><code>await prisma.post.findMany();
+// =&gt; postテーブルの全てのデータを取得する
+
+await prisma.post.findUnique({where: { id:1}});
+// =&gt; postテーブルのidが1のデータを取得する
+
+await prisma.post.create({data: {content: &quot;新規登録&quot;});
+// =&gt; postテーブルのcontentカラムに”新規登録”を登録する
+
+await prisma.post.update({where: {id:1}, data: {content:”更新”}});
+// =&gt; postテーブルのidが1のデータのcontentを”更新”に変更する
+
+await prisma.post.delete({ where: {id:1}});
+// =&gt; postテーブルのidが1のデータを削除する</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

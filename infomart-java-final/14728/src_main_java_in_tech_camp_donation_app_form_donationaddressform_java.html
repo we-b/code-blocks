@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java" data-line="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28" data-start="1"><code>package in.tech_camp.donation_app.form;
+
+import jakarta.validation.constraints.*;
+import lombok.Data;
+
+@Data
+public class DonationAddressForm {
+
+    // 寄付金額のバリデーション
+    @NotNull(message = &quot;金額を入力してください&quot;)
+    @Min(value = 1, message = &quot;金額は1円以上にしてください&quot;)
+    @Max(value = 1000000, message = &quot;金額は1,000,000円以下にしてください&quot;)
+    private Integer price;
+
+    // 郵便番号のバリデーション
+    @NotBlank(message = &quot;郵便番号を入力してください&quot;)
+    @Pattern(regexp = &quot;\\d{3}-\\d{4}&quot;, message = &quot;郵便番号はハイフンを含む正しい形式で入力してください&quot;)
+    private String postalCode;
+
+    // 都道府県のバリデーション（0以外の値を許可）
+    @Min(value = 1, message = &quot;都道府県を選択してください&quot;)
+    private int prefecture;
+
+    // 任意項目
+    private String city;
+    private String houseNumber;
+    private String buildingName;
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

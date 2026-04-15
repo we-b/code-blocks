@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java"><code>package in.tech_camp.pictweet.form;
+
+import org.hibernate.validator.constraints.Length;
+import org.springframework.validation.BindingResult;
+
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import lombok.Data;
+
+@Data
+public class UserForm {
+  @NotBlank(message = &quot;Nickname can&#x27;t be blank&quot;)
+  @Length(max = 6, message = &quot;Nickname is too long (maximum is 6 characters)&quot;)
+  private String nickname;
+
+  @NotBlank(message = &quot;Email can&#x27;t be blank&quot;)
+  @Email(message = &quot;Email should be valid&quot;)
+  private String email;
+
+  @NotBlank(message = &quot;Password can&#x27;t be blank&quot;)
+  @Length(min = 6, max = 128, message = &quot;Password should be between 6 and 128 characters&quot;)
+  private String password;
+
+  private String passwordConfirmation;
+
+  public void validatePasswordConfirmation(BindingResult result) {
+      if (!password.equals(passwordConfirmation)) {
+          result.rejectValue(&quot;passwordConfirmation&quot;, null, &quot;Password confirmation doesn&#x27;t match Password&quot;);
+      }
+  }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>

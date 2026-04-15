@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java"><code>public interface RoomUserRepository {
+  @Insert(&quot;INSERT INTO room_users(user_id, room_id) VALUES(#{user.id}, #{room.id})&quot;)
+  @Options(useGeneratedKeys = true, keyProperty = &quot;id&quot;)
+  void insert(RoomUserEntity userRoomEntity);
+
+  @Select(&quot;SELECT * FROM room_users WHERE user_id = #{userId}&quot;)
+  @Result(property = &quot;room&quot;, column = &quot;room_id&quot;,
+          one = @One(select = &quot;in.tech_camp.chat_app.repository.RoomRepository.findById&quot;))
+  List&lt;RoomUserEntity&gt; findByUserId(Integer userId);
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>

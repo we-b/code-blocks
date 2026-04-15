@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java"><code>package in.tech_camp.pictweet.system;
+
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
+
+import in.tech_camp.pictweet.PictweetApplication;
+import in.tech_camp.pictweet.entity.TweetEntity;
+import in.tech_camp.pictweet.entity.UserEntity;
+import in.tech_camp.pictweet.factory.CommentFormFactory;
+import in.tech_camp.pictweet.factory.TweetFormFactory;
+import in.tech_camp.pictweet.factory.UserFormFactory;
+import in.tech_camp.pictweet.form.CommentForm;
+import in.tech_camp.pictweet.form.TweetForm;
+import in.tech_camp.pictweet.form.UserForm;
+import in.tech_camp.pictweet.repository.TweetRepository;
+import in.tech_camp.pictweet.service.UserService;
+
+@ActiveProfiles(&quot;test&quot;)
+@SpringBootTest(classes = PictweetApplication.class)
+@AutoConfigureMockMvc
+public class CommentIntegrationTest {
+  private UserForm userForm;
+  private UserEntity userEntity;
+
+  private TweetForm tweetForm;
+  private TweetEntity tweetEntity;
+
+  private CommentForm commentForm;
+
+  @Autowired
+  private UserService userService;
+
+  @Autowired
+  private TweetRepository tweetRepository;
+
+  @BeforeEach
+  public void setup() {
+    userForm = UserFormFactory.createUser();
+    userEntity = new UserEntity();
+    userEntity.setEmail(userForm.getEmail());
+    userEntity.setNickname(userForm.getNickname());
+    userEntity.setPassword(userForm.getPassword());
+    userService.createUserWithEncryptedPassword(userEntity);
+
+    tweetForm = TweetFormFactory.createTweet();
+    tweetEntity = new TweetEntity();
+    tweetEntity.setUser(userEntity);
+    tweetEntity.setImage(tweetForm.getImage());
+    tweetEntity.setText(tweetForm.getText());
+    tweetRepository.insert(tweetEntity);
+
+    commentForm = CommentFormFactory.createComment();
+  }
+
+  @Test
+  public void ログインしたユーザーはツイート詳細ページでコメント投稿できる() throws Exception {
+    // ログインする
+    // ツイート詳細ページに遷移する
+    // フォームに情報を入力し投稿する
+    // コメントを送信すると、Commentモデルのカウントが1上がる
+    // 詳細ページに再度アクセスして、コメント内容を確認
+  }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>

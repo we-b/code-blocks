@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java"><code>public final class Hashtag {
+    private final String name;
+    private final List&lt;HashtagUser&gt; users;
+    private final SpreadTypeRatios ratios;
+
+    public Hashtag(String name, List&lt;HashtagUser&gt; users, SpreadTypeRatios ratios) {
+        this.name = name;
+        this.users = users;
+        this.ratios = ratios;
+    }
+
+    public SpreadResult calculateSpread(SpreadCount spreadCount) {
+        WeightedSum weightedSum = calcWeightedSum(ratios);
+        SpreadCount base = spreadCount.divide(weightedSum);
+
+        Map&lt;HashtagUser, SpreadCount&gt; resultMap = users.stream()
+            .collect(Collectors.toMap(
+                user -&gt; user,
+                user -&gt; base.times(ratios.ratioFor(user.getSpreadType()))
+            ));
+
+        return new SpreadResult(resultMap);
+    }
+
+    private WeightedSum calcWeightedSum(SpreadTypeRatios ratios) {
+        List&lt;Double&gt; userRatios = users.stream()
+            .map(user -&gt; ratios.ratioFor(user.getSpreadType()))
+            .toList();
+
+        if (userRatios.isEmpty()) {
+            throw new IllegalArgumentException(&quot;User ratios cannot be empty&quot;);
+        }
+
+        return WeightedSum.from(userRatios.get(0), 
+            userRatios.subList(1, userRatios.size()).toArray(new Double[0]));
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public List&lt;HashtagUser&gt; getUsers() {
+        return users;
+    }
+
+    public SpreadTypeRatios getRatios() {
+        return ratios;
+    }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>

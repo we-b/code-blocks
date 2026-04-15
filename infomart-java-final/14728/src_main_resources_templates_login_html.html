@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-markup" data-line="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27" data-start="1"><code>&lt;!DOCTYPE html&gt;
+&lt;html xmlns:th=&quot;http://www.thymeleaf.org&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;title&gt;ログイン&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;ログイン&lt;/h1&gt;
+    &lt;div th:if=&quot;${param.error}&quot; class=&quot;error-alert&quot;&gt;
+        &lt;p&gt;メールアドレスまたはパスワードが正しくありません&lt;/p&gt;
+    &lt;/div&gt;
+    &lt;form th:action=&quot;@{/login}&quot; method=&quot;post&quot;&gt;
+        &lt;div class=&quot;field&quot;&gt;
+            &lt;label&gt;メールアドレス&lt;/label&gt;
+            &lt;input type=&quot;email&quot; name=&quot;username&quot;&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;field&quot;&gt;
+            &lt;label&gt;パスワード&lt;/label&gt;
+            &lt;input type=&quot;password&quot; name=&quot;password&quot;&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;actions&quot;&gt;
+            &lt;input type=&quot;submit&quot; value=&quot;ログイン&quot;&gt;
+        &lt;/div&gt;
+    &lt;/form&gt;
+    &lt;p&gt;&lt;a th:href=&quot;@{/users/new}&quot;&gt;新規登録はこちら&lt;/a&gt;&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

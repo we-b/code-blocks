@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java" data-line="12,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51"><code>package in.tech_camp.pictweet.system;
+
+import java.util.List;
+
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+
+import static org.hamcrest.Matchers.containsString;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.redirectedUrl;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+
+（省略）
+
+@ActiveProfiles(&quot;test&quot;)
+@SpringBootTest(classes = PictweetApplication.class)
+@AutoConfigureMockMvc
+public class TweetEditIntegrationTest {
+
+（省略） 
+
+  @Nested
+  class ツイート編集ができないとき {
+    @Test
+    public void ログインしたユーザーは自分以外が投稿したツイートの編集画面には遷移できない() throws Exception {
+     // ツイート1を投稿したユーザーでログインする
+      MvcResult loginResult = mockMvc.perform(post(&quot;/login&quot;)
+          .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+          .param(&quot;email&quot;, userForm1.getEmail())
+          .param(&quot;password&quot;, userForm1.getPassword())
+          .with(csrf()))
+          .andReturn();
+
+      MockHttpSession session  = (MockHttpSession)loginResult.getRequest().getSession();
+      assertNotNull(session);
+
+      // ツイート2に「編集」へのリンクがないことを確認する
+      MvcResult pageResult = mockMvc.perform(get(&quot;/&quot;).session(session))
+          .andReturn();
+      String pageContent = pageResult.getResponse().getContentAsString();
+      Document document = Jsoup.parse(pageContent);
+      Element editMenuElement = document.selectFirst(&quot;a[href=&#x27;/tweets/&quot; + tweetEntity2.getId() + &quot;/edit&#x27;]&quot;);
+      assertNull(editMenuElement);
+    }
+
+    @Test
+    public void ログインしていないとツイートの編集画面には遷移できない() throws Exception {
+      // ログインせずにトップページにアクセス
+      // ツイート1に「編集」へのリンクがないことを確認する
+      // ツイート2に「編集」へのリンクがないことを確認する
+    }
+  }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>
