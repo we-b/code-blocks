@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java"><code>package in.tech_camp.pictweet.system;
+
+import static org.hamcrest.Matchers.containsString;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
+import org.springframework.mock.web.MockHttpSession;
+import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
+import org.springframework.test.context.ActiveProfiles;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+
+import in.tech_camp.pictweet.PictweetApplication;
+import in.tech_camp.pictweet.entity.TweetEntity;
+import in.tech_camp.pictweet.entity.UserEntity;
+import in.tech_camp.pictweet.factory.TweetFormFactory;
+import in.tech_camp.pictweet.factory.UserFormFactory;
+import in.tech_camp.pictweet.form.TweetForm;
+import in.tech_camp.pictweet.form.UserForm;
+import in.tech_camp.pictweet.repository.TweetRepository;
+import in.tech_camp.pictweet.service.UserService;
+
+@ActiveProfiles(&quot;test&quot;)
+@SpringBootTest(classes = PictweetApplication.class)
+@AutoConfigureMockMvc
+public class TweetDetailIntegrationTest {
+  private UserForm userForm;
+  private UserEntity userEntity;
+
+  private TweetForm tweetForm;
+  private TweetEntity tweetEntity;
+
+  @Autowired
+  private UserService userService;
+
+  @Autowired
+  private TweetRepository tweetRepository;
+
+  @Autowired
+  private MockMvc mockMvc;
+
+  @BeforeEach
+  public void setup() {
+    userForm = UserFormFactory.createUser();
+    userEntity = new UserEntity();
+    userEntity.setEmail(userForm.getEmail());
+    userEntity.setNickname(userForm.getNickname());
+    userEntity.setPassword(userForm.getPassword());
+    userService.createUserWithEncryptedPassword(userEntity);
+
+    tweetForm = TweetFormFactory.createTweet();
+    tweetEntity = new TweetEntity();
+    tweetEntity.setUser(userEntity);
+    tweetEntity.setImage(tweetForm.getImage());
+    tweetEntity.setText(tweetForm.getText());
+    tweetRepository.insert(tweetEntity);
+  }
+
+  @Test
+  public void ログインしたユーザーはツイート詳細ページに遷移してコメント投稿欄が表示される() throws Exception {
+    // ログインする
+    MvcResult loginResult = mockMvc.perform(post(&quot;/login&quot;)
+        .contentType(MediaType.APPLICATION_FORM_URLENCODED)
+        .param(&quot;email&quot;, userForm.getEmail())
+        .param(&quot;password&quot;, userForm.getPassword())
+        .with(csrf()))
+        .andReturn();
+
+    MockHttpSession session  = (MockHttpSession)loginResult.getRequest().getSession();
+    assertNotNull(session);
+
+    // ツイートに「詳細」へのリンクがあることを確認する
+    MvcResult pageResult = mockMvc.perform(get(&quot;/&quot;).session(session))
+      .andReturn();
+    String topPageContent = pageResult.getResponse().getContentAsString();
+    Document topPageDocument = Jsoup.parse(topPageContent);
+    Element detailMenuElement = topPageDocument.selectFirst(&quot;a[href='/tweets/&quot; + tweetEntity.getId() + &quot;']&quot;);
+    assertNotNull(detailMenuElement);
+    assertEquals(&quot;詳細&quot;, detailMenuElement.text());
+
+    // 詳細ページに遷移すると、ツイートの内容が表示されていることを確認する（画像）
+    MvcResult detailPageResult = mockMvc.perform(get(&quot;/tweets/{tweetId}&quot; ,tweetEntity.getId()).session(session))
+        .andExpect(status().isOk())
+        .andExpect(view().name(&quot;tweets/detail&quot;))
+        .andReturn();
+    String detailPageContent = detailPageResult.getResponse().getContentAsString();
+    Document detailPageDocument = Jsoup.parse(detailPageContent);
+    Element divElement = detailPageDocument.selectFirst(&quot;.content_post[style='background-image: url(&quot; + tweetEntity.getImage() + &quot;);']&quot;);
+    assertNotNull(divElement);
+
+    // 詳細ページに遷移すると、ツイートの内容が表示されていることを確認する（テキスト）
+    mockMvc.perform(get(&quot;/tweets/{tweetId}&quot; ,tweetEntity.getId()).session(session))
+        .andExpect(content().string(containsString(tweetEntity.getText())));
+
+    // コメント用のフォームが存在する
+    Element commentFormElement = detailPageDocument.selectFirst(&quot;form&quot;);
+    assertNotNull(commentFormElement);
+ }
+（省略）
+
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>
