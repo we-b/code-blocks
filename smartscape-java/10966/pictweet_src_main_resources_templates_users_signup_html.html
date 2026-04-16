@@ -13,7 +13,63 @@
     </style>
 </head>
 <body>
-<pre class="language-markup"><code>&lt;p th:if=&quot;${loginError}&quot; class=&quot;login-error&quot; th:text=&quot;${loginError}&quot;&gt;&lt;/p&gt;</code></pre>
+<pre class="language-markup"><code>&lt;!DOCTYPE html&gt;
+&lt;html xmlns:th=&quot;http://www.thymeleaf.org&quot; lang=&quot;ja&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;link th:href=&quot;@{/css/style.css}&quot; rel=&quot;stylesheet&quot; type=&quot;text/css&quot;&gt;
+    &lt;title&gt;PicTweet&lt;/title&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+
+&lt;div th:insert=&quot;~{header :: header}&quot;&gt;&lt;/div&gt;
+
+&lt;div class=&quot;contents row&quot;&gt;
+  &lt;div class=&quot;container&quot;&gt;
+    &lt;h2&gt;Sign up&lt;/h2&gt;
+    &lt;div class=&quot;form&quot;&gt;
+      &lt;div th:if=&quot;${errorMessages}&quot; th:each=&quot;error : ${errorMessages}&quot;&gt;
+        &lt;div th:text=&quot;${error}&quot;&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;form th:action=&quot;@{/user}&quot; th:method=&quot;post&quot; th:object=&quot;${userForm}&quot;, class=&quot;new_user&quot;&gt;
+        &lt;div class=&quot;field&quot;&gt;
+          &lt;label for=&quot;nickname&quot;&gt;Nickname&lt;/label&gt;&lt;em&gt;(6 characters maximum)&lt;/em&gt;&lt;br /&gt;
+          &lt;input type=&quot;text&quot; id=&quot;nickname&quot; th:field=&quot;*{nickname}&quot;  autofocus=&quot;autofocus&quot; /&gt;
+        &lt;/div&gt;
+
+        &lt;div class=&quot;field&quot;&gt;
+          &lt;label for=&quot;email&quot;&gt;Email&lt;/label&gt;&lt;br /&gt;
+          &lt;input type=&quot;email&quot; id=&quot;email&quot; th:field=&quot;*{email}&quot;  /&gt;
+          &lt;/div&gt;
+
+          &lt;div class=&quot;field&quot;&gt;
+            &lt;label for=&quot;password&quot;&gt;Password&lt;/label&gt;&lt;em&gt;(6 characters minimum)&lt;/em&gt;
+            &lt;input type=&quot;password&quot; id=&quot;password&quot; th:field=&quot;*{password}&quot; /&gt;
+          &lt;/div&gt;
+
+          &lt;div class=&quot;field&quot;&gt;
+            &lt;div class=&quot;field-label&quot;&gt;
+              &lt;label for=&quot;password_confirmation&quot;&gt;Password confirmation&lt;/label&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;field-input&quot;&gt;
+              &lt;input type=&quot;password&quot; th:field=&quot;*{passwordConfirmation}&quot; id=&quot;password_confirmation&quot; autocomplete=&quot;off&quot;/&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+
+          &lt;div class=&quot;actions&quot;&gt;
+            &lt;input type=&quot;submit&quot; value=&quot;Sign up&quot;&gt;
+          &lt;/div&gt;
+
+        &lt;/form&gt;
+      &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div th:insert=&quot;~{footer :: footer}&quot;&gt;&lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 
 </body>
