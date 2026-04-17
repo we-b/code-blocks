@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-rhtml"><code>&lt;%# /支払額の表示 %&gt;
+&lt;%= form_with id: &#x27;charge-form&#x27;, class: &#x27;transaction-form-wrap&#x27;,local: true do |f| %&gt;
+  &lt;%# カード情報の入力 %&gt;
+  &lt;div class=&#x27;credit-card-form&#x27;&gt;
+    &lt;h1 class=&#x27;info-input-headline&#x27;&gt;
+      クレジットカード情報入力
+    &lt;/h1&gt;
+&lt;% #省略 %&gt;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-rhtml.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-bash"><code>params  #=&gt; 中身は以下の内容
+{
+  &quot;utf8&quot; =&gt; &quot;✓&quot;,
+  &quot;authenticity_token&quot; =&gt; &quot;token&quot;,
+  &quot;tweet&quot; =&gt; {
+    &quot;image&quot; =&gt; &quot;image.jpg&quot;,
+    &quot;text&quot; =&gt; &quot;sample text&quot;
+  },
+  &quot;commit&quot; =&gt; &quot;SEND&quot;,
+  &quot;controller&quot; =&gt; &quot;hoges&quot;,
+  &quot;action&quot; =&gt; &quot;create&quot;
+}
+
+params[:text]
+# =&gt; nil
+
+params[:image]
+# =&gt; nil
+
+params.require(:tweet)
+#=&gt; { &quot;image&quot; =&gt; &quot;image.jpg&quot;, &quot;text&quot; =&gt; &quot;sample text&quot; }
+
+params.require(:tweet)[:image]
+#=&gt; &quot;image.jpg&quot;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+</body>
+</html>

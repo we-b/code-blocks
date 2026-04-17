@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby" data-start="1"><code>AllCops:
+# 除外するディレクトリ（自動生成されたファイル）
+# デフォルト設定にある&quot;vendor/**/*&quot;が無効化されないように記述
+ Exclude:
+   - &quot;vendor/**/*&quot; # rubocop config/default.yml
+   - &quot;db/**/*&quot;
+   - &quot;config/**/*&quot;
+   - &quot;bin/*&quot;
+   - &quot;node_modules/**/*&quot;
+   - &quot;Gemfile&quot;
+
+
+# 1行あたりの文字数をチェックする
+Layout/LineLength:
+ Max: 130
+# 下記ファイルはチェックの対象から外す
+ Exclude:
+   - &quot;Rakefile&quot;
+   - &quot;spec/rails_helper.rb&quot;
+   - &quot;spec/spec_helper.rb&quot;
+
+# RSpecは1つのブロックあたりの行数が多くなるため、チェックの除外から外す
+# ブロック内の行数をチェックする
+Metrics/BlockLength:
+ Exclude:
+   - &quot;spec/**/*&quot;
+
+# Assignment: 変数への代入
+# Branch: メソッド呼び出し
+# Condition: 条件文
+# 上記項目をRubocopが計算して基準値を超えると警告を出す（上記頭文字をとって&#x27;Abc&#x27;）
+Metrics/AbcSize:
+ Max: 50
+
+# メソッドの中身が複雑になっていないか、Rubocopが計算して基準値を超えると警告を出す
+Metrics/PerceivedComplexity:
+ Max: 8
+
+# 循環的複雑度が高すぎないかをチェック（ifやforなどを1メソッド内で使いすぎている）
+Metrics/CyclomaticComplexity:
+ Max: 10
+
+# メソッドの行数が多すぎないかをチェック
+Metrics/MethodLength:
+ Max: 30
+
+# ネストが深すぎないかをチェック（if文のネストもチェック）
+Metrics/BlockNesting:
+ Max: 5
+
+# クラスの行数をチェック（無効）
+Metrics/ClassLength:
+ Enabled: false
+
+# 空メソッドの場合に、1行のスタイルにしない　NG例：def style1; end
+Style/EmptyMethod:
+ EnforcedStyle: expanded
+
+# クラス内にクラスが定義されていないかチェック（無効）
+Style/ClassAndModuleChildren:
+ Enabled: false
+
+# 日本語でのコメントを許可
+Style/AsciiComments:
+ Enabled: false
+
+# クラスやモジュール定義前に、それらの説明書きがあるかをチェック（無効）
+Style/Documentation:
+ Enabled: false
+
+# ％i（）構文を使用していないシンボルで構成される配列リテラルをチェック（無効）
+Style/SymbolArray:
+ Enabled: false
+
+# 文字列に値が代入されて変わっていないかチェック（無効）
+Style/FrozenStringLiteralComment:
+ Enabled: false
+
+# メソッドパラメータ名の最小文字数を設定
+Naming/MethodParameterName:
+ MinNameLength: 1</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>
