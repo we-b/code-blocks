@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript" data-line="40"><code>import React, { useEffect, useState } from &quot;react&quot;;
+import { Header } from &quot;../../components/header&quot;;
+import { Select } from &quot;../../components/select&quot;;
+import { ToDoList } from &quot;../../components/toDoList&quot;;
+import { FormModal } from &quot;../../components/modal&quot;;
+import { taskRequest } from &quot;../../requests/taskRequest&quot;;
+import { genreRequest } from &quot;../../requests/genreRequest&quot;;
+import { useDataReducer } from &quot;../../hooks/useDataReducer&quot;;
+import AddCircleOutlineIcon from &quot;@material-ui/icons/AddCircleOutline&quot;;
+import &quot;./style.css&quot;;
+
+export const Home = () =&gt; {
+  const [isOpen, setIsOpen] = useState(false);
+  const [data, dispatch] = useDataReducer();
+  const handleOpen = () =&gt; {
+    setIsOpen(true);
+  };
+  const handleClose = () =&gt; {
+    setIsOpen(false);
+  };
+
+  useEffect(() =&gt; {
+    const fetchData = async () =&gt; {
+      const genres = await genreRequest(&quot;fetchGenres&quot;);
+      const tasks = await taskRequest(&quot;fetchTasks&quot;);
+      dispatch({ type: &quot;genresUpdate&quot;, payload: { genre: genres } });
+      dispatch({ type: &quot;tasksUpdate&quot;, payload: { task: tasks } });
+    };
+    fetchData();
+  }, [dispatch]);
+
+  useEffect(() =&gt; {
+    console.log(data);
+  }, [data]);
+
+  return (
+    &lt;div className=&quot;main&quot;&gt;
+      &lt;Header&gt;&lt;/Header&gt;
+      &lt;div className=&quot;genre&quot;&gt;
+        &lt;Select genres={data.genresData} /&gt;
+        &lt;AddCircleOutlineIcon
+          className=&quot;add_circle_outline_icon&quot;
+          fontSize=&quot;medium&quot;
+          onClick={handleOpen}
+        /&gt;
+        &lt;FormModal
+          handleClose={handleClose}
+          isOpen={isOpen}
+          body=&quot;genreBody&quot;
+        &gt;&lt;/FormModal&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;contents&quot;&gt;
+        &lt;ToDoList /&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+};
+
+
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>
