@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript" data-line="8,25,28,40,45"><code>&#x27;use client&#x27;
+import { FormEvent } from &#x27;react&#x27;;
+import { useRouter } from &#x27;next/navigation&#x27;;
+import Link from &#x27;next/link&#x27;
+import { useAuthContext } from &#x27;@/app/context/AuthContext&#x27;
+const Header = () =&gt; {
+  const router = useRouter()
+  const { user, logout } = useAuthContext()
+
+  const handleLogout = async (e: FormEvent) =&gt; {
+    e.preventDefault()
+    try {
+      await logout()
+      router.push(&#x27;/&#x27;)
+    } catch (error) {
+      console.error(&#x27;Logout failed:&#x27;, error)
+      alert(&#x27;ログアウトに失敗しました。&#x27;)
+    }
+  }
+
+  return (
+    &lt;header className=&quot;header&quot;&gt;
+      &lt;div className=&quot;header__bar row&quot;&gt;
+        &lt;h1 className=&quot;grid-6&quot;&gt;&lt;Link href=&quot;/&quot;&gt;PicTweet&lt;/Link&gt;&lt;/h1&gt;
+        {user?.isAuthenticated ? (
+          &lt;div className=&quot;user_nav grid-6&quot;&gt;
+            &lt;span&gt;
+              &lt;div&gt;{user.nickname}&lt;/div&gt;
+              &lt;ul className=&quot;user__info&quot;&gt;
+                &lt;li&gt;
+                  &lt;Link href={`/`}&gt;マイページ&lt;/Link&gt;
+                  &lt;form onSubmit={handleLogout}&gt;
+                    &lt;input className=&quot;logout-btn&quot; type=&quot;submit&quot; value=&quot;ログアウト&quot; /&gt;
+                  &lt;/form&gt;
+                &lt;/li&gt;
+              &lt;/ul&gt;
+            &lt;/span&gt;
+            &lt;Link href=&quot;/&quot; className=&quot;post&quot;&gt;投稿する&lt;/Link&gt;
+          &lt;/div&gt;
+        ) : (
+          &lt;div className=&quot;grid-6&quot;&gt;
+            &lt;Link href=&quot;/users/sign_up&quot; className=&quot;post&quot;&gt;新規登録&lt;/Link&gt;
+            &lt;Link href=&quot;/users/login&quot; className=&quot;post&quot;&gt;ログイン&lt;/Link&gt;
+          &lt;/div&gt;
+        )}
+      &lt;/div&gt;
+   &lt;/header&gt;
+  )
+}
+
+export default Header</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

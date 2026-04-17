@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript" data-line="3,24,25,26,27,28,29,30,31,32,33,34,35,36,37,44,55"><code>&#x27;use client&#x27;
+
+import React, { createContext, useContext, useState, useEffect } from &#x27;react&#x27;
+import { login as apiLogin, logout as apiLogout } from &#x27;@/app/api/users&#x27;;
+
+type User = {
+  id: number
+  nickname: string
+  isAuthenticated: boolean
+} | null
+
+type AuthContextType = {
+  user: User
+  setUser: React.Dispatch&lt;React.SetStateAction&lt;User&gt;&gt;
+  login: (email: string, password: string) =&gt; Promise&lt;void&gt;
+  logout: () =&gt; Promise&lt;void&gt;
+}
+
+const AuthContext = createContext&lt;AuthContextType | undefined&gt;(undefined)
+
+export function AuthProvider({ children }: { children: React.ReactNode }) {
+  const [user, setUser] = useState&lt;User&gt;(null)
+
+  useEffect(() =&gt; {
+    const storedUser = localStorage.getItem(&#x27;user&#x27;)
+    if (storedUser) {
+      try {
+        const parsedUser = JSON.parse(storedUser);
+        if (typeof parsedUser === &#x27;object&#x27; &amp;&amp; parsedUser !== null 
+            &amp;&amp; &#x27;id&#x27; in parsedUser &amp;&amp; &#x27;nickname&#x27; in parsedUser &amp;&amp; &#x27;isAuthenticated&#x27; in parsedUser) {
+          setUser(parsedUser as User);
+        }
+      } catch (error) {
+        console.error(&#x27;Error parsing stored user data:&#x27;, error);
+      }
+    }
+  }, [])
+
+  const login = async (email: string, password: string) =&gt; {
+    try {
+      const userData = await apiLogin({ email, password });
+      const user = { id: userData.id, nickname: userData.nickname, isAuthenticated: true };
+      setUser(user);
+      localStorage.setItem(&#x27;user&#x27;, JSON.stringify(user));
+    } catch (error) {
+      console.error(&#x27;Login error:&#x27;, error);
+      throw error;
+    }
+  }
+
+  const logout = async () =&gt; {
+    try {
+      await apiLogout();
+      setUser(null);
+      localStorage.removeItem(&#x27;user&#x27;);
+    } catch (error) {
+      console.error(&#x27;Logout error:&#x27;, error);
+      throw error;
+    }
+  };
+
+（省略）</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>
