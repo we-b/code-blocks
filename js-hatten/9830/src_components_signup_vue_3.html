@@ -13,26 +13,26 @@
     </style>
 </head>
 <body>
-<pre class="language-javascript" data-line="8,11,12,13,14,15,16,17,18"><code>&lt;script setup&gt;
-(省略)
+<pre class="language-javascript" data-line="7,8,15,16,17"><code>&lt;script setup&gt;
+import Header from &#x27;./Header.vue&#x27;
+import { ref } from &#x27;vue&#x27;
 import { auth, createUserWithEmailAndPassword } from &#x27;../firebase&#x27;;
 import { useRouter } from &#x27;vue-router&#x27;;
-const email = ref(&#x27;&#x27;);
-const password = ref(&#x27;&#x27;);
 
-const router = useRouter();  //追加
-
- //追加
-const handleSignUp = async() =&gt; {
-  try {
-    await createUserWithEmailAndPassword(auth, email.value, password.value)
-    router.push(&quot;/home&quot;);
-  }catch(error) {
-    console.log(&#x27;ユーザー登録できませんでした&#x27;, error)
-  }
-}
+const email = ref(&#x27;&#x27;);  //  追加
+const password = ref(&#x27;&#x27;) //  追加
 &lt;/script&gt;
-(以下省略)</code></pre>
+
+&lt;template&gt;
+  &lt;Header /&gt;
+  &lt;div class=&quot;form-body&quot;&gt;
+    &lt;h1&gt;新規登録&lt;/h1&gt;
+    &lt;input type=&quot;text&quot; id=&quot;email&quot; v-model=&quot;email&quot; placeholder=&quot;email&quot;&gt; &lt;!--v-modelディレクティブの追加--&gt;
+    &lt;input type=&quot;password&quot; id=&quot;password&quot; v-model=&quot;password&quot; placeholder=&quot;password&quot;&gt;  &lt;!-- v-modelディレクティブの追加--&gt;
+    &lt;button value=&quot;新規登録&quot; @click=&quot;handleSignUp&quot;&gt;新規登録&lt;/button&gt;  &lt;!--追加--&gt;
+    &lt;p&gt;既にアカウントをお持ちの方はこちらへ&lt;router-link to=&quot;/&quot;&gt;こちら&lt;/router-link&gt;&lt;/p&gt;
+  &lt;/div&gt;
+&lt;/template&gt;</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
 </body>

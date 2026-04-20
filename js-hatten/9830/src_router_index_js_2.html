@@ -3,13 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
-
     <style>
         body { margin: 0; padding: 0; background-color: #2d2d2d; }
         pre { margin: 0 !important; border-radius: 0; border: none; }
-        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
-        .line-highlight::before,
-        .line-highlight::after { display: none; }
     </style>
 </head>
 <body>
@@ -25,7 +21,7 @@
 
 router.beforeEach(async (to, from, next) =&gt; {
   const currentUser = await getCurrentUser(auth);
-  
+
   if (!currentUser &amp;&amp; to.path !== &#x27;/&#x27; &amp;&amp; to.path !== &#x27;/signup&#x27;) {
     next(&#x27;/&#x27;);
   }else if (currentUser &amp;&amp; (to.path === &#x27;/&#x27; || to.path === &#x27;/signup&#x27;)) {
@@ -33,9 +29,7 @@ router.beforeEach(async (to, from, next) =&gt; {
   } else {
     next();
   }
-});
-</code></pre>
+});</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-
 </body>
 </html>

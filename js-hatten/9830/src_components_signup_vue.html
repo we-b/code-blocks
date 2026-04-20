@@ -3,21 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
-
     <style>
         body { margin: 0; padding: 0; background-color: #2d2d2d; }
         pre { margin: 0 !important; border-radius: 0; border: none; }
-        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
-        .line-highlight::before,
-        .line-highlight::after { display: none; }
     </style>
 </head>
 <body>
-<pre class="language-javascript"><code>    &lt;p&gt;既にアカウントをお持ちの方はこちらへ&lt;router-link to=&quot;/&quot;&gt;こちら&lt;/router-link&gt;&lt;/p&gt;  &lt;!--追加--&gt;
+<pre class="language-javascript"><code>&lt;script setup&gt;
+import Header from &#x27;./Header.vue&#x27;
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;Header /&gt;
+  &lt;div class=&quot;form-body&quot;&gt;
+    &lt;h1&gt;新規登録&lt;/h1&gt;
+    &lt;input type=&quot;text&quot; id=&quot;email&quot;  placeholder=&quot;email&quot;&gt;
+    &lt;input type=&quot;password&quot; id=&quot;password&quot;placeholder=&quot;password&quot;&gt;
+    &lt;button value=&quot;新規登録&quot;&gt;新規登録&lt;/button&gt;
+    &lt;p&gt;既にアカウントをお持ちの方はこちらへ&lt;/p&gt;
   &lt;/div&gt;
 &lt;/template&gt;
-</code></pre>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 
+&lt;style scoped&gt;
+.form-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  padding: 2vw 10vw;
+  text-align: center;
+}
+
+input {
+  margin-bottom: 16px;
+}
+
+button {
+  background-color: rgb(66, 163, 247);
+  color: white;
+  border-radius: 25px;
+  border-style: none;
+  padding: 8px 20px;
+  margin-bottom: 8px;
+  font-size: 15px;
+  width: 246px;
+}
+&lt;/style&gt;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 </body>
 </html>

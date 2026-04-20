@@ -3,35 +3,53 @@
 <head>
     <meta charset="UTF-8">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
     <style>
         body { margin: 0; padding: 0; background-color: #2d2d2d; }
         pre { margin: 0 !important; border-radius: 0; border: none; }
-        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
-        .line-highlight::before,
-        .line-highlight::after { display: none; }
     </style>
 </head>
 <body>
-<pre class="language-javascript" data-line="4,5,12,13,14"><code>&lt;script setup&gt;
-(省略)
-import { ref } from &#x27;vue&#x27;
-const email = ref(&#x27;&#x27;);  //追加
-const password = ref(&#x27;&#x27;);  //追加
+<pre class="language-javascript"><code>&lt;script setup&gt;
+import Header from &#x27;./Header.vue&#x27;
 &lt;/script&gt;
 
 &lt;template&gt;
   &lt;Header /&gt;
   &lt;div class=&quot;form-body&quot;&gt;
     &lt;h1&gt;ログイン&lt;/h1&gt;
-    &lt;input type=&quot;text&quot; id=&quot;email&quot; v-model=&quot;email&quot; placeholder=&quot;email&quot;&gt;. &lt;!--追加--&gt;
-    &lt;input type=&quot;password&quot; id=&quot;password&quot;v-model=&quot;password&quot; placeholder=&quot;password&quot;&gt;  &lt;!--追加--&gt;
-    &lt;button value=&quot;ログイン&quot; @click=&quot;handleSignIn&quot;&gt;ログイン&lt;/button&gt;   &lt;!--追加--&gt;
-    &lt;p&gt;アカウント作成がお済みでない場合は&lt;router-link to=&quot;/signup&quot;&gt;こちら&lt;/router-link&gt;&lt;/p&gt;
+    &lt;input type=&quot;text&quot; id=&quot;email&quot; placeholder=&quot;email&quot;&gt;
+    &lt;input type=&quot;password&quot; id=&quot;password&quot; placeholder=&quot;password&quot;&gt;
+    &lt;button value=&quot;ログイン&quot; &gt;ログイン&lt;/button&gt;
+    &lt;p&gt;アカウント作成がお済みでない場合は、こちらへ&lt;/p&gt;
   &lt;/div&gt;
 &lt;/template&gt;
-(以下省略)</code></pre>
+
+&lt;style scoped&gt;
+.form-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 50vh;
+  padding: 2vw 10vw;
+  text-align: center;
+}
+
+input {
+  margin-bottom: 16px;
+}
+
+button {
+  background-color: rgb(66, 163, 247);
+  color: white;
+  border-radius: 25px;
+  border-style: none;
+  padding: 8px 20px;
+  margin-bottom: 8px;
+  font-size: 15px;
+  width: 246px;
+}
+&lt;/style&gt;</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
 </body>
 </html>
