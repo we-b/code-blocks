@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>require 'rails_helper'
+
+RSpec.describe User, type: :model do
+  before do
+    @user = FactoryBot.build(:user)
+  end
+
+  describe 'ユーザー新規登録' do
+    context '新規登録できる場合' do
+      it "nameとemail、passwordとpassword_confirmationが存在すれば登録できる" do
+        expect(@user).to be_valid
+      end
+    end
+    context '新規登録できない場合' do
+      it "nameが空では登録できない" do
+        @user.name = ''
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Name can't be blank")
+      end
+      it "emailが空では登録できない" do
+        @user.email = ''
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Email can't be blank")
+      end
+      it "passwordが空では登録できない" do
+        @user.password = ''
+        @user.valid?
+        expect(@user.errors.full_messages).to include("Password can't be blank")
+      end
+    end
+  end
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

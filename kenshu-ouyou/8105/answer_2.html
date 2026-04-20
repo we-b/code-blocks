@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>it 'ログインに成功し、トップページに遷移する' do
+  @user = FactoryBot.create(:user)
+  visit new_user_session_path
+  expect(page).to have_current_path(new_user_session_path)
+  fill_in 'user_email', with: @user.email
+  fill_in 'user_password', with: @user.password
+  click_on('Log in')
+  sleep 1
+  expect(page).to have_current_path(root_path)
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

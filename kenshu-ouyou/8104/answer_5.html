@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>require 'rails_helper'
+
+RSpec.describe Message, type: :model do
+  before do
+    @message = FactoryBot.build(:message)
+  end
+
+  describe 'メッセージ投稿' do
+    context 'メッセージが投稿できる場合' do
+      it 'contentとimageが存在していれば保存できる' do
+        expect(@message).to be_valid
+      end
+      it 'contentが空でも保存できる' do
+        @message.content = ''
+        expect(@message).to be_valid
+      end
+      it 'imageが空でも保存できる' do
+        @message.image = nil
+        expect(@message).to be_valid
+      end
+    end
+    context 'メッセージが投稿できない場合' do
+      it 'contentとimageが空では保存できない' do
+        @message.content = ''
+        @message.image = nil
+        @message.valid?
+        expect(@message.errors.full_messages).to include("Content can't be blank")
+      end
+      it 'roomが紐付いていないと保存できない' do
+        @message.room = nil
+        @message.valid?
+        expect(@message.errors.full_messages).to include('Room must exist')
+      end
+      it 'userが紐付いていないと保存できない' do
+        @message.user = nil
+        @message.valid?
+        expect(@message.errors.full_messages).to include('User must exist')
+      end
+    end
+  end
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>
