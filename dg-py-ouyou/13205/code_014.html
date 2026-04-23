@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code>class AdTemplate(ABC):
+    def __init__(self):
+        # ↓共通の部分
+        self.header = &#x27;&lt;header&gt;株式会社〇〇&lt;/header&gt;&#x27;
+        self.footer = &#x27;&lt;footer&gt;詳しくはコチラ&lt;/footer&gt;&#x27;
+        self.body = &#x27;&#x27;
+    # 中略
+    # ↓HTMLを生成する関数
+    def return_html(self, ad_type, image_count):
+        self.return_body(ad_type, image_count)
+        html = &#x27;&#x27;
+        html = self.header + self.body + self.footer
+        return mark_safe(html)
+
+# ↓広告の形式ごとに子クラスを定義
+class Gif(AdTemplate):
+    # 中略
+class Image(AdTemplate):
+    # 中略
+class Movie(AdTemplate):
+    # 中略</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

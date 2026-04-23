@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code>class Mail:
+    def __init__(self):
+        self.name = &#x27;田中 太郎&#x27;
+        self.mail_addr = &#x27;sample@test.com&#x27;
+        self.company = &#x27;株式会社テックキャンプ&#x27;
+        self.addr = &#x27;東京都渋谷区1-1-1&#x27;
+        self.line = &#x27;■----------------------------------■&#x27;
+
+    def output_mail(self, format):
+        print(f&quot;お世話になっております、{self.name}です。&quot;)
+        if format == &#x27;契約完了&#x27;:
+            print(&#x27;この度は、ご契約ありがとうございました。&#x27;)
+        else:
+            print(f&quot;お世話になっております、{self.name}です。&quot;)
+            print(&#x27;この度は、商品のご紹介です。弊社で取り扱っている「〇〇」は多くのお客様にご使用されています。&#x27;)
+            print(&#x27;体験会を10/10 10:00より行っておりますので、是非ご参加ください。&#x27;)
+        print(self.line)
+        print(f&quot;{self.name}\n{self.mail_addr}\n{self.company}\n{self.addr}&quot;)
+        print(self.line)
+
+mail = Mail()
+mail.output_mail(&#x27;契約完了&#x27;)
+mail.output_mail(&#x27;商品紹介&#x27;)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

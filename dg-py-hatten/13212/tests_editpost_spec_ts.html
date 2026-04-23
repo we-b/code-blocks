@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript"><code>import { test, expect } from &#x27;@playwright/test&#x27;;
+import { prisma, resetDatabase } from &quot;./utils/testUtils&quot;;
+
+test.afterAll(async () =&gt; {
+  await resetDatabase();
+  await prisma.$disconnect();
+});
+
+test(&#x27;投稿を編集して、内容が更新されていることが確認できる&#x27;, async ({ page }) =&gt; {
+  await page.goto(&#x27;http://localhost:3000/&#x27;);
+
+  const pageTitle = page.locator(&#x27;text=トップページ&#x27;);
+  await expect(pageTitle).toBeVisible();
+
+  const inputForm = page.locator(&#x27;input[name=&quot;content&quot;]&#x27;);
+  await expect(inputForm).toBeVisible();
+
+  await inputForm.fill(&#x27;テスト投稿&#x27;);
+
+  const postButton = page.locator(&#x27;button:has-text(&quot;投稿する&quot;)&#x27;);
+  await postButton.click();
+
+  const postedText = page.locator(&#x27;text=テスト投稿&#x27;).last();
+  await expect(postedText).toBeVisible();
+
+  const editButton = page.locator(&#x27;button:has-text(&quot;編集&quot;)&#x27;).last();
+  await editButton.click();
+
+  const editInput = page.locator(&#x27;input[name=&quot;update-content&quot;]&#x27;)
+  await expect(editInput).toHaveValue(&#x27;テスト投稿&#x27;);
+
+  await editInput.fill(&#x27;編集後のテスト投稿&#x27;);
+
+  const updateButton = page.locator(&#x27;button:has-text(&quot;更新&quot;)&#x27;)
+  await updateButton.click();
+
+  const updatedText = page.locator(&#x27;text=編集後のテスト投稿&#x27;)
+  await expect(updatedText).toBeVisible();
+});
+
+test(&#x27;空白文字を入力すると編集に失敗し、エラーメッセージが確認できる&#x27;, async ({ page }) =&gt; {
+  await page.goto(&#x27;http://localhost:3000/&#x27;);
+
+  const pageTitle = page.locator(&#x27;text=トップページ&#x27;);
+  await expect(pageTitle).toBeVisible();
+
+  const inputForm = page.locator(&#x27;input[name=&quot;content&quot;]&#x27;);
+  await expect(inputForm).toBeVisible();
+
+  await inputForm.fill(&#x27;テスト投稿&#x27;);
+
+  const postButton = page.locator(&#x27;button:has-text(&quot;投稿する&quot;)&#x27;);
+  await postButton.click();
+
+  const postedText = page.locator(&#x27;text=テスト投稿&#x27;).last();
+  await expect(postedText).toBeVisible();
+
+  const editButton = page.locator(&#x27;button:has-text(&quot;編集&quot;)&#x27;).last();
+  await editButton.click();
+
+  const editInput = page.locator(&#x27;input[name=&quot;update-content&quot;]&#x27;)
+  await expect(editInput).toHaveValue(&#x27;テスト投稿&#x27;);
+
+  await editInput.fill(&#x27;&#x27;);
+
+  const updateButton = page.locator(&#x27;button:has-text(&quot;更新&quot;)&#x27;)
+  await updateButton.click();
+
+  const errorMessage = page.locator(&#x27;.error-message:has-text(&quot;更新に失敗しました&quot;)&#x27;);
+  await expect(errorMessage).toBeVisible();
+});</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code>youtube_ids = [&quot;youtube_sample_id&quot;, &quot;youtube_sample_id&quot;, &quot;youtube_sample_id&quot;]
+tiktok_ids = [&quot;tiktok_sample_id&quot;, &quot;tiktok_sample_id&quot;, &quot;tiktok_sample_id&quot;]
+
+movie_urls = []
+movies = [
+    {&quot;genre&quot;: &quot;youtube&quot;, &quot;ids&quot;: youtube_ids},
+    {&quot;genre&quot;: &quot;tiktok&quot;, &quot;ids&quot;: tiktok_ids}
+]
+
+def youtube_url(id):
+    return f&quot;https://www.youtube.com/embed/{id}&quot;
+
+def tiktok_url(id):
+    return f&quot;https://www.tiktok.com/@{id}&quot;
+
+for movie in movies:
+    if movie[&quot;genre&quot;] == &quot;youtube&quot;:
+        for id in movie[&quot;ids&quot;]:
+            movie_urls.append(youtube_url(id))
+    elif movie[&quot;genre&quot;] == &quot;tiktok&quot;:
+        for id in movie[&quot;ids&quot;]:
+            movie_urls.append(tiktok_url(id))
+
+print(movie_urls)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

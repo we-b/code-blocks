@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python" data-line="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18"><code>from django.contrib.auth.models import BaseUserManager
+
+
+class CustomUserManager(BaseUserManager):
+    &quot;&quot;&quot;メールアドレスをユーザー名として使うカスタムユーザーマネージャー&quot;&quot;&quot;
+
+    def create_user(self, email, nickname, password=None, **extra_fields):
+        if not email:
+            raise ValueError(&#x27;メールアドレスは必須です&#x27;)
+        email = self.normalize_email(email)
+        user = self.model(email=email, nickname=nickname, **extra_fields)
+        user.set_password(password)
+        user.save(using=self._db)
+        return user
+
+    def create_superuser(self, email, nickname, password=None, **extra_fields):
+        extra_fields.setdefault(&#x27;is_staff&#x27;, True)
+        extra_fields.setdefault(&#x27;is_superuser&#x27;, True)
+        return self.create_user(email, nickname, password, **extra_fields)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

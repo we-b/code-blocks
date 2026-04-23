@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code>from abc import ABC, abstractmethod
+
+# 装飾される対象となる基本クラス (Component)
+class TextComponent:
+    def __init__(self, text=&quot;&quot;):
+        self.text = text
+
+    def get_text(self):
+        return self.text
+
+# Decoratorの親クラス (ABC: Abstract Base Class)
+# Componentと同じインターフェース (get_text) を持つ
+class Decorator(ABC):
+    def __init__(self, component: TextComponent):
+        # 【 ① 】: 装飾対象のコンポーネントを保持する
+        
+    @abstractmethod
+    def get_text(self):
+        pass
+
+# 具体的なDecorator A
+class PlainTextDecorator(Decorator):
+    # 【 ② 】: 親クラスの抽象メソッドを実装する
+    def get_text(self):
+        return f&quot;--- Plain Text ---\n{self.component.get_text()}&quot;
+
+# 具体的なDecorator B
+class HtmlDecorator(Decorator):
+    # 【 ③ 】: 親クラスの抽象メソッドを実装する
+    def get_text(self):
+        base_text = self.component.get_text()
+        return f&quot;&lt;html&gt;&lt;body&gt;&lt;p&gt;{base_text}&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;&quot;
+
+# --- 実行部分 ---
+# 元のテキストオブジェクトを作成
+original_text = TextComponent(&quot;これはDecoratorパターンのテストです。&quot;)
+
+# PlainTextDecoratorで装飾
+plain_decorated = PlainTextDecorator(original_text)
+print(plain_decorated.get_text())
+print(&quot;-&quot; * 20)
+
+# HtmlDecoratorで装飾
+html_decorated = HtmlDecorator(original_text)
+print(html_decorated.get_text())
+print(&quot;-&quot; * 20)
+
+# Decoratorを連結（装飾を重ねがけ）することも可能
+# original_text -&gt; PlainTextDecorator -&gt; HtmlDecorator
+chained_decoration = HtmlDecorator(PlainTextDecorator(original_text))
+print(chained_decoration.get_text())</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

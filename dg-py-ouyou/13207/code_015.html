@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code>class Mail:
+    def __init__(self, elements):
+        # これらの属性は、インスタンス化された後、外部からアクセス可能です。
+        self.name = &#x27;田中 太郎&#x27;
+        self.mail_addr = &#x27;sample@test.com&#x27;
+        self.company = &#x27;株式会社パイソン&#x27;
+        self.addr = &#x27;東京都渋谷区1-1-1&#x27;
+        self.line = &#x27;■----------------------------------■&#x27;
+        self.elements = elements
+    
+    # ... (他の関数は省略) ...
+
+# --- 使い方の例 ---
+# 空のリストを渡してインスタンスを作成
+mail_instance = Mail([])
+
+# 属性の読み取り (Rubyのattr_readerに相当)
+print(f&quot;名前: {mail_instance.name}&quot;)
+
+# 属性の書き換え (Rubyのattr_accessorに相当)
+print(f&quot;変更前のelements: {mail_instance.elements}&quot;)
+mail_instance.elements = [&#x27;新しい要素&#x27;]
+print(f&quot;変更後のelements: {mail_instance.elements}&quot;)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

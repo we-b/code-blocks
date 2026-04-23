@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code># ファイル操作のためのモジュールをインポート
+from abc import ABC, abstractmethod
+
+class FileManager:
+    def __init__(self, path):
+        # path名のファイルを作成
+        self.file = open(path, &quot;w&quot;)
+
+    def write_line(self, line):
+        self.file.write(line + &quot;\n&quot;)
+
+class FileManageDecorator(ABC):
+    def __init__(self, real_writer):
+        self.real_writer = real_writer
+
+    @abstractmethod
+    def write_line(self, line):
+        pass
+
+class LineNumberWriter(FileManageDecorator):
+    def __init__(self, real_writer):
+        super().__init__(real_writer)
+        self.line_number = 1
+
+    def write_line(self, text):
+        self.real_writer.write_line(f&quot;{self.line_number}: {text}&quot;)
+        self.line_number += 1
+
+class BlankLineWriter(FileManageDecorator):
+    def write_line(self, text):
+        self.real_writer.write_line(text)
+        self.real_writer.write_line(&quot;&quot;)
+
+# 使用例
+line_writer = LineNumberWriter(FileManager(&#x27;line.txt&#x27;))
+line_writer.write_line(&#x27;1行目へ記述するテキストです。&#x27;)
+line_writer.write_line(&#x27;2行目へ記述するテキストです。&#x27;)
+line_writer.write_line(&#x27;3行目へ記述するテキストです。&#x27;)
+
+blank_writer = BlankLineWriter(FileManager(&#x27;blank.txt&#x27;))
+blank_writer.write_line(&#x27;1行目に記述し、次は1行空行にします。&#x27;)
+blank_writer.write_line(&#x27;3行目に記述し、次は1行空行にします。&#x27;)
+blank_writer.write_line(&#x27;5行目に記述し、次は1行空行にします。&#x27;)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

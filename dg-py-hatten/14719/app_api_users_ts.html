@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript" data-line="2,30,31,32,33,34"><code>import axios from &#x27;axios&#x27;;
+import { UserPageData } from &#x27;../_interfaces/UserPageData&#x27;;
+
+const api = axios.create({
+  baseURL: &#x27;http://localhost:8000/api&#x27;,
+  withCredentials: true,
+});
+
+export const signUp = async (data: {
+  nickname: string;
+  email: string;
+  password: string;
+  password_confirmation: string;
+}): Promise&lt;void&gt; =&gt; {
+  await api.post(&#x27;/users/&#x27;, data);
+};
+
+export const login = async (credentials: {
+  email: string;
+  password: string;
+}): Promise&lt;{ id: number; nickname: string }&gt; =&gt; {
+  const response = await api.post(&#x27;/login/&#x27;, credentials);
+  return response.data;
+};
+
+export const logout = async (): Promise&lt;void&gt; =&gt; {
+  await api.post(&#x27;/logout/&#x27;);
+};
+
+export const findUserById = async (id: number): Promise&lt;UserPageData&gt; =&gt; {
+  const response = await api.get(`/users/${id}/`);
+  return response.data;
+};</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

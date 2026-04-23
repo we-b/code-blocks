@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript" data-line="2,3,4,5,8,9,13,14,15,16,17"><code>&#x27;use client&#x27;
+import Header from &#x27;./_components/Header&#x27;;
+import Footer from &#x27;./_components/Footer&#x27;;
+import TweetList from &#x27;./_components/TweetList&#x27;;
+import { TweetData } from &#x27;./_interfaces/TweetData&#x27;;
+
+const IndexPage = () =&gt; {
+  // 今は空の配列を設定（この後APIからデータを取得するように変更します）
+  const tweets: TweetData[] = [];
+
+  return (
+    &lt;div&gt;
+      &lt;Header /&gt;
+      &lt;div className=&quot;contents&quot;&gt;
+        &lt;TweetList tweets={tweets} /&gt;
+      &lt;/div&gt;
+      &lt;Footer /&gt;
+    &lt;/div&gt;
+  );
+}
+
+export default IndexPage;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

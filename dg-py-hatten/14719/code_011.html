@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>pictweet_next/
+├── pictweet_nextjs_front/
+│   └── app/
+│       ├── _interfaces/
+│       │   ├── UserData.ts
+│       │   ├── TweetData.ts
+│       │   └── UserPageData.ts         ← 新規：マイページ用の型定義
+│       ├── _components/
+│       │   ├── Header.tsx
+│       │   ├── Footer.tsx
+│       │   ├── Tweet.tsx
+│       │   ├── TweetList.tsx
+│       │   ├── TweetForm.tsx
+│       │   └── AuthGuard.tsx
+│       ├── api/
+│       │   ├── tweets.ts
+│       │   └── users.ts               ← 更新：findUserById追加
+│       ├── tweets/
+│       │   ├── new/
+│       │   │   └── page.tsx
+│       │   └── [tweetId]/
+│       │       ├── page.tsx
+│       │       └── edit/
+│       │           └── page.tsx
+│       ├── users/
+│       │   ├── sign_up/
+│       │   │   └── page.tsx
+│       │   ├── login/
+│       │   │   └── page.tsx
+│       │   └── [userId]/
+│       │       └── page.tsx            ← 新規：マイページ
+│       └── page.tsx
+│
+└── pictweet_django_back/
+    └── users/
+        ├── serializers.py              ← 更新：UserDetailSerializer追加
+        ├── views.py                    ← 更新：UserDetailView追加
+        └── urls.py                     ← 更新：ユーザー詳細のURLパターン追加</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

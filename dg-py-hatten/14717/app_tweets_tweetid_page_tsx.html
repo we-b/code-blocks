@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript" data-line="4,6,14,37,38,39,40,41,42,43,44,45,60"><code>&#x27;use client&#x27;;
+
+import { useState, useEffect } from &#x27;react&#x27;;
+import { useParams, useRouter } from &#x27;next/navigation&#x27;;
+import Link from &#x27;next/link&#x27;;
+import { findTweetById, deleteTweet } from &#x27;../../api/tweets&#x27;;
+import { useAuthContext } from &#x27;../../context/AuthContext&#x27;;
+import { TweetData } from &#x27;../../_interfaces/TweetData&#x27;;
+import Header from &#x27;../../_components/Header&#x27;;
+import Footer from &#x27;../../_components/Footer&#x27;;
+
+export default function TweetDetailPage() {
+  const params = useParams();
+  const router = useRouter();
+  const tweetId = Number(params.tweetId);
+  const { user } = useAuthContext();
+  const [tweet, setTweet] = useState&lt;TweetData | null&gt;(null);
+
+  useEffect(() =&gt; {
+    const fetchTweet = async () =&gt; {
+      try {
+        const data = await findTweetById(tweetId);
+        setTweet(data);
+      } catch (error) {
+        console.error(&#x27;ツイートの取得に失敗しました:&#x27;, error);
+      }
+    };
+    fetchTweet();
+  }, [tweetId]);
+
+  if (!tweet) {
+    return &lt;div className=&quot;loading&quot;&gt;Loading...&lt;/div&gt;;
+  }
+
+  const isOwner = user?.isAuthenticated &amp;&amp; user.id === tweet.user.id;
+
+  const handleDelete = async () =&gt; {
+    if (!window.confirm(&#x27;本当に削除しますか？&#x27;)) return;
+    try {
+      await deleteTweet(tweet.id);
+      router.push(&#x27;/&#x27;);
+    } catch (error) {
+      console.error(&#x27;ツイートの削除に失敗しました:&#x27;, error);
+    }
+  };
+
+  return (
+    &lt;&gt;
+      &lt;Header /&gt;
+      &lt;div className=&quot;contents row&quot;&gt;
+        &lt;div className=&quot;content_post&quot; style={{ backgroundImage: tweet.image ? `url(${tweet.image})` : &#x27;none&#x27; }}&gt;
+          {isOwner &amp;&amp; (
+            &lt;div className=&quot;more&quot;&gt;
+              &lt;span&gt;&lt;img src=&quot;/images/arrow_top.png&quot; alt=&quot;Arrow Top&quot; /&gt;&lt;/span&gt;
+              &lt;ul className=&quot;more_list&quot;&gt;
+                &lt;li&gt;
+                  &lt;Link href={`/tweets/${tweet.id}/edit`}&gt;編集&lt;/Link&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                  &lt;Link href=&quot;#&quot; onClick={(e) =&gt; { e.preventDefault(); handleDelete(); }}&gt;削除&lt;/Link&gt;
+                &lt;/li&gt;
+              &lt;/ul&gt;
+            &lt;/div&gt;
+          )}
+          &lt;p&gt;{tweet.text}&lt;/p&gt;
+          &lt;span className=&quot;name&quot;&gt;
+            &lt;Link href={`/users/${tweet.user.id}`}&gt;
+              &lt;span&gt;投稿者&lt;/span&gt;&lt;span&gt;{tweet.user.nickname}&lt;/span&gt;
+            &lt;/Link&gt;
+          &lt;/span&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;Footer /&gt;
+    &lt;/&gt;
+  );
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

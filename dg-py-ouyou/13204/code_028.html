@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code>class PC:
+    def __init__(self, data, config):
+        self.data = data
+        self.config = config
+
+class Printer:
+    def __init__(self, pc, num):
+        self.data = pc.data
+        self.config = pc.config
+        self.num = num
+
+    def print(self):
+        print(f&quot;{self.data}を{self.config}で{self.num}部印刷しました。&quot;)
+
+pc = PC(&quot;会議資料&quot;, &quot;モノクロ&quot;)
+printer = Printer(pc, 100)
+printer.print()
+# =&gt; &quot;会議資料をモノクロで100部印刷しました。&quot;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code>class PCShop:
+    def __init__(self):
+        self.observers = []
+
+    def add_observer(self, observer):
+        【 ① 】
+
+    def notice_software_update(self, software_update):
+        for observer in self.observers:
+            【 ② 】
+            【 ③ 】
+
+class Customer:
+    def __init__(self):
+        self.updates = []
+
+    def kind_of_customer(self):
+        raise NotImplementedError(&#x27;顧客の種類をサブクラスで定義してください&#x27;)
+
+    def download_software_update(self, software_update):
+        self.updates.append(software_update)
+        print(f&quot;新しい更新情報:{software_update}&quot;)
+
+class Individual(Customer):  # 個人
+    def kind_of_customer(self):
+        return &#x27;個人&#x27;
+
+class Corporate(Customer):  # 法人
+    def kind_of_customer(self):
+        return &#x27;法人&#x27;
+
+pc_shop = PCShop()
+pc_shop.add_observer(Individual())
+pc_shop.add_observer(Corporate())
+pc_shop.notice_software_update(&#x27;ソフトウェアver1.02&#x27;)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

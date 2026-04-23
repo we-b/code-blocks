@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>pictweet_next/
+├── pictweet_nextjs_front/
+│   └── app/
+│       ├── layout.tsx
+│       ├── page.tsx               ← 更新：API呼び出し追加
+│       ├── _interfaces/           ← 新規作成
+│       │   ├── UserData.ts
+│       │   └── TweetData.ts
+│       ├── _components/           ← 新規作成
+│       │   ├── Header.tsx
+│       │   ├── Footer.tsx
+│       │   ├── Tweet.tsx
+│       │   └── TweetList.tsx
+│       ├── api/                   ← 新規作成
+│       │   └── tweets.ts
+│       └── styles/
+│           └── style.css
+│
+└── pictweet_django_back/
+    ├── config/
+    │   ├── settings.py            ← 更新：アプリ登録、AUTH_USER_MODEL、認証設定
+    │   ├── urls.py                ← 更新：APIルーティング追加
+    │   └── authentication.py      ← 新規作成
+    ├── tweets/                    ← 新規作成
+    │   ├── models.py
+    │   ├── serializers.py
+    │   ├── views.py
+    │   ├── urls.py
+    │   └── admin.py
+    └── users/                     ← 新規作成
+        ├── models.py
+        ├── managers.py
+        └── admin.py</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

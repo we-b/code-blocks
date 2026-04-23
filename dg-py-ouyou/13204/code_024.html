@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code>from abc import ABC, abstractmethod
+
+class Product(ABC):
+    def __init__(self, name=&#x27;&#x27;, price=0, weight=0):
+        self.name = name
+        self.price = price
+        self.weight = weight
+
+    @abstractmethod
+    def unique_info(self):
+        pass
+
+class PC(Product):
+    def __init__(self, info, parts):
+        super().__init__(**info)
+        self.parts = parts
+
+    def unique_info(self):
+        self.spec_sheet = f&quot;&quot;&quot;
+        スペック表\nCPU:{self.parts.cpu}\nRAM:{self.parts.ram}GB\nROM:{self.parts.rom}GB
+        &quot;&quot;&quot;
+        return self.spec_sheet
+
+class PCParts:
+    def __init__(self, cpu=&#x27;&#x27;, ram=&#x27;&#x27;, rom=&#x27;&#x27;):
+        self.cpu = cpu
+        self.ram = ram
+        self.rom = rom
+
+pc_info = { &#x27;name&#x27;: &#x27;tcbook&#x27;, &#x27;price&#x27;: 120_000, &#x27;weight&#x27;: 1200 }
+pc_spec = { &#x27;cpu&#x27;: &#x27;core i5&#x27;, &#x27;ram&#x27;: 8, &#x27;rom&#x27;: 256 }
+pc_parts = PCParts(**pc_spec)
+pc = PC(pc_info, pc_parts)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

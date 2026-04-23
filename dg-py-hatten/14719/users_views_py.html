@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python" data-line="7,8,12,77,78,79,80,81,82,83,84,85"><code>from django.contrib.auth import authenticate, login, logout
+from rest_framework import status
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+from django.shortcuts import get_object_or_404
+from .models import CustomUser
+from .serializers import (
+    LoginResponseSerializer,
+    LoginSerializer,
+    UserDetailSerializer,
+    UserRegistrationSerializer,
+)
+
+
+class UserRegistrationView(APIView):
+    &quot;&quot;&quot;ユーザー登録API&quot;&quot;&quot;
+
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        serializer = UserRegistrationSerializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.save()
+            # 登録後に自動ログイン
+            login(request, user)
+            response_serializer = LoginResponseSerializer(user)
+            return Response(response_serializer.data, status=status.HTTP_201_CREATED)
+
+        # バリデーションエラーをリスト形式で返す
+        messages = []
+        for field, errors in serializer.errors.items():
+            for error in errors:
+                messages.append(str(error))
+        return Response({&#x27;messages&#x27;: messages}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class LoginView(APIView):
+    &quot;&quot;&quot;ログインAPI&quot;&quot;&quot;
+
+    permission_classes = [AllowAny]
+
+    def post(self, request):
+        serializer = LoginSerializer(data=request.data)
+        if not serializer.is_valid():
+            return Response(
+                {&#x27;messages&#x27;: [&#x27;メールアドレスまたはパスワードが正しくありません&#x27;]},
+                status=status.HTTP_401_UNAUTHORIZED,
+            )
+
+        email = serializer.validated_data[&#x27;email&#x27;]
+        password = serializer.validated_data[&#x27;password&#x27;]
+
+        user = authenticate(request, email=email, password=password)
+        if user is None:
+            return Response(
+                {&#x27;messages&#x27;: [&#x27;メールアドレスまたはパスワードが正しくありません&#x27;]},
+                status=status.HTTP_401_UNAUTHORIZED,
+            )
+
+        login(request, user)
+        response_serializer = LoginResponseSerializer(user)
+        return Response(response_serializer.data)
+
+
+class LogoutView(APIView):
+    &quot;&quot;&quot;ログアウトAPI&quot;&quot;&quot;
+
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        logout(request)
+        return Response({&#x27;message&#x27;: &#x27;ログアウトしました&#x27;}, status=status.HTTP_200_OK)
+
+
+class UserDetailView(APIView):
+    &quot;&quot;&quot;ユーザー詳細API&quot;&quot;&quot;
+
+    permission_classes = [AllowAny]
+
+    def get(self, request, pk):
+        user = get_object_or_404(CustomUser, pk=pk)
+        serializer = UserDetailSerializer(user)
+        return Response(serializer.data)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

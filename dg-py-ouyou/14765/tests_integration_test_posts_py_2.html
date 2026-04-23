@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python" data-line="23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54"><code>from django.test import LiveServerTestCase
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from webdriver_manager.chrome import ChromeDriverManager
+from posts.models import Post
+
+class TestPost(LiveServerTestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        # ChromeDriverの設定
+        service = Service(ChromeDriverManager().install())
+        cls.driver = webdriver.Chrome(service=service)
+        cls.driver.implicitly_wait(10)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.driver.quit()
+        super().tearDownClass()
+
+class TestPostCreateSuccessCase(TestPost):
+    # 正しい情報を入力すれば投稿ができてトップページに移動する
+    def test_post_can_create_with_valid_information(self):
+        print(&quot;テスト実行&quot;)
+        # トップページに移動する
+
+        # トップページに新規投稿ページへ遷移するリンクがあることを確認する
+
+        # 新規投稿ページへ移動する
+
+        # タイトルと内容を入力する
+
+        # 投稿ボタンを押すとPostモデルのカウントが1上がることを確認する
+
+        # トップページへ遷移することを確認する
+
+        # 投稿した内容がトップページに表示されていることを確認する
+
+class TestPostCreateFailureCase(TestPost):
+    # 空の情報では投稿ができずに投稿ページへ戻ってくる
+    def test_post_cannot_create_with_empty_information(self):
+        print(&quot;テスト実行&quot;)
+        # 新規投稿ページへ移動する
+
+        # 何も入力せずに投稿ボタンを押す
+
+        # 投稿ボタンを押してもPostモデルのカウントは上がらないことを確認する
+
+        # 投稿ページに留まっていることを確認する
+
+        # エラーメッセージが表示されていることを確認する</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

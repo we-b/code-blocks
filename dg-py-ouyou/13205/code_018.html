@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code>class Vehicle:
+    def __init__(self, type):
+        self.type = type
+
+    def speed_limit(self):
+        if self.type == &#x27;車&#x27;:
+            print(&#x27;制限速度:60km&#x27;)
+        elif self.type == &#x27;自転車&#x27;:
+            print(&#x27;制限速度:15km&#x27;)
+        elif self.type == &#x27;バイク&#x27;:
+            print(&#x27;制限速度:30km&#x27;)
+        else:
+            print(&#x27;制限速度:不明&#x27;)
+
+    def run(self):
+        if self.type == &#x27;車&#x27;:
+            print(&#x27;車が走ります&#x27;)
+        elif self.type == &#x27;自転車&#x27;:
+            print(&#x27;自転車が走ります&#x27;)
+        elif self.type == &#x27;バイク&#x27;:
+            print(&#x27;バイクが走ります&#x27;)
+        else:
+            print(&#x27;走れません&#x27;)
+
+car = Vehicle(&#x27;車&#x27;)
+car.speed_limit()
+car.run()
+
+bicycle = Vehicle(&#x27;自転車&#x27;)
+bicycle.speed_limit()
+bicycle.run()
+
+bike = Vehicle(&#x27;バイク&#x27;)
+bike.speed_limit()
+bike.run()</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

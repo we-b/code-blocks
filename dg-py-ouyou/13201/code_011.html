@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code>account_data = {&#x27;name&#x27;: &#x27;佐藤&#x27;, &#x27;deposit&#x27;: 100000}
+
+def main(account_data):
+    query_deposit(account_data)
+    withdraw(account_data)
+    query_deposit(account_data)  # 引き落とし後の残高を表示する
+
+def query_deposit(account_data):
+    print(f&quot;残高は{account_data[&#x27;deposit&#x27;]}円です&quot;)
+
+def withdraw(account_data):
+    print(&#x27;引き落とし額を数字で入力してください&#x27;)
+    while True:
+        withdrawal = int(input())
+        if withdrawal &lt; 1000:
+            print(&quot;引き落としは1000円以上からです&quot;)
+            print(&#x27;もう1度、引き落とし額を数字で入力してください&#x27;)
+        else:
+            account_data[&#x27;deposit&#x27;] = account_data[&#x27;deposit&#x27;] - withdrawal
+            break
+    print(f&quot;{withdrawal}円を正常に下ろしました&quot;)
+
+main(account_data)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

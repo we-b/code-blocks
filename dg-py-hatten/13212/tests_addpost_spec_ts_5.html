@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript" data-line="14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36"><code>import { test, expect } from &quot;@playwright/test&quot;;
+import { prisma, resetDatabase } from &quot;./utils/testUtils&quot;;
+
+test.afterAll(async () =&gt; {
+  await resetDatabase();
+  await prisma.$disconnect();
+});
+
+test(&quot;入力フォームに値を入力すると、データの保存ができる&quot;, async ({ page }) =&gt; {
+  ~ 省略~
+});
+
+// 以下の記述を追加
+test(&#x27;空白文字を入力すると、投稿できない&#x27;, async ({ page }) =&gt; {
+  // トップページにアクセス
+  await page.goto(&#x27;http://localhost:3000/&#x27;);
+
+  // トップページの特定のテキストが存在するかを確認
+  const pageTitle = page.locator(&#x27;text=トップページ&#x27;);
+  await expect(pageTitle).toBeVisible();
+
+  // 入力フォームが存在するかを確認
+  const inputForm = page.locator(&#x27;input[name=&quot;content&quot;]&#x27;);
+  await expect(inputForm).toBeVisible();
+
+  // 入力フォームに空文字を入力する
+  await inputForm.fill(&#x27;&#x27;);
+
+  // 投稿ボタンをクリックする
+  const postButton = page.locator(&#x27;button:has-text(&quot;投稿する&quot;)&#x27;);
+  await postButton.click();
+
+  // 投稿した文字が表示されていることを確認
+  const errorMessage = page.locator(&#x27;.error-message:has-text(&quot;投稿に失敗しました&quot;)&#x27;);
+  await expect(errorMessage).toBeVisible();
+});</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

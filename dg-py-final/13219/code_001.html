@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-plaintext"><code>【質問の箇所】
+ 最終課題　サーバーサイド
+
+【質問の内容】
+■ 解決したいこと
+　（例）クレジットカードを用いた購入機能を実装中。カード情報のトークン生成はできているが、トークン情報がパラメーターとして取れない。
+
+■ 調べた内容とそこから立てた仮説
+　（例）公式リファレンスを参考に購入機能を実装してみたが、トークンが決済処理の値として取れずに決済ができない。
+　トークンの生成までは出来ているので、JSからパラメーターが送れていないか、バックエンド側での受け取りができていないのではないか？
+　また、トークンは受け取れているが、チームメンバーに相談した結果、秘密鍵や公開鍵が正しく設定できていないのではという意見があった。
+　デバッグを行ったが秘密鍵の値は間違ってはいなかった。
+
+■ 仮説を元に行った作業内容
+　（例）バックエンド側にデバッグコードを書き、処理をとめた。
+　何が受け取れているのかを確認したところ、トークンの受け取りは確認できなかった。
+　JSからパラメーターが送られていないのか確認しようとしたが、適切に確認できているのか分からなかった。</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

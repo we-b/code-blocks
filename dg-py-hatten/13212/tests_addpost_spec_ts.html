@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript"><code>import { test, expect } from &quot;@playwright/test&quot;;
+
+test(&quot;入力フォームに値を入力すると、データの保存ができる&quot;, async ({ page }) =&gt; {
+  await page.goto(&quot;http://localhost:3000/&quot;);
+
+  const pageTitle = page.locator(&#x27;text=トップページ&#x27;);
+  await expect(pageTitle).toBeVisible();
+
+  const inputForm = page.locator(&#x27;input[name=&quot;content&quot;]&#x27;);
+  await expect(inputForm).toBeVisible();
+});</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

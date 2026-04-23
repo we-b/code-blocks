@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript" data-line="2,3,17,18"><code>import Home from &quot;../app/page&quot;;
+import { test, describe, vi, expect } from &#x27;vitest&#x27;; // expectを追加
+import { render, screen } from &quot;@testing-library/react&quot;; // screenを追加
+
+describe(&quot;Homeコンポーネント&quot;, () =&gt; {
+  test(&quot;APIリクエスト成功時に投稿内容が表示される&quot;, async() =&gt; {
+    global.fetch = vi.fn(() =&gt;
+      Promise.resolve({
+        ok: true,
+        json: () =&gt; Promise.resolve({ posts: [{ id: 1, content: &#x27;Hello World&#x27; }] }),
+      } as Response)
+    );
+
+    render(&lt;Home /&gt;);
+
+    // 以下の2行を追加
+    const postContent = await screen.findByText(&quot;Hello World&quot;);
+    expect(postContent).toBeDefined();
+  });
+
+  ~省略 ~
+});</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

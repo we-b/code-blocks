@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python" data-line="1,2,7,12,13,14,15,22,23,24,25,26,28,29,30,31,32"><code>from rest_framework import status
+from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+from .models import Tweet
+from .serializers import TweetCreateUpdateSerializer, TweetListSerializer
+
+
+class TweetListCreateView(APIView):
+
+    def get_permissions(self):
+        if self.request.method == &#x27;GET&#x27;:
+            return [AllowAny()]
+        return [IsAuthenticated()]
+
+    def get(self, request):
+        tweets = Tweet.objects.all().order_by(&#x27;-created_at&#x27;)
+        serializer = TweetListSerializer(tweets, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = TweetCreateUpdateSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save(user=request.user)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        messages = []
+        for field, errors in serializer.errors.items():
+            for error in errors:
+                messages.append(str(error))
+        return Response({&#x27;messages&#x27;: messages}, status=status.HTTP_400_BAD_REQUEST)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

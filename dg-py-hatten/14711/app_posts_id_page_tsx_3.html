@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript" data-line="3,5,6,10,12,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36"><code>&quot;use client&quot;;
+
+import React, { useEffect, useState } from &quot;react&quot;;
+import { useParams } from &quot;next/navigation&quot;;
+import { ResponsePost } from &quot;../../_type/ResponsePost&quot;;
+import Link from &quot;next/link&quot;;
+
+export default function PostDetail() {
+  const { id } = useParams();
+  const [post, setPost] = useState&lt;ResponsePost | null&gt;(null);
+  const [isLoading, setIsLoading] = useState&lt;boolean&gt;(true);
+  const [error, setError] = useState&lt;string | null&gt;(null);
+
+  useEffect(() =&gt; {
+    if (!id) return;
+
+    const fetchPost = async () =&gt; {
+      try {
+        const response = await fetch(`/api/posts/${id}`);
+
+        if (!response.ok) {
+          throw new Error(&quot;データの取得に失敗しました&quot;);
+        }
+
+        const data = await response.json();
+        setPost(data.post);
+      } catch (error) {
+        console.log(&quot;APIリクエストエラー&quot;, error);
+        setError(&quot;投稿を取得できませんでした&quot;);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchPost();
+  }, [id]);
+
+  ~ 省略 ~
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

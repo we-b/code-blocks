@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code>class ContentsData:
+    def __init__(self):
+        self.data_title = &#x27;コンテンツのタイトル&#x27;
+        self.data = &#x27;コンテンツの内容&#x27;
+        import datetime
+        self.created_at = datetime.datetime(2021, 1, 1)
+
+    def replace_date_jp(self):
+        self.date_jp = self.created_at.strftime(&quot;%Y年%-m月%-d日&quot;)
+
+    def replace_date_us(self):
+        self.date_us = self.created_at.strftime(&quot;%-m/%-d/%Y&quot;)
+
+class Printer:
+    def __init__(self):
+        self.data = ContentsData()
+
+    def print(self, num):
+        for _ in range(num):
+            print(self.data.data)
+
+    def replace_date_jp(self):
+        self.data.replace_date_jp()
+
+    def replace_date_us(self):
+        self.data.replace_date_us()
+
+printer = Printer()
+printer.print(5)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

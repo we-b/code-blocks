@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python" data-line="29,30"><code>class TestPostCreateSuccessCase(TestPost):
+    # 正しい情報を入力すれば投稿ができてトップページに移動する
+    def test_post_can_create_with_valid_information(self):
+        # トップページに移動する
+        self.driver.get(f&quot;{self.live_server_url}/posts/&quot;)
+
+        # トップページに新規投稿ページへ遷移するリンクがあることを確認する
+        create_link = self.driver.find_element(By.LINK_TEXT, &quot;新規投稿&quot;)
+        self.assertTrue(create_link.is_displayed())
+
+        # 新規投稿ページへ移動する
+        self.driver.get(f&quot;{self.live_server_url}/posts/create/&quot;)
+
+        # タイトルと内容を入力する
+        self.driver.find_element(By.NAME, &quot;title&quot;).send_keys(&quot;Seleniumテスト投稿&quot;)
+        self.driver.find_element(By.NAME, &quot;content&quot;).send_keys(&quot;これはSeleniumによる自動テストの投稿です&quot;)
+
+        # 投稿ボタンを押すとPostモデルのカウントが1上がることを確認する
+        post_count = Post.objects.count()
+        self.driver.find_element(By.CSS_SELECTOR, &quot;input[type=&#x27;submit&#x27;]&quot;).click()
+        self.assertEqual(Post.objects.count(), post_count + 1)
+
+        # トップページへ遷移することを確認する
+        WebDriverWait(self.driver, 10).until(
+            EC.url_to_be(f&quot;{self.live_server_url}/posts/&quot;)
+        )
+
+        # 投稿した内容がトップページに表示されていることを確認する
+        self.assertIn(&quot;Seleniumテスト投稿&quot;, self.driver.page_source)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

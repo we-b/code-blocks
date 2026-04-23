@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code>class Engine:
+    def start(self):
+        print(&quot;エンジンが始動しました。&quot;)
+
+class Car:
+    def __init__(self):
+        # Carの初期化と同時に、内部でEngineのインスタンスを生成する
+        self.engine = Engine()
+
+    def drive(self):
+        print(&quot;車の運転を開始します。&quot;)
+        self.engine.start()
+
+# Carのインスタンスを作成するだけで、内部のエンジンも自動的に作られる
+my_car = Car()
+my_car.drive()
+
+# CarオブジェクトがEngineオブジェクトを内部に持っていることを確認
+print(f&quot;my_carのインスタンス: {my_car}&quot;)
+print(f&quot;my_carが持つengine: {my_car.engine}&quot;)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

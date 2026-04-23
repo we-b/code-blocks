@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code># 100円で1ポイント
+# 1000円以上からは、100円で2ポイント
+# 5000円以上からは100円で4ポイント
+
+def calculate_point():
+    paid_money = int(input())
+    normal_point = (paid_money * 1/100) // 1
+    beyond1000_point = ((paid_money - 1000) * 1/50) // 1
+    beyond5000_point = ((paid_money - 1000) * 1/25) // 1
+
+    if paid_money &lt;= 1000:
+        point = normal_point
+    elif paid_money &lt; 5000:
+        point = normal_point + beyond1000_point
+    else:
+        point = normal_point + beyond1000_point + beyond5000_point</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

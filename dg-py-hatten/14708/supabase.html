@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript"><code>await supabase.from(&quot;posts&quot;).select(&quot;*&quot;);
+// =&gt; postsテーブルの全てのデータを取得する
+
+await supabase.from(&quot;posts&quot;).select(&quot;*&quot;).eq(&quot;id&quot;, 1);
+// =&gt; postsテーブルのidが1のデータを取得する
+
+await supabase.from(&quot;posts&quot;).insert({ content: &quot;新規登録&quot; });
+// =&gt; postsテーブルのcontentカラムに&quot;新規登録&quot;を登録する
+
+await supabase.from(&quot;posts&quot;).update({ content: &quot;更新&quot; }).eq(&quot;id&quot;, 1);
+// =&gt; postsテーブルのidが1のデータのcontentを&quot;更新&quot;に変更する
+
+await supabase.from(&quot;posts&quot;).delete().eq(&quot;id&quot;, 1);
+// =&gt; postsテーブルのidが1のデータを削除する</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

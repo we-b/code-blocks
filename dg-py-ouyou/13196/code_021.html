@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code># 印刷機のシミュレーション
+# このコードは印刷機の基本的な機能を模倣したものです
+
+class Printer:
+    def __init__(self, jobs):
+        self.jobs = jobs
+
+    # ① 印刷待ちリストに追加された順に印刷できるように末尾に追加するようにしている
+    def add_job(self, job):
+        self.jobs.append(job)
+        print(f&quot;印刷待ちリストに &#x27;{job}&#x27; を追加しました&quot;)
+
+    # ② 印刷待ちリストに追加された順に印刷できるように印刷待ちリストの先頭を印刷
+    def print(self):
+        if not self.jobs:
+            print(&quot;印刷待ちのジョブはありません&quot;)
+            return
+        job = self.jobs.pop(0)
+        # ③ pop(0)メソッドを使用しないと元々のリストの先頭が消えない
+        print(f&quot;&#x27;{job}&#x27; を印刷中...&quot;)
+        print(f&quot;印刷が完了しました: {job}&quot;)
+
+    def display_jobs(self):
+        # ④ TODO: 画面に表示させるフォーマットを整える
+        print(&quot;\n現在の印刷待ちリスト:&quot;)
+        if not self.jobs:
+            print(&quot;印刷待ちのジョブはありません&quot;)
+        else:
+            for i, job in enumerate(self.jobs, 1):
+                print(f&quot;{i}. {job}&quot;)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

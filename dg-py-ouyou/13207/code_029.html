@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>from abc import ABC, abstractmethod
+
+# -----------------------------------------------
+# ストラテジの定義 (各文章パーツ)
+# -----------------------------------------------
+
+class MailStrategy(ABC):
+    &quot;&quot;&quot;全てのストラテジが従うべき共通のインターフェースを定義する親クラス。&quot;&quot;&quot;
+    @abstractmethod
+    def output_contents(self):
+        pass
+
+class AgreementStrategy(MailStrategy):
+    &quot;&quot;&quot;契約完了の文章を出力するストラテジ。&quot;&quot;&quot;
+    def output_contents(self):
+        print(&quot;この度は、ご契約ありがとうございました。&quot;)
+
+class IntroductionStrategy(MailStrategy):
+    &quot;&quot;&quot;商品紹介の文章を出力するストラテジ。&quot;&quot;&quot;
+    def output_contents(self):
+        print(&quot;この度は、商品のご紹介です。弊社で取り扱っている「〇〇」は多くのお客様にご使用されています。&quot;)
+        print(&quot;体験会を2025年10月10日 10:00より行っておりますので、是非ご参加ください。&quot;)
+
+class VacationInfoStrategy(MailStrategy):
+    &quot;&quot;&quot;休暇のお知らせを出力するストラテジ。&quot;&quot;&quot;
+    def output_contents(self):
+        print(&quot;\n\n年末年始の休暇のお知らせ&quot;)
+        print(&quot;2024年12月29日 ～ 2025年1月3日&quot;)
+        print(&quot;新年の営業は1月4日午前9時からとなります。&quot;)
+
+class CampaignInfoStrategy(MailStrategy):
+    &quot;&quot;&quot;キャンペーンのお知らせを出力するストラテジ。&quot;&quot;&quot;
+    def __init__(self, term):
+        self.term = term
+        
+    def output_contents(self):
+        print(&quot;\nまた、弊社では1月4日より「新年キャンペーン」を開催いたします。&quot;)
+        print(&quot;この機会に、ぜひお買い求めください。&quot;)
+        print(&quot;\nキャンペーンの詳細&quot;)
+        print(f&quot;開催期間：{self.term}&quot;)
+        print(&quot;対象商品：〇〇 30％OFF(他のキャンペーンとは併用不可)&quot;)
+
+# -----------------------------------------------
+# コンテキストの定義 (メール全体)
+# -----------------------------------------------
+
+class Mail:
+    def __init__(self, strategies):
+        # メール全体の共通情報
+        self.name = &#x27;田中 太郎&#x27;
+        self.mail_addr = &#x27;sample@test.com&#x27;
+        self.company = &#x27;株式会社パイソン&#x27;
+        self.addr = &#x27;東京都渋谷区1-1-1&#x27;
+        self.line = &#x27;■----------------------------------■&#x27;
+        # 利用するストラテジのリスト
+        self.strategies = strategies
+
+    def output_mail(self):
+        &quot;&quot;&quot;メール全体を出力する。&quot;&quot;&quot;
+        print(f&quot;お世話になっております、{self.name}です。&quot;)
+        self._construct_sentence()
+        print(self.line)
+        print(f&quot;{self.name}\n{self.mail_addr}\n{self.company}\n{self.addr}&quot;)
+        print(self.line)
+
+    def _construct_sentence(self):
+        &quot;&quot;&quot;保持しているストラテジを使って本文を組み立てる。&quot;&quot;&quot;
+        for strategy in self.strategies:
+            strategy.output_contents()
+
+# -----------------------------------------------
+# 実行部分
+# -----------------------------------------------
+
+# パターン1：契約完了＋キャンペーン＋休暇のお知らせ
+print(&quot;--- パターン1 ---&quot;)
+term = &quot;2025年1月4日(土) 〜 1月8日(水)&quot;
+strategies1 = [
+    AgreementStrategy(), 
+    CampaignInfoStrategy(term),
+    VacationInfoStrategy()
+]
+mail = Mail(strategies1)
+mail.output_mail()
+
+print(&quot;\n&quot; + &quot;=&quot;*40 + &quot;\n&quot;) # 区切り線
+
+# パターン2：商品紹介のみ（ストラテジを動的に入れ替え）
+print(&quot;--- パターン2 ---&quot;)
+mail.strategies = [IntroductionStrategy()]
+mail.output_mail()</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

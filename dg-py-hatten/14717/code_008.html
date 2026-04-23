@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>pictweet_next/
+├── pictweet_nextjs_front/
+│   └── app/
+│       ├── _components/
+│       │   ├── Header.tsx
+│       │   ├── Footer.tsx
+│       │   ├── Tweet.tsx            ← 更新：投稿者本人チェック・削除機能追加
+│       │   ├── TweetList.tsx        ← 更新：onDeleteTweet受け渡し追加
+│       │   ├── TweetForm.tsx
+│       │   └── AuthGuard.tsx
+│       ├── api/
+│       │   ├── tweets.ts            ← 更新：deleteTweet追加
+│       │   └── users.ts
+│       ├── tweets/
+│       │   ├── new/
+│       │   │   └── page.tsx
+│       │   └── [tweetId]/
+│       │       └── page.tsx         ← 更新：削除機能追加
+│       └── page.tsx                 ← 更新：handleDeleteTweet追加
+│
+└── pictweet_django_back/
+    └── tweets/
+        └── views.py                 ← 更新：TweetDetailViewにDELETE処理追加</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

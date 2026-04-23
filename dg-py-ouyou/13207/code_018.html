@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code># アンダースコアで始まる関数は、クラス内部での利用を意図している
+    def _construct_sentence(self):
+        # 辞書の&#x27;main&#x27;キーに対応するストラテジの処理を呼び出す（委譲）
+        self.elements[&#x27;main&#x27;].output_contents()
+        
+        # 辞書の中に&#x27;sub&#x27;キーがあれば、そのストラテジの処理も呼び出す
+        if &#x27;sub&#x27; in self.elements:
+            self.elements[&#x27;sub&#x27;].output_contents()</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript" data-line="9,38,51"><code>&#x27;use client&#x27;;
+
+import { useState } from &#x27;react&#x27;;
+import { useRouter } from &#x27;next/navigation&#x27;;
+import { createTweet } from &#x27;../../api/tweets&#x27;;
+import Header from &#x27;../../_components/Header&#x27;;
+import Footer from &#x27;../../_components/Footer&#x27;;
+import TweetForm from &#x27;../../_components/TweetForm&#x27;;
+import AuthGuard from &#x27;../../_components/AuthGuard&#x27;;
+
+interface TweetFormData {
+  text: string;
+  image: string;
+}
+
+export default function NewTweetPage() {
+  const router = useRouter();
+  const [errorMessages, setErrorMessages] = useState&lt;string[]&gt;([]);
+  const initialData: TweetFormData = { text: &#x27;&#x27;, image: &#x27;&#x27; };
+
+  const handleSubmit = async (data: TweetFormData) =&gt; {
+    try {
+      setErrorMessages([]);
+      await createTweet(data);
+      router.push(&#x27;/&#x27;);
+    } catch (error: unknown) {
+      if (error &amp;&amp; typeof error === &#x27;object&#x27; &amp;&amp; &#x27;response&#x27; in error) {
+        const axiosError = error as { response?: { data?: { messages?: string[] } } };
+        const messages = axiosError.response?.data?.messages;
+        setErrorMessages(messages &amp;&amp; messages.length &gt; 0 ? messages : [&#x27;投稿に失敗しました&#x27;]);
+      } else {
+        setErrorMessages([&#x27;投稿に失敗しました&#x27;]);
+      }
+    }
+  };
+
+  return (
+    &lt;AuthGuard&gt;
+      &lt;Header /&gt;
+      &lt;div className=&quot;contents row&quot;&gt;
+        &lt;div className=&quot;container&quot;&gt;
+          &lt;h3&gt;投稿する&lt;/h3&gt;
+          &lt;TweetForm
+            initialData={initialData}
+            errorMessages={errorMessages}
+            onSubmit={handleSubmit}
+          /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;Footer /&gt;
+    &lt;/AuthGuard&gt;
+  );
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

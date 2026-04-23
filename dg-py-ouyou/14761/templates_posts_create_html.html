@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-markup" data-line="4,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21"><code>&lt;h1&gt;新規投稿ページ&lt;/h1&gt;
+&lt;a href=&quot;{% url &#x27;posts:index&#x27; %}&quot;&gt;トップページに戻る&lt;/a&gt;
+
+&lt;form method=&quot;post&quot; novalidate&gt;
+  {% csrf_token %}
+  {% if form.errors %}
+    &lt;div class=&quot;error-summary&quot;&gt;
+      &lt;ul&gt;
+        {% for field in form %}
+          {% for error in field.errors %}
+            &lt;li&gt;&lt;strong&gt;{{ field.label }}:&lt;/strong&gt; {{ error }}&lt;/li&gt;
+          {% endfor %}
+        {% endfor %}
+      &lt;/ul&gt;
+    &lt;/div&gt;
+  {% endif %}
+  &lt;div&gt;
+    &lt;label&gt;タイトル&lt;/label&gt;
+    {{ form.title }}
+  &lt;/div&gt;
+  &lt;div&gt;
+    &lt;label&gt;内容&lt;/label&gt;
+    {{ form.content }}
+  &lt;/div&gt;
+  &lt;input type=&quot;submit&quot; value=&quot;投稿する&quot;&gt;
+&lt;/form&gt;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

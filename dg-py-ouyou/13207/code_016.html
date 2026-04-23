@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code>from abc import ABC, abstractmethod
+
+# Mailクラス（コンテキスト）
+class Mail:
+    def __init__(self, elements):
+        # ... (前回の __init__ の内容は省略) ...
+        self.elements = elements
+
+    def output_mail(self):
+        pass
+
+    # アンダースコア(_)で始まる関数は、クラス内部でのみ使うことが想定されている
+    def _construct_sentence(self):
+        pass
+
+# ストラテジの親クラス
+class MailStrategy(ABC):
+    @abstractmethod
+    def output_contents(self):
+        pass
+
+# 各ストラテジクラス
+class Agreement(MailStrategy):
+    def output_contents(self):
+        pass
+
+class IntroductionProduct(MailStrategy):
+    def output_contents(self):
+        pass
+
+class InfoVacation(MailStrategy):
+    def output_contents(self):
+        pass
+
+class InfoCampaign(MailStrategy):
+    def __init__(self, term):
+        self.term = term
+        
+    def output_contents(self):
+        pass</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

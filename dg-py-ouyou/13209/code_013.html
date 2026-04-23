@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code># ファイルへの書き込みを担当するクラス
+class FileManager:
+    def __init__(self, path: str):
+        # path名のファイルを書き込みモード(&quot;w&quot;)で開く
+        # encoding=&#x27;utf-8&#x27; は文字化けを防ぐための推奨設定
+        self.file = open(path, &quot;w&quot;, encoding=&quot;utf-8&quot;)
+
+    def write_line(self, line: str):
+        # f-stringを使って、渡された文字列に改行を加えて書き込む
+        self.file.write(f&quot;{line}\n&quot;)
+    
+    def close(self):
+        # ファイルを確実に閉じるためのメソッド
+        self.file.close()
+
+# FileManagerを装飾(Decorate)して、箇条書きの機能を追加するクラス
+class BulletWriter:
+    def __init__(self, real_writer):
+        # ↓装飾したいオブジェクトをインスタンス変数として保持する
+        self.real_writer = real_writer
+
+    def write_line(self, text: str):
+        # 受け取ったテキストの先頭に &quot;- &quot; を付けてから、
+        # 保持しているwriterオブジェクトのwrite_lineメソッドを呼び出す
+        self.real_writer.write_line(f&quot;- {text}&quot;)
+
+    def close(self):
+        # close処理も、保持しているオブジェクトに委譲する
+        self.real_writer.close()
+
+# --- 実行コード ---
+# try...finallyブロックを使うことで、途中でエラーが発生しても
+# 確実に .close() メソッドが呼ばれ、ファイルが安全に閉じられる
+writer = BulletWriter(FileManager(&#x27;bullet.txt&#x27;))
+try:
+    writer.write_line(&#x27;箇条書きの1つ目です。&#x27;)
+    writer.write_line(&#x27;箇条書きの2つ目です。&#x27;)
+    writer.write_line(&#x27;箇条書きの3つ目です。&#x27;)
+finally:
+    writer.close()</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

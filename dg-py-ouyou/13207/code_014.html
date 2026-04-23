@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code>class Mail:
+    def __init__(self, elements):
+        &quot;&quot;&quot;
+        Mailクラスのコンストラクタ。
+        引数で受け取ったelementsをインスタンス変数に設定します。
+        &quot;&quot;&quot;
+        self.name = &#x27;田中 太郎&#x27;
+        self.mail_addr = &#x27;sample@test.com&#x27;
+        self.company = &#x27;株式会社パイソン&#x27;
+        self.addr = &#x27;東京都渋谷区1-1-1&#x27;
+        self.line = &#x27;■----------------------------------■&#x27;
+        self.elements = elements
+
+# 中略
+
+class InfoCampaign:
+    def __init__(self, term):
+        &quot;&quot;&quot;
+        InfoCampaignクラスのコンストラクタ。
+        引数で受け取ったtermをインスタンス変数に設定します。
+        &quot;&quot;&quot;
+        self.term = term</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

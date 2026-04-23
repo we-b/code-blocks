@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code>from abc import ABC, abstractmethod
+
+# 抽象基底クラスHuman
+class Human(ABC):
+    @abstractmethod
+    def talk(self):
+        pass
+
+    @abstractmethod
+    def walk(self):
+        pass
+
+    @abstractmethod
+    def run(self):
+        pass
+
+# 具象クラスJapaneseは、抽象クラスHumanを継承
+class Japanese(Human):
+    def talk(self):
+        print(&quot;話します&quot;)
+
+    def walk(self):
+        print(&quot;歩きます&quot;)
+
+    def run(self):
+        print(&quot;走ります&quot;)
+
+    # 食事前の挨拶は、日本人独自の関数として定義
+    def greeting_before_meals(self):
+        print(&quot;いただきます&quot;)
+
+mr_tanaka = Japanese()
+mr_tanaka.talk()
+mr_tanaka.greeting_before_meals()</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

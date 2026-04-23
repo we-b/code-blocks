@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code>from abc import ABC, abstractmethod
+
+# 親クラス（テンプレートの骨格を定義）
+class Mail(ABC):
+    def __init__(self):
+        &quot;&quot;&quot;初期化関数で、共通の属性を定義します。&quot;&quot;&quot;
+        self.name = &quot;田中 太郎&quot;
+        self.mail_addr = &quot;sample@test.com&quot;
+        self.company = &quot;株式会社パイソン&quot;
+        self.addr = &quot;東京都渋谷区1-1-1&quot;
+        self.line = &quot;■----------------------------------■&quot;
+
+    # この関数が「テンプレート関数」です。
+    # 処理のアルゴリズム（骨格）を定義します。
+    def output_mail(self):
+        self.output_greeting()
+        self.output_body()  # この部分の具体的な処理はサブクラスに任せます。
+        self.output_info()
+
+    def output_greeting(self):
+        &quot;&quot;&quot;共通の挨拶文を出力します。&quot;&quot;&quot;
+        print(f&quot;お世話になっております、{self.name}です。&quot;)
+
+    @abstractmethod
+    def output_body(self):
+        &quot;&quot;&quot;本文を出力する関数。サブクラスでの実装を強制します。&quot;&quot;&quot;
+        raise NotImplementedError(&#x27;サブクラスでoutput_bodyを実装してください。&#x27;)
+
+    def output_info(self):
+        &quot;&quot;&quot;共通の署名を出力します。&quot;&quot;&quot;
+        print(self.line)
+        print(f&quot;{self.name}\n{self.mail_addr}\n{self.company}\n{self.addr}&quot;)
+        print(self.line)
+
+# 具体的な処理を定義するサブクラス①
+class DoneMail(Mail):
+    def output_body(self):
+        &quot;&quot;&quot;契約完了メールの本文を実装します。&quot;&quot;&quot;
+        print(&quot;この度は、ご契約ありがとうございました。&quot;)
+
+# 具体的な処理を定義するサブクラス②
+class IntroductionMail(Mail):
+    def output_body(self):
+        &quot;&quot;&quot;商品紹介メールの本文を実装します。&quot;&quot;&quot;
+        print(&quot;この度は、商品のご紹介です。弊社で取り扱っている「〇〇」は多くのお客様にご使用されています。&quot;)
+        print(&quot;体験会を2025年10月10日 10:00より行っておりますので、是非ご参加ください。&quot;)
+
+# --- 実行部分 ---
+print(&quot;--- 契約完了メール ---&quot;)
+done_mail = DoneMail()
+done_mail.output_mail()
+
+print(&quot;\n&quot; + &quot;=&quot;*20 + &quot;\n&quot;) # 区切り線
+
+print(&quot;--- 商品紹介メール ---&quot;)
+introduction_mail = IntroductionMail()
+introduction_mail.output_mail()</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

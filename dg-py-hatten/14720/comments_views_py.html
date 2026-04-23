@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python" data-line="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33"><code>from rest_framework import status
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
+
+from django.shortcuts import get_object_or_404
+
+from tweets.models import Tweet
+from .models import Comment
+from .serializers import CommentCreateSerializer, CommentSerializer
+
+
+class CommentCreateView(APIView):
+    &quot;&quot;&quot;コメント投稿API&quot;&quot;&quot;
+
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request, tweet_id):
+        tweet = get_object_or_404(Tweet, pk=tweet_id)
+
+        serializer = CommentCreateSerializer(data=request.data)
+        if serializer.is_valid():
+            comment = Comment.objects.create(
+                text=serializer.validated_data[&#x27;text&#x27;],
+                user=request.user,
+                tweet=tweet,
+            )
+            response_serializer = CommentSerializer(comment)
+            return Response(response_serializer.data, status=status.HTTP_201_CREATED)
+
+        messages = []
+        for field, errors in serializer.errors.items():
+            for error in errors:
+                messages.append(str(error))
+        return Response({&#x27;messages&#x27;: messages}, status=status.HTTP_400_BAD_REQUEST)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

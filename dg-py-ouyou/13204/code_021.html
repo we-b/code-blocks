@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code># プロダクトの抽象クラス
+class Product:
+    def __init__(self, name=&#x27;&#x27;, price=0, weight=0):
+        self.name = name
+        self.price = price
+        self.weight = weight
+
+# 抽象クラスであるProductによって生成するパソコンの具象クラス
+class PC(Product):
+    def __init__(self, info, parts):
+        super().__init__(**info)
+        self.parts = parts
+
+# パソコンのパーツ
+class PCParts:
+    def __init__(self, cpu=&#x27;&#x27;, ram=&#x27;&#x27;, rom=&#x27;&#x27;):
+        self.cpu = cpu
+        self.ram = ram
+        self.rom = rom</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

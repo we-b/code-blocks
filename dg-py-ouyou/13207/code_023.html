@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code># --- 実行部分 ---
+
+# 1. ストラテジに渡す引数を定義
+term = &quot;2025年1月4日(土) 〜 1月8日(水)&quot;
+
+# 2. 組み合わせたいストラテジのインスタンスをリストに格納
+#    (契約完了 + キャンペーン + 休暇のお知らせ)
+strategies1 = [
+    AgreementStrategy(), 
+    InfoCampaignStrategy(term),
+    InfoVacationStrategy()
+]
+
+# 3. ストラテジのリストを渡して、Mail（コンテキスト）のインスタンスを作成
+mail = Mail(strategies1)
+# 4. メールを出力
+mail.output_mail()
+
+
+print(&quot;\n&quot; + &quot;=&quot;*40 + &quot;\n&quot;) # 区切り線
+
+
+# 5. 同じmailオブジェクトのストラテジを動的に入れ替える
+#    (商品紹介のみ)
+mail.strategies = [IntroductionStrategy()]
+# 6. 再度メールを出力
+mail.output_mail()</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

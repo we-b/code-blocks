@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code>from django.urls import path
+from . import views
+
+urlpatterns = [
+    path(&#x27;tweets/&#x27;, views.tweet_list, name=&#x27;tweet_list&#x27;),
+    path(&#x27;tweets/new/&#x27;, views.tweet_create, name=&#x27;tweet_create&#x27;),
+    path(&#x27;tweets/&lt;int:pk&gt;/&#x27;, views.tweet_detail, name=&#x27;tweet_detail&#x27;),
+    path(&#x27;tweets/&lt;int:pk&gt;/delete/&#x27;, views.tweet_delete, name=&#x27;tweet_delete&#x27;),
+    # 全世界にツイートが拡散されてから誹謗中傷等の内容に書き換えられないようにするため編集機能はつけない
+]</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

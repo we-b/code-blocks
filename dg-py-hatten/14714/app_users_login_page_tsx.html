@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript" data-line="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62,63,64,65,66,67,68,69,70,71,72,73,74,75,76,77,78,79"><code>&#x27;use client&#x27;;
+
+import { useState } from &#x27;react&#x27;;
+import { useRouter } from &#x27;next/navigation&#x27;;
+import { useForm } from &#x27;react-hook-form&#x27;;
+import { useAuthContext } from &#x27;../../context/AuthContext&#x27;;
+import Header from &#x27;../../_components/Header&#x27;;
+import Footer from &#x27;../../_components/Footer&#x27;;
+
+interface LoginFormData {
+  email: string;
+  password: string;
+}
+
+export default function LoginPage() {
+  const router = useRouter();
+  const { login } = useAuthContext();
+  const [errorMessage, setErrorMessage] = useState&lt;string&gt;(&#x27;&#x27;);
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm&lt;LoginFormData&gt;();
+
+  const onSubmit = async (data: LoginFormData) =&gt; {
+    try {
+      setErrorMessage(&#x27;&#x27;);
+      await login(data.email, data.password);
+      router.push(&#x27;/&#x27;);
+    } catch {
+      setErrorMessage(&#x27;メールアドレスまたはパスワードが正しくありません&#x27;);
+    }
+  };
+
+  return (
+    &lt;&gt;
+      &lt;Header /&gt;
+      &lt;div className=&quot;contents row&quot;&gt;
+        &lt;div className=&quot;container&quot;&gt;
+          &lt;h2&gt;Log in&lt;/h2&gt;
+
+          {errorMessage &amp;&amp; (
+            &lt;p className=&quot;error-message&quot;&gt;{errorMessage}&lt;/p&gt;
+          )}
+
+          &lt;form onSubmit={handleSubmit(onSubmit)} className=&quot;new_user&quot;&gt;
+            &lt;div className=&quot;field&quot;&gt;
+              &lt;label&gt;Email&lt;/label&gt;&lt;br /&gt;
+              {errors.email &amp;&amp; &lt;span className=&quot;error-message&quot;&gt;{errors.email.message}&lt;/span&gt;}
+              &lt;input
+                type=&quot;email&quot;
+                {...register(&#x27;email&#x27;, {
+                  required: &#x27;メールアドレスは必須です&#x27;,
+                  pattern: {
+                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                    message: &#x27;無効なメールアドレスです&#x27;,
+                  },
+                })}
+              /&gt;
+            &lt;/div&gt;
+
+            &lt;div className=&quot;field&quot;&gt;
+              &lt;label&gt;Password&lt;/label&gt;&lt;br /&gt;
+              {errors.password &amp;&amp; &lt;span className=&quot;error-message&quot;&gt;{errors.password.message}&lt;/span&gt;}
+              &lt;input
+                type=&quot;password&quot;
+                {...register(&#x27;password&#x27;, {
+                  required: &#x27;パスワードは必須です&#x27;,
+                  minLength: { value: 6, message: &#x27;パスワードは6文字以上である必要があります&#x27; },
+                })}
+              /&gt;
+            &lt;/div&gt;
+
+            &lt;div className=&quot;actions&quot;&gt;
+              &lt;input type=&quot;submit&quot; value=&quot;Log in&quot; /&gt;
+            &lt;/div&gt;
+          &lt;/form&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;Footer /&gt;
+    &lt;/&gt;
+  );
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

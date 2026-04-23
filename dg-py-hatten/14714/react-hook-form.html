@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript"><code>import { useForm } from &#x27;react-hook-form&#x27;;
+
+interface FormData {
+  name: string;
+  email: string;
+}
+
+const MyForm = () =&gt; {
+  const { register, handleSubmit, formState: { errors } } = useForm&lt;FormData&gt;();
+
+  const onSubmit = (data: FormData) =&gt; {
+    // フォーム送信時の処理
+  };
+
+  return (
+    &lt;form onSubmit={handleSubmit(onSubmit)}&gt;
+      &lt;input {...register(&#x27;name&#x27;, { required: &#x27;名前は必須です&#x27; })} /&gt;
+      {errors.name &amp;&amp; &lt;p&gt;{errors.name.message}&lt;/p&gt;}
+
+      &lt;input {...register(&#x27;email&#x27;, { required: &#x27;メールは必須です&#x27; })} /&gt;
+      {errors.email &amp;&amp; &lt;p&gt;{errors.email.message}&lt;/p&gt;}
+
+      &lt;button type=&quot;submit&quot;&gt;送信&lt;/button&gt;
+    &lt;/form&gt;
+  );
+};</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+</body>
+</html>

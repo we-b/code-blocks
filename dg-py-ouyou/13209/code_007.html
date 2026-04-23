@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-plaintext"><code># models/user.py
+import enum
+from sqlalchemy import Column, Integer, String, Enum
+from sqlalchemy.orm import declarative_base
+
+# == Schema Information (スキーマ情報) ==
+#
+# Table name: users (テーブル名: users)
+#
+# id:     integer, not null, primary key
+# name:   string(255)
+# gender: integer, not null, default: 0 (性別)
+
+class GenderEnum(enum.Enum):
+    UNDEFINED = 0
+    MALE = 1
+    FEMALE = 2
+
+Base = declarative_base()
+
+class User(Base):
+    __tablename__ = &#x27;users&#x27;
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String(255))
+    gender = Column(Enum(GenderEnum), default=GenderEnum.UNDEFINED, nullable=False)
+
+    def __repr__(self):
+        return f&quot;&lt;User(id={self.id}, name=&#x27;{self.name}&#x27;, gender=&#x27;{self.gender.name}&#x27;)&gt;&quot;
+
+    # ▼▼▼ 新しく追加したメソッド ▼▼▼
+    def name_with_honorific(self):
+        &quot;&quot;&quot;性別に応じた敬称を付けて名前を返す&quot;&quot;&quot;
+        if self.gender == GenderEnum.MALE:
+            prefix = &quot;Mr.&quot;
+        elif self.gender == GenderEnum.FEMALE:
+            prefix = &quot;Ms.&quot;
+        else:
+            prefix = &quot;&quot;
+        
+        # f-stringを使って敬称と名前を連結する
+        return f&quot;{prefix} {self.name}&quot;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

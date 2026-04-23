@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code>class BookReader:
+    def __init__(self):
+        self.books = [
+            {&#x27;name&#x27;: &#x27;7つの習慣&#x27;, &#x27;review&#x27;: &#x27;書評&#x27;},
+            {&#x27;name&#x27;: &#x27;嫌われる勇気&#x27;, &#x27;review&#x27;: &#x27;書評&#x27;},
+            {&#x27;name&#x27;: &#x27;イシューからはじめよ&#x27;, &#x27;review&#x27;: &#x27;書評&#x27;}
+        ]
+
+    def main(self):
+        book = self.choose_title()
+        self.choose_action(book)
+
+    def read_book(self, book):
+        # 選んだタイトルの本を読むためのメソッド。内容は省略します
+        pass
+
+    def read_book_review(self, book):
+        # 選んだ本のタイトルの書評を読むためのメソッド。内容は省略します
+        pass
+
+    def choose_title(self):
+        print(&#x27;気になる本を以下から選んでください&#x27;)
+        for i, book in enumerate(self.books):
+            print(f&quot;[{i}] 書名：{book[&#x27;name&#x27;]}&quot;)
+        selected_title = self.books[int(input())]
+        print(f&quot;{selected_title[&#x27;name&#x27;]}が選択されました&quot;)
+        return selected_title
+
+    def choose_action(self, book):
+        print(&#x27;本を読む場合は0、書評を読む場合は1を選択してください&#x27;)
+        while True:
+            input_value = int(input())
+            if input_value == 0:
+                print(f&quot;{book[&#x27;name&#x27;]}を読みます&quot;)
+                self.read_book(book)
+                break
+            elif input_value == 1:
+                print(f&quot;{book[&#x27;name&#x27;]}の書評を読みます&quot;)
+                self.read_book_review(book)
+                break
+            else:
+                print(&#x27;本を読む場合は0、書評を読む場合は1を選択してください&#x27;)
+
+bookreader = BookReader()
+bookreader.main()</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

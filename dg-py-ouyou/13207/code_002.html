@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code>from abc import ABC, abstractmethod
+
+# ----------------------------------------------------
+# 1. 親クラスと、第一階層の子クラス
+# ----------------------------------------------------
+class Mail(ABC):
+    &quot;&quot;&quot;メールの骨格を定義する親クラス（抽象クラス）&quot;&quot;&quot;
+    def __init__(self):
+        self.name = &quot;田中 太郎&quot;
+        self.mail_addr = &quot;sample@test.com&quot;
+        self.company = &quot;株式会社パイソン&quot;
+        self.addr = &quot;東京都渋谷区1-1-1&quot;
+        self.line = &quot;■----------------------------------■&quot;
+
+    def output_mail(self):
+        self.output_greeting()
+        self.output_body()
+        self.output_info()
+
+    def output_greeting(self):
+        print(f&quot;お世話になっております、{self.name}です。&quot;)
+
+    @abstractmethod
+    def output_body(self):
+        raise NotImplementedError(&#x27;サブクラスでoutput_bodyを実装してください。&#x27;)
+
+    def output_info(self):
+        print(self.line)
+        print(f&quot;{self.name}\n{self.mail_addr}\n{self.company}\n{self.addr}&quot;)
+        print(self.line)
+
+class DoneMail(Mail):
+    &quot;&quot;&quot;契約完了メールの本文を定義するクラス&quot;&quot;&quot;
+    def output_body(self):
+        print(&quot;この度は、ご契約ありがとうございました。&quot;)
+
+class IntroductionMail(Mail):
+    &quot;&quot;&quot;商品紹介メールの本文を定義するクラス&quot;&quot;&quot;
+    def output_body(self):
+        print(&quot;この度は、商品のご紹介です。弊社で取り扱っている「〇〇」は多くのお客様にご使用されています。&quot;)
+        print(&quot;体験会を2025年10月10日 10:00より行っておりますので、是非ご参加ください。&quot;)
+
+# ----------------------------------------------------
+# 2. 第二階層の子クラス（お知らせ機能を追加）
+# ----------------------------------------------------
+class DoneWithVacation(DoneMail):
+    &quot;&quot;&quot;契約完了メールに、休暇のお知らせを追加するクラス&quot;&quot;&quot;
+    def output_body(self):
+        super().output_body() # 親クラス(DoneMail)の本文をまず出力
+        print(&quot;\n■年末年始の休暇のお知らせ&quot;)
+        print(&quot;2024年12月29日 ～ 2025年1月3日&quot;)
+        print(&quot;新年の営業は1月4日午前9時からとなります。&quot;)
+
+class DoneWithCampaign(DoneMail):
+    &quot;&quot;&quot;契約完了メールに、キャンペーンのお知らせを追加するクラス&quot;&quot;&quot;
+    def output_body(self):
+        super().output_body() # 親クラス(DoneMail)の本文をまず出力
+        print(&quot;\nまた、弊社では1月4日より「新年キャンペーン」を開催いたします。&quot;)
+        print(&quot;この機会に、ぜひお買い求めください。&quot;)
+        print(&quot;\nキャンペーンの詳細&quot;)
+        print(&quot;開催期間：1月4日(土) 〜 1月8日(水)&quot;)
+        print(&quot;対象商品：〇〇 30％OFF(他のキャンペーンとは併用不可)&quot;)
+
+class IntroductionWithVacation(IntroductionMail):
+    &quot;&quot;&quot;商品紹介メールに、休暇のお知らせを追加するクラス&quot;&quot;&quot;
+    def output_body(self):
+        super().output_body() # 親クラス(IntroductionMail)の本文をまず出力
+        print(&quot;\n■年末年始の休暇のお知らせ&quot;)
+        print(&quot;2024年12月29日 ～ 2025年1月3日&quot;)
+        print(&quot;新年の営業は1月4日午前9時からとなります。&quot;)
+
+class IntroductionWithCampaign(IntroductionMail):
+    &quot;&quot;&quot;商品紹介メールに、キャンペーンのお知らせを追加するクラス&quot;&quot;&quot;
+    def output_body(self):
+        super().output_body() # 親クラス(IntroductionMail)の本文をまず出力
+        print(&quot;\nまた、弊社では1月4日より「新年キャンペーン」を開催いたします。&quot;)
+        # ...(以下略)...
+
+# --- 実行部分 ---
+print(&quot;--- 契約完了＋キャンペーンメールの実行 ---&quot;)
+done_campaign = DoneWithCampaign()
+done_campaign.output_mail()</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

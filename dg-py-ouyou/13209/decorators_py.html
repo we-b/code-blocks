@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code>from .models import User, Gender
+
+class UserDecorator:
+    def __init__(self, user: User):
+        # 1. コンストラクタでUserモデルのインスタンスを受け取る
+        self.user = user
+
+    def name_with_honorific(self):
+        &quot;&quot;&quot; 2. 追加したい機能（敬称付きの名前を返す）を実装する &quot;&quot;&quot;
+        if self.user.gender == Gender.MALE:
+            prefix = &quot;Mr.&quot;
+        elif self.user.gender == Gender.FEMALE:
+            prefix = &quot;Ms.&quot;
+        else:
+            prefix = &quot;&quot;
+        
+        return f&quot;{prefix} {self.user.name}&quot;
+
+    def __getattr__(self, name):
+        &quot;&quot;&quot;
+        3. Decoratorにない属性やメソッドは、元のuserオブジェクトに問い合わせる
+        これにより、decorated_user.name や decorated_user.id のように
+        Userモデルが持つ属性に直接アクセスできる。
+        &quot;&quot;&quot;
+        return getattr(self.user, name)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

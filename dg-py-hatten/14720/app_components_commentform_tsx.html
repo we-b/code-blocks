@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript" data-line="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43"><code>&#x27;use client&#x27;;
+
+import { useForm } from &#x27;react-hook-form&#x27;;
+import { useAuthContext } from &#x27;../context/AuthContext&#x27;;
+
+interface CommentFormData {
+  text: string;
+}
+
+interface CommentFormProps {
+  onSubmit: (data: CommentFormData) =&gt; Promise&lt;void&gt;;
+}
+
+const CommentForm = ({ onSubmit }: CommentFormProps) =&gt; {
+  const { user } = useAuthContext();
+  const { register, handleSubmit, reset, formState: { errors } } = useForm&lt;CommentFormData&gt;({
+    defaultValues: { text: &#x27;&#x27; },
+  });
+
+  const handleFormSubmit = async (data: CommentFormData) =&gt; {
+    await onSubmit(data);
+    reset();
+  };
+
+  if (!user?.isAuthenticated) {
+    return (
+      &lt;div className=&quot;comment-form&quot;&gt;
+        &lt;p&gt;コメントを投稿するには&lt;a href=&quot;/users/login&quot;&gt;ログイン&lt;/a&gt;してください&lt;/p&gt;
+      &lt;/div&gt;
+    );
+  }
+
+  return (
+    &lt;div className=&quot;comment-form&quot;&gt;
+      &lt;form onSubmit={handleSubmit(handleFormSubmit)}&gt;
+        {errors.text &amp;&amp; &lt;span className=&quot;error-message&quot;&gt;{errors.text.message}&lt;/span&gt;}
+        &lt;textarea
+          {...register(&#x27;text&#x27;, { required: &#x27;コメントを入力してください&#x27; })}
+          placeholder=&quot;コメントを入力...&quot;
+          rows={3}
+        /&gt;
+        &lt;input type=&quot;submit&quot; value=&quot;コメントする&quot; /&gt;
+      &lt;/form&gt;
+    &lt;/div&gt;
+  );
+};
+
+export default CommentForm;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code>from abc import ABC, abstractmethod
+
+class Nation(ABC):
+    def __init__(self, country_name, currency):
+        print(f&quot;{country_name}の通貨は{currency}です。&quot;)
+
+class Japan(Nation):
+    def __init__(self, country_name, currency):
+        self.country_name = country_name
+        self.currency = currency
+        super().__init__(self.country_name, self.currency)
+
+class USA(Nation):
+    def __init__(self, country_name, currency):
+        self.country_name = country_name
+        self.currency = currency
+        super().__init__(self.country_name, self.currency)
+
+Japan(&quot;日本&quot;, &quot;日本円&quot;)
+USA(&quot;アメリカ&quot;, &quot;米ドル&quot;)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

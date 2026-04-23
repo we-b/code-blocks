@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript" data-line="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40,41,42,43,44,45,46,47,48,49,50,51,52,53,54,55,56,57,58,59,60,61,62"><code>&#x27;use client&#x27;;
+
+import { createContext, useContext, useState, useEffect, ReactNode } from &#x27;react&#x27;;
+import { login as apiLogin, logout as apiLogout } from &#x27;../api/users&#x27;;
+
+interface AuthUser {
+  id: number;
+  nickname: string;
+  isAuthenticated: boolean;
+}
+
+interface AuthContextType {
+  user: AuthUser | null;
+  isLoading: boolean;
+  login: (email: string, password: string) =&gt; Promise&lt;void&gt;;
+  logout: () =&gt; Promise&lt;void&gt;;
+}
+
+const AuthContext = createContext&lt;AuthContextType | undefined&gt;(undefined);
+
+export const AuthProvider = ({ children }: { children: ReactNode }) =&gt; {
+  const [user, setUser] = useState&lt;AuthUser | null&gt;(null);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() =&gt; {
+    const storedUser = localStorage.getItem(&#x27;user&#x27;);
+    if (storedUser) {
+      try {
+        const parsed = JSON.parse(storedUser);
+        setUser({ ...parsed, isAuthenticated: true });
+      } catch {
+        localStorage.removeItem(&#x27;user&#x27;);
+      }
+    }
+    setIsLoading(false);
+  }, []);
+
+  const login = async (email: string, password: string) =&gt; {
+    const data = await apiLogin({ email, password });
+    const authUser: AuthUser = {
+      id: data.id,
+      nickname: data.nickname,
+      isAuthenticated: true,
+    };
+    setUser(authUser);
+    localStorage.setItem(&#x27;user&#x27;, JSON.stringify({ id: data.id, nickname: data.nickname }));
+  };
+
+  const logout = async () =&gt; {
+    await apiLogout();
+    setUser(null);
+    localStorage.removeItem(&#x27;user&#x27;);
+  };
+
+  return (
+    &lt;AuthContext.Provider value={{ user, isLoading, login, logout }}&gt;
+      {children}
+    &lt;/AuthContext.Provider&gt;
+  );
+};
+
+export const useAuthContext = (): AuthContextType =&gt; {
+  const context = useContext(AuthContext);
+  if (context === undefined) {
+    throw new Error(&#x27;useAuthContext must be used within an AuthProvider&#x27;);
+  }
+  return context;
+};</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

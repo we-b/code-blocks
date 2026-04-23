@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code># Djangoのmodelsモジュールをインポート
+from django.db import models
+
+# models.Modelクラスを継承して、Articleクラスを定義
+class Article(models.Model):
+    # このクラスに独自の属性（フィールド）を定義するだけでよい
+    title = models.CharField(max_length=100)
+    content = models.TextField()
+
+# これだけで、Articleクラスはデータベース操作の全機能を持つ
+# article = Article(title=&quot;新しい記事&quot;, content=&quot;...&quot;)
+# article.save()  # 親クラスから継承したsave関数を使える</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

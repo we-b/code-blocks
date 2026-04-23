@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python" data-line="1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20"><code>class TestPostCreateFailureCase(TestPost):
+    # 空の情報では投稿ができずに投稿ページへ戻ってくる
+    def test_post_cannot_create_with_empty_information(self):
+        # 新規投稿ページへ移動する
+        self.driver.get(f&quot;{self.live_server_url}/posts/create/&quot;)
+
+        # 何も入力せずに投稿ボタンを押す
+        post_count = Post.objects.count()
+        self.driver.find_element(By.CSS_SELECTOR, &quot;input[type=&#x27;submit&#x27;]&quot;).click()
+
+        # 投稿ボタンを押してもPostモデルのカウントは上がらないことを確認する
+        self.assertEqual(Post.objects.count(), post_count)
+
+        # 投稿ページに留まっていることを確認する
+        current_url = self.driver.current_url
+        self.assertIn(&quot;/posts/create/&quot;, current_url)
+
+        # エラーメッセージが表示されていることを確認する
+        error_area = self.driver.find_element(By.CLASS_NAME, &quot;error-summary&quot;)
+        self.assertTrue(error_area.is_displayed())</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

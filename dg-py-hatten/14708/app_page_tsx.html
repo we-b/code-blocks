@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript"><code>&quot;use client&quot;
+import React, { useEffect, useState } from &quot;react&quot;;
+import { Form } from &quot;./_components/Form&quot;
+
+interface ResponsePost {
+  id: number;
+  content: string;
+  created_at: string;
+}
+
+export default function Home() {
+  const [posts, setPosts] = useState&lt;ResponsePost[]&gt;([]);
+  const [isLoading, setIsLoading] = useState&lt;boolean&gt;(true);
+  const [error, setError] = useState&lt;string | null&gt;(null);
+
+  useEffect(() =&gt; {
+    const fetchPosts = async () =&gt; {
+      try {
+        const response = await fetch(&quot;/api/posts&quot;);
+
+        if (!response.ok) {
+          throw new Error(&quot;データの取得に失敗しました&quot;);
+        }
+
+        const data = await response.json();
+        setPosts(data.posts);
+      } catch (error) {
+        console.log(&quot;APIリクエストエラー&quot;, error);
+        setError(&quot;投稿を取得できませんでした&quot;);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchPosts();
+  }, []);
+
+  return (
+    &lt;&gt;
+      &lt;h2&gt;トップページ&lt;/h2&gt;
+      &lt;Form /&gt;
+    &lt;/&gt;
+  );
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

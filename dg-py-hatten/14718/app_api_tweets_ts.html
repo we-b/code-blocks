@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript" data-line="30,31,32,33,34,35"><code>import axios from &#x27;axios&#x27;;
+import { TweetData } from &#x27;../_interfaces/TweetData&#x27;;
+
+const api = axios.create({
+  baseURL: &#x27;http://localhost:8000/api&#x27;,
+  withCredentials: true,
+});
+
+export const findAllTweets = async (): Promise&lt;TweetData[]&gt; =&gt; {
+  const response = await api.get(&#x27;/tweets/&#x27;);
+  return response.data;
+};
+
+export const createTweet = async (data: {
+  text: string;
+  image: string;
+}): Promise&lt;void&gt; =&gt; {
+  await api.post(&#x27;/tweets/&#x27;, data);
+};
+
+export const findTweetById = async (id: number): Promise&lt;TweetData&gt; =&gt; {
+  const response = await api.get(`/tweets/${id}/`);
+  return response.data;
+};
+
+export const deleteTweet = async (id: number): Promise&lt;void&gt; =&gt; {
+  await api.delete(`/tweets/${id}/`);
+};
+
+export const updateTweet = async (id: number, data: {
+  text: string;
+  image: string;
+}): Promise&lt;void&gt; =&gt; {
+  await api.put(`/tweets/${id}/`, data);
+};</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

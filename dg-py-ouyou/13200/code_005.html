@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code>import random
+
+lottery_elements = [&#x27;prize&#x27;, &#x27;blank&#x27;, &#x27;blank&#x27;, &#x27;blank&#x27;, &#x27;blank&#x27;]
+lottery = lottery_elements.copy()
+random.shuffle(lottery)
+
+def remaining_lottery():
+    print(f&quot;{list(range(len(lottery)))}から番号を選んで下さい&quot;)
+
+while len(lottery) &gt; 0:
+    remaining_lottery()
+    target = int(input())
+    if lottery[target] == &#x27;prize&#x27;:
+        print(&#x27;当たり&#x27;)
+        exit()
+    elif lottery[target] == &#x27;blank&#x27;:
+        print(&#x27;はずれ&#x27;)
+    else:
+        print(&#x27;正しい番号を選んでください&#x27;)
+    lottery.pop(target)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

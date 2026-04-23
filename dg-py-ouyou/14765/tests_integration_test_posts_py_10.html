@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code>from django.test import LiveServerTestCase
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.wait import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from webdriver_manager.chrome import ChromeDriverManager
+from posts.models import Post
+
+class TestPost(LiveServerTestCase):
+    @classmethod
+    def setUpClass(cls):
+        super().setUpClass()
+        service = Service(ChromeDriverManager().install())
+        cls.driver = webdriver.Chrome(service=service)
+        cls.driver.implicitly_wait(10)
+
+    @classmethod
+    def tearDownClass(cls):
+        cls.driver.quit()
+        super().tearDownClass()
+
+class TestPostCreateSuccessCase(TestPost):
+    def test_post_can_create_with_valid_information(self):
+        # トップページに移動する
+        self.driver.get(f&quot;{self.live_server_url}/posts/&quot;)
+
+        # トップページに新規投稿ページへ遷移するリンクがあることを確認する
+        create_link = self.driver.find_element(By.LINK_TEXT, &quot;新規投稿&quot;)
+        self.assertTrue(create_link.is_displayed())
+
+        # 新規投稿ページへ移動する
+        self.driver.get(f&quot;{self.live_server_url}/posts/create/&quot;)
+
+        # タイトルと内容を入力する
+        self.driver.find_element(By.NAME, &quot;title&quot;).send_keys(&quot;Seleniumテスト投稿&quot;)
+        self.driver.find_element(By.NAME, &quot;content&quot;).send_keys(&quot;これはSeleniumによる自動テストの投稿です&quot;)
+
+        # 投稿ボタンを押すとPostモデルのカウントが1上がることを確認する
+        post_count = Post.objects.count()
+        self.driver.find_element(By.CSS_SELECTOR, &quot;input[type=&#x27;submit&#x27;]&quot;).click()
+        self.assertEqual(Post.objects.count(), post_count + 1)
+
+        # トップページへ遷移することを確認する
+        WebDriverWait(self.driver, 10).until(
+            EC.url_to_be(f&quot;{self.live_server_url}/posts/&quot;)
+        )
+
+        # 投稿した内容がトップページに表示されていることを確認する
+        self.assertIn(&quot;Seleniumテスト投稿&quot;, self.driver.page_source)
+
+class TestPostCreateFailureCase(TestPost):
+    def test_post_cannot_create_with_empty_information(self):
+        # 新規投稿ページへ移動する
+        self.driver.get(f&quot;{self.live_server_url}/posts/create/&quot;)
+
+        # 何も入力せずに投稿ボタンを押す
+        post_count = Post.objects.count()
+        self.driver.find_element(By.CSS_SELECTOR, &quot;input[type=&#x27;submit&#x27;]&quot;).click()
+
+        # 投稿ボタンを押してもPostモデルのカウントは上がらないことを確認する
+        self.assertEqual(Post.objects.count(), post_count)
+
+        # 投稿ページに留まっていることを確認する
+        current_url = self.driver.current_url
+        self.assertIn(&quot;/posts/create/&quot;, current_url)
+
+        # エラーメッセージが表示されていることを確認する
+        error_area = self.driver.find_element(By.CLASS_NAME, &quot;error-summary&quot;)
+        self.assertTrue(error_area.is_displayed())
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

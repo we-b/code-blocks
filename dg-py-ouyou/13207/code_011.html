@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code>
+import datetime
+
+# 文書データとその操作を持つクラス
+class Content:
+    def __init__(self):
+        self.title = &#x27;Pythonの基本&#x27;
+        self.body = &#x27;これはPythonについてのドキュメントです。&#x27;
+        self.created_at = datetime.datetime(2025, 6, 11)
+
+    # 日本語形式の日付文字列を返す関数
+    def format_date_jp(self):
+        return self.created_at.strftime(&quot;%Y年%m月%d日&quot;)
+
+    # アメリカ形式の日付文字列を返す関数
+    def format_date_us(self):
+        return self.created_at.strftime(&quot;%m/%d/%Y&quot;)
+
+# 印刷機クラス
+class Printer:
+    def __init__(self):
+        # Printerは内部にContentのインスタンスを持つ（コンポジション）
+        self.content = Content()
+
+    # 本文を部数分、出力する
+    def print_body(self, num):
+        print(f&quot;--- 本文を{num}部印刷します ---&quot;)
+        for _ in range(num):
+            print(self.content.body)
+        print(&quot;--- 印刷完了 ---&quot;)
+
+    # この関数が「委譲」を行っている
+    def get_formatted_date_jp(self):
+        # 日付のフォーマット処理を、自身では行わない
+        # 内部に持つ self.content オブジェクトに処理を「任せる」
+        return self.content.format_date_jp()
+
+    # こちらも委譲
+    def get_formatted_date_us(self):
+        return self.content.format_date_us()
+
+# --- 実行 ---
+printer = Printer()
+
+# Printer本来の機能（本文の印刷）を実行
+printer.print_body(3)
+print()
+
+# Printerが委譲を使って取得した日付データを表示
+jp_date = printer.get_formatted_date_jp()
+print(f&quot;レポートの作成日 (日本形式): {jp_date}&quot;)
+
+us_date = printer.get_formatted_date_us()
+print(f&quot;レポートの作成日 (米国形式): {us_date}&quot;)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code>class Animal:
+    &quot;&quot;&quot;動物の基本クラス&quot;&quot;&quot;
+    def speak(self):
+        # 親クラスでは一般的な鳴き声を定義
+        print(&quot;動物が鳴いています。&quot;)
+
+class Dog(Animal):
+    &quot;&quot;&quot;犬クラス&quot;&quot;&quot;
+    # 親クラスのspeak関数をオーバーライド
+    def speak(self):
+        print(&quot;ワン！&quot;)
+
+class Cat(Animal):
+    &quot;&quot;&quot;猫クラス&quot;&quot;&quot;
+    # 親クラスのspeak関数をオーバーライド
+    def speak(self):
+        print(&quot;ニャー！&quot;)
+
+# DogとCatのインスタンスを作成
+dog = Dog()
+cat = Cat()
+
+# animal_listには異なるクラスのインスタンスが混在している
+animal_list = [dog, cat]
+
+# --- ポリモーフィズムの確認 ---
+# ループで各動物を「鳴かせる」
+for animal in animal_list:
+    # animalのクラスがDogかCatかを意識せず、単にspeak()を呼び出す
+    animal.speak()</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

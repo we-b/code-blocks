@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code># templatetags/custom_tags.py
+from django import template
+from django.utils.safestring import mark_safe
+
+register = template.Library()
+
+@register.simple_tag
+def ad(ad_type, image_count):
+    if ad_type == &quot;gif&quot;:
+        ad_instance = Gif()
+    elif ad_type == &quot;image&quot;:
+        ad_instance = Image()
+    elif ad_type == &quot;movie&quot;:
+        ad_instance = Movie()
+    return ad_instance.return_html(ad_type, image_count)
+
+class AdTemplate(ABC):
+    def __init__(self):
+        self.header = &#x27;&lt;header&gt;株式会社〇〇&lt;/header&gt;&#x27;
+        self.footer = &#x27;&lt;footer&gt;詳しくはコチラ&lt;/footer&gt;&#x27;
+        self.body = &#x27;&#x27;
+
+    @abstractmethod
+    def return_body(self, ad_type, image_count):
+        raise NotImplementedError(&quot;Call Abstract Method: return_body&quot;)
+
+    def return_html(self, ad_type, image_count):
+        self.return_body(ad_type, image_count)
+        html = &#x27;&#x27;
+        html = self.header + self.body + self.footer
+        return mark_safe(html)
+
+class Gif(AdTemplate):
+    def return_body(self, ad_type, image_count):
+        if image_count == 2:
+            self._return_src_2()
+        else:
+            self._return_src_1()
+
+    def _return_src_2(self):
+        # ２枚パターン
+        self.body += &#x27;&lt;iframe id=&quot;player1&quot; type=&quot;text/html&quot; width=&quot;700px&quot; height=&quot;350px&quot; src=&quot;/assets/ad_gif1.png&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;&#x27;
+        self.body += &#x27;&lt;iframe id=&quot;player2&quot; type=&quot;text/html&quot; width=&quot;700px&quot; height=&quot;350px&quot; src=&quot;/assets/ad_gif2.png&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;&#x27;
+
+    def _return_src_1(self):
+        # １枚パターン
+        self.body += &#x27;&lt;iframe id=&quot;player&quot; type=&quot;text/html&quot; width=&quot;700px&quot; height=&quot;700px&quot; src=&quot;/assets/ad_gif1.png&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;&#x27;
+
+class Image(AdTemplate):
+    def return_body(self, ad_type, image_count):
+        self._return_src()
+
+    def _return_src(self):
+        self.body += &#x27;&lt;iframe id=&quot;player&quot; type=&quot;text/html&quot; width=&quot;700px&quot; height=&quot;700px&quot; src=&quot;/assets/ad_image.png&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;&#x27;
+
+class Movie(AdTemplate):
+    def return_body(self, ad_type, image_count):
+        self._return_src()
+
+    def _return_src(self):
+        self.body += &#x27;&lt;iframe id=&quot;player&quot; type=&quot;text/html&quot; width=&quot;500px&quot; height=&quot;500px&quot; src=&quot;/assets/ad_movie.png&quot; frameborder=&quot;0&quot;&gt;&lt;/iframe&gt;&#x27;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

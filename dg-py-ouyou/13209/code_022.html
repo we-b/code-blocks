@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code>class FileManager:
+    # ... __init__とcloseは省略 ...
+    def write_line(self, line: str):
+        # 渡された文字列(line)の末尾に改行を加えてファイルに書き込む
+        self.file.write(f&quot;{line}\n&quot;)
+
+
+class FileManagerDecorator:
+    # ... __init__とcloseは省略 ...
+    def write_line(self, text: str):
+        # 保持しているオブジェクトのwrite_lineメソッドを呼び出す
+        self._real_writer.write_line(text)
+
+
+class LineNumberWriter(FileManagerDecorator):
+    # ... __init__は省略 ...
+    def write_line(self, text: str):
+        # 行番号とテキストを連結した文字列を作成し、書き込み処理を委譲する
+        self._real_writer.write_line(f&quot;{self.line_number}: {text}&quot;)
+        # 次の行のために、行番号を1つ増やす
+        self.line_number += 1
+
+
+class BlankLineWriter(FileManagerDecorator):
+    # ... __init__は省略 ...
+    def write_line(self, text: str):
+        # 渡されたテキストを書き込んだ後、さらに空行を1行書き込む
+        self._real_writer.write_line(text)
+        self._real_writer.write_line(&quot;&quot;)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>
