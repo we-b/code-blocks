@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-plaintext"><code>現在のTodoアプリに、ユーザーの新規登録、ログイン・ログアウト機能を追加してください。
+
+機能要件
+1. 新規登録機能
+   - 新しいユーザーを登録できるフォーム（名前とメールアドレス入力）
+   - 「新規登録」ボタンを追加
+   - 登録成功後、そのユーザーで自動ログイン
+
+2. ログイン前の画面
+   - ユーザー選択ドロップダウン（田中太郎、佐藤花子、山田次郎）
+   - 「ログイン」ボタン
+   - 「新規登録」ボタンまたはリンク
+   - シンプルなログイン画面デザイン
+
+3. ログイン後の画面
+   - 画面上部に「ようこそ、○○さん」と表示
+   - 「ログアウト」ボタンを追加
+   - ログインしたユーザーのタスクのみ表示・管理
+
+4. 状態管理
+   - ログイン状態をローカルストレージで保持
+   - ページをリロードしてもログイン状態を維持
+   - ユーザーごとのタスクを正しく分離
+
+既存の機能（タスク追加・完了・削除・カンバンボード表示）はそのまま残してください。</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>
