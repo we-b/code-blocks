@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code>from django.shortcuts import render, redirect
+from django.contrib.auth import authenticate
+from django.contrib.auth.decorators import login_required
+
+@login_required
+def change_password(request):
+    if request.method == &#x27;POST&#x27;:
+        current_password = request.POST.get(&#x27;current_password&#x27;)
+        # 現在のパスワードを検証
+        user = authenticate(username=request.user.username, password=current_password)
+        if user is not None:
+            new_password = request.POST.get(&#x27;new_password&#x27;)
+            user.set_password(new_password)
+            user.save()
+            return redirect(&#x27;success&#x27;)
+        else:
+            error = &#x27;現在のパスワードが正しくありません&#x27;
+            return render(request, &#x27;change_password.html&#x27;, {&#x27;error&#x27;: error})
+    return render(request, &#x27;change_password.html&#x27;)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>
