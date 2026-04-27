@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code>from django import forms
+
+class LoginForm(forms.Form):
+    user_id = forms.CharField(
+        max_length=50,
+        error_messages={&#x27;required&#x27;: &#x27;ユーザーIDを入力してください&#x27;}
+    )
+    password = forms.CharField(
+        widget=forms.PasswordInput,
+        min_length=8,
+        error_messages={&#x27;required&#x27;: &#x27;パスワードを入力してください&#x27;}
+    )</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

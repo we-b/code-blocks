@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code>from django.shortcuts import render
+from .forms import LoginForm
+
+def login_view(request):
+    if request.method == &#x27;POST&#x27;:
+        form = LoginForm(request.POST)
+        if form.is_valid():  # バリデーションを実行
+            user_id = form.cleaned_data[&#x27;user_id&#x27;]
+            password = form.cleaned_data[&#x27;password&#x27;]
+            # 認証処理
+    else:
+        form = LoginForm()
+    return render(request, &#x27;login.html&#x27;, {&#x27;form&#x27;: form})</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>
