@@ -22,9 +22,9 @@
         &lt;div class=&#x27;chat-room-form__field--right&#x27;&gt;
           &lt;select&gt;
             &lt;option&gt;チャットするユーザーを選択してください&lt;/option&gt;
-            &lt;div th:each=&quot;user : ${users}&quot;&gt;
-              &lt;option th:text=&quot;${user.name}&quot;&gt;&lt;/option&gt;
-            &lt;/div&gt;
+            &lt;option th:each=&quot;user : ${users}&quot;
+                    th:text=&quot;${user.name}&quot;&gt;
+            &lt;/option&gt;
           &lt;/select&gt;  
         &lt;/div&gt;
       &lt;/div&gt;
