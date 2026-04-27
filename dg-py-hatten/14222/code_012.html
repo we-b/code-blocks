@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-sql"><code>CREATE POLICY &quot;カートは本人のみ操作可能&quot; ON public.cart_items -- SELECT, 
+  INSERT, UPDATE, DELETE の全てに適用 FOR ALL -- 閲覧・更新・削除の対象を
+  本人に限定 USING ( user_id = auth.uid() ) -- 作成・更新時に、必ず本人のIDが
+  設定されるよう強制 WITH CHECK ( user_id = auth.uid() ); </code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+</body>
+</html>

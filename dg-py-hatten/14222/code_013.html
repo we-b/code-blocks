@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-sql"><code>-- SELECT（閲覧）に対するポリシー CREATE POLICY &quot;
+  自身の注文履歴のみ閲覧可能&quot; ON public.orders FOR SELECT -- どの行を閲覧対象と
+  するかのフィルター条件 USING ( user_id = auth.uid() );
+
+-- INSERT（作成）に対するポリシー CREATE POLICY &quot;
+  自身の注文としてのみ作成可能&quot; ON public.orders FOR INSERT -- どんなデータを
+許可するかのチェック条件 WITH CHECK ( user_id = auth.uid() );</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+</body>
+</html>

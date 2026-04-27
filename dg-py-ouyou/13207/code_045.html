@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code># -----------------------------------------------
+# 1. ストラテジを「関数」として定義する
+# -----------------------------------------------
+
+def agreement_strategy():
+    &quot;&quot;&quot;契約完了の文章を出力するストラテジ関数。&quot;&quot;&quot;
+    print(&quot;この度は、ご契約ありがとうございました。&quot;)
+
+def introduction_strategy():
+    &quot;&quot;&quot;商品紹介の文章を出力するストラテジ関数。&quot;&quot;&quot;
+    print(&quot;この度は、商品のご紹介です。弊社で取り扱っている「〇〇」は多くのお客様にご使用されています。&quot;)
+    print(&quot;体験会を2025年10月10日 10:00より行っておりますので、是非ご参加ください。&quot;)
+
+def vacation_info_strategy():
+    &quot;&quot;&quot;休暇のお知らせを出力するストラテジ関数。&quot;&quot;&quot;
+    print(&quot;\n\n年末年始の休暇のお知らせ&quot;)
+    print(&quot;2024年12月29日 ～ 2025年1月3日&quot;)
+    print(&quot;新年の営業は1月4日午前9時からとなります。&quot;)
+
+def create_campaign_strategy(term):
+    &quot;&quot;&quot;
+    期間(term)を引数に取り、その期間を記憶した「新しい関数」を返す。
+    クロージャの仕組みを利用している。
+    &quot;&quot;&quot;
+    def campaign_strategy():
+        print(&quot;\nまた、弊社では1月4日より「新年キャンペーン」を開催いたします。&quot;)
+        print(&quot;この機会に、ぜひお買い求めください。&quot;)
+        print(&quot;\nキャンペーンの詳細&quot;)
+        print(f&quot;開催期間：{term}&quot;)
+        print(&quot;対象商品：〇〇 30％OFF(他のキャンペーンとは併用不可)&quot;)
+    
+    return campaign_strategy
+
+# -----------------------------------------------
+# 2. コンテキストを定義する (ストラテジが関数であることを前提とする)
+# -----------------------------------------------
+
+class Mail:
+    def __init__(self, strategies):
+        self.name = &#x27;田中 太郎&#x27;
+        self.mail_addr = &#x27;sample@test.com&#x27;
+        self.company = &#x27;株式会社パイソン&#x27;
+        self.addr = &#x27;東京都渋谷区1-1-1&#x27;
+        self.line = &#x27;■----------------------------------■&#x27;
+        # 利用するストラテジ（関数オブジェクトのリスト）
+        self.strategies = strategies
+
+    def output_mail(self):
+        &quot;&quot;&quot;メール全体を出力する。&quot;&quot;&quot;
+        print(f&quot;お世話になっております、{self.name}です。&quot;)
+        self._construct_sentence()
+        print(self.line)
+        print(f&quot;{self.name}\n{self.mail_addr}\n{self.company}\n{self.addr}&quot;)
+        print(self.line)
+
+    def _construct_sentence(self):
+        &quot;&quot;&quot;保持しているストラテジ（関数）を順番に実行する。&quot;&quot;&quot;
+        for strategy_func in self.strategies:
+            # 関数オブジェクトを () を付けて実行する
+            strategy_func()
+
+# -----------------------------------------------
+# 3. 実行する
+# -----------------------------------------------
+
+# キャンペーン期間を定義
+term = &quot;2025年1月4日(土) 〜 1月8日(水)&quot;
+
+# 引数が必要なストラテジは、先にファクトリ関数を呼び出して生成しておく
+campaign_func = create_campaign_strategy(term)
+
+# 利用したいストラテジ（関数）をリストにまとめる
+strategies = [ introduction_strategy, campaign_func ]
+
+# Mailクラスにストラテジのリストを渡してインスタンス化
+mail = Mail(strategies)
+mail.output_mail()
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

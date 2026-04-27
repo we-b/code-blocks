@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-sql"><code>Supabaseのデータベースに、行レベルセキュリティ(RLS)ポリシーを設定したいです。
+ 以下の要件を満たすための、テーブルごとのSQLポリシーを網羅的に生成してください。
+
+◾️前提条件
+
+データベースには profiles テーブルと posts テーブルが存在します。
+profiles テーブルにはユーザーIDを示す id カラムが、posts テーブルには投稿者を示す 
+user_id カラムと、公開状態を示す is_published カラム（boolean型）があります。
+Supabaseの認証機能を利用しており、ログイン中のユーザーIDは auth.uid() で
+取得できます。
+
+◾️postsテーブルのRLSポリシー要件 【SELECT (閲覧)】
+
+is_published が true の投稿は、誰でも（ログインしていないユーザーも）
+閲覧可能とする。
+ログインしているユーザーは、自身の user_id と一致する投稿を、is_published の
+状態に関わらず閲覧可能とする。
+
+【INSERT (作成)】
+
+ログインしているユーザーは、自身の user_id を持つ投稿のみ作成可能とする。
+
+【UPDATE (更新)】
+
+ログインしているユーザーは、自身の user_id と一致する投稿のみ更新可能とする。
+
+【DELETE (削除)】
+
+ログインしているユーザーは、自身の user_id と一致する投稿のみ削除可能とする。
+
+◾️profilesテーブルのRLSポリシー要件 【SELECT (閲覧)】
+
+全てのプロフィール情報は、誰でも閲覧可能とする。
+
+【UPDATE (更新)】
+
+ログインしているユーザーは、自身の id と一致するプロフィールのみ更新可能とする。</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-sql.min.js"></script>
+</body>
+</html>

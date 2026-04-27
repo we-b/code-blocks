@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code># 【変更後】
+class Mail:
+    # ...(中略)...
+    def __init__(self, strategies):
+        self.strategies = strategies
+
+    def output_mail(self):
+        print(f&quot;お世話になっております、{self.name}です。&quot;)
+        self._construct_sentence()
+        # ...(中略)...
+
+    def _construct_sentence(self):
+        # strategy_funcは関数オブジェクトなので、()を付けて直接呼び出す
+        for strategy_func in self.strategies:
+            strategy_func()
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

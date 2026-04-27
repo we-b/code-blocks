@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code>class CampaignInfoStrategy(MailStrategy):
+    def __init__(self, term):
+        # コンストラクタで期間を受け取り、インスタンスに保存する
+        self.term = term
+        
+    def output_contents(self):
+        # 保存したインスタンスの属性を使う
+        print(f&quot;開催期間：{self.term}&quot;)
+        # ... (中略) ...
+
+# 呼び出し側
+# term = &quot;...&quot;
+# campaign_strategy_obj = CampaignInfoStrategy(term)
+# campaign_strategy_obj.output_contents()</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

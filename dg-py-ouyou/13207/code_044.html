@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code>def create_campaign_strategy(term):
+    &quot;&quot;&quot;
+    期間(term)を受け取り、その期間を記憶した新しい「関数」を返す。
+    &quot;&quot;&quot;
+    def campaign_strategy():
+        # 外側の関数の引数 `term` を参照して利用する
+        print(&quot;\nまた、弊社では1月4日より「新年キャンペーン」を開催いたします。&quot;)
+        print(&quot;この機会に、ぜひお買い求めください。&quot;)
+        print(&quot;\nキャンペーンの詳細&quot;)
+        print(f&quot;開催期間：{term}&quot;)
+        print(&quot;対象商品：〇〇 30％OFF(他のキャンペーンとは併用不可)&quot;)
+
+    # 中で定義した campaign_strategy 関数そのものを返す
+    return campaign_strategy
+
+# 呼び出し側
+# term = &quot;2025年1月4日(土) 〜 1月8日(水)&quot;
+# campaign_func = create_campaign_strategy(term) # term を記憶した関数が作られる
+# campaign_func() # 実行すると、記憶したtermを使って文章が出力される</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>
