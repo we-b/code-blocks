@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript" data-line="8,24,25,26,27,28"><code>import React from &quot;react&quot;;
+import { GenreType } from &quot;../../interfaces/GenreType&quot;;
+import &quot;./style.css&quot;;
+
+interface Props {
+  genres?: GenreType[];
+  changeSelect?: (event: React.ChangeEvent&lt;HTMLSelectElement&gt;) =&gt; void;
+  initialValue?: number;
+}
+
+const renderOption = (props: Props) =&gt; {
+  return (
+    props.genres &amp;&amp;
+    props.genres.map((genre: GenreType) =&gt; (
+      &lt;option key={genre.id} value={genre.id}&gt;
+        {genre.name}
+      &lt;/option&gt;
+    ))
+  );
+};
+
+export const Select = (props: Props) =&gt; {
+  return (
+    &lt;select
+      className=&quot;select&quot;
+      onChange={props.changeSelect}
+      value={props.initialValue}
+    &gt;
+      {props.genres !== undefined &amp;&amp; &lt;option value={0}&gt;&lt;/option&gt;}
+      {renderOption(props)}
+    &lt;/select&gt;
+  );
+};</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

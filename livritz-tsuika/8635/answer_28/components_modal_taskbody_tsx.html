@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript" data-line="80,81,82,83,84,85,86,87,88,89,90,91,92,93,124,125,126,127,128"><code>import React, { useContext, useState } from &quot;react&quot;;
+import { Select } from &quot;../../components/select&quot;;
+import { TaskType } from &quot;../../interfaces/TaskType&quot;;
+import { taskRequest } from &quot;../../requests/taskRequest&quot;;
+import { DataContext } from &quot;../../pages/home&quot;;
+import &quot;./style.css&quot;;
+
+interface Props {
+  task?: TaskType;
+  handleClose: () =&gt; void;
+  initialValue?: number;
+}
+
+export const TaskBody = (props: Props) =&gt; {
+  const { data, dispatch } = useContext(DataContext);
+  const [title, setTitle] = useState&lt;string&gt;(
+    (props.task &amp;&amp; props.task.name) || &quot;&quot;
+  );
+  const [genreId, setGenreId] = useState&lt;number&gt;(
+    (props.task &amp;&amp; props.task.genreId) || 1
+  );
+  const [explanation, setExplanation] = useState&lt;string&gt;(
+    (props.task &amp;&amp; props.task.explanation) || &quot;&quot;
+  );
+  const [deadlineDate, setDeadlineDate] = useState&lt;string&gt;(
+    (props.task &amp;&amp; props.task.deadlineDate) || &quot;&quot;
+  );
+
+  const handleChangeGenre = (event: React.ChangeEvent&lt;HTMLSelectElement&gt;) =&gt; {
+    setGenreId(Number(event.target.value));
+  };
+
+  const handleChangeTitle = (event: React.ChangeEvent&lt;HTMLInputElement&gt;) =&gt; {
+    setTitle(event.target.value);
+  };
+
+  const handleChangeExplanation = (
+    event: React.ChangeEvent&lt;HTMLTextAreaElement&gt;
+  ) =&gt; {
+    setExplanation(event.target.value);
+  };
+
+  const handleChangeDeadlineDate = (
+    event: React.ChangeEvent&lt;HTMLInputElement&gt;
+  ) =&gt; {
+    setDeadlineDate(event.target.value);
+  };
+
+  const onClickSubmit = async () =&gt; {
+    const requestData = {
+      id: (props.task &amp;&amp; props.task.id) || 0,
+      name: title,
+      genreId: genreId,
+      explanation: explanation,
+      deadlineDate: deadlineDate,
+      status: (props.task &amp;&amp; props.task.status) || 0,
+    };
+    if (props.task !== undefined) {
+      try {
+        const tasks: TaskType[] = await taskRequest(&quot;updateTasks&quot;, {
+          data: requestData,
+        });
+        dispatch({ type: &quot;tasksUpdate&quot;, payload: { task: tasks } });
+      } catch (err: any) {
+        console.log(err.message);
+      }
+    } else {
+      try {
+        const tasks: TaskType[] = await taskRequest(&quot;createTasks&quot;, {
+          data: requestData,
+        });
+        dispatch({ type: &quot;tasksUpdate&quot;, payload: { task: tasks } });
+      } catch (err: any) {
+        console.log(err.message);
+      }
+    }
+    props.handleClose();
+  };
+
+  const handleOnDelete = async () =&gt; {
+    try {
+      if (props.task) {
+        const tasks: TaskType[] = await taskRequest(&quot;deleteTasks&quot;, {
+          data: props.task
+        });
+        dispatch({ type: &quot;tasksUpdate&quot;, payload: { task: tasks } });
+      }
+      props.handleClose();
+    } catch (err: any) {
+      console.log(err.message);
+    }
+  };
+
+  return (
+    &lt;form className=&quot;modal_body&quot;&gt;
+      &lt;h2 className=&quot;input_menu&quot;&gt;タスクを追加&lt;/h2&gt;
+      &lt;div&gt;
+        &lt;h4 className=&quot;input_title&quot;&gt;ジャンル&lt;/h4&gt;
+        &lt;div className=&quot;task_genre&quot;&gt;
+          &lt;Select
+            genres={data.genresData}
+            changeSelect={handleChangeGenre}
+            initialValue={genreId}
+          /&gt;
+        &lt;/div&gt;
+        &lt;h4 className=&quot;input_title&quot;&gt;タイトル&lt;/h4&gt;
+        &lt;input type=&quot;text&quot; value={title} onChange={handleChangeTitle} /&gt;
+        &lt;h4 className=&quot;input_title&quot;&gt;説明&lt;/h4&gt;
+        &lt;textarea value={explanation} onChange={handleChangeExplanation} /&gt;
+        &lt;h4 className=&quot;input_title&quot;&gt;期限&lt;/h4&gt;
+        &lt;input
+          className=&quot;input_date&quot;
+          type=&quot;date&quot;
+          value={deadlineDate}
+          onChange={handleChangeDeadlineDate}
+        /&gt;
+      &lt;/div&gt;
+      &lt;input
+        className=&quot;input_submit&quot;
+        type=&quot;button&quot;
+        value=&quot;送信&quot;
+        onClick={onClickSubmit}
+      /&gt;
+      { props.task &amp;&amp; (
+        &lt;button className=&quot;button delete_button&quot; type=&quot;button&quot; onClick={handleOnDelete} &gt;
+          このタスクを削除する
+        &lt;/button&gt;
+      )}
+    &lt;/form&gt;
+  );
+};</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>
