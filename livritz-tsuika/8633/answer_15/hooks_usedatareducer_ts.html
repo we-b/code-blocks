@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript" data-line="15"><code>import { useReducer } from &quot;react&quot;;
+import { TaskType } from &quot;../interfaces/TaskType&quot;;
+import { GenreType } from &quot;../interfaces/GenreType&quot;;
+
+export type dataAction = {
+  type: &quot;tasksUpdate&quot; | &quot;genresUpdate&quot;;
+  payload: { task?: TaskType[]; genre?: GenreType[] };
+};
+
+export type Data = {
+  tasksData: TaskType[];
+  genresData: GenreType[];
+};
+
+export const useDataReducer = (): [Data, ({ type, payload }: dataAction) =&gt; void] =&gt; {
+  const initialData: Data = {
+    tasksData: [
+      {
+        id: 0,
+        name: &quot;&quot;,
+        explanation: &quot;&quot;,
+        deadlineDate: &quot;&quot;,
+        status: 0,
+        genreId: 0,
+      },
+    ],
+    genresData: [{ id: 0, name: &quot;&quot; }],
+  };
+
+  const reducer = (state: Data, action: dataAction) =&gt; {
+    switch (action.type) {
+      case &quot;tasksUpdate&quot;:
+        return {
+          ...state,
+          tasksData: action.payload.task || state.tasksData,
+        };
+      case &quot;genresUpdate&quot;:
+        return {
+          ...state,
+          genresData: action.payload.genre || state.genresData,
+        };
+    }
+  };
+
+  const [data, dispatch] = useReducer(reducer, initialData);
+  return [data, dispatch];
+};</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>
