@@ -24,7 +24,7 @@ import lombok.AllArgsConstructor;
 @AllArgsConstructor
 public class PostController {
   private final PostRepository postRepository;
- @GetMapping
+ @GetMapping(&quot;/&quot;)
   public String showList() {
     var postList = postRepository.findAll();
     return &quot;posts/index&quot;;
