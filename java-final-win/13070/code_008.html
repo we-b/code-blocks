@@ -13,21 +13,20 @@
     </style>
 </head>
 <body>
-<pre class="language-plaintext"><code>
-# X:レコードの数だけ同じビューを繰り返す部分で、eachを使用している
-h2
-- @users.each do |user|
-  .user-container
-    = user.name
-    = user.profile
-    = user.image
-end
+<pre class="language-plaintext"><code>&lt;!-- ☓：レコードの数だけ同じビューを繰り返す部分で、th:eachのみ使用している --&gt;
+&lt;div th:each=&quot;post : ${posts}&quot;&gt;
+    &lt;div class=&quot;post-container&quot;&gt;
+        &lt;p th:text=&quot;${post.title}&quot;&gt;&lt;/p&gt;
+        &lt;p th:text=&quot;${post.body}&quot;&gt;&lt;/p&gt;
+        &lt;p th:text=&quot;${post.user.name}&quot;&gt;&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/div&gt;
 
-# ◯:繰り返しを部分テンプレートで記述している
-# 部分テンプレートを使用する理由は動作が軽いから
-h2
-  = render partial: &#x27;user-contaier&#x27;, collection @users
-</code></pre>
+&lt;!-- ◯：繰り返しをThymeleafのfragmentで定義している --&gt;
+&lt;!-- 部分テンプレートを使用する理由は再利用性が高まり、変更箇所が一箇所にまとまるから --&gt;
+&lt;div th:each=&quot;post : ${posts}&quot;&gt;
+    &lt;div th:replace=&quot;~{fragments/post :: postCard(post=${post})}&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 
 </body>

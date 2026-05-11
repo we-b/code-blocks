@@ -14,17 +14,21 @@
 </head>
 <body>
 <pre class="language-plaintext"><code>■解決したいこと
-Pictweetのmessages/index.htmlを表示した際に、
-NoMethodError in Messages#index
-undefined method messages_path for
-とエラーが表示される
+PictweetのPostsControllerのindex表示の際に、
+
+Whitelabel Error Page
+This application has no explicit mapping for /posts, so you are seeing this as a fallback.
+There was an unexpected error (type=Not Found, status=404).
+
+とエラーが表示される。
 
 ■自力で調べた内容
-Nomethodエラーについて、基礎カリキュラムを確認した。
+Whitelabelエラーについてカリキュラムで確認した。
+@GetMappingについてカリキュラムで確認した。
 https://master.tech-camp.in/curriculums/00000
 
 ■仮説と検証作業の結果
-・「undefined method messages_path for」と表示されたので、ルーティングがおかしいと判断。カリキュラムのurls.pyの記述と見比べたが、間違った箇所は無かった。
+「no explicit mapping for /posts」と表示されたので、ルーティングの設定がおかしいと判断した。カリキュラムの@GetMappingの記述と見比べたが、間違った箇所は無かった。
 
 </code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>

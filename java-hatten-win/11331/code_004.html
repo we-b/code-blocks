@@ -14,19 +14,20 @@
 </head>
 <body>
 <pre class="language-plaintext"><code>■解決したいこと
-ChatAppのmessages/index.html.hamlを表示した際に、
+PictweetのLikeControllerのcreateメソッドでいいねを保存する際に、
 
-NoMethodError in Messages#index
-undefined method messages_path for
+java.lang.NullPointerException: Cannot invoke "com.example.pictweet.entity.Post.getId()"
+because the return value of "com.example.pictweet.entity.Like.getPost()" is null
 
 とエラーが表示される。
 
 ■自力で調べた内容
-No methodエラーについて、基礎カリキュラムを再度確認した。
+NullPointerExceptionについてカリキュラムで確認した。
+@ManyToOneアノテーションの使い方をカリキュラムで確認した。
 https://master.tech-camp.in/curriculums/00000
 
 ■仮説と検証作業の結果
-「undefined method messages_path for」と表示されたので、ルーティングがおかしいと判断した。カリキュラムのroutes.rbの記述と見比べたが、間違った箇所は無かった。</code></pre>
+「the return value of Like.getPost() is null」と表示されたので、LikeエンティティのPostへの関連付けが正しく設定されていないと判断した。カリキュラムの@ManyToOneの記述と見比べたが、間違った箇所は無かった。</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 
 </body>

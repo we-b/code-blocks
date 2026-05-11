@@ -13,77 +13,34 @@
     </style>
 </head>
 <body>
-<pre class="language-plaintext"><code>
-# ☓:Gearクラスが車輪に関係するリム、タイヤの情報を持っている
+<pre class="language-plaintext"><code>// ☓：Orderクラスが注文に関係しない税率計算・配送料計算まで責任を持っている
 
-# 自転車のギアを表すGearクラスが、「車輪のリムの直径、タイヤの厚み」まで責任を持ってしまっている
-# Wheelクラスを作り、rim, tireの定義を移すべき
+// 注文を表すOrderクラスが「税率の計算、配送料の計算」まで責任を持ってしまっている
+// TaxクラスやShippingクラスを作り、それぞれの計算ロジックを移すべき
 
-class Gear
-  attr_reader :chainring, :cog, :rim, :tire
-  def initialize(chainring, cog, rim, tire)
-    @chainring = chainring
-    @cog       = cog
-    @rim       = rim
-    @tire      = tire
-  end
+public class Order {
+    private int price;
+    private double taxRate;
+    private int distance;
 
-  def ratio
-    chainring / cog.to_f
-  end
+    public int getTotalPrice() {
+        int tax = (int)(price * taxRate);
+        int shippingFee = distance * 10;
+        return price + tax + shippingFee;
+    }
+}
 
-  def gear_inches
-    ratio * (rim + (tire * 2))
-  end
-end
+// ◯：TaxクラスとShippingクラスを作り、それぞれの計算ロジックを移す
 
-# 下記のコードはギアに関する情報しか渡していないにも関わらずエラーになる
-puts Gear.new(52, 11).ratio
-# ArgumentError: wrong number of arguments (2 for 4)
+public class Order {
+    private int price;
+    private Tax tax;
+    private Shipping shipping;
 
-
-# ◯:Wheelクラスを作り、車輪に関する定義を移す
-
-class Gear
-  attr_reader :chainring, :cog, :wheel
-  def initialize(chainring, cog, wheel=nil)
-    @chainring = chainring
-    @cog       = cog
-    @wheel     = wheel
-  end
-
-  def ratio
-    chainring / cog.to_f
-  end
-
-  def gear_inches
-    ratio * wheel.diameter
-  end
-end
-
-class Wheel
-  attr_reader :rim, :tire
-
-  def initialize(rim, tire)
-    @rim       = rim
-    @tire      = tire
-  end
-
-  def diameter
-    rim + (tire * 2)
-  end
-
-end
-
-
-@wheel = Wheel.new(26, 1.5)
-puts @wheel.circumference
-# -&gt; 91.106186954104
-
-puts Gear.new(52, 11, @wheel).gear_inches
-# -&gt; 137.090909090909
-
-</code></pre>
+    public int getTotalPrice() {
+        return price + tax.calculate(price) + shipping.getFee();
+    }
+}</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 
 </body>

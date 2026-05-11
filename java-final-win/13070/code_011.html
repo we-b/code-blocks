@@ -13,32 +13,25 @@
     </style>
 </head>
 <body>
-<pre class="language-plaintext"><code>// X:アルファベット1文字
-// ※Javascriptのローカル変数ではたまに1文字だけの変数名を定義するが、rubyではあまり使わない
+<pre class="language-plaintext"><code>// ☓：アルファベット1文字
+Person p = personRepository.findById(id).orElse(null);
+List&lt;Ship&gt; s = shipRepository.findAll();
 
-p = Person.first
-s = Ship.all
-
-// X:変数の中身が分からない名前
+// ☓：変数の中身が分からない名前
 // 「一体どのモデルのeverythingなのか？」となってしまい、変数の目的が伝わらない
+List&lt;Tweet&gt; everything = tweetRepository.findAll();
 
-@everything = Tweet.all
-
-// X:略語
+// ☓：略語
 // 略語は元の単語を想像しづらく、略し方も人それぞれ異なってしまうので使うべきでない
-// 変数の中身が単数なのか複数なのかも分かりづらい
-
-@au = User.admin
+List&lt;User&gt; au = userRepository.findByRole(&quot;admin&quot;);
 
 // ◯：
-first_person = Person.first
-ships = Ship.all
+Person firstPerson = personRepository.findById(id).orElse(null);
+List&lt;Ship&gt; ships = shipRepository.findAll();
 
-@tweets = Tweet.all
+List&lt;Tweet&gt; tweets = tweetRepository.findAll();
 
-@admin_users  = User.admin
-
-</code></pre>
+List&lt;User&gt; adminUsers = userRepository.findByRole(&quot;admin&quot;);</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 
 </body>

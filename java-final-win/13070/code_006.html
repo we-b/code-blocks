@@ -13,22 +13,27 @@
     </style>
 </head>
 <body>
-<pre class="language-plaintext"><code># X:makeアクションはcreateとやっていることが変わらない
+<pre class="language-plaintext"><code>// ☓：makeアクションはcreateとやっていることが変わらない
 
-def create
-  @user.create(create_params)
-end
+@PostMapping(&quot;/users/create&quot;)
+public String create(@ModelAttribute UserForm form) {
+    userService.save(form);
+    return &quot;redirect:/users&quot;;
+}
 
-def make
-  @user.create(create_params)
-end
+@PostMapping(&quot;/users/make&quot;)
+public String make(@ModelAttribute UserForm form) {
+    userService.save(form);
+    return &quot;redirect:/users&quot;;
+}
 
-# ◯:なるべく7つのアクションの範囲でルーティングを定義する
+// ◯：なるべくRESTfulな7つのアクション（index/show/new/create/edit/update/destroy）の範囲でマッピングを定義する
 
-def create
-  @user.create(create_params)
-end
-</code></pre>
+@PostMapping(&quot;/users&quot;)
+public String create(@ModelAttribute UserForm form) {
+    userService.save(form);
+    return &quot;redirect:/users&quot;;
+}</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 
 </body>

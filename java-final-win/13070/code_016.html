@@ -13,23 +13,21 @@
     </style>
 </head>
 <body>
-<pre class="language-plaintext"><code>
-# X:インスタンスを作成する際にマジックナンバーを用いて値を代入している
-# コードを見ただけは「type: 1」がどういった商品タイプを示しているのか分からない
+<pre class="language-plaintext"><code>// ☓：インスタンスを作成する際にマジックナンバーを用いて値を代入している
+// コードを見ただけでは「status: 1」がどういった注文状態を示しているのか分からない
 
-Product.create {name: &#x27;hogehoge&#x27;, type: 1}
+orderRepository.save(new Order(1000, 1));
 
-# ◯:コメントアウトで数字の説明をしている
+// ◯：コメントで数字の説明をしている
 
-# type: 1は日本産の商品
-Product.create {name: &#x27;hogehoge&#x27;, type: 1}
+// status: 1は注文受付中を示す
+orderRepository.save(new Order(1000, 1));
 
+// ◎：定数を定義して値を代入している
+// コードを読むだけで「status: 1」が注文受付中であることがわかる
 
-# ◯:定数を定義して値を代入している
-# コードを読むだけで「type: 1」が日本に関連した商品であることがわかる
-
-JAPANESE_PRODUCT_TYPE = 1.freeze
-Product.create {name: &#x27;hogehoge&#x27;, type: JAPANESE_PRODUCT_TYPE}</code></pre>
+public static final int ORDER_STATUS_PENDING = 1;
+orderRepository.save(new Order(1000, ORDER_STATUS_PENDING));</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 
 </body>
