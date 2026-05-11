@@ -13,9 +13,9 @@
     </style>
 </head>
 <body>
-<pre class="language-bash"><code>curl -X POST http://localhost:8080/api/tasks \
+<pre class="language-bash"><code>curl -X POST http://localhost:8080/api/tasks/ \
   -H &quot;Content-Type: application/json&quot; \
-  -d &#x27;{&quot;title&quot;: &quot;curlテスト&quot;, &quot;content&quot;: &quot;優先度highで作成&quot;, &quot;status&quot;: &quot;todo&quot;, &quot;priority&quot;: &quot;high&quot;}&#x27;</code></pre>
+  -d &#x27;{&quot;name&quot;: &quot;curlテスト&quot;, &quot;explanation&quot;: &quot;優先度highで作成&quot;, &quot;status&quot;: 0, &quot;priority&quot;: &quot;high&quot;}&#x27;</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
 </body>

@@ -29,9 +29,10 @@
 
   tasks テーブル
   - id (Long, PK, AUTO) - タスクID
-  - title (String, NOT NULL) - タスクのタイトル
-  - content (String) - タスクの詳細内容
-  - status (String) - ステータス（todo / doing / done）
+  - name (String, NOT NULL) - タスクの名前
+  - explanation (String) - タスクの詳細説明
+  - status (Integer) - ステータス（0=未開始, 1=計画, 2=進行中, 3=実装, 4=テスト, 5=要件定義）
+  - deadline_date (Timestamp) - 期限日
   - genre_id (Long, FK) - ジャンルID
   - created_at / updated_at - タイムスタンプ
 
@@ -43,16 +44,16 @@
   API エンドポイント
 
   Tasks API
-  - GET    /tasks       - タスク一覧取得
-  - GET    /tasks/{id}  - タスク詳細取得
-  - POST   /tasks       - タスク作成
-  - PUT    /tasks/{id}  - タスク更新
-  - DELETE /tasks/{id}  - タスク削除
+  - GET    /api/tasks/               - タスク一覧取得
+  - GET    /api/tasks/{taskId}/      - タスク詳細取得
+  - POST   /api/tasks/               - タスク作成
+  - PUT    /api/tasks/{taskId}/update  - タスク更新
+  - DELETE /api/tasks/{taskId}/delete - タスク削除
 
   Genres API
-  - GET    /genres      - ジャンル一覧取得
-  - POST   /genres      - ジャンル作成
-  - DELETE /genres/{id} - ジャンル削除
+  - GET    /api/genres/              - ジャンル一覧取得
+  - POST   /api/genres/              - ジャンル作成
+  - DELETE /api/genres/{genreId}/delete - ジャンル削除
 
   ---
   テスト

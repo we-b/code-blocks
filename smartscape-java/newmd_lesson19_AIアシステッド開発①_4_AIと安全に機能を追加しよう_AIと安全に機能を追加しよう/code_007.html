@@ -14,24 +14,24 @@
 </head>
 <body>
 <pre class="language-java"><code>@Nested
-@DisplayName(&quot;POST /tasks - 優先度機能のテスト&quot;)
+@DisplayName(&quot;POST /api/tasks/ - 優先度機能のテスト&quot;)
 class PriorityTests {
 
     @Test
     @DisplayName(&quot;優先度「high」を指定してタスクを作成できること&quot;)
     void shouldCreateTaskWithHighPriority() throws Exception {
         Map&lt;String, Object&gt; request = new HashMap&lt;&gt;();
-        request.put(&quot;title&quot;, &quot;重要なタスク&quot;);
-        request.put(&quot;content&quot;, &quot;急ぎの対応が必要&quot;);
-        request.put(&quot;status&quot;, &quot;todo&quot;);
-        request.put(&quot;genre_id&quot;, testGenre.getId());
+        request.put(&quot;name&quot;, &quot;重要なタスク&quot;);
+        request.put(&quot;explanation&quot;, &quot;急ぎの対応が必要&quot;);
+        request.put(&quot;status&quot;, 0);
+        request.put(&quot;genreId&quot;, testGenre.getId());
         request.put(&quot;priority&quot;, &quot;high&quot;);
 
-        mockMvc.perform(post(&quot;/tasks&quot;)
+        mockMvc.perform(post(&quot;/api/tasks/&quot;)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath(&quot;$.title&quot;).value(&quot;重要なタスク&quot;))
+                .andExpect(jsonPath(&quot;$.name&quot;).value(&quot;重要なタスク&quot;))
                 .andExpect(jsonPath(&quot;$.priority&quot;).value(&quot;high&quot;));
     }
 
@@ -39,17 +39,17 @@ class PriorityTests {
     @DisplayName(&quot;優先度「low」を指定してタスクを作成できること&quot;)
     void shouldCreateTaskWithLowPriority() throws Exception {
         Map&lt;String, Object&gt; request = new HashMap&lt;&gt;();
-        request.put(&quot;title&quot;, &quot;急がないタスク&quot;);
-        request.put(&quot;content&quot;, &quot;時間のある時に対応&quot;);
-        request.put(&quot;status&quot;, &quot;todo&quot;);
-        request.put(&quot;genre_id&quot;, testGenre.getId());
+        request.put(&quot;name&quot;, &quot;急がないタスク&quot;);
+        request.put(&quot;explanation&quot;, &quot;時間のある時に対応&quot;);
+        request.put(&quot;status&quot;, 0);
+        request.put(&quot;genreId&quot;, testGenre.getId());
         request.put(&quot;priority&quot;, &quot;low&quot;);
 
-        mockMvc.perform(post(&quot;/tasks&quot;)
+        mockMvc.perform(post(&quot;/api/tasks/&quot;)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath(&quot;$.title&quot;).value(&quot;急がないタスク&quot;))
+                .andExpect(jsonPath(&quot;$.name&quot;).value(&quot;急がないタスク&quot;))
                 .andExpect(jsonPath(&quot;$.priority&quot;).value(&quot;low&quot;));
     }
 
@@ -57,13 +57,13 @@ class PriorityTests {
     @DisplayName(&quot;優先度を指定しない場合、デフォルト値「medium」が設定されること&quot;)
     void shouldDefaultToMediumPriority() throws Exception {
         Map&lt;String, Object&gt; request = new HashMap&lt;&gt;();
-        request.put(&quot;title&quot;, &quot;通常のタスク&quot;);
-        request.put(&quot;content&quot;, &quot;普通の優先度&quot;);
-        request.put(&quot;status&quot;, &quot;todo&quot;);
-        request.put(&quot;genre_id&quot;, testGenre.getId());
+        request.put(&quot;name&quot;, &quot;通常のタスク&quot;);
+        request.put(&quot;explanation&quot;, &quot;普通の優先度&quot;);
+        request.put(&quot;status&quot;, 0);
+        request.put(&quot;genreId&quot;, testGenre.getId());
         // priority を指定しない
 
-        mockMvc.perform(post(&quot;/tasks&quot;)
+        mockMvc.perform(post(&quot;/api/tasks/&quot;)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isCreated())
@@ -74,12 +74,12 @@ class PriorityTests {
     @DisplayName(&quot;タスク作成後のレスポンスJSONに priority が含まれること&quot;)
     void shouldIncludePriorityInResponse() throws Exception {
         Map&lt;String, Object&gt; request = new HashMap&lt;&gt;();
-        request.put(&quot;title&quot;, &quot;レスポンス確認タスク&quot;);
-        request.put(&quot;status&quot;, &quot;todo&quot;);
-        request.put(&quot;genre_id&quot;, testGenre.getId());
+        request.put(&quot;name&quot;, &quot;レスポンス確認タスク&quot;);
+        request.put(&quot;status&quot;, 0);
+        request.put(&quot;genreId&quot;, testGenre.getId());
         request.put(&quot;priority&quot;, &quot;high&quot;);
 
-        mockMvc.perform(post(&quot;/tasks&quot;)
+        mockMvc.perform(post(&quot;/api/tasks/&quot;)
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(request)))
                 .andExpect(status().isCreated())

@@ -16,18 +16,18 @@
 <pre class="language-plaintext"><code>BUILD SUCCESSFUL
 
 TaskControllerTest
-  GET /tasks - タスク一覧取得
+  GET /api/tasks/ - タスク一覧取得
     ✓ タスク一覧を取得できること
     ✓ タスクが0件の場合、空配列を返すこと
-  GET /tasks/{id} - タスク詳細取得
+  GET /api/tasks/{taskId}/ - タスク詳細取得
     ✓ 指定IDのタスクを取得できること
     ✓ 存在しないIDの場合、404エラーを返すこと
-  POST /tasks - タスク作成
+  POST /api/tasks/ - タスク作成
     ✓ タスクを作成できること
-    ✓ タイトルが空の場合、400エラーを返すこと
+    ✓ 名前が空の場合、400エラーを返すこと
     ✓ 不正なステータスの場合、400エラーを返すこと
-    ✓ ステータス省略時はtodoが設定されること
-  POST /tasks - 優先度機能のテスト
+    ✓ ステータス省略時は0が設定されること
+  POST /api/tasks/ - 優先度機能のテスト
     ✓ 優先度「high」を指定してタスクを作成できること
     ✓ 優先度「low」を指定してタスクを作成できること
     ✓ 優先度を指定しない場合、デフォルト値「medium」が設定されること

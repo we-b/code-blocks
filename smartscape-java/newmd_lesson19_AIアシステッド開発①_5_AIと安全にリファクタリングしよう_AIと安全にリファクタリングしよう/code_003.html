@@ -18,8 +18,8 @@
 | 責務                | 該当コード                    |
 |---------------------|------------------------------|
 | HTTPリクエストの受付  | @GetMapping, @PostMapping 等 |
-| バリデーション       | errors.add(&quot;タイトルは必須です&quot;) 等 |
-| エンティティの組み立て | new Task() + setter 呼び出し |
+| バリデーション       | errors.add(&quot;名前は必須です&quot;) 等 |
+| エンティティの組み立て | new TaskEntity() + setter 呼び出し |
 | データベースへの保存   | taskRepository.save(task)   |
 | レスポンスの組み立て   | Map&lt;String, Object&gt; の手動生成 |
 | エラーハンドリング     | ResponseEntity.status(BAD_REQUEST) |

@@ -13,12 +13,12 @@
     </style>
 </head>
 <body>
-<pre class="language-java"><code>package com.example.taskchecker.service;
+<pre class="language-java"><code>package in.tech_camp.task_checker_back.service;
 
-import com.example.taskchecker.entity.Genre;
-import com.example.taskchecker.entity.Task;
-import com.example.taskchecker.repository.GenreRepository;
-import com.example.taskchecker.repository.TaskRepository;
+import in.tech_camp.task_checker_back.entity.GenreEntity;
+import in.tech_camp.task_checker_back.entity.TaskEntity;
+import in.tech_camp.task_checker_back.repository.GenreRepository;
+import in.tech_camp.task_checker_back.repository.TaskRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -37,7 +37,7 @@ public class TaskService {
     /**
      * タスクを作成する
      * @param requestBody リクエストボディ
-     * @return 作成結果（Taskまたはエラーリスト）
+     * @return 作成結果（TaskEntityまたはエラーリスト）
      */
     public Map&lt;String, Object&gt; createTask(Map&lt;String, Object&gt; requestBody) {
         Map&lt;String, Object&gt; result = new HashMap&lt;&gt;();
@@ -45,17 +45,20 @@ public class TaskService {
         // バリデーション
         List&lt;String&gt; errors = new ArrayList&lt;&gt;();
 
-        if (requestBody.get(&quot;title&quot;) == null
-                || requestBody.get(&quot;title&quot;).toString().trim().isEmpty()) {
-            errors.add(&quot;タイトルは必須です&quot;);
+        if (requestBody.get(&quot;name&quot;) == null
+                || requestBody.get(&quot;name&quot;).toString().trim().isEmpty()) {
+            errors.add(&quot;名前は必須です&quot;);
         }
 
-        String status = &quot;todo&quot;;
+        Integer status = 0;
         if (requestBody.get(&quot;status&quot;) != null) {
-            status = requestBody.get(&quot;status&quot;).toString();
-            if (!status.equals(&quot;todo&quot;) &amp;&amp; !status.equals(&quot;doing&quot;)
-                    &amp;&amp; !status.equals(&quot;done&quot;)) {
-                errors.add(&quot;ステータスは todo, doing, done のいずれかを指定してください&quot;);
+            try {
+                status = Integer.parseInt(requestBody.get(&quot;status&quot;).toString());
+                if (status &lt; 0 || status &gt; 5) {
+                    errors.add(&quot;ステータスは 0〜5 の整数で指定してください&quot;);
+                }
+            } catch (NumberFormatException e) {
+                errors.add(&quot;ステータスは 0〜5 の整数で指定してください&quot;);
             }
         }
 
@@ -74,11 +77,11 @@ public class TaskService {
         }
 
         // エンティティの組み立て
-        Task task = new Task();
-        task.setTitle(requestBody.get(&quot;title&quot;).toString().trim());
+        TaskEntity task = new TaskEntity();
+        task.setName(requestBody.get(&quot;name&quot;).toString().trim());
 
-        if (requestBody.get(&quot;content&quot;) != null) {
-            task.setContent(requestBody.get(&quot;content&quot;).toString());
+        if (requestBody.get(&quot;explanation&quot;) != null) {
+            task.setExplanation(requestBody.get(&quot;explanation&quot;).toString());
         }
 
         task.setStatus(status);
@@ -88,27 +91,27 @@ public class TaskService {
         }
 
         // ジャンルの関連付け
-        if (requestBody.get(&quot;genre_id&quot;) != null) {
-            Long genreId;
+        if (requestBody.get(&quot;genreId&quot;) != null) {
+            Integer genreId;
             try {
-                genreId = Long.parseLong(requestBody.get(&quot;genre_id&quot;).toString());
+                genreId = Integer.parseInt(requestBody.get(&quot;genreId&quot;).toString());
             } catch (NumberFormatException e) {
                 result.put(&quot;success&quot;, false);
-                result.put(&quot;errors&quot;, List.of(&quot;genre_id は数値で指定してください&quot;));
+                result.put(&quot;errors&quot;, List.of(&quot;genreId は数値で指定してください&quot;));
                 return result;
             }
 
-            Optional&lt;Genre&gt; genreOpt = genreRepository.findById(genreId);
+            Optional&lt;GenreEntity&gt; genreOpt = genreRepository.findById(genreId.longValue());
             if (genreOpt.isEmpty()) {
                 result.put(&quot;success&quot;, false);
                 result.put(&quot;errors&quot;, List.of(&quot;指定されたジャンルが見つかりません&quot;));
                 return result;
             }
-            task.setGenre(genreOpt.get());
+            task.setGenreId(genreId);
         }
 
         // 保存
-        Task savedTask = taskRepository.save(task);
+        TaskEntity savedTask = taskRepository.save(task);
 
         result.put(&quot;success&quot;, true);
         result.put(&quot;task&quot;, savedTask);

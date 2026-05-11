@@ -23,12 +23,12 @@ public ResponseEntity&lt;?&gt; create(@RequestBody Map&lt;String, Object&gt; req
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
 
-    Task savedTask = (Task) result.get(&quot;task&quot;);
+    TaskEntity savedTask = (TaskEntity) result.get(&quot;task&quot;);
 
     // レスポンス組み立て
     Map&lt;String, Object&gt; taskMap = new LinkedHashMap&lt;&gt;();
     taskMap.put(&quot;id&quot;, savedTask.getId());
-    taskMap.put(&quot;title&quot;, savedTask.getTitle());
+    taskMap.put(&quot;name&quot;, savedTask.getName());
     // ... （レスポンスの組み立て）
 
     return ResponseEntity.status(HttpStatus.CREATED).body(taskMap);

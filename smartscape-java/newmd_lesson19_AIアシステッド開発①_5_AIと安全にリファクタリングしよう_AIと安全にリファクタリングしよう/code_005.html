@@ -24,9 +24,9 @@
 public class TaskService {
     private final TaskRepository taskRepository;
 
-    public Task createTask(TaskCreateRequest request) {
-        Task task = new Task();
-        task.setTitle(request.getTitle());
+    public TaskEntity createTask(TaskCreateRequest request) {
+        TaskEntity task = new TaskEntity();
+        task.setName(request.getName());
         // ...
         return taskRepository.save(task);
     }
@@ -45,10 +45,10 @@ public class TaskService {
 
 public class TaskResponse {
     private Long id;
-    private String title;
+    private String name;
     // ...
 
-    public static TaskResponse from(Task task) {
+    public static TaskResponse from(TaskEntity task) {
         TaskResponse response = new TaskResponse();
         response.id = task.getId();
         // ...
@@ -67,11 +67,11 @@ public class TaskResponse {
 バリデーションをアノテーションで宣言的に定義。
 
 public class TaskCreateRequest {
-    @NotBlank(message = &quot;タイトルは必須です&quot;)
-    private String title;
+    @NotBlank(message = &quot;名前は必須です&quot;)
+    private String name;
 
-    @Pattern(regexp = &quot;todo|doing|done&quot;)
-    private String status;
+    @Min(0) @Max(5)
+    private Integer status;
 }
 
 | メリット                | デメリット            |
