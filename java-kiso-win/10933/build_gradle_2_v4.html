@@ -13,22 +13,40 @@
     </style>
 </head>
 <body>
-<pre class="language-java" data-line="13"><code>// （省略）
-
-dependencies {
-	implementation &#x27;org.springframework.boot:spring-boot-starter-thymeleaf&#x27;
-	implementation &#x27;org.springframework.boot:spring-boot-starter-webmvc&#x27;
-	implementation &#x27;org.mybatis.spring.boot:mybatis-spring-boot-starter:4.0.1&#x27;
-	compileOnly &#x27;org.projectlombok:lombok&#x27;
-	runtimeOnly &#x27;org.postgresql:postgresql&#x27;
-	annotationProcessor &#x27;org.projectlombok:lombok&#x27;
-	testImplementation &#x27;org.springframework.boot:spring-boot-starter-test&#x27;
-	testImplementation &#x27;org.mybatis.spring.boot:mybatis-spring-boot-starter-test:4.0.1&#x27;
-	testRuntimeOnly &#x27;org.junit.platform:junit-platform-launcher&#x27;
-	developmentOnly &#x27;org.springframework.boot:spring-boot-devtools&#x27;
+<pre class="language-java" data-line="23,24"><code>plugins {
+	id &#x27;java&#x27;
+	id &#x27;org.springframework.boot&#x27; version &#x27;3.3.4&#x27;
+	id &#x27;io.spring.dependency-management&#x27; version &#x27;1.1.6&#x27;
 }
 
-// （省略）</code></pre>
+group = &#x27;in.tech-camp&#x27;
+version = &#x27;0.0.1-SNAPSHOT&#x27;
+
+java {
+	toolchain {
+		languageVersion = JavaLanguageVersion.of(21)
+	}
+}
+
+repositories {
+	mavenCentral()
+}
+
+dependencies {
+	implementation &#x27;org.springframework.boot:spring-boot-starter-webmvc&#x27;
+	implementation &#x27;org.mybatis.spring.boot:mybatis-spring-boot-starter:4.0.1&#x27; 
+	implementation &#x27;org.flywaydb:flyway-core&#x27; //追加
+	implementation &#x27;org.flywaydb:flyway-database-postgresql&#x27;  //追加
+	runtimeOnly &#x27;org.postgresql:postgresql&#x27;
+	implementation &#x27;org.springframework.boot:spring-boot-starter-thymeleaf&#x27;
+	testImplementation &#x27;org.springframework.boot:spring-boot-starter-test&#x27;
+	testImplementation &#x27;org.mybatis.spring.boot:mybatis-spring-boot-starter-test:4.0.1&#x27; 
+	testRuntimeOnly &#x27;org.junit.platform:junit-platform-launcher&#x27;
+}
+
+tasks.named(&#x27;test&#x27;) {
+	useJUnitPlatform()
+}</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
