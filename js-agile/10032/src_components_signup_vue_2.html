@@ -13,9 +13,11 @@
     </style>
 </head>
 <body>
-<pre class="language-javascript" data-line="5,7,8,9,"><code>&lt;script setup&gt;
+<pre class="language-javascript" data-line="7,9,10,11,"><code>&lt;script setup&gt;
+// (省略)
 const handleSignUp = async() =&gt; {
   try {
+    // 入力された情報を元に、ユーザー登録する
     const credentialUser = await createUserWithEmailAndPassword(auth, email.value, password.value)
     const user = credentialUser.user
 
@@ -28,7 +30,9 @@ const handleSignUp = async() =&gt; {
     console.log(&#x27;ユーザー登録できませんでした&#x27;, error)
   }
 }
-&lt;/script&gt;</code></pre>
+&lt;/script&gt;
+
+// (省略)</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
 </body>
