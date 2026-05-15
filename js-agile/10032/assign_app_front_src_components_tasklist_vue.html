@@ -13,7 +13,7 @@
     </style>
 </head>
 <body>
-<pre class="language-javascript" data-line="2,3,4,5,6,8,9,10,11,12,14,15,16,17,18,23,24,25,26,27,28,29"><code>&lt;script setup&gt;
+<pre class="language-javascript" data-line="2,3,4,5,6,8,9,10,11,12,14,15,16,17,18,25,26,27,28"><code>&lt;script setup&gt;
 import { computed } from &#x27;vue&#x27;;
 const props = defineProps({
   tasks: Array,
@@ -32,6 +32,7 @@ const formattedAssigneeName = (task) =&gt; {
   return assignee ? assignee.displayName : &#x27;不明なユーザー&#x27;;
 }
 &lt;/script&gt;
+
 
 &lt;template&gt;
   &lt;div&gt;
