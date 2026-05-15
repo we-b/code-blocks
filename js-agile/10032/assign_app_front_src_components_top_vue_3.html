@@ -13,7 +13,7 @@
     </style>
 </head>
 <body>
-<pre class="language-javascript" data-line="5,29,33,34,35,37"><code>&lt;script setup&gt;
+<pre class="language-javascript" data-line="5,30,34,35,36,39"><code>&lt;script setup&gt;
 // (省略)
 const router = useRouter();
 const allUsers = ref([]);
@@ -39,6 +39,7 @@ onMounted(async() =&gt; {
     &lt;span&gt;こんにちは{{ displayName }}さん&lt;/span&gt;
   &lt;/div&gt;
   &lt;form class=&quot;task-form&quot;&gt;
+
     &lt;div class=&quot;input-area&quot;&gt;
       &lt;label for=&quot;content&quot;&gt;タスク内容&lt;/label&gt;
       &lt;textarea type=&quot;text&quot; id=&quot;content&quot; placeholder=&quot;content&quot; v-model=&quot;task.content&quot;&gt;&lt;/textarea&gt;
@@ -49,10 +50,13 @@ onMounted(async() =&gt; {
         &lt;option :value=&quot;user.uid&quot; v-for=&quot;user in allUsers&quot;&gt;{{ user.displayName }}&lt;/option&gt;
       &lt;/select&gt;
     &lt;/div&gt;
-    &lt;button type=&quot;submit&quot; class=&quot;submitBtn&quot; @click.prevent=&quot;submitTask&quot;&gt;保存&lt;/button&gt;
+
+    &lt;button type=&quot;submit&quot; class=&quot;submit-btn&quot; @click.prevent=&quot;submitTask&quot;&gt;保存&lt;/button&gt;
   &lt;/form&gt;
   &lt;TaskList /&gt;
-&lt;/template&gt;</code></pre>
+&lt;/template&gt;
+
+// (省略)</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
 </body>
