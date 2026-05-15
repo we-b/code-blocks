@@ -46,7 +46,7 @@ onMounted(async() =&gt; {
     &lt;div class=&quot;input-area&quot;&gt;
       &lt;label for=&quot;assignee&quot;&gt;対応者&lt;/label&gt;
       &lt;select v-model=&quot;task.assigneeId&quot;&gt;
-        &lt;option :value=user.uid v-for=&quot;user in allUsers&quot;&gt;{{ user.displayName }}&lt;/option&gt;
+        &lt;option :value=&quot;user.uid&quot; v-for=&quot;user in allUsers&quot;&gt;{{ user.displayName }}&lt;/option&gt;
       &lt;/select&gt;
     &lt;/div&gt;
     &lt;button type=&quot;submit&quot; class=&quot;submitBtn&quot; @click.prevent=&quot;submitTask&quot;&gt;保存&lt;/button&gt;

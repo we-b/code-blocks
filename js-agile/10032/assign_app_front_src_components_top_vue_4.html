@@ -20,7 +20,7 @@ const tasks = ref([]);
 
 // (省略)
 const submitTask = async() =&gt; {
-  // markerIdに現在ログイン中のユーザー情報を代入
+  // makerIdに現在ログイン中のユーザー情報を代入
   task.value.makerId = auth.currentUser.uid;
 
   try {
