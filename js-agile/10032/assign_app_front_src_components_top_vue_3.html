@@ -39,11 +39,11 @@ onMounted(async() =&gt; {
     &lt;span&gt;こんにちは{{ displayName }}さん&lt;/span&gt;
   &lt;/div&gt;
   &lt;form class=&quot;task-form&quot;&gt;
-
     &lt;div class=&quot;input-area&quot;&gt;
       &lt;label for=&quot;content&quot;&gt;タスク内容&lt;/label&gt;
       &lt;textarea type=&quot;text&quot; id=&quot;content&quot; placeholder=&quot;content&quot; v-model=&quot;task.content&quot;&gt;&lt;/textarea&gt;
     &lt;/div&gt;
+
     &lt;div class=&quot;input-area&quot;&gt;
       &lt;label for=&quot;assignee&quot;&gt;対応者&lt;/label&gt;
       &lt;select v-model=&quot;task.assigneeId&quot;&gt;
