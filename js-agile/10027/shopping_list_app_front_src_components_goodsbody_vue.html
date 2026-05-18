@@ -30,7 +30,7 @@ const goodsSubmit = async() =&gt; {
       resetFormAndCloseModal();
     }
   } catch (error) {
-    console.error(`${goods.id ? &#x27;更新&#x27; : &#x27;保存&#x27;}に失敗しました。`, error);
+    console.error(`${goods.value.id ? &#x27;更新&#x27; : &#x27;保存&#x27;}に失敗しました。`, error);
   }
 }
 &lt;/script&gt;
