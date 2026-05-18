@@ -42,7 +42,7 @@ const goodsSubmit = async() =&gt; {
         &lt;input type=&quot;text&quot; class=&quot;form_input&quot; placeholder=&quot;品目&quot; v-model=&quot;goods.name&quot;/&gt;
         &lt;input type=&quot;text&quot; class=&quot;form_input&quot; placeholder=&quot;数量&quot; v-model=&quot;goods.quantity&quot;/&gt;
         &lt;select v-model=&quot;goods.genreId&quot; class=&quot;form_input&quot;&gt;
-          &lt;option  :value=&quot;genre.id&quot; v-for=&quot;genre in genreStore.genres&quot; :key=&quot;genre.id&quot;&gt;{{ genre.name }}&lt;/option&gt;
+          &lt;option :value=&quot;genre.id&quot; v-for=&quot;genre in genreStore.genres&quot; :key=&quot;genre.id&quot;&gt;{{ genre.name }}&lt;/option&gt;
         &lt;/select&gt;
         &lt;select v-model=&quot;goods.statusId&quot; class=&quot;form_input&quot; :value=&quot;goods.statusId&quot;&gt;
           &lt;option :value=&quot;index&quot; v-for=&quot;(status,index) in statusList&quot; :key=&quot;index&quot;&gt;{{ status }}&lt;/option&gt;
