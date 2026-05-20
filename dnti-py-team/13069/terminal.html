@@ -13,7 +13,7 @@
     </style>
 </head>
 <body>
-<pre class="language-bash"><code>powershell -Command &quot;[System.Environment]::SetEnvironmentVariable(&#x27;POSTGRESQL_PASSWORD&#x27;, &#x27;ご自身の設定したパスワード&#x27;, [System.EnvironmentVariableTarget]::User)&quot; </code></pre>
+<pre class="language-bash"><code>echo &#x27;export POSTGRESQL_PASSWORD=&quot;ご自身の設定したパスワード&quot;&#x27; &gt;&gt; ~/.zshrc &amp;&amp; source ~/.zshrc</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
 </body>
