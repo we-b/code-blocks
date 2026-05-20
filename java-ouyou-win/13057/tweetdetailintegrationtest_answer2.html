@@ -116,7 +116,7 @@ public class TweetDetailIntegrationTest {
         .andExpect(content().string(containsString(tweetEntity.getText())));
 
    // コメント用のフォームが存在しないことを確認する
-   Element commentFormElement = detailPageDocument.selectFirst(&quot;form&quot;);
+   Element commentFormElement = detailPageDocument.selectFirst(&quot;form[action$=&#x27;/comment&#x27;]&quot;);
    assertNull(commentFormElement);
 
     //「コメントの投稿には新規登録/ログインが必要です」が表示されていることを確認する

@@ -77,8 +77,8 @@ public class UserRegistrationIntegrationTest {
                         .andExpect(status().isOk())
                         .andExpect(view().name(&quot;users/signUp&quot;));
 
-                List&lt;UserEntity&gt; userBeforeRegistration = userRepository.findAll();
-                initialCount = userBeforeRegistration.size();
+                List&lt;UserEntity&gt; userBeforeDeletion = userRepository.findAll();
+                initialCount = userBeforeDeletion.size();
 
                 // 新規登録情報を送信
                 mockMvc.perform(post(&quot;/user&quot;)
@@ -94,8 +94,8 @@ public class UserRegistrationIntegrationTest {
                         .andExpect(status().isFound());
 
                 // 新規登録に成功するとユーザーモデルのカウントが1上がる
-                List&lt;UserEntity&gt; userAfterRegistration = userRepository.findAll();
-                afterCount = userAfterRegistration.size();
+                List&lt;UserEntity&gt; userAfterDeletion = userRepository.findAll();
+                afterCount = userAfterDeletion.size();
                 assertEquals(initialCount + 1, afterCount);
         }
     }

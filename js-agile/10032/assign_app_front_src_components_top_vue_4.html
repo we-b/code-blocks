@@ -20,7 +20,7 @@ const tasks = ref([]);
 
 // (省略)
 const submitTask = async() =&gt; {
-  // makerIdに現在ログイン中のユーザー情報を代入
+  // markerIdに現在ログイン中のユーザー情報を代入
   task.value.makerId = auth.currentUser.uid;
 
   try {
@@ -34,9 +34,7 @@ const submitTask = async() =&gt; {
     console.log(&quot;タスク保存中にエラーが発生しました&quot;, error);
   }
 }
-&lt;/script&gt;
-
-// (省略)</code></pre>
+&lt;/script&gt;</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
 </body>

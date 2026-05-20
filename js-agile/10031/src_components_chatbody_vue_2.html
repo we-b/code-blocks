@@ -13,7 +13,7 @@
     </style>
 </head>
 <body>
-<pre class="language-javascript" data-line="3,10,12,13,14,15,16,17,18,19,20"><code>&lt;script setup&gt;
+<pre class="language-javascript" data-line="3,11,13,14,15,16,17,18,19,20,21"><code>&lt;script setup&gt;
 import Comment from &#x27;./Comment.vue&#x27;;
 import { useCommentStore } from &#x27;../stores/Comment&#x27;;
 import { ref } from &#x27;vue&#x27;;
@@ -21,6 +21,7 @@ import { ref } from &#x27;vue&#x27;;
 const props = defineProps({
   chat: Object
 })
+
 const comment = ref({});
 const commentStore = useCommentStore();
 

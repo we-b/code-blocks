@@ -14,15 +14,15 @@
 </head>
 <body>
 <pre class="language-javascript" data-line="2,3,4,5,6,7,8,9,10,11,12,13,14,15,16"><code>//(省略)
-  async function changeGoodsStatus(selectedGoods) {
+  async function changeGoodsStatus(goods) {
     try{
-      const response = await api.put(`/goods/${selectedGoods.id}/status`, {statusId: selectedGoods.statusId});
-
+      const response = await api.put(`/goods/${goods.id}/status`, {statusId: goods.statusId});
+  
       // responseの商品idと合致する商品をgoods内から探してIndexを取得する
       const index = goods.value.findIndex(g =&gt; g.id === response.data.id)
       // Indexが取得できたら、該当データのstatusIdを更新する。
       if(index !== -1) {
-        goods.value[index].statusId = selectedGoods.statusId
+        goods.value[index].statusId = goods.statusId
       }
     }catch(error){
       console.log(&#x27;ステータス変更に失敗しました&#x27;, error);

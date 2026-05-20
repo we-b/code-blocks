@@ -27,7 +27,7 @@ import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.validation.BindingResult;
 
-import in.tech_camp.chat_app.factories.MessageFromFactory;
+import in.tech_camp.chat_app.factories.MessageFormFactory;
 
 @ActiveProfiles(&quot;test&quot;)
 @SpringBootTest
@@ -37,7 +37,7 @@ public class MessageFormUnitTest {
 
   @BeforeEach
   public void setUp() {
-    messageForm = MessageFromFactory.createMessage();
+    messageForm = MessageFormFactory.createMessage();
     bindingResult = Mockito.mock(BindingResult.class);
   }
 
@@ -87,7 +87,7 @@ public class MessageFormUnitTest {
       MockMultipartFile emptyFile = new MockMultipartFile(&quot;image&quot;, &quot;empty.jpg&quot;, &quot;image/jpeg&quot;, new byte[0]);
       messageForm.setImage(emptyFile);
       messageForm.validateMessage(bindingResult);
-      verify(bindingResult).rejectValue(&quot;Content&quot;, &quot;error.Message&quot;, &quot;Please enter either content or image&quot;);
+      verify(bindingResult).rejectValue(&quot;content&quot;, &quot;error.Message&quot;, &quot;Please enter either content or image&quot;);
     }
 
     @Test
@@ -95,7 +95,7 @@ public class MessageFormUnitTest {
       messageForm.setContent(&quot;&quot;);
       messageForm.setImage(null);
       messageForm.validateMessage(bindingResult);
-      verify(bindingResult).rejectValue(&quot;Content&quot;, &quot;error.Message&quot;,&quot;Please enter either content or image&quot;);
+      verify(bindingResult).rejectValue(&quot;content&quot;, &quot;error.Message&quot;,&quot;Please enter either content or image&quot;);
     }
 
     @Test
@@ -104,7 +104,7 @@ public class MessageFormUnitTest {
       MockMultipartFile emptyFile = new MockMultipartFile(&quot;image&quot;, &quot;empty.jpg&quot;, &quot;image/jpeg&quot;, new byte[0]);
       messageForm.setImage(emptyFile);
       messageForm.validateMessage(bindingResult);
-      verify(bindingResult).rejectValue(&quot;Content&quot;,&quot;error.Message&quot;,&quot;Please enter either content or image&quot;);
+      verify(bindingResult).rejectValue(&quot;content&quot;,&quot;error.Message&quot;,&quot;Please enter either content or image&quot;);
     }
 
     @Test
@@ -112,7 +112,7 @@ public class MessageFormUnitTest {
       messageForm.setContent(null);
       messageForm.setImage(null);
       messageForm.validateMessage(bindingResult);
-      verify(bindingResult).rejectValue(&quot;Content&quot;,&quot;error.Message&quot;,&quot;Please enter either content or image&quot;);
+      verify(bindingResult).rejectValue(&quot;content&quot;,&quot;error.Message&quot;,&quot;Please enter either content or image&quot;);
     }
   }
 }

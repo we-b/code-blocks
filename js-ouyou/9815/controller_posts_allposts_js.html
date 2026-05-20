@@ -13,18 +13,19 @@
     </style>
 </head>
 <body>
-<pre class="language-javascript" data-line="7,9"><code>import { PrismaClient } from &#x27;@prisma/client&#x27;;
+<pre class="language-typescript" data-line="8,10"><code>import { PrismaClient } from &#x27;@prisma/client&#x27;;
+import { Request, Response } from &#x27;express&#x27;;
 
 const prisma = new PrismaClient();
 
-export default async (req, res) =&gt; {
+export default async (req: Request, res: Response): Promise&lt;void&gt; =&gt; {
   const posts = await prisma.post.findMany();
   const test = &quot;テスト文字列&quot;;
 
   res.render(&quot;posts/allPosts&quot;, { posts, test });
 }</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
 </body>
 </html>

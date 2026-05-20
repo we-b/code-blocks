@@ -13,15 +13,13 @@
     </style>
 </head>
 <body>
-<pre class="language-javascript" data-line="13,14"><code>generator client {
+<pre class="language-javascript" data-line="11,12"><code>generator client {
   provider = &quot;prisma-client-js&quot;
 }
-
 datasource db {
   provider = &quot;postgresql&quot;
   url      = env(&quot;DATABASE_URL&quot;)
 }
-
 model Task {
   id         Int       @id @default(autoincrement())
   content    String

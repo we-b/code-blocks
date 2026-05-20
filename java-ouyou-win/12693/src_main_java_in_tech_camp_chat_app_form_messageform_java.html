@@ -23,7 +23,7 @@ public class MessageForm {
 
   public void validateMessage(BindingResult result) {
     if ((content == null || content.isEmpty()) &amp;&amp; (image == null || image.isEmpty())) {
-      result.rejectValue(&quot;Content&quot;, &quot;error.Message&quot;, &quot;Please enter either content or image&quot;);
+      result.rejectValue(&quot;content&quot;, &quot;error.Message&quot;, &quot;Please enter either content or image&quot;);
     }
   }
 }

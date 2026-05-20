@@ -14,7 +14,7 @@
 </head>
 <body>
 <pre class="language-java"><code>       @Test
-        public void テキストが空ではテキストが空ではバリデーションエラーが発生する() {
+        public void テキストが空ではバリデーションエラーが発生する() {
             tweetForm.setText(&quot;&quot;);
 
             Set&lt;ConstraintViolation&lt;TweetForm&gt;&gt; violations = validator.validate(tweetForm, ValidationPriority1.class);

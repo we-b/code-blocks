@@ -121,7 +121,7 @@ public class TweetDetailIntegrationTest {
         .andExpect(content().string(containsString(tweetEntity.getText())));
 
     // コメント用のフォームが存在する
-    Element commentFormElement = detailPageDocument.selectFirst(&quot;form&quot;);
+    Element commentFormElement = detailPageDocument.selectFirst(&quot;form[action$=&#x27;/comment&#x27;]&quot;);
     assertNotNull(commentFormElement);
  }
 （省略）

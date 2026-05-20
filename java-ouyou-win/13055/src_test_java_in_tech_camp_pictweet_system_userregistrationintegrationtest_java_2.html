@@ -40,7 +40,7 @@ import in.tech_camp.pictweet.PictweetApplication;
         // トップページにアクセス
         mockMvc.perform(get(&quot;/&quot;))
                 .andExpect(status().isOk())
-                .andExpect(view().name(&quot;tweets/index&quot;))
+                .andExpect(view().name(&quot;tweets/index&quot;));
         // トップページにサインアップページへ遷移するボタンが存在することを確認
         // 新規登録ページにアクセス
         // ユーザー情報を入力する

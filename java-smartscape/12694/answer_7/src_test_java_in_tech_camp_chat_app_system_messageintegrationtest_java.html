@@ -60,7 +60,7 @@ public class MessageIntegrationTest {
                                     .andReturn();
     String pageContent = pageResult.getResponse().getContentAsString();
     Document document = Jsoup.parse(pageContent);
-    Element divElement = document.selectFirst(&quot;img[src=&quot;+ message.getImage()+&quot;]&quot;);
+    Element divElement = document.selectFirst(&quot;img[src='&quot;+ message.getImage()+&quot;']&quot;);
     assertNotNull(divElement);
   }
 

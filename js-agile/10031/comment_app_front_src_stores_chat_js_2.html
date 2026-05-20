@@ -13,22 +13,13 @@
     </style>
 </head>
 <body>
-<pre class="language-javascript" data-line="18,19,20,21,22,23,24,25,26,27,28"><code>import { defineStore } from &#x27;pinia&#x27;
-import api from &#x27;../api/axios&#x27;
-import { ref } from &#x27;vue&#x27;
+<pre class="language-javascript" data-line="9,10,11,12,13,14,15,16,17,18"><code>import { defineStore } from &#x27;pinia&#x27;;
+import api from &#x27;../api/axios&#x27;;
+import { ref } from &#x27;vue&#x27;;
 
 export const useChatStore = defineStore(&#x27;chat&#x27;, () =&gt; {
   const chats = ref([]);
-
-  const addChat = async(chat) =&gt; {
-    try{
-      const response = await api.post(&#x27;/chat&#x27;, chat);
-      const addedChat = response.data;
-      chats.value.push(addedChat);
-    }catch(error){
-      console.log(&#x27;チャットの保存ができませんでした&#x27;, error);
-    }
-  }
+//(省略)
 
   const fetchChat = async() =&gt; {
     try{

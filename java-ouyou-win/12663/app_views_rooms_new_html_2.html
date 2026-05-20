@@ -13,15 +13,14 @@
     </style>
 </head>
 <body>
-<pre class="language-markup" data-line="4,5,7,11"><code>// 省略
+<pre class="language-markup" data-line="4,5,7,10"><code>// 省略
 
       &lt;div class=&#x27;chat-room-form__field--right&#x27;&gt;
         &lt;select th:field=&quot;*{memberIds}&quot;&gt;
           &lt;option value=&quot;&quot;&gt;チャットするユーザーを選択してください&lt;/option&gt;
-          &lt;option th:each=&quot;user : ${users}&quot;
-                  th:value=&quot;${user.id}&quot;
-                  th:text=&quot;${user.name}&quot;&gt;
-          &lt;/option&gt;
+          &lt;div th:each=&quot;user : ${users}&quot;&gt;
+            &lt;option th:value=&quot;${user.id}&quot; th:text=&quot;${user.name}&quot;&gt;&lt;/option&gt;
+          &lt;/div&gt;
         &lt;/select&gt;  
         &lt;input type=&quot;hidden&quot; th:value=&quot;${#authentication?.principal.id}&quot; th:name=&quot;memberIds&quot; /&gt;
         &lt;/div&gt;

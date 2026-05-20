@@ -84,7 +84,7 @@ public class UserController {
   }
 
     @GetMapping(&quot;/login&quot;)
-  public String showLoginWithError(@RequestParam(value = &quot;error&quot;) String error, Model model) {
+  public String showLoginWithError(@RequestParam(value = &quot;error&quot;, required = false) String error, Model model) {
     if (error != null) {
       model.addAttribute(&quot;loginError&quot;, &quot;Invalid email or password.&quot;);
     }

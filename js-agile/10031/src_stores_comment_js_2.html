@@ -28,7 +28,7 @@ export const useCommentStore = defineStore(&#x27;comment&#x27;, () =&gt; {
         comments.value.splice(index, 1);
       }
     }catch(error){
-      console.log(&quot;コメントの削除に失敗しました&quot;)
+      console.log(&quot;タスクの削除に失敗しました&quot;)
     }
   }
   return { comments, addComment, fetchComment,removeComment }

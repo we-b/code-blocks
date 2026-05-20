@@ -120,7 +120,7 @@ public class UserLoginIntegrationTest {
       // 間違ったユーザー情報でログインを試みる
       mockMvc.perform(post(&quot;/login&quot;)
         .contentType(MediaType.APPLICATION_FORM_URLENCODED)
-        .param(&quot;username&quot;, &quot;test&quot;)
+        .param(&quot;email&quot;, &quot;test&quot;)
         .param(&quot;password&quot;, &quot;&quot;)
         .with(csrf()))
       .andExpect(redirectedUrl(&quot;/login?error&quot;))

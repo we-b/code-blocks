@@ -13,7 +13,7 @@
     </style>
 </head>
 <body>
-<pre class="language-javascript" data-line="7,8,9,10,32,33"><code>&lt;script setup&gt;
+<pre class="language-javascript" data-line="7,8,9,10,30,31,32"><code>&lt;script setup&gt;
 import Comment from &#x27;./Comment.vue&#x27;;
 import { useCommentStore } from &#x27;../stores/Comment&#x27;;
 import { ref, onMounted } from &#x27;vue&#x27;;
@@ -30,12 +30,10 @@ const filterComment = (chatId) =&gt; {
     &lt;h3&gt;タイトル&lt;/h3&gt;
     &lt;p&gt;{{ chat.title }}&lt;/p&gt;
   &lt;/div&gt;
-
   &lt;div class=&quot;chat_content&quot;&gt;
     &lt;h3&gt;内容&lt;/h3&gt;
     &lt;p&gt;{{ chat.content }}&lt;/p&gt;
   &lt;/div&gt;
-
   &lt;form&gt;
     &lt;label for=&quot;comment&quot;&gt;コメント&lt;/label&gt;
     &lt;textarea v-model=&quot;comment.content&quot; id=&quot;comment&quot; placeholder=&quot;コメントを入力してください&quot;&gt;&lt;/textarea&gt;
