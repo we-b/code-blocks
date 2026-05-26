@@ -13,24 +13,23 @@
     </style>
 </head>
 <body>
-<pre class="language-plaintext"><code>
-# X:インスタンスを作成する際にマジックナンバーを用いて値を代入している
-# コードを見ただけは「type: 1」がどういった商品タイプを示しているのか分からない
+<pre class="language-python"><code># X：マジックナンバーを用いて値を代入している
+# コードを見ただけでは「product_type=1」がどういった商品タイプを示しているのか分からない
 
-Product.create {name: &#x27;hogehoge&#x27;, type: 1}
+Product.objects.create(name=&#x27;hogehoge&#x27;, product_type=1)
 
-# ◯:コメントアウトで数字の説明をしている
+# ◯：コメントで数字の説明をしている
 
-# type: 1は日本産の商品
-Product.create {name: &#x27;hogehoge&#x27;, type: 1}
+# product_type=1 は日本産の商品
+Product.objects.create(name=&#x27;hogehoge&#x27;, product_type=1)
 
 
-# ◯:定数を定義して値を代入している
-# コードを読むだけで「type: 1」が日本に関連した商品であることがわかる
+# ◯：定数を定義して値を代入している
+# コードを読むだけで「product_type=1」が日本に関連した商品であることがわかる
 
-JAPANESE_PRODUCT_TYPE = 1.freeze
-Product.create {name: &#x27;hogehoge&#x27;, type: JAPANESE_PRODUCT_TYPE}</code></pre>
+JAPANESE_PRODUCT_TYPE = 1
+Product.objects.create(name=&#x27;hogehoge&#x27;, product_type=JAPANESE_PRODUCT_TYPE)</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
 </body>
 </html>

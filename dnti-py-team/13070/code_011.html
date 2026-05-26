@@ -13,33 +13,29 @@
     </style>
 </head>
 <body>
-<pre class="language-plaintext"><code>// X:アルファベット1文字
-// ※Javascriptのローカル変数ではたまに1文字だけの変数名を定義するが、rubyではあまり使わない
+<pre class="language-python"><code># X：アルファベット1文字の変数名
+# ※ローカル変数でたまに1文字だけの変数名を使うこともあるが、読みやすさの観点から避けた方が良い
 
-p = Person.first
-s = Ship.all
+p = Person.objects.first()
+s = Ship.objects.all()
 
-// X:変数の中身が分からない名前
-// 「一体どのモデルのeverythingなのか？」となってしまい、変数の目的が伝わらない
+# X：変数の中身が分からない名前
+# 「一体どのモデルのeverythingなのか？」となってしまい、変数の目的が伝わらない
 
-@everything = Tweet.all
+everything = Tweet.objects.all()
 
-// X:略語
-// 略語は元の単語を想像しづらく、略し方も人それぞれ異なってしまうので使うべきでない
-// 変数の中身が単数なのか複数なのかも分かりづらい
+# X：略語
+# 略語は元の単語を想像しづらく、略し方も人それぞれ異なってしまうので使うべきでない
+# 変数の中身が単数なのか複数なのかも分かりづらい
 
-@au = User.admin
+au = User.objects.filter(is_staff=True)
 
-// ◯：
-first_person = Person.first
-ships = Ship.all
-
-@tweets = Tweet.all
-
-@admin_users  = User.admin
-
-</code></pre>
+# ◯：意味の明確な変数名
+first_person = Person.objects.first()
+ships = Ship.objects.all()
+tweets = Tweet.objects.all()
+admin_users = User.objects.filter(is_staff=True)</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
 </body>
 </html>

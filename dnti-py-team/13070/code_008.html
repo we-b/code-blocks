@@ -13,22 +13,19 @@
     </style>
 </head>
 <body>
-<pre class="language-plaintext"><code>
-# X:レコードの数だけ同じビューを繰り返す部分で、eachを使用している
-h2
-- @users.each do |user|
-  .user-container
-    = user.name
-    = user.profile
-    = user.image
-end
+<pre class="language-django"><code>{# X：レコードの数だけ同じテンプレートをインラインで繰り返している #}
+{% for user in users %}
+&lt;div class=&quot;user-container&quot;&gt;
+  &lt;p&gt;{{ user.name }}&lt;/p&gt;
+  &lt;p&gt;{{ user.profile }}&lt;/p&gt;
+&lt;/div&gt;
+{% endfor %}
 
-# ◯:繰り返しを部分テンプレートで記述している
-# 部分テンプレートを使用する理由は動作が軽いから
-h2
-  = render partial: &#x27;user-contaier&#x27;, collection @users
-</code></pre>
+{# ◯：{% include %}タグで部品として再利用している #}
+{% for user in users %}
+  {% include &#x27;users/_user_container.html&#x27; with user=user %}
+{% endfor %}</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-django.min.js"></script>
 </body>
 </html>

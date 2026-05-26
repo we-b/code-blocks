@@ -13,28 +13,23 @@
     </style>
 </head>
 <body>
-<pre class="language-plaintext"><code># X:スペースの数がバラバラになっている
-# fugafugaもhogehogeも同じクラスのインスタンスメソッドなのに、スペースの数が多い
+<pre class="language-python"><code># X：インデントの数がバラバラになっている
+# Pythonはインデントで構造を判断するため、誤ったインデントはSyntaxErrorになる
 
-def hogehoge
-  puts &quot;こんにちは&quot;
-end
+def hogehoge():
+    print(&quot;こんにちは&quot;)
 
-  def fugafuga
-    puts &quot;Hello&quot;
-  end
+  def fugafuga():  # IndentationError: unexpected indent
+      print(&quot;Hello&quot;)
 
-# ◯:スペースの数が揃っている
+# ◯：インデントの数が揃っている（PEP8推奨：4スペース）
 
-def hogehoge
-  puts &quot;こんにちは&quot;
-end
+def hogehoge():
+    print(&quot;こんにちは&quot;)
 
-def fugafuga
-  puts &quot;Hello&quot;
-end
-</code></pre>
+def fugafuga():
+    print(&quot;Hello&quot;)</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
 </body>
 </html>

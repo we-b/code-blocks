@@ -13,14 +13,20 @@
     </style>
 </head>
 <body>
-<pre class="language-java" data-line="5"><code>spring.application.name=protospace-a
-spring.datasource.driverClassName=org.postgresql.Driver
-spring.datasource.url=jdbc:postgresql://localhost:5432/protospace
-spring.datasource.username=postgres 
-spring.datasource.password=${POSTGRESQL_PASSWORD}
-spring.flyway.baselineOnMigrate=true</code></pre>
+<pre class="language-python" data-line="8"><code>import os
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'protospace',
+        'USER': 'postgres',
+        'PASSWORD': os.environ.get('POSTGRESQL_PASSWORD'),
+        'HOST': 'localhost',
+        'PORT': '5432',
+    }
+}</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
 </body>
 </html>

@@ -13,13 +13,19 @@
     </style>
 </head>
 <body>
-<pre class="language-plaintext"><code># X : indexしか必要ないのに、resourcesで丸ごと定義している
-resources :items
+<pre class="language-python"><code># X：indexしか必要ないのに、多くのURLを定義している
+urlpatterns = [
+    path(&#x27;items/&#x27;, ItemListView.as_view(), name=&#x27;item-list&#x27;),
+    path(&#x27;items/create/&#x27;, ItemCreateView.as_view(), name=&#x27;item-create&#x27;),
+    path(&#x27;items/&lt;int:pk&gt;/&#x27;, ItemDetailView.as_view(), name=&#x27;item-detail&#x27;),
+    path(&#x27;items/&lt;int:pk&gt;/delete/&#x27;, ItemDeleteView.as_view(), name=&#x27;item-delete&#x27;),
+]
 
-# ◯:only, exceptを使用して必要なルーティングのみ定義している
-resources: items, only: :index
-</code></pre>
+# ◯：必要なルーティングのみを定義している
+urlpatterns = [
+    path(&#x27;items/&#x27;, ItemListView.as_view(), name=&#x27;item-list&#x27;),
+]</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
 </body>
 </html>

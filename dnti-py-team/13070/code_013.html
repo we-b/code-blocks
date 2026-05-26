@@ -13,78 +13,51 @@
     </style>
 </head>
 <body>
-<pre class="language-plaintext"><code>
-# ☓:Gearクラスが車輪に関係するリム、タイヤの情報を持っている
+<pre class="language-python"><code># ☓：GearクラスがWheelに関係するrim、tireの情報を持っている
 
 # 自転車のギアを表すGearクラスが、「車輪のリムの直径、タイヤの厚み」まで責任を持ってしまっている
 # Wheelクラスを作り、rim, tireの定義を移すべき
 
-class Gear
-  attr_reader :chainring, :cog, :rim, :tire
-  def initialize(chainring, cog, rim, tire)
-    @chainring = chainring
-    @cog       = cog
-    @rim       = rim
-    @tire      = tire
-  end
-
-  def ratio
-    chainring / cog.to_f
-  end
-
-  def gear_inches
-    ratio * (rim + (tire * 2))
-  end
-end
+class Gear:
+    def __init__(self, chainring, cog, rim, tire):
+        self.chainring = chainring
+        self.cog = cog
+        self.rim = rim
+        self.tire = tire
+    def ratio(self):
+        return self.chainring / self.cog
+    def gear_inches(self):
+        return self.ratio() * (self.rim + (self.tire * 2))
 
 # 下記のコードはギアに関する情報しか渡していないにも関わらずエラーになる
-puts Gear.new(52, 11).ratio
-# ArgumentError: wrong number of arguments (2 for 4)
+print(Gear(52, 11).ratio())
+# TypeError: __init__() missing 2 required positional arguments: &#x27;rim&#x27; and &#x27;tire&#x27;
 
 
-# ◯:Wheelクラスを作り、車輪に関する定義を移す
+# ◯：Wheelクラスを作り、車輪に関する定義を移す
 
-class Gear
-  attr_reader :chainring, :cog, :wheel
-  def initialize(chainring, cog, wheel=nil)
-    @chainring = chainring
-    @cog       = cog
-    @wheel     = wheel
-  end
+class Wheel:
+    def __init__(self, rim, tire):
+        self.rim = rim
+        self.tire = tire
+    def diameter(self):
+        return self.rim + (self.tire * 2)
 
-  def ratio
-    chainring / cog.to_f
-  end
-
-  def gear_inches
-    ratio * wheel.diameter
-  end
-end
-
-class Wheel
-  attr_reader :rim, :tire
-
-  def initialize(rim, tire)
-    @rim       = rim
-    @tire      = tire
-  end
-
-  def diameter
-    rim + (tire * 2)
-  end
-
-end
+class Gear:
+    def __init__(self, chainring, cog, wheel=None):
+        self.chainring = chainring
+        self.cog = cog
+        self.wheel = wheel
+    def ratio(self):
+        return self.chainring / self.cog
+    def gear_inches(self):
+        return self.ratio() * self.wheel.diameter()
 
 
-@wheel = Wheel.new(26, 1.5)
-puts @wheel.circumference
-# -&gt; 91.106186954104
-
-puts Gear.new(52, 11, @wheel).gear_inches
-# -&gt; 137.090909090909
-
-</code></pre>
+wheel = Wheel(26, 1.5)
+print(Gear(52, 11, wheel).gear_inches())
+# -&gt; 137.09090909090907</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
 </body>
 </html>

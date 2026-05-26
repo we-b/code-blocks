@@ -13,22 +13,19 @@
     </style>
 </head>
 <body>
-<pre class="language-plaintext"><code>
-# X:1対Nの関係で、includeをしていない
+<pre class="language-python"><code># X：1対Nの関係で、select_relatedをしていない
 # 1つのCompanyが複数のEmployeeをもっている例
-# includeをしないとEmployeeの数だけCompanyをSELECTするSQLが発行されるため、レコードが増えるほど重くなる
+# select_relatedをしないとEmployeeの数だけCompanyをSELECTするSQLが発行され、レコードが増えるほど重くなる
 
-def index
-  @employees = Employee.all 
-end
+def index(request):
+    employees = Employee.objects.all()
 
-# ◯:変数を定義する際にincludeしている
-# includes(:employee)と記述することで、SQLの発行回数を抑えて動作を軽くできる
+# ◯：select_related / prefetch_relatedを使用している
+# FKや1対1の関係はselect_related、逆FKや多対多はprefetch_related
 
-def index
-  @employees = Employee.all .includes(:employee)
-end</code></pre>
+def index(request):
+    employees = Employee.objects.select_related(&#x27;company&#x27;).all()</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
 </body>
 </html>

@@ -13,15 +13,19 @@
     </style>
 </head>
 <body>
-<pre class="language-plaintext"><code># X:Userモデルに定義された、change_attributesメソッドが、Tweet, Commentまで変更してしまっている
-class User &lt; ApplicationRecord
-  def self.change_attributes(user, tweet, comment)
-    user.attributes = { family_name: &quot;Hoge&quot;, first_name: &quot;Fuga&quot; }
-    tweet.attributes = { body: Foo }
-    comment.attributes = { body: Bar}
-  end
-end</code></pre>
+<pre class="language-python"><code># X：Userモデルに定義されたchange_attributesメソッドが、Tweet, Commentまで変更してしまっている
+# models.py
+class User(models.Model):
+    @classmethod
+    def change_attributes(cls, user, tweet, comment):
+        user.family_name = &quot;Hoge&quot;
+        user.first_name = &quot;Fuga&quot;
+        user.save()
+        tweet.body = &quot;変更後のツイート&quot;
+        tweet.save()
+        comment.body = &quot;変更後のコメント&quot;
+        comment.save()</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
 </body>
 </html>

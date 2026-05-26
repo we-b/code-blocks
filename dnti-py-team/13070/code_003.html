@@ -13,26 +13,19 @@
     </style>
 </head>
 <body>
-<pre class="language-plaintext"><code># ☓：if文のネストが深くなり、読みにくくなっている
-if hogehoge == 2
- if fugafuga == 3
-  if foo == 4
-    puts  &quot;Hello, World&quot;
-  end
- end
-end
+<pre class="language-python"><code># ☓：if文のネストが深くなり、読みにくくなっている
+if hogehoge == 2:
+    if fugafuga == 3:
+        if foo == 4:
+            print(&quot;Hello, World&quot;)
 
-◯：条件をまとめてネストを浅くしている
-if hogehoge == 2 &amp;&amp; fugafuga == 3 &amp;&amp; foo == 4
- puts &quot;Hello, World&quot;
-end
+# ◯：条件をまとめてネストを浅くしている
+if hogehoge == 2 and fugafuga == 3 and foo == 4:
+    print(&quot;Hello, World&quot;)
 
-◎：1行で書けるものは1行にまとめている
-puts  &quot;Hello, World&quot;  if hogehoge == 2 &amp;&amp; fugafuga == 3 &amp;&amp; foo == 4
-
-◎：三項演算子を使用している
-hogehoge == 2 &amp;&amp; fugafuga == 3 &amp;&amp; foo == 4 ? puts &quot;Hello, World&quot; : return false</code></pre>
+# ◎：条件式（三項演算子）を使用している
+result = &quot;Hello, World&quot; if hogehoge == 2 and fugafuga == 3 and foo == 4 else None</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
 </body>
 </html>

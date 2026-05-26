@@ -13,12 +13,12 @@
     </style>
 </head>
 <body>
-<pre class="language-plaintext"><code># ☓：ハッシュロケットを使用している
-:name =&gt; :true
+<pre class="language-python"><code># ☓：古い文字列フォーマット（%演算子）を使用している
+message = &quot;こんにちは、%s！&quot; % user.name
 
-# ◯：最新の文法を使用している
-name: true</code></pre>
+# ◯：最新の文字列フォーマット（f-string）を使用している
+message = f&quot;こんにちは、{user.name}！&quot;</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
 </body>
 </html>
