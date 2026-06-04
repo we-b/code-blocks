@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+
     <style>
         body { margin: 0; padding: 0; background-color: #2d2d2d; }
         pre { margin: 0 !important; border-radius: 0; border: none; }
@@ -13,25 +13,17 @@
     </style>
 </head>
 <body>
-<pre class="language-javascript" data-line="4,5,10,11,12"><code>import React from &#x27;react&#x27;;
-import ReactDOM from &#x27;react-dom/client&#x27;;
-import &#x27;./index.css&#x27;;
-// import App from &#x27;./App&#x27;; 　こちらをコメントアウトする
-import Home from &#x27;./pages/home&#x27;; // 追記する
-import reportWebVitals from &#x27;./reportWebVitals&#x27;;
+<pre class="language-javascript"><code>import { StrictMode } from &#x27;react&#x27;
+import { createRoot } from &#x27;react-dom/client&#x27;
+import &#x27;./index.css&#x27;
+// import App from &#x27;./App.jsx&#x27;　// こちらをコメントアウトする
+import Home from &#x27;./pages/home&#x27;  // 追記する
 
-const root = ReactDOM.createRoot(document.getElementById(&#x27;root&#x27;));
-root.render(
-  // &lt;React.StrictMode&gt;
+createRoot(document.getElementById(&#x27;root&#x27;)).render(
+  &lt;StrictMode&gt;
     &lt;Home /&gt;
-  // &lt;/React.StrictMode&gt;
-);
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();</code></pre>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+  &lt;/StrictMode&gt;,
+)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-javascript.min.js"></script>
 </body>
 </html>
