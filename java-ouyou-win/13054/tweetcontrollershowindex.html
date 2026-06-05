@@ -13,8 +13,8 @@
     </style>
 </head>
 <body>
-<pre class="language-java"><code>   @GetMapping
-    public String showIndex(Model model, @ModelAttribute SearchForm searchForm) {
+<pre class="language-java"><code>   @GetMapping(&quot;/&quot;)
+    public String showTweets(Model model) {
         List&lt;TweetEntity&gt; tweets = tweetRepository.findAll();
         SearchForm searchForm = new SearchForm();
         model.addAttribute(&quot;tweets&quot;, tweets);

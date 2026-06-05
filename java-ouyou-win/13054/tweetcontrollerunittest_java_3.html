@@ -46,7 +46,7 @@ public class TweetControllerUnitTest {
     public void 投稿一覧機能にリクエストするとツイート一覧表示のビューファイルがレスポンスで返ってくる() {
         Model model = new ExtendedModelMap();
 
-        String result = tweetController.showIndex(model);
+        String result = tweetController.showTweets(model);
 
         MatcherAssert.assertThat(result, Matchers.is(&quot;tweets/index&quot;));
     }

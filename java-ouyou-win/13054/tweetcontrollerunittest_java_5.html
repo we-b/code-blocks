@@ -52,7 +52,7 @@ public class TweetControllerUnitTest {
         when(tweetRepository.findAll()).thenReturn(expectedTweetList);
 
         Model model = new ExtendedModelMap();
-        tweetController.showIndex(model);
+        tweetController.showTweets(model);
 
         assertThat(model.getAttribute(&quot;tweets&quot;), is(expectedTweetList));
     }

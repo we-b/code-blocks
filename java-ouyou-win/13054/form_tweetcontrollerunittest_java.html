@@ -57,7 +57,7 @@ public class TweetControllerUnitTest {
     public void 投稿一覧機能にリクエストするとツイート一覧表示のビューファイルがレスポンスで返ってくる() {
         // Model model = new ExtendedModelMap();  ← 削除
 
-        String result = tweetController.showIndex(model);
+        String result = tweetController.showTweets(model);
 
         assertThat(result,is(&quot;tweets/index&quot;));
     }
@@ -79,7 +79,7 @@ public class TweetControllerUnitTest {
         when(tweetRepository.findAll()).thenReturn(expectedTweetList);
 
         // Model model = new ExtendedModelMap();  ← 削除
-        tweetController.showIndex(model);
+        tweetController.showTweets(model);
 
         assertThat(model.getAttribute(&quot;tweets&quot;), is(expectedTweetList));
     }
@@ -88,7 +88,7 @@ public class TweetControllerUnitTest {
     public void 投稿一覧機能にリクエストするとレスポンスに投稿検索フォームが存在する() {
         SearchForm searchForm = new SearchForm();
         // Model model = new ExtendedModelMap();  ← 削除
-        tweetController.showIndex(model);
+        tweetController.showTweets(model);
         assertThat(model.getAttribute(&quot;searchForm&quot;), is(searchForm));
     }
 }</code></pre>

@@ -43,7 +43,7 @@ public class TweetControllerUnitTest {
     public void 投稿一覧機能にリクエストするとレスポンスに投稿検索フォームが存在する() {
         SearchForm searchForm = new SearchForm(); // 新しいSearchFormオブジェクトを作成
         Model model = new ExtendedModelMap(); // モデルオブジェクトを設定するためのExtendedModelMapオブジェクトを作成
-        tweetController.showIndex(model); // コントローラーのshowIndexメソッドを呼び出す
+        tweetController.showTweets(model); // コントローラーのshowTweetsメソッドを呼び出す
         // モデルオブジェクトから検索フォームを取得し、期待されるformと比較
         assertThat(model.getAttribute(&quot;searchForm&quot;), is(searchForm));
     }
