@@ -13,33 +13,24 @@
     </style>
 </head>
 <body>
-<pre class="language-javascript" data-line="3,9,20,21,22"><code>import React from &quot;react&quot;;
-import { Link } from &quot;react-router-dom&quot;;
-import Hand from &quot;../components/Hand&quot;;
+<pre class="language-javascript" data-line="9-11"><code>import React from &quot;react&quot;;
 
-export default class Index extends React.Component {
+export default class Hand extends React.Component {
   render() {
-    // CSSで、画像サイズのプロパティの値に利用
-    const imgSize = 100;
-    const handTypes = [0, 1, 2];
+    const handTypes = [&quot;rock&quot;, &quot;paper&quot;, &quot;scissors&quot;];
+
     return (
       &lt;div
-        style={{
-          display: &quot;flex&quot;,
-          alignItems: &quot;center&quot;,
-          flexDirection: &quot;column&quot;,
-        }}
+        onClick={() =&gt;
+          this.setState({ selectedHand: this.props.selectHand })
+        }
+        style={{ opacity: this.props.selectHand === this.props.selectedHand ? 1 : 0.3 }}
       &gt;
-        &lt;h1&gt;じゃんけんページ&lt;/h1&gt;
-        &lt;div style={{ display: &quot;flex&quot; }}&gt;
-          {handTypes.map((handType) =&gt; (
-            &lt;Hand key={handType} selectHand={handType} /&gt;
-          ))}
-        &lt;/div&gt;
-        &lt;Link to=&quot;/&quot;&gt;
-          &lt;h1&gt;じゃんけんを終了する&lt;/h1&gt;
-          &lt;h4&gt;※戦績が発表されます。&lt;/h4&gt;
-        &lt;/Link&gt;
+        &lt;img
+          src={`images/${handTypes[this.props.selectHand]}.jpeg`}
+          alt={handTypes[this.props.selectHand]}
+          style={{ height: 100, width: 100 }}
+        /&gt;
       &lt;/div&gt;
     );
   }
