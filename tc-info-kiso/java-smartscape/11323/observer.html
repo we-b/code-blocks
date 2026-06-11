@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java"><code>class WeatherData {
+  private float temperature;
+  private float humidity;
+  private float pressure;
+
+  public void setMeasurements(float temperature, float humidity, float pressure) {
+    this.temperature = temperature;
+    this.humidity = humidity;
+    this.pressure = pressure;
+  }
+
+  public float getTemperature() {
+    return temperature;
+  }
+
+  public float getHumidity() {
+    return humidity;
+  }
+
+  public float getPressure() {
+    return pressure;
+  }
+}
+
+class CurrentConditionsDisplay {
+  private WeatherData weatherData;
+
+  public CurrentConditionsDisplay(WeatherData weatherData) {
+    this.weatherData = weatherData;
+  }
+
+  public void update() {
+    // WeatherDataのゲッターを使って最新のデータを取得し表示する
+    float temperature = weatherData.getTemperature();
+    float humidity = weatherData.getHumidity();
+    display(temperature, humidity);
+  }
+
+  private void display(float temperature, float humidity) {
+    System.out.println(&quot;Current conditions: &quot; + temperature + &quot;°C and &quot; + humidity + &quot;% humidity&quot;);
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    WeatherData weatherData = new WeatherData();
+    CurrentConditionsDisplay currentDisplay = new CurrentConditionsDisplay(weatherData);
+
+    weatherData.setMeasurements(25.0f, 65.0f, 30.4f);
+    currentDisplay.update();
+
+    weatherData.setMeasurements(27.0f, 70.0f, 29.2f);
+    currentDisplay.update();
+    
+    weatherData.setMeasurements(22.0f, 80.0f, 28.1f);
+    currentDisplay.update();
+  }
+}
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-terminal"><code># サーバーを起動（別ターミナル）
+rails server
+
+# 1. 記事の作成
+curl -X POST http://localhost:3000/articles \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;article&quot;: {&quot;title&quot;: &quot;テスト記事&quot;, &quot;body&quot;: &quot;テスト本文&quot;, &quot;status&quot;: &quot;draft&quot;}}&#x27;
+
+# 2. 記事一覧の取得
+curl http://localhost:3000/articles
+
+# 3. 記事詳細の取得
+curl http://localhost:3000/articles/1
+
+# 4. 記事の更新
+curl -X PATCH http://localhost:3000/articles/1 \
+  -H &quot;Content-Type: application/json&quot; \
+  -d &#x27;{&quot;article&quot;: {&quot;title&quot;: &quot;更新後のタイトル&quot;}}&#x27;
+
+# 5. 記事の削除
+curl -X DELETE http://localhost:3000/articles/1</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-terminal.min.js"></script>
+</body>
+</html>

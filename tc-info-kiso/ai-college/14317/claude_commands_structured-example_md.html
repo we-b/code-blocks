@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-markdown"><code>---
+description: 構造化されたコマンドの例
+argument-hint: [target]
+allowed-tools: Read, Write
+---
+
+# タイトル: 何をするコマンドか
+
+## コンテキスト
+!`関連情報を取得するコマンド`
+
+@関連ファイルへの参照
+
+## タスク
+以下を実行してください：
+1. ステップ1
+2. ステップ2
+3. ステップ3
+
+## 出力形式
+- 箇条書きで
+- 期待する出力の形式を
+- 明確に記述する</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markdown.min.js"></script>
+</body>
+</html>

@@ -13,26 +13,31 @@
     </style>
 </head>
 <body>
-<pre class="language-plaintext"><code>// ☓：Controllerにビジネスロジックを直接記述している
-// 例）UserControllerにユーザーの集計処理が含まれている
+<pre class="language-plaintext"><code># ☓：ビューでしか使用しないメソッドをモデルに定義している
 
-@GetMapping(&quot;/users/stats&quot;)
-public String userStats(Model model) {
-    List&lt;User&gt; users = userRepository.findAll();
-    long activeCount = users.stream().filter(u -&gt; u.isActive()).count();
-    double averageAge = users.stream().mapToInt(User::getAge).average().orElse(0);
-    model.addAttribute(&quot;activeCount&quot;, activeCount);
-    model.addAttribute(&quot;averageAge&quot;, averageAge);
-    return &quot;users/stats&quot;;
-}
+# 例) Userモデルにcreated_atを年, 月, 日の形に変換するメソッドを定義している
+class User &lt; ApplicationRecord
+  def adjust_created_at
+    created_at.to_date.strftime(&quot;%Y年%m月%d日&quot;)
+  end
+end
 
-// ◯：Serviceクラスにビジネスロジックを定義している
-@GetMapping(&quot;/users/stats&quot;)
-public String userStats(Model model) {
-    UserStats stats = userService.getUserStats();
-    model.addAttribute(&quot;stats&quot;, stats);
-    return &quot;users/stats&quot;;
-}</code></pre>
+ # ◯：ヘルパーファイルにビューで使用するロジックを定義している
+module ApplicationHelper
+  def set_created_at(created_at)
+    created_at.to_date.strftime(&quot;%Y年%m月%d日&quot;)
+  end
+end
+
+# ◎：ビューで使用するロジックのうち、表示フォーマットを整えるものを、DraperもしくはActiveDecoratorを導入して実装している
+
+# 例) ActiveDecoratorを使用してcreated_atを年, 月, 日の形に変換するメソッドを定義している
+module UserDecorator
+  def set_created_at
+    created_at.to_date.strftime(&quot;%Y年%m月%d日&quot;)
+  end
+end
+</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 
 </body>

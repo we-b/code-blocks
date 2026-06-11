@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java" data-line="5,18,32,33,34,35,36,37,38,39,40"><code>package in.tech_camp.pictweet.controller;
+
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import org.springframework.context.support.DefaultMessageSourceResolvable;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
+
+import in.tech_camp.pictweet.entity.TweetEntity;
+import in.tech_camp.pictweet.entity.UserEntity;
+import in.tech_camp.pictweet.form.UserForm;
+import in.tech_camp.pictweet.repository.UserRepository;
+import in.tech_camp.pictweet.service.UserService;
+import in.tech_camp.pictweet.validation.ValidationOrder;
+import lombok.AllArgsConstructor;
+
+@Controller
+@AllArgsConstructor
+public class UserController {
+
+（省略）
+
+  @GetMapping(&quot;/users/{userId}&quot;)
+  public String showMypage(@PathVariable(&quot;userId&quot;) Integer userId, Model model) {
+    UserEntity user = userRepository.findById(userId);
+    List&lt;TweetEntity&gt; tweets = user.getTweets();
+
+    model.addAttribute(&quot;nickname&quot;, user.getNickname());
+    model.addAttribute(&quot;tweets&quot;, tweets);
+    return &quot;users/mypage&quot;;
+  }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

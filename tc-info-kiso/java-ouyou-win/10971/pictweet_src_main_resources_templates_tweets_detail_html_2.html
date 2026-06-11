@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-markup" data-line="18,19,20,21,22,23,24,25,26,27,28" data-start="1"><code>（省略）
+
+  &lt;div class=&quot;container&quot;&gt;
+    &lt;div th:if=&quot;${#authorization.expression(&#x27;isAuthenticated()&#x27;)}&quot;&gt;
+      &lt;div th:if=&quot;${errorMessages}&quot; th:each=&quot;error : ${errorMessages}&quot;&gt;
+        &lt;div th:text=&quot;${error.defaultMessage}&quot;&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;form th:action=&quot;@{/tweets/{tweetId}/comment(tweetId=${tweet.id})}&quot; method=&quot;post&quot; th:object=&quot;${commentForm}&quot;&gt;
+        &lt;textarea id=&quot;text&quot; th:field=&quot;*{text}&quot; placeholder=&quot;コメントする&quot; rows=&quot;2&quot;&gt;&lt;/textarea&gt;
+        &lt;input type=&quot;submit&quot; value=&quot;SEND&quot;&gt;
+      &lt;/form&gt;
+    &lt;/div&gt;
+    &lt;div th:if=&quot;${#authorization.expression(&#x27;!isAuthenticated()&#x27;)}&quot;&gt;
+      &lt;strong&gt;
+        &lt;p&gt;※※※ コメントの投稿には新規登録/ログインが必要です ※※※&lt;/p&gt;
+      &lt;/strong&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;comments&quot;&gt;
+      &lt;h4&gt;＜コメント一覧＞&lt;/h4&gt;
+      &lt;div th:each=&quot;comment:${comments}&quot;&gt;
+        &lt;p&gt;
+          &lt;strong&gt;
+            &lt;a th:href=&quot;@{/users/{userId}(userId=${comment.user.id})}&quot; th:text=&quot;${comment.user.nickname}&quot;&gt;&lt;/a&gt;：
+          &lt;/strong&gt;
+          &lt;span th:text=&quot;${comment.text}&quot;&gt;&lt;/span&gt;
+        &lt;/p&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/div&gt;
+
+&lt;div th:insert=&quot;~{footer :: footer}&quot;&gt;&lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

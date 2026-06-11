@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-erb" data-line="1"><code>&lt;%= form_with model: @donation_address, url: donations_path, local: true do |f| %&gt;
+  &lt;h1&gt;住所&lt;/h1&gt;
+  &lt;div class=&quot;field&quot;&gt;
+   &lt;%= f.label :postal_code, &quot;郵便番号（ハイフンを含む）&quot; %&gt;
+   &lt;%= f.text_field :postal_code %&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;field&quot;&gt;
+    &lt;%= f.label :prefecture, &quot;都道府県&quot; %&gt;
+    &lt;%= f.collection_select :prefecture, Prefecture.all, :id, :name %&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;field&quot;&gt;
+    &lt;%= f.label :city, &quot;市町村（任意）&quot; %&gt;
+    &lt;%= f.text_field :city %&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;field&quot;&gt;
+    &lt;%= f.label :house_number, &quot;番地（任意）&quot; %&gt;
+    &lt;%= f.text_field :house_number %&gt;
+  &lt;/div&gt;
+  &lt;div class=&quot;field&quot;&gt;
+    &lt;%= f.label :building_name, &quot;建物名（任意）&quot; %&gt;
+    &lt;%= f.text_field :building_name %&gt;
+  &lt;/div&gt;
+
+  &lt;h1&gt;寄付&lt;/h1&gt;
+  &lt;div class=&quot;field&quot;&gt;
+    &lt;%= f.label :price, &quot;金額（¥1~1,000,000）&quot; %&gt;
+    &lt;%= &quot;¥&quot; %&gt;
+    &lt;%= f.text_field :price %&gt;
+  &lt;/div&gt;
+
+  &lt;div class=&quot;actions&quot;&gt;
+    &lt;%= f.submit &quot;寄付する&quot; %&gt;
+  &lt;/div&gt;
+&lt;% end %&gt;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-erb.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

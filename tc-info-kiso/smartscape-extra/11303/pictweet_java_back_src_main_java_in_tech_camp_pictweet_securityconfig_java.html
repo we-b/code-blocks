@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java" data-line="3,15,16,17,18,19,20,21,22,23,24,27,28"><code>package in.tech_camp.pictweet;
+
+import java.util.List;
+
+（省略）
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+                .csrf(AbstractHttpConfigurer::disable)
+                .cors(cors -&gt; cors
+                    .configurationSource(request -&gt; {
+                        var corsConfiguration = new org.springframework.web.cors.CorsConfiguration();
+                        corsConfiguration.setAllowedOrigins(List.of(&quot;http://localhost:3000&quot;));
+                        corsConfiguration.setAllowedMethods(List.of(&quot;GET&quot;, &quot;POST&quot;, &quot;PUT&quot;, &quot;DELETE&quot;, &quot;OPTIONS&quot;, &quot;PATCH&quot;));
+                        corsConfiguration.setAllowCredentials(true);
+                        corsConfiguration.setAllowedHeaders(List.of(&quot;*&quot;));
+                        return corsConfiguration;
+                    })
+                )
+                .authorizeHttpRequests(authorizeRequests -&gt; authorizeRequests
+                        //ここに記述されたGETリクエストは許可されます（ログイン不要です)
+                        .requestMatchers(HttpMethod.GET, &quot;/css/**&quot;, &quot;/images/**&quot;, &quot;/users/sign_up&quot;, &quot;/users/login&quot;, &quot;/tweets/{id:[0-9]+}&quot;,&quot;/users/{id:[0-9]+}&quot;,&quot;/tweets/search&quot;,&quot;/error&quot;).permitAll()
+                        .requestMatchers(HttpMethod.GET, &quot;/api/tweets/&quot;).permitAll()
+                        //ここに記述されたPOSTリクエストは許可されます(ログイン不要です)
+                        .requestMatchers(HttpMethod.POST, &quot;/user&quot;).permitAll()
+                        .anyRequest().authenticated())
+                        //上記以外のリクエストは認証されたユーザーのみ許可されます(要ログイン)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

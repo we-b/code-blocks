@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>require &#x27;rails_helper&#x27;
+
+RSpec.describe Message, type: :model do
+  before do
+    @message = FactoryBot.build(:message)
+  end
+
+  describe &#x27;メッセージ投稿&#x27; do
+    context &#x27;メッセージが投稿できる場合&#x27; do
+      it &#x27;contentとimageが存在していれば保存できる&#x27; do
+        expect(@message).to be_valid
+      end
+      it &#x27;contentが空でも保存できる&#x27; do
+        @message.content = &#x27;&#x27;
+        expect(@message).to be_valid
+      end
+      it &#x27;imageが空でも保存できる&#x27; do
+        @message.image = nil
+        expect(@message).to be_valid
+      end
+    end
+    context &#x27;メッセージが投稿できない場合&#x27; do
+      it &#x27;contentとimageが空では保存できない&#x27; do
+        @message.content = &#x27;&#x27;
+        @message.image = nil
+        @message.valid?
+        expect(@message.errors.full_messages).to include(&quot;Content cant be blank&quot;)
+      end
+      it &#x27;roomが紐付いていないと保存できない&#x27; do
+        @message.room = nil
+        @message.valid?
+        expect(@message.errors.full_messages).to include(&#x27;Room must exist&#x27;)
+      end
+      it &#x27;userが紐付いていないと保存できない&#x27; do
+        @message.user = nil
+        @message.valid?
+        expect(@message.errors.full_messages).to include(&#x27;User must exist&#x27;)
+      end
+    end
+  end
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

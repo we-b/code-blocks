@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby" data-line="13,14,15,16,17,18,19,20,21,22,23,24"><code>namespace :distribute_ticket do
+  desc &quot;全ユーザーのticket_countをrescueしながら10増加させる&quot;
+  task rescue: :environment do
+    User.find_each do |user|
+      begin
+        user.increment!(:ticket_count, 10)
+      rescue =&gt; e
+        Rails.logger.debug e.message
+      end
+    end
+  end
+
+  desc &quot;全ユーザーの中にticket_countが10枚追加されると最大値より大きくなるレコードがある場合に例外を発生させる&quot;
+  task raise: :environment do
+    User.find_each do |user|
+      begin
+        if user.ticket_count &gt; 2147483647 - 10
+          raise RangeError, &quot;#{user.id}は、チケット取得可能枚数の上限を超えてしまいます！&quot;
+        end
+      rescue =&gt; e
+        Rails.logger.debug e.message
+      end
+    end
+  end
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

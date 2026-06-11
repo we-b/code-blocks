@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-markdown"><code># 禁止事項
+
+## 絶対に編集しないファイル
+- .env, .env.* - 環境変数ファイル
+- package-lock.json, yarn.lock - 依存関係のロックファイル
+- *.config.js の設定値 - プロジェクト設定
+- migrations/ - データベースマイグレーション
+
+## 実行しないコマンド
+- rm -rf - 再帰的削除（誤削除防止）
+- git push --force - 強制プッシュ（履歴破壊防止）
+- DROP TABLE/DATABASE - データベース削除
+
+## 変更前に確認が必要
+- API エンドポイントの変更
+- データベーススキーマの変更
+- 認証・認可に関するコード</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markdown.min.js"></script>
+</body>
+</html>

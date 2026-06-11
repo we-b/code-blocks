@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript"><code>const reducer = (state: Data, action: dataAction) =&gt; {
+  switch (action.type) {
+    case &#x27;休養&#x27;:
+      return {risk: state.risk - 10, power: state.power - 5, technique: state.technique - 5 };
+    case &#x27;シュート練習&#x27;:
+      return {risk: state.risk + 5 , power: state.power + 10, technique: state.technique };
+    case &#x27;ドリブル練習&#x27;:
+      return {risk: state.risk + 5 , power: state.power    , technique: state.technique + 10 };
+    case &#x27;練習試合&#x27;:
+      return {risk: state.risk + 10, power: state.power + 5, technique: state.technique + 5 };
+  }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

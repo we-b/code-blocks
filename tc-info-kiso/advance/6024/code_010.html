@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>
+class CPU
+  attr_reader :name, :gender, :vitality
+
+  def initialize(args)
+    @name = args[:name]
+    @gender = args[:gender]
+    @vitality = args[:vitality]
+    get_occupy(args)
+  end
+
+  def attack
+    raise &quot;Called abstract method: attack&quot;
+  end
+
+  def defense
+    raise &quot;Called abstract method: defense&quot;
+  end
+
+  def get_occupy
+    nil
+  end
+end
+
+class Player &lt; CPU
+  attr_reader :occupy
+
+  def get_occupy(args)
+    @occupy = args[:occupy]
+  end
+
+  def run_skill
+    occupy.run_skill
+  end
+
+  def attack
+    puts &#x27;物理攻撃！相手に10HPのダメージ！！&#x27;
+  end
+
+  def defense
+    puts &#x27;身を守る！10HPのダメージを軽減する！！&#x27;
+  end
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

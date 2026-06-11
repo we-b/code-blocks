@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript"><code>&lt;script setup&gt;
+import MenuIcon from &#x27;vue-material-design-icons/Menu.vue&#x27;
+import AddCircleIcon from &#x27;vue-material-design-icons/PlusCircleOutline.vue&#x27;
+&lt;/script&gt;
+
+&lt;template&gt;
+    &lt;div class=&quot;task_list&quot;&gt;
+      &lt;div class=&quot;section&quot;&gt;
+        &lt;MenuIcon class=&quot;section_ele&quot; /&gt;
+        &lt;span class=&quot;section_ele&quot;&gt;ToDo&lt;/span&gt;
+        &lt;AddCircleIcon
+          class=&quot;add_circle_outline_icon&quot;
+        /&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;task_field&quot;&gt;&lt;/div&gt;
+    &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style&gt;
+.task_list {
+  min-width: 300px;
+  width: auto;
+  padding: 30px;
+  padding-top: 50px;
+}
+
+.section {
+  display: flex;
+  position: relative;
+  align-items: center;
+  height: 50px;
+  width: 300px;
+  background-color: white;
+  box-shadow: 0 5px 5px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+
+.section_ele {
+  color: rgb(70, 70, 70);
+  margin-left: 10px;
+  font-size: 18px;
+}
+
+.task_field {
+  display: flex;
+  flex-direction: column;
+  max-height: 65vh;
+  margin-top: 10px;
+  overflow: auto;
+}
+
+.task_field::-webkit-scrollbar {
+  display:none;
+}
+
+.section &gt; .add_circle_outline_icon {
+  position: absolute;
+  right: 10px;
+  font-size: 25px;
+  color: rgb(70, 70, 70);
+}
+&lt;/style&gt;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-markdown"><code># コーディング規約
+
+## 命名規則
+- 変数名・関数名: キャメルケース（例: getUserById）
+- 定数: アッパースネークケース（例: MAX_RETRY_COUNT）
+- クラス名: パスカルケース（例: UserService）
+- ファイル名: ケバブケース（例: user-service.ts）
+
+## コードスタイル
+- インデント: スペース2つ
+- 引用符: シングルクォート
+- セミコロン: 必須
+- 行の長さ: 最大100文字
+- 末尾カンマ: 必須
+
+## コメント
+- 関数には必ずJSDocを付ける
+- 複雑なロジックには説明コメントを付ける
+- TODOコメントには担当者名を含める（例: // TODO(yamada): ）
+
+## エラーハンドリング
+- try-catchで必ずエラーをキャッチする
+- エラーログは適切なレベル（error/warn/info）で出力する
+- ユーザー向けエラーメッセージは日本語で分かりやすく</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markdown.min.js"></script>
+</body>
+</html>

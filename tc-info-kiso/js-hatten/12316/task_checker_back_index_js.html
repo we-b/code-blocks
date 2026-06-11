@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript" data-line="2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33"><code>(省略)
+app.get(&#x27;/search&#x27;, async (req, res) =&gt; {
+  const query = req.query.q || &#x27;&#x27;;
+
+  try {
+    // タイトルにクエリを含む投稿を検索
+    const tasks = await prisma.task.findMany({
+      where: {
+        name: {
+          contains: query, // タイトルにクエリを含む
+          mode: &#x27;insensitive&#x27; // 大文字小文字を区別しない
+        }
+      },
+      orderBy: {
+        deadlineDate: &#x27;desc&#x27; // 最新の投稿を上に表示
+      }
+    });
+
+    const updatedTasks = tasks.map((task) =&gt; {
+      if (task.image_url) {
+        task.image_url = `http://localhost:3000/${task.image_url}`
+      } else {
+        task.image_url = null;
+      }
+      return task;
+    });
+
+    res.json(updatedTasks); // 検索結果を返す
+  } catch (error) {
+    console.error(&quot;検索処理に失敗しました:&quot;, error);
+    res.status(500).json({ message: &quot;検索処理に失敗しました&quot; });
+  }
+});</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

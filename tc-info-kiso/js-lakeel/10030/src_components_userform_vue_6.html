@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript" data-line="13,14,15,16,17,18,19,28"><code>&lt;script setup&gt;
+import axios from &#x27;axios&#x27;;
+import { ref } from &#x27;vue&#x27;;
+import { useRouter } from &#x27;vue-router&#x27;;
+import {Form, Field, defineRule, ErrorMessage} from &#x27;vee-validate&#x27;;
+import { required, email, min, confirmed } from &#x27;@vee-validate/rules&#x27;;
+
+defineRule(&#x27;required&#x27;, required);
+defineRule(&#x27;email&#x27;, email);
+defineRule(&#x27;min&#x27;, min);
+defineRule(&#x27;confirmed&#x27;, confirmed);
+// 全角ひらがな、カタカナ、漢字のみ許容する独自ルールを追加。valueに入力された値が入る。
+defineRule(&#x27;japaneseText&#x27;, (value) =&gt; {
+  // 全角ひらがな、カタカナ、漢字が入力された場合はtrueを返し、含まれない場合はエラーメッセージを表示。
+  if (/^[ぁ-んァ-ン一-龥]+$/.test(value)) {
+    return true;
+  }
+  return &#x27;Nickname should be in full-width Hiragana, Katakana, or Kanji characters.&#x27;
+})
+// (省略)
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;h2&gt;ユーザー登録&lt;/h2&gt;
+  &lt;Form&gt;
+    &lt;label for=&quot;nickname&quot;&gt;ニックネーム&lt;/label&gt;
+     &lt;!--カスタマイズしたバリデーションルール(japaneseTextを追記)--&gt;
+    &lt;Field type=&quot;text&quot; id=&quot;nickname&quot; class=&quot;input-field&quot; name=&quot;nickname&quot; rules=&quot;required|japaneseText&quot; v-model=&quot;user.nickname&quot;/&gt; 
+// (省略)
+&lt;template&gt;
+//(省略)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

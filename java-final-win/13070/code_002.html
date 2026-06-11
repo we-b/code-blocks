@@ -13,20 +13,11 @@
     </style>
 </head>
 <body>
-<pre class="language-plaintext"><code>// ☓：ループ内で文字列連結を繰り返している
-// Stringは不変オブジェクトのため、連結するたびに新しいオブジェクトが生成されメモリを消費する
+<pre class="language-plaintext"><code># ☓：ハッシュロケットを使用している
+:name =&gt; :true
 
-String result = &quot;&quot;;
-for (String name : names) {
-    result += name + &quot;, &quot;;
-}
-
-// ◯：StringBuilderを使用して連結している
-StringBuilder sb = new StringBuilder();
-for (String name : names) {
-    sb.append(name).append(&quot;, &quot;);
-}
-String result = sb.toString();</code></pre>
+# ◯：最新の文法を使用している
+name: true</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 
 </body>

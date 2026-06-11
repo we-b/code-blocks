@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-markdown"><code>---
+description: PRをレビューします
+argument-hint: [pr-number] [priority] [assignee]
+allowed-tools: Bash(git *), Read
+---
+
+# PRレビュー
+
+## 対象
+- PR番号: #$1
+- 優先度: $2
+- 担当者: $3
+
+## レビュー観点
+以下の観点で PR #$1 をレビューしてください。
+
+1. コード品質
+2. テストカバレッジ
+3. セキュリティ
+4. パフォーマンス
+
+優先度「$2」に応じた詳細度でレビューしてください。
+レビュー結果は $3 に報告します。</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markdown.min.js"></script>
+</body>
+</html>

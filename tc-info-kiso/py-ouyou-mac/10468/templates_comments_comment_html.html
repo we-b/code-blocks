@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-markup"><code>{% load static %}
+
+&lt;div class=&quot;container&quot;&gt;
+  {% if user.is_authenticated %}
+  &lt;form method=&quot;post&quot; enctype=&quot;multipart/form-data&quot; action=&quot;{% url &#x27;Tweets:comments:comment&#x27; pk=tweet.id %}&quot;&gt;
+          {% csrf_token %}
+          {{ form.text }}
+          &lt;input type=&quot;submit&quot; value=&quot;SEND&quot;&gt;
+  &lt;/form&gt;
+  {% else %}
+    &lt;strong&gt;&lt;p&gt;※※※ コメントの投稿には新規登録/ログインが必要です ※※※&lt;/p&gt;&lt;/strong&gt;
+  {% endif %}
+&lt;/div&gt;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

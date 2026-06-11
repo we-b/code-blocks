@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby" data-line="16,17,18,20,21,22,24,25,26,28,29,30,32,33,34,36,37,38"><code>require &#x27;date&#x27;
+
+# 券売機をモデリングしたクラス
+class TicketVendingSystem
+  attr_reader :rides, :created_at
+
+  def initialize
+    @rides = [
+      { name: &#x27;roller coaster&#x27;, fee: 1200 },
+      { name: &#x27;merry-go-round&#x27;, fee: 1000 },
+      { name: &#x27;jackie coaster&#x27;, fee: 800 }
+    ]
+    @created_at = Date.today
+  end
+
+  # 発券機能の実行
+  def exec_transaction
+  end
+
+ # チケット購入処理
+  def transaction
+  end
+
+  # チケット一覧表示機能
+  def display_tickets
+  end
+
+  # チケット発券機能
+  def take_order
+  end
+
+  # 決済機能
+  def serve_ticket
+   end
+
+  # お釣り算出機能
+  def calc_change
+  end
+end
+
+TicketVendingSystem.new.exec_transaction</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

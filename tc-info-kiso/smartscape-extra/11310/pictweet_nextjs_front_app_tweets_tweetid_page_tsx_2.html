@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript" data-line="13,18,19,20,21,22,23"><code>&#x27;use client&#x27;
+import { useEffect, useState, FormEvent } from &#x27;react&#x27;
+import Link from &#x27;next/link&#x27;
+import Header from &#x27;@/app/_components/Header&#x27;
+import Footer from &#x27;@/app/_components/Footer&#x27;
+import CommentForm from &#x27;@/app/_components/CommentForm&#x27;
+import CommentList from &#x27;@/app/_components/CommentList&#x27;
+import { TweetData } from &#x27;@/app/_interfaces/TweetData&#x27;
+import { CommentData } from &#x27;@/app/_interfaces/CommentData&#x27;
+import { useAuthContext } from &#x27;@/app/context/AuthContext&#x27;
+import { useParams, notFound, useRouter } from &#x27;next/navigation&#x27;
+import { deleteTweet, findTweetById } from &#x27;@/app/api/tweets&#x27;
+import { createComment } from &#x27;@/app/api/comments&#x27;;
+
+（省略）
+
+  const handleCommentSubmit = async (formData: CommentFormData) =&gt; {
+    try {
+      const response = await createComment(Number(tweetId), formData);
+      setComments([ ...comments, response])
+    } catch (error) {
+      setErrorMessages([error instanceof Error ? error.message : &#x27;エラーが発生しました&#x27;]);
+    }
+  }
+
+（省略）</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

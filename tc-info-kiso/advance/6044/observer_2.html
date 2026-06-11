@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>class PCShop
+  def initialize
+    @observers = []
+  end
+
+  def add_observer(observer)
+    【 ① 】
+  end
+
+  def notice_software_update(software_update)
+    observers.each do |observer|
+      【 ② 】
+      【 ③ 】
+    end
+  end
+
+  private
+
+  attr_reader :observers
+end
+
+class Customer
+  def initialize
+    @updates = []
+  end
+
+  def kind_of_customer
+    raise &#x27;顧客の種類をサブクラスで定義してください&#x27;
+  end
+
+  def download_software_update(software_update)
+    @updates &lt;&lt; software_update
+    puts &quot;新しい更新情報:#{software_update}&quot;
+  end
+end
+
+class Individual &lt; Customer # 個人
+  def kind_of_customer
+    &#x27;個人&#x27;
+  end
+end
+
+class Corporate &lt; Customer # 法人
+  def kind_of_customer
+    &#x27;法人&#x27;
+  end
+end
+
+pc_shop = PCShop.new
+pc_shop.add_observer(Individual.new)
+pc_shop.add_observer(Corporate.new)
+pc_shop.notice_software_update(&#x27;ソフトウェアver1.02&#x27;)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

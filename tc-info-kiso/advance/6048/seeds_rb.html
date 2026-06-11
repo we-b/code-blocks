@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>require &#x27;securerandom&#x27;
+
+ # ランダムのアルファベットを生成
+ def random_string
+   (&#x27;A&#x27;..&#x27;Z&#x27;).to_a.sample(5).join
+ end
+
+ # ランダムのhex15桁を生成
+ def password
+   SecureRandom.hex(15)
+ end
+
+ # ランダムのアドレスを生成
+ def mail_address
+   &quot;#{SecureRandom.hex(10)}@sample.com&quot;
+ end
+
+
+10.times do
+   params = { nickname: random_string, password: password, email: mail_address }
+   User.create(params)
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

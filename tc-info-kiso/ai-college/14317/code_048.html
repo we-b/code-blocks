@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-terminal"><code># 1. コマンドディレクトリを作成
+mkdir -p .claude/commands
+
+# 2. コマンドファイルを作成（例: commit.md）
+touch .claude/commands/commit.md
+
+# 3. Gitに追加
+git add .claude/commands/
+git commit -m &quot;Add Claude Code custom commands&quot;
+
+# 4. READMEを追加して使い方を説明
+touch .claude/commands/README.md</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-terminal.min.js"></script>
+</body>
+</html>

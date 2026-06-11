@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby" data-start="1"><code>require &#x27;rails_helper&#x27;
+describe TweetsController, type: :request do
+
+  before do
+    @tweet = FactoryBot.create(:tweet)
+  end
+
+  describe &#x27;GET #index&#x27; do
+    it &#x27;indexアクションにリクエストすると正常にレスポンスが返ってくる&#x27; do 
+    end
+    it &#x27;indexアクションにリクエストするとレスポンスに投稿済みのツイートのテキストが存在する&#x27; do 
+    end
+    it &#x27;indexアクションにリクエストするとレスポンスに投稿済みのツイートの画像URLが存在する&#x27; do 
+    end
+    it &#x27;indexアクションにリクエストするとレスポンスに投稿検索フォームが存在する&#x27; do 
+    end
+  end
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java" data-line="15"><code>（省略）
+
+dependencies {
+	implementation &#x27;org.springframework.boot:spring-boot-starter-thymeleaf&#x27;
+	implementation &#x27;org.springframework.boot:spring-boot-starter-web&#x27;
+	implementation &#x27;org.flywaydb:flyway-core&#x27;
+	implementation &#x27;org.flywaydb:flyway-database-postgresql&#x27;
+	implementation &#x27;org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3&#x27;
+	compileOnly &#x27;org.projectlombok:lombok&#x27;
+	runtimeOnly &#x27;org.postgresql:postgresql&#x27;
+	annotationProcessor &#x27;org.projectlombok:lombok&#x27;
+	testImplementation &#x27;org.springframework.boot:spring-boot-starter-test&#x27;
+	testImplementation &#x27;org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3&#x27;
+	testRuntimeOnly &#x27;org.junit.platform:junit-platform-launcher&#x27;
+	implementation &#x27;org.springframework.boot:spring-boot-starter-validation&#x27;
+}
+
+（省略）</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

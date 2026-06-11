@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-plaintext"><code>% docker container logs app  
+Environment variables loaded from .env
+Prisma schema loaded from prisma/schema.prisma
+Datasource &quot;db&quot;: PostgreSQL database &quot;firstapp&quot;, schema &quot;public&quot; at &quot;db:5432&quot;
+
+3 migrations found in prisma/migrations
+
+Applying migration `20250116011131_create_post`
+Applying migration `20250116012703_change_column_memo`
+Applying migration `20250116013633_change_column_content`
+
+The following migration(s) have been applied:
+
+migrations/
+  └─ 20250116011131_create_post/
+    └─ migration.sql
+  └─ 20250116012703_change_column_memo/
+    └─ migration.sql
+  └─ 20250116013633_change_column_content/
+    └─ migration.sql
+      
+All migrations have been successfully applied.
+/bin/sh: 1: nodemon: not found</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

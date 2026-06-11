@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>class Player
+  attr_reader :name, :gender, :vitality, :power, :defense
+
+  def initialize(args)
+    @name = args[:name] || nil
+    @gender = args[:gender] || nil
+    @vitality = args[:vitality].to_i || nil
+    @power = args[:power].to_i || nil
+    @defense = args[:defense].to_i || nil
+  end
+
+  def attack
+    puts &quot;物理攻撃！相手に#{power}HPのダメージ！！&quot;
+  end
+
+  def defense
+    puts &quot;身を守る！#{defense}HPのダメージを軽減する！！&quot;
+    heal_after_defense
+  end
+
+  def heal_after_defense
+    nil
+  end
+end
+
+class Wizard &lt; Player
+
+  def attack
+    puts &quot;物理攻撃！相手に#{power + 20}HPのダメージ！！&quot;
+  end
+
+  def run_attack_magic
+    puts &quot;こうげきじゅもんをとなえた！ 相手に20HPダメージ。&quot;
+  end
+end
+
+class Cleric &lt; Player
+
+  def attack
+    puts &quot;物理攻撃！相手に#{power + 10}HPのダメージ！！&quot;
+  end
+
+  def heal_after_defense
+    puts &quot;10HP回復しました。&quot;
+  end
+
+  def run_heal_magic
+    puts &#x27;回復呪文を発動しました。30HP回復します。&#x27;
+  end
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

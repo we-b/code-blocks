@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-bash"><code>⏺ rails-reviewerによるコードレビュー
+
+⏺ rails-reviewer(Rails code review)
+  ⎿  Done (2 tool uses · 31.4k tokens · 52s)                                                                                                    
+
+⏺ ---
+  レビュー結果報告
+
+  指摘事項（2件）
+
+  | #   | 重要度 | 問題                | 内容                                       |
+  |-----|-----|-------------------|------------------------------------------|
+  | 1   | 重大  | N+1問題             | 4回のクエリ発行（group(:status).count で1回に最適化可能） |
+  | 2   | 重大  | Thin Controller違反 | 統計計算ロジックをモデルに移動すべき                       |
+
+  良い点
+
+  - ルーティング設計は適切
+  - テストカバレッジは良好
+  - ゼロ除算の考慮あり
+
+  ---
+  修正提案
+
+  1. Taskモデルに report_statistics メソッドを追加
+
+  2. コントローラをシンプル化
+
+  3. モデルの単体テストを追加
+
+  ---
+  レビュー指摘に基づいて修正しますか？
+  - yes: 修正を実施
+  - no: 現状のままコミット</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+</body>
+</html>

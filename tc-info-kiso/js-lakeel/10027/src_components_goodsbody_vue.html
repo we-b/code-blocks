@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript" data-line="15,16,17,18,19,20,21,23,29"><code>&lt;script setup&gt;
+import { ref } from &#x27;vue&#x27;
+import { useGenreStore } from &#x27;../stores/GenreStore&#x27;
+import { useGoodsStore } from &#x27;../stores/GoodsStore&#x27;;
+
+const statusList = [
+  &#x27;未購入&#x27;,
+  &#x27;購入済み&#x27;
+]
+
+const genreStore = useGenreStore();
+const goodsStore = useGoodsStore();
+const emit = defineEmits([&#x27;close-modal&#x27;]); 
+
+const props = defineProps({
+  goods: {
+    type: Object,
+    required: false,
+    default: () =&gt; ({}) 
+  }
+})
+
+const goods = ref(props.goods); //変数goodsの値を変更する
+// (省略)
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div class=&quot;modal_body&quot;&gt;
+      &lt;h2 class=&quot;input_menu&quot;&gt;{{ goods.id ? &#x27;リストの編集&#x27; : &#x27;リストの追加&#x27;}}&lt;/h2&gt;
+//(省略)
+&lt;/template&gt;
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

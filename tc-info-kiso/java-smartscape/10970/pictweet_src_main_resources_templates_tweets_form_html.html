@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-markup"><code>&lt;div th:if=&quot;${errorMessages}&quot; th:each=&quot;error : ${errorMessages}&quot;&gt;
+  &lt;div th:text=&quot;${error}&quot;&gt;&lt;/div&gt;
+&lt;/div&gt;
+&lt;form th:action=&quot;@{/tweets}&quot; th:method=&quot;post&quot; th:object=&quot;${tweetForm}&quot;&gt;
+  &lt;input type=&quot;text&quot; th:field=&quot;*{image}&quot; placeholder=&quot;Image Url&quot; /&gt;
+  &lt;textarea th:field=&quot;*{text}&quot; placeholder=&quot;text&quot; rows=&quot;10&quot;&gt;&lt;/textarea&gt;
+  &lt;input type=&quot;submit&quot; value=&quot;SEND&quot; /&gt;
+&lt;/form&gt;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

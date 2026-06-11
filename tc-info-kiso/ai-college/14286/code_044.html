@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-plaintext"><code>
+CLAUDE.mdを活用することで、毎回同じ説明を繰り返す必要がなくなります。
+
+# トラブルシューティング
+
+開発中に問題が発生した場合の対処法をまとめます。
+
+
+### 問題1: Claude Codeの応答が遅い
+
+**原因**: コンテキストが大きくなりすぎている可能性があります。
+
+**解決策**:
+1. `/context`でコンテキスト使用量を確認
+2. 70%を超えていたら`/compact`で圧縮
+3. 改善しない場合は`/clear`で新規セッション開始
+
+### 問題2: 同じファイルを何度も読み直している
+
+**原因**: 会話が長くなり、以前読んだファイルの内容が圧縮されている可能性があります。
+
+**解決策**:
+1. 再度ファイルを読むよう依頼
+2. 重要な情報はCLAUDE.mdに記録しておく
+
+### 問題3: 意図した通りのコードが生成されない
+
+**原因**: プロンプトの具体性が不足している可能性があります。
+
+**解決策**:
+1. 要件を具体的に記述する
+2. 期待する出力形式を例示する
+3. 既存コードとの整合性を明示する
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

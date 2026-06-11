@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-css" data-line="171,172,173,174,175,176,177,178,179,180,181,182,183,184,185,186,187,188,189,190,191,192,193,194,195,196,197,198,199,200,201,202,203,204,205,206,207,208,209,210,211,212,213,214,215,216,217,218,219,220,221,222,223,224,225,226,227,228,229,230,231,232,233,234,235,236,237,238,239,240,241,242,243,244,245,246,247,248,249,250,251,252"><code>/******************************************************** 
+　ヘッダー
+********************************************************/
+.header {
+  display: flex;
+  justify-content: space-between;
+  width: 1366px;
+  padding: 0 100px 0 30px;
+  background-color: #DBDBDB;
+}
+
+.header a {
+  text-decoration: none;
+  color: #000000;
+}
+
+.logo {
+  font-size: 36px;
+  font-weight: 600;
+  line-height: 100px; 
+}
+
+.nav-lists {
+  height: 100px;
+  display: flex;
+}
+
+.nav-lists__list {
+  margin-left: 70px;
+  font-size: 22px;
+  font-weight: 600;
+  line-height: 100px;  
+}
+
+/******************************************************** 
+　ページタイトル
+********************************************************/
+.page-title {
+  padding: 50px 0 150px;
+}
+
+.page-title__main {
+  font-size: 64px;
+  font-weight: 600;
+  text-align: center;
+}
+
+.page-title__sub {
+  font-size: 24px;
+  font-weight: 600;
+  text-align: center;
+}
+
+/******************************************************** 
+　フッター
+********************************************************/
+.footer {
+  width: 1366px;
+  height: 70px;
+  background-color: #FAFAFA;
+}
+
+.copyright {
+  line-height: 70px;
+  text-align: center;
+  font-size: 16px;
+  color: #959393;
+}
+
+/******************************************************** 
+　トップページ 
+********************************************************/
+.hero {
+  position: relative;
+  width: 1366px;
+  height: 700px;
+}
+
+.hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 30%;
+}
+
+.hero-items {
+  display: flex;
+  justify-content: space-between;
+  position: absolute;
+  top: calc(50% - 35px);
+  width: 100%;
+  padding: 0 60px;
+}
+
+.hero-text__main {
+  font-size: 70px;
+  font-weight: 600;
+}
+
+.hero-text__sub {
+  margin-top: 10px;
+  padding-left: 6px;
+  font-size: 18px;
+}
+
+.service-btn {
+  width: 250px;
+  height: 100px;
+  line-height: 100px;
+  background-color: #F0F0F0;
+  text-align: center;
+  border-radius: 10px;
+}
+
+.service-btn a {
+  text-decoration: none;
+  color: #000000;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+/******************************************************** 
+　サービス内容ページ
+********************************************************/
+.service-main {
+  width: 1366px;
+}
+
+.service-items {
+  display: flex;
+  justify-content: space-between;
+  padding: 0 100px 180px;
+}
+
+.service-item {
+  width: 350px;
+  height: 420px;
+}
+
+.service-image {
+  width: 350px;
+  height: 275px;
+}
+
+.service-image img {
+  width: 100%;
+  height: 100%;
+  border-radius: 5px 5px 0 0;
+  object-fit: cover;
+}
+
+.service-text {
+  width: 100%;
+  height: 120px;
+  padding: 20px;
+  border-radius: 0 0 5px 5px;
+  background-color: #DADADA;
+}
+
+.service-text__main {
+  font-size: 18px;
+  font-weight: 600;
+}
+
+.service-text__sub {
+  margin-top: 14px;
+  font-size: 14px;
+  line-height: 17px
+}
+
+/******************************************************** 
+　お知らせページ
+********************************************************/
+.news-main {
+  width: 1366px;
+}
+
+.news-contents {
+  display: flex;
+}
+
+.news-contents__left {
+  width: 960px;
+  height: 760px;
+}
+
+.news-content {
+  width: 630px;
+  height: 600px;
+  margin: 0 auto;
+}
+
+.content-title {
+  font-size: 36px;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+
+.content-info {
+  display: flex;
+  margin-bottom: 20px;
+  font-size: 18px;
+}
+
+.content-info__category {
+  margin-left: 60px;
+}
+
+.content-image {
+  width: 630px;
+  height: 240px;
+  margin-bottom: 20px;
+}
+
+.content-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+}
+
+.content-description {
+  font-size: 18px;
+  line-height: 27px;
+}
+
+.news-contents__right {
+  width: 406px;
+  height: 760px;
+}
+
+.categories {
+  margin: 0 auto;
+  width: 200px;
+  height: 600px;
+}
+
+.category-title {
+  font-size: 24px;
+  font-weight: 600;
+  margin-bottom: 10px;
+}
+
+.category-item {
+  width: 200px;
+  height: 60px;
+  margin-bottom: 15px;
+  line-height: 60px;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  background-color: #eeeded; 
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

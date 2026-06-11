@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript" data-line="9,20"><code>&lt;script setup&gt;
+import { auth, createUserWithEmailAndPassword,updateProfile } from &#x27;../firebase&#x27;;
+import { ref } from &#x27;vue&#x27;;
+import { useRouter } from &#x27;vue-router&#x27;;
+
+const email = ref(&#x27;&#x27;);
+const password = ref(&#x27;&#x27;);
+const currentUser = ref(null);
+const nickname = ref(&#x27;&#x27;);
+const router = useRouter();
+
+// (省略)
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;h1&gt;新規登録&lt;/h1&gt;
+  &lt;form&gt;
+    &lt;input type=&quot;text&quot; id=&quot;email&quot; placeholder=&quot;email&quot; v-model=&quot;email&quot;&gt;
+    &lt;input type=&quot;password&quot; id=&quot;password&quot; placeholder=&quot;password&quot; v-model=&quot;password&quot;&gt;
+    &lt;input type=&quot;text&quot; id=&quot;nickname&quot; placeholder=&quot;nickname&quot; v-model=&quot;nickname&quot;&gt;
+    &lt;button @click.prevent=&quot;handleSignUp&quot;&gt;新規登録&lt;/button&gt;
+  &lt;/form&gt;
+  &lt;p&gt;既にアカウントをお持ちの方は&lt;router-link to=&quot;/&quot;&gt;こちら&lt;/router-link&gt;へ&lt;/p&gt;
+&lt;/template&gt;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

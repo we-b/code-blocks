@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java"><code>package in.tech_camp.chat_app;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.SecurityFilterChain;
+
+@Configuration
+@EnableWebSecurity
+public class SecurityConfig {
+  @Bean
+  public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    http
+      .csrf(AbstractHttpConfigurer::disable)
+      .authorizeHttpRequests(authorizeRequests -&gt; authorizeRequests
+        //以下でログアウト状態でも実行できるGETリクエストを記述する
+        .requestMatchers(&quot;/css/**&quot;, &quot;/users/sign_up&quot;, &quot;/users/login&quot;).permitAll()
+        //以下でログアウト状態でも実行できるPOSTリクエストを記述する
+        .requestMatchers(HttpMethod.POST, &quot;/user&quot;).permitAll()
+        //上記以外のリクエストは認証されたユーザーのみ許可される(要ログイン)
+        .anyRequest().authenticated())
+
+      .formLogin(login -&gt; login
+        //ログインフォームのボタンをクリックした時に送信するパス
+        .loginProcessingUrl(&quot;/login&quot;)
+        //ログインページのパスを設定
+        .loginPage(&quot;/users/login&quot;)
+        //ログイン成功後のリダイレクト先
+        .defaultSuccessUrl(&quot;/&quot;, true)
+        //ログイン失敗後のリダイレクト先
+        .failureUrl(&quot;/login?error&quot;)
+        .usernameParameter(&quot;email&quot;)
+        .permitAll())
+
+      .logout(logout -&gt; logout
+        .logoutUrl(&quot;/logout&quot;)
+        //ログアウト成功時のリダイレクト先
+        .logoutSuccessUrl(&quot;/users/login&quot;));
+  
+      return http.build();
+    }
+  
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+      return new BCryptPasswordEncoder();
+    }
+  }</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>

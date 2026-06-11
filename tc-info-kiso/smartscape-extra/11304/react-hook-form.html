@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript"><code>import { useForm } from &#x27;react-hook-form&#x27;;
+
+interface FormData {
+  name: string;
+  email: string;
+}
+
+const MyForm = () =&gt; {
+  // useFormフックから機能を取得
+  const { register, handleSubmit } = useForm&lt;FormData&gt;();
+  
+  // フォーム送信時に呼び出される関数
+  const onSubmit = (data: FormData) =&gt; {
+    // フォーム送信時の処理を記載
+  };
+  
+  return (
+    &lt;form onSubmit={handleSubmit(onSubmit)}&gt;
+      &lt;div&gt;
+        &lt;label&gt;Name&lt;/label&gt;
+        &lt;input {...register(&#x27;name&#x27;)} /&gt;
+      &lt;/div&gt;
+      
+      &lt;div&gt;
+        &lt;label&gt;Email&lt;/label&gt;
+        &lt;input {...register(&#x27;email&#x27;})} /&gt;
+      &lt;/div&gt;
+      
+      &lt;button type=&quot;submit&quot;&gt;Submit&lt;/button&gt;
+    &lt;/form&gt;
+  );
+};
+
+export default MyForm;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+</body>
+</html>

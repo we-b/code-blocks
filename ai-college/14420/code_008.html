@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>## 経費精算レポート
+
+### 部署別集計
+
+#### 営業部
+| カテゴリ | 金額 |
+|:---|---:|
+| 交通費 | 25,500円 |
+| 交際費 | 68,000円 |
+| 研修費 | 8,000円 |
+| **部署合計** | **101,500円** |
+
+#### 開発部
+| カテゴリ | 金額 |
+|:---|---:|
+| 交通費 | 12,000円 |
+| 消耗品費 | 45,000円 |
+| 研修費 | 35,000円 |
+| **部署合計** | **92,000円** |
+
+#### 総務部
+| カテゴリ | 金額 |
+|:---|---:|
+| 消耗品費 | 28,000円 |
+| 通信費 | 15,000円 |
+| 福利厚生費 | 42,000円 |
+| **部署合計** | **85,000円** |
+
+### 全社集計
+**経費総額: 278,500円**
+
+### 予算超過アラート
+全部署、予算内です。
+（各部署の予算: 500,000円）</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

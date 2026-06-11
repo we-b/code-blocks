@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>def create
+
+ ActiveRecord::Base.transaction do
+    goods = Goods.find(params[:goods_id])  # 仮にparamsから商品IDを取得すると仮定
+    goods.decrement!(:stock, 1)            # 在庫を1つ減らす処理
+
+    p = PurchaseHistory.new(purchase_history_params)  # newメソッドの呼び出しにpurchase_history_paramsを渡す
+    p.save!                                        # 購入履歴のレコードを新規作成する処理
+
+    # ログに出力
+    logger.debug(&quot;トランザクションが完了しました&quot;)
+  end
+
+rescue =&gt; e
+  logger.debug(&quot;ロールバックされました&quot;)
+  puts e
+
+end
+
+def goods_params
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

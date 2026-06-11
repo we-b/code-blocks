@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript"><code>function getDiscount(user) {
+  if (user.isPremium &amp;&amp; user.purchaseCount &gt; 10) {
+    if (user.membershipYears &gt; 5) {
+      return 0.3;
+    } else {
+      return 0.2;
+    }
+  } else if (user.isPremium) {
+    return 0.1;
+  } else if (user.purchaseCount &gt; 20) {
+    return 0.05;
+  }
+  return 0;
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

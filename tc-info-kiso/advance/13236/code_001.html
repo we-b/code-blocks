@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>class Product
+ attr_reader :name, :price, :tax
+
+ def initialize(args)
+   @name = args[:name]
+   @price = args[:price]
+   @tax = args[:tax]
+ end
+
+ def price
+   @price + (@price * @tax).floor
+ end
+end
+
+module ElectronicMoney
+ #電子マネーをチャージする
+ def charge
+   puts &#x27;電子マネーにチャージする金額を入力してください。&#x27;
+   amount = gets.to_i
+   puts &quot;#{amount}円がチャージされました。&quot;
+ end
+end
+
+module ProductsFactory
+ def self.build(config)
+   config.map { |product_config|
+     Product.new(
+       {
+         name: product_config[0],
+         price: product_config[1],
+         tax: product_config.fetch(2, 0.1)
+       }
+     )
+   }
+ end
+end
+
+class VendingMachine
+ def initialize(products)
+   @products = products
+ end
+
+ def transaction
+   display_anounce
+   product = take_order
+   serve_item(product)
+ end
+
+ private
+
+ attr_reader :products
+
+ def display_anounce
+   puts &#x27;購入したい商品を以下から選んで、金額を入力してください&#x27;
+   products.each_with_index do |product, i|
+     puts &quot;[#{i}] 商品名：#{product.name} 税込み価格：#{product.price}円&quot;
+   end
+ end
+
+ def take_order
+   selected = products[gets.to_i]
+   puts &quot;#{selected.name}が選択されました。必要金額は#{selected.price}円です。&quot;
+   selected
+ end
+
+ def serve_item(product)
+   # 適正金額が受け取れるまで繰り返す。
+   while true do
+     payment = gets.to_i
+     charge = calc_change(payment, product.price)
+     if charge &gt;= 0
+       break
+     else
+       puts &quot;入力金額が不足しています。金額を再入力してください。&quot;
+     end
+   end
+
+   puts &quot;お釣りは#{charge}円です。ご利用ありがとうございました。&quot;
+ end
+
+ def calc_change(payment, price)
+   payment - price
+ end
+end
+
+class TicketVendingMachine &lt; VendingMachine
+ include ElectronicMoney
+
+ def transaction
+   puts &#x27;切符の購入なら1を、電子マネーのチャージなら2を押してください&#x27;
+   input = gets.to_i
+
+   if input == 1
+     super
+   elsif input == 2
+     charge
+   else
+     puts &#x27;切符の購入なら1を、電子マネーのチャージなら2を押してください&#x27;
+   end
+ end
+
+ private
+
+ attr_reader :products
+
+ def display_anounce
+   puts &quot;区間を選んで表示された金額を入力してください&quot;
+   products.each_with_index do |product, i|
+     puts &quot;[#{i}] 行き先：#{product.name} 金額：#{product.price}円&quot;
+   end
+ end
+end
+
+beverage_config = [
+ [&#x27;コーラ&#x27;, 120],
+ [&#x27;お茶&#x27;, 100],
+ [&#x27;お水&#x27;, 80]
+]
+
+beverages = ProductsFactory.build(beverage_config)
+vm = VendingMachine.new(beverages)
+vm.transaction</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

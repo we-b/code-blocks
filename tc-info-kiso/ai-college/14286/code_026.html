@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-plaintext"><code>Comments APIのリクエストスペックを書いてください。
+CommentsはArticlesにネストされているので、URLは/api/v1/articles/:article_id/comments形式です。
+
+以下のエンドポイントをテストしてください：
+
+1. GET /api/v1/articles/:article_id/comments（コメント一覧）
+   - 特定の記事に紐づくコメント一覧が取得できること
+
+2. POST /api/v1/articles/:article_id/comments（コメント作成）
+   - コメントを作成できること
+   - 不正なパラメータでは422を返すこと
+
+3. DELETE /api/v1/articles/:article_id/comments/:id（コメント削除）
+   - コメントを削除できること
+
+テストファイルは spec/requests/api/v1/comments_spec.rb に作成してください。</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

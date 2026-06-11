@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-erb"><code># 以下の要素があった場合
+&lt;a href=&quot;/contents/1&quot;&gt;詳しくはこちら&lt;/a&gt;
+&lt;input type=&quot;submit&quot; name=&quot;commit&quot; value=&quot;ログイン&quot;&gt;
+
+# 以下の記述でそれぞれの要素をクリックしたことにできる。()をつけるかは自由
+click_on (&#x27;詳しくはこちら&#x27;)
+click_on (&#x27;ログイン&#x27;)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-erb.min.js"></script>
+</body>
+</html>

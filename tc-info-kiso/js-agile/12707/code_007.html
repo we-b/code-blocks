@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript"><code>// X:変数の中身が分からない名前
+// 「どんな情報のeverythingなのか？」となってしまい、変数の目的が伝わらない
+let everything = []
+
+// X:略語
+// 略語は元の単語を想像しづらく、略し方も人それぞれ異なってしまうので使うべきでない
+// 変数の中身が単数なのか複数なのかも分かりづらい
+let au = await apiClient.get(‘/users’);
+
+// ◯：
+let allTweets = [];  
+let adminUsers = await apiClient.get(‘/users’);</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

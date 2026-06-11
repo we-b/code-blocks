@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>class PC
+  attr_reader :data, :config
+  def initialize(data,config)
+    @data = data
+    @config = config
+  end
+end
+
+class Printer
+  def initialize(pc,num)
+    @data = pc.data
+    @config = pc.config
+    @num = num
+  end
+
+  def print
+    # Aクラスのhoge,fugaが無ければ以下の処理を実行できない。
+    puts &quot;#{@data}を#{@config}で#{@num}部印刷しました。&quot;
+  end
+end
+
+pc = PC.new(&quot;会議資料&quot;, &quot;モノクロ&quot;)
+printer = Printer.new(pc,100)
+puts printer.print
+# =&gt; “会議資料をモノクロで100部印刷しました。”</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

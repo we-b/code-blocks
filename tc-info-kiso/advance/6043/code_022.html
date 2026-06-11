@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>class Club
+  attr_accessor :name
+
+  def introduction(goal)
+    puts &quot;#{self.name}です。#{goal}を目指しています。部員募集中です!&quot;
+  end
+end
+
+class BaseballClub &lt; Club
+  def introduction(goal)
+    super
+  end
+end
+
+class BrassBandClub &lt; Club
+  def introduction(goal)
+    super
+  end
+end
+
+
+baseball_club = BaseballClub.new
+baseball_club.name = &#x27;〇〇高校 硬式野球部&#x27;
+
+brass_band_club = BrassBandClub.new
+brass_band_club.name = &#x27;吹奏楽サークル&#x27;
+
+baseball_club.introduction(&#x27;甲子園出場&#x27;)
+#=&gt; 〇〇高校 硬式野球部です。甲子園出場を目指しています。部員募集中です!
+
+brass_band_club.introduction(&#x27;県大会 金賞&#x27;)
+#=&gt; 吹奏楽サークルです。県大会 金賞を目指しています。部員募集中です!
+
+
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

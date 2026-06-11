@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby" data-line="12,13,14,15,16,17,18"><code>class DonationAddress
+  include ActiveModel::Model
+  attr_accessor :price, :user_id, :postal_code, :prefecture, :city, :house_number, :building_name
+
+  with_options presence: true do
+    validates :price, numericality: {only_integer: true, greater_than_or_equal_to: 1, less_than_or_equal_to: 1000000, message: &quot;is invalid&quot;}
+    validates :user_id
+    validates :postal_code, format: {with: /\A[0-9]{3}-[0-9]{4}\z/, message: &quot;is invalid. Include hyphen(-)&quot;}
+  end
+  validates :prefecture, numericality: {other_than: 0, message: &quot;can&#x27;t be blank&quot;}
+
+  def save
+    # 寄付情報を保存し、変数donationに代入する
+    donation = Donation.create(price: price, user_id: user_id)
+    # 住所を保存する
+    # donation_idには、変数donationのidと指定する
+    Address.create(postal_code: postal_code, prefecture: prefecture, city: city, house_number: house_number, building_name: building_name, donation_id: donation.id)
+  end
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

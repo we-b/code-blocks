@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-markup"><code>{% load static %}
+&lt;head&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;{% static &#x27;css/posts.css&#x27; %}&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+  &lt;h1&gt;トップページ&lt;/h1&gt;
+  {% for post in posts %}
+    &lt;div class=&quot;post&quot;&gt;
+      &lt;div class=&quot;post-date&quot;&gt;
+        投稿日時：{{ post.created_at }}
+      &lt;/div&gt;
+      &lt;div class=&quot;post-content&quot;&gt;
+        {{ post.content }}
+      &lt;/div&gt;
+    &lt;/div&gt;
+  {% endfor %}
+&lt;/body&gt;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

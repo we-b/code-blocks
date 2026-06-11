@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-plaintext"><code>
+#### 3. モック・スタブ
+- 外部依存はモック化する
+- データベースアクセスはスタブ化する
+- APIコールはモック化する
+
+### 出力形式
+- テストファイルは `__tests__/` または `*.test.ts` の形式で保存
+- Jest/Vitest互換の形式で記述
+- 日本語のコメントで各テストの目的を説明
+
+### 生成後の確認
+テストを生成したら、`npm test` で実行して結果を確認してください。</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

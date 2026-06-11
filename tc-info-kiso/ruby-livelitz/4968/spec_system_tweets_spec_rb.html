@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>  it &#x27;ログインしていない状態でツイート詳細ページに遷移できるもののコメント投稿欄が表示されない&#x27; do
+    # トップページに移動する
+    visit root_path
+    # ツイートに「詳細」へのリンクがある
+    expect(
+      all(&quot;.more&quot;)[0].hover
+    ).to have_link &#x27;詳細&#x27;, href: tweet_path(@tweet)
+    # 詳細ページに遷移する
+    visit tweet_path(@tweet)
+    # 詳細ページにツイートの内容が含まれている
+    expect(page).to have_selector &quot;.content_post[style=&#x27;background-image: url(#{@tweet.image});&#x27;]&quot;
+    expect(page).to have_content(&quot;#{@tweet.text}&quot;)
+    # フォームが存在しないことを確認する
+    expect(page).to have_no_selector &#x27;form&#x27;
+    # 「コメントの投稿には新規登録/ログインが必要です」が表示されていることを確認する
+    expect(page).to have_content &#x27;コメントの投稿には新規登録/ログインが必要です&#x27;
+  end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

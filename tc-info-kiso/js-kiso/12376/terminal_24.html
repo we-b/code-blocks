@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-bash"><code>% brew install mysql@8.0
+==&gt; Fetching dependencies for mysql@8.0: libevent, protobuf, libxml2, gettext, libunistring, libidn2, libssh2, util-linux, openldap, rtmpdump, curl and cyrus-sasl
+
+（省略）
+
+==&gt; mysql@8.0
+We&#x27;ve installed your MySQL database without a root password. To secure it run:
+    mysql_secure_installation
+
+MySQL is configured to only allow connections from localhost by default
+
+To connect run:
+    mysql -uroot
+
+mysql@8.0 is keg-only, which means it was not symlinked into /home/linuxbrew/.linuxbrew,
+because this is an alternate version of another formula.
+
+If you need to have mysql@8.0 first in your PATH, run:
+  echo &#x27;export PATH=&quot;/home/linuxbrew/.linuxbrew/opt/mysql@8.0/bin:$PATH&quot;&#x27; &gt;&gt; ~/.profile
+
+For compilers to find mysql@8.0 you may need to set:
+  export LDFLAGS=&quot;-L/home/linuxbrew/.linuxbrew/opt/mysql@8.0/lib&quot;
+  export CPPFLAGS=&quot;-I/home/linuxbrew/.linuxbrew/opt/mysql@8.0/include&quot;
+
+For pkg-config to find mysql@8.0 you may need to set:
+  export PKG_CONFIG_PATH=&quot;/home/linuxbrew/.linuxbrew/opt/mysql@8.0/lib/pkgconfig&quot;
+
+
+To restart mysql@8.0 after an upgrade:
+  brew services restart mysql@8.0
+Or, if you don&#x27;t want/need a background service you can just run:
+  /home/linuxbrew/.linuxbrew/opt/mysql@8.0/bin/mysqld_safe --datadir=/home/linuxbrew/.linuxbrew/var/mysql</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+</body>
+</html>

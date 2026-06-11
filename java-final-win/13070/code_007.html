@@ -13,19 +13,21 @@
     </style>
 </head>
 <body>
-<pre class="language-plaintext"><code>// ☓：1対Nの関係で、JOINを指定していない
-// 1つのUserが複数のPostを持っている例
-// JOINを指定しないとPostの数だけUserをSELECTするSQLが発行されるため、レコードが増えるほど重くなる
+<pre class="language-plaintext"><code>
+# X:1対Nの関係で、includeをしていない
+# 1つのCompanyが複数のEmployeeをもっている例
+# includeをしないとEmployeeの数だけCompanyをSELECTするSQLが発行されるため、レコードが増えるほど重くなる
 
-public List&lt;Post&gt; findAll() {
-    return postRepository.findAll();
-}
+def index
+  @employees = Employee.all 
+end
 
-// ◯：@QueryアノテーションでJOIN FETCHを指定している
-// JOIN FETCHを使用することでSQLの発行回数を1回に抑え、動作を軽くできる
+# ◯:変数を定義する際にincludeしている
+# includes(:employee)と記述することで、SQLの発行回数を抑えて動作を軽くできる
 
-@Query(&quot;SELECT p FROM Post p JOIN FETCH p.user&quot;)
-List&lt;Post&gt; findAllWithUser();</code></pre>
+def index
+  @employees = Employee.all .includes(:employee)
+end</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 
 </body>

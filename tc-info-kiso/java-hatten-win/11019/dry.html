@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java"><code>import java.util.Scanner;
+
+public class Main {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        String[] prefecture = {&quot;北海道&quot;, &quot;青森&quot;, &quot;...(省略)...&quot;, &quot;沖縄&quot;};
+
+        selectBirthplace(scanner, prefecture);
+        selectAddress(scanner, prefecture);
+        selectWorkAddress(scanner, prefecture);
+    }
+
+    public static void selectBirthplace(Scanner scanner, String[] prefecture) {
+        System.out.print(&quot;出身地の番号を選んでください: &quot;);
+        int num = scanner.nextInt();
+        if (num &gt;= 0 &amp;&amp; num &lt; prefecture.length) {
+            String birthplace = prefecture[num];
+            System.out.println(&quot;出身地: &quot; + birthplace);
+        } else {
+            System.out.println(&quot;無効な番号です。&quot;);
+        }
+    }
+
+    public static void selectAddress(Scanner scanner, String[] prefecture) {
+        System.out.print(&quot;住所の番号を選んでください: &quot;);
+        int num = scanner.nextInt();
+        if (num &gt;= 0 &amp;&amp; num &lt; prefecture.length) {
+            String address = prefecture[num];
+            System.out.println(&quot;住所: &quot; + address);
+        } else {
+            System.out.println(&quot;無効な番号です。&quot;);
+        }
+    }
+
+    public static void selectWorkAddress(Scanner scanner, String[] prefecture) {
+        System.out.print(&quot;勤務先住所の番号を選んでください: &quot;);
+        int num = scanner.nextInt();
+        if (num &gt;= 0 &amp;&amp; num &lt; prefecture.length) {
+            String workAddress = prefecture[num];
+            System.out.println(&quot;勤務先住所: &quot; + workAddress);
+        } else {
+            System.out.println(&quot;無効な番号です。&quot;);
+        }
+    }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>

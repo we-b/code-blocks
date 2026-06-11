@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript" data-line="6,8,10,16,17,19"><code>&lt;script setup&gt;
+import FormModal from &#x27;./FormModal.vue&#x27;
+import { ref } from &#x27;vue&#x27;
+
+const showModal = ref(false);
+const body = ref(&#x27;&#x27;);
+
+const openModal = (component) =&gt; {
+  showModal.value = !showModal.value;
+  body.value = component
+}
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div class=&quot;header-list&quot;&gt;
+    &lt;button class=&quot;add-list&quot; @click=&quot;openModal(&#x27;goods&#x27;)&quot;&gt;リスト追加&lt;/button&gt;
+    &lt;button @click=&quot;openModal(&#x27;genre&#x27;)&quot;&gt;ジャンル追加&lt;/button&gt;
+    &lt;Modal v-model=&quot;showModal&quot;&gt;
+      &lt;FormModal :isOpen=&quot;showModal&quot; :body=&quot;body&quot; @close-modal=&quot;showModal = false&quot;/&gt;
+    &lt;/Modal&gt;
+  &lt;/div&gt;
+&lt;/template&gt;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

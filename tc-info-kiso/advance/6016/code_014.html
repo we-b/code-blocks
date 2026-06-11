@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>class Hero
+  attr_reader :hero_type, :hit_point, :power
+
+  def initialize(args)
+    @hero_type = args.fetch(:hero_type)
+    @hit_point = args.fetch(:hit_point)
+    @power = args.fetch(:power)
+  end
+
+  def detail
+    puts &quot;#{hero_type}の攻撃力は#{power}でHPは#{hit_point}です。&quot;
+  end
+end
+
+class Enemy
+  attr_reader :type, :hit_point, :power
+
+  def initialize(args)
+    @type = args.fetch(:type)
+    @hit_point = args.fetch(:hit_point)
+    @power = args.fetch(:power)
+  end
+
+  def enemy_detail
+    puts &quot;#{type}の攻撃力は#{power}でHPは#{hit_point}です。&quot;
+  end
+end
+
+class CharacterStatus
+  attr_reader :characters
+
+  def initialize(characters)
+    @characters = characters
+  end
+
+  def check_status
+    display_character
+    character = select_character
+    detail_character(character)
+  end
+
+  private
+
+  def display_character
+    puts &#x27;確認したいキャラクターを選択してください。&#x27;
+    characters.each_with_index do |character, i|
+      if character.kind_of?(Hero)
+        puts &quot;[#{i}] タイプ： #{character.hero_type}&quot;
+      else
+        puts &quot;[#{i}] タイプ： #{character.type}&quot;
+      end
+    end
+  end
+
+  def select_character
+    character = characters[gets.to_i]
+    if character.kind_of?(Hero)
+      puts &quot;#{character.hero_type}が選択されました&quot;
+    else
+      puts &quot;#{character.type}が選択されました&quot;
+    end
+    character
+  end
+
+  def detail_character(character)
+    if character.kind_of?(Hero)
+      character.detail
+    else
+      character.enemy_detail
+    end
+  end
+end
+
+heroes = [
+ { hero_type: &#x27;剣士&#x27;, hit_point: 200, power: 100 },
+ { hero_type: &#x27;魔法使い&#x27;, hit_point: 100, power: 30 },
+ { hero_type: &#x27;僧侶&#x27;, hit_point: 150, power: 50 }
+]
+
+@heroes = heroes.map { |b| Hero.new(hero_type: b[:hero_type], hit_point: b[:hit_point], power: b[:power]) }
+cs = CharacterStatus.new(@heroes)
+cs.check_status
+
+enemies = [
+ { type: &#x27;スライム&#x27;, hit_point: 5, power: 5 },
+ { type: &#x27;ゴーレム&#x27;, hit_point: 500, power: 300 },
+ { type: &#x27;ドラゴン&#x27;, hit_point: 700, power: 400 }
+]
+
+@enemies = enemies.map { |b| Enemy.new(type: b[:type], hit_point: b[:hit_point], power: b[:power]) }
+cs = CharacterStatus.new(@enemies)
+cs.check_status
+
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

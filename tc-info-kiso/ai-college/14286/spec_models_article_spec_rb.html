@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>require &#x27;rails_helper&#x27;
+
+RSpec.describe Article, type: :model do
+  describe &#x27;バリデーション&#x27; do
+    context &#x27;titleが空の場合&#x27; do
+      it &#x27;バリデーションに失敗すること&#x27; do
+        article = build(:article, title: nil)
+        expect(article).not_to be_valid
+        expect(article.errors[:title]).to include(&quot;can&#x27;t be blank&quot;)
+      end
+    end
+
+    context &#x27;bodyが空の場合&#x27; do
+      it &#x27;バリデーションに失敗すること&#x27; do
+        article = build(:article, body: nil)
+        expect(article).not_to be_valid
+        expect(article.errors[:body]).to include(&quot;can&#x27;t be blank&quot;)
+      end
+    end
+
+    context &#x27;全ての属性が正しく設定されている場合&#x27; do
+      it &#x27;バリデーションに成功すること&#x27; do
+        article = build(:article)
+        expect(article).to be_valid
+      end
+    end
+  end
+
+  describe &#x27;enum status&#x27; do
+    context &#x27;新規作成時&#x27; do
+      it &#x27;デフォルトでdraftになること&#x27; do
+        article = create(:article)
+        expect(article).to be_status_draft
+      end
+    end
+
+    context &#x27;ステータスの変更&#x27; do
+      let(:article) { create(:article) }
+
+      it &#x27;publishedに変更できること&#x27; do
+        article.status_published!
+        expect(article).to be_status_published
+      end
+
+      it &#x27;archivedに変更できること&#x27; do
+        article.status_archived!
+        expect(article).to be_status_archived
+      end
+    end
+
+    context &#x27;無効なステータス&#x27; do
+      it &#x27;ArgumentErrorが発生すること&#x27; do
+        expect {
+          create(:article, status: :invalid_status)
+        }.to raise_error(ArgumentError)
+      end
+    end
+  end
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

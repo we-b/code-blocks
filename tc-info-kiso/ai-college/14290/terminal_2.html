@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-bash"><code>⏺ 現在のコントローラーを確認しました。比較的シンプルなコードですが、ご指摘の通り複数の責務が混在しています。Railsでよく使われる設計パターンを用いたリファクタリング案を提示します。
+
+  ---
+  現状の責務分析
+
+  | 責務       | 該当コード                                  |
+  |----------|----------------------------------------|
+  | パラメータ処理  | task_params（キー変換含む）                    |
+  | ビジネスロジック | create, update, destroy, update_status |
+  | データ取得    | select_task, tasks_all                 |
+  | レスポンス生成  | render :all_tasks                      |
+
+  ---
+  リファクタリング案
+
+  1. Service Object パターン
+
+  ビジネスロジックを専用クラスに切り出す。
+
+  # app/services/tasks/create_service.rb
+  class Tasks::CreateService
+    def initialize(params)
+      @params = params
+    end
+
+    def call
+      Task.create(normalized_params)
+    end
+
+    private
+
+    def normalized_params
+      @params.permit(:name, :explanation, :status, :priority)
+             .merge(genre_id: @params[:genreId], deadline_date: @params[:deadlineDate])
+    end
+  end
+
+  # コントローラー
+  def create
+    @result = Tasks::CreateService.new(params).call
+    tasks_all
+  end
+
+  | メリット              | デメリット             |
+  |-------------------|-------------------|
+  | ロジックのテストが容易       | ファイル数が増加          |
+  | 再利用可能（API、バッチ処理等） | シンプルなCRUDには過剰な場合も |
+  | コントローラーが薄くなる      | 命名規則の統一が必要        |
+
+  ---
+  2. Form Object パターン
+
+  パラメータの変換・バリデーションを専用クラスに分離。
+
+  # app/forms/task_form.rb
+  class TaskForm
+    include ActiveModel::Model
+    include ActiveModel::Attributes
+
+    attribute :name, :string
+    attribute :explanation, :string
+    attribute :status, :string
+    attribute :priority, :integer
+    attribute :genreId, :integer
+    attribute :deadlineDate, :date
+
+    validates :name, presence: true
+
+    def save
+      return false unless valid?
+      Task.create(to_task_attributes)
+    end
+
+    private
+
+    def to_task_attributes
+      { name: name, explanation: explanation, status: status,
+        priority: priority, genre_id: genreId, deadline_date: deadlineDate }
+    end
+  end
+
+  | メリット                  | デメリット        |
+  |-----------------------|--------------|
+  | パラメータ変換ロジックを集約        | 単純なCRUDには冗長  |
+  | 複雑なバリデーションに対応         | モデルとの二重管理リスク |
+  | フロントエンドのキー名をそのまま受け取れる |              |
+
+  ---
+  3. Query Object パターン
+
+  データ取得ロジックを専用クラスに分離。
+
+  # app/queries/tasks_query.rb
+  class TasksQuery
+    def initialize(relation = Task.all)
+      @relation = relation
+    end
+
+    def all_with_associations
+      @relation.includes(:genre).order(created_at: :desc)
+    end
+
+    def by_status(status)
+      @relation.where(status: status)
+    end
+  end
+
+  # コントローラー
+  def tasks_all
+    @tasks = TasksQuery.new.all_with_associations
+    render :all_tasks
+  end
+
+  | メリット         | デメリット         |
+  |--------------|---------------|
+  | 複雑なクエリを整理できる | 現状では過剰かもしれない  |
+  | クエリのテストが容易   | クエリが増えると管理が煩雑 |
+  | チェーン可能で柔軟    |               |
+
+  ---
+  4. Presenter/Decorator パターン
+
+  レスポンス生成ロジックをビューヘルパーから分離。
+
+  # app/presenters/task_presenter.rb
+  class TaskPresenter &lt; SimpleDelegator
+    def as_json_response
+      {
+        id: id,
+        name: name,
+        status: status,
+        deadline_date: deadline_date&amp;.strftime(&#x27;%Y-%m-%d&#x27;),
+        priority_label: priority_label
+      }
+    end
+
+    def priority_label
+      case priority
+      when 1 then &#x27;低&#x27;
+      when 2 then &#x27;中&#x27;
+      when 3 then &#x27;高&#x27;
+      end
+    end
+  end
+
+  | メリット           | デメリット                 |
+  |----------------|-----------------------|
+  | 表示ロジックをモデルから分離 | Jbuilderと責務が重複する可能性   |
+  | ビューのテストが容易     | 依存gemが増える場合も（draper等） |
+
+  ---
+  5. 推奨：段階的リファクタリング
+
+  現在のコード規模を考慮すると、Service Object + Form Object の組み合わせが最もバランスが良いです。
+
+  app/
+  ├── controllers/
+  │   └── tasks_controller.rb    # 薄いコントローラー
+  ├── forms/
+  │   └── task_form.rb           # パラメータ処理・バリデーション
+  └── services/
+      └── tasks/
+          ├── create_service.rb
+          ├── update_service.rb
+          └── destroy_service.rb
+
+  導入優先度：
+  1. Form Object → パラメータ変換（genreId → genre_id）を整理
+  2. Service Object → 複雑なビジネスロジックが増えたら導入
+  3. Query Object → 検索機能が増えたら導入
+
+  ---
+  どのパターンから始めるか、または具体的な実装に進みたい場合はお知らせください。</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+</body>
+</html>

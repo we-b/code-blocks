@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>require &#x27;rails_helper&#x27;
+
+# ツイート投稿の結合テストコードは省略しています
+# ツイート投稿の結合テストコードに続いて記述しましょう
+
+RSpec.describe &#x27;ツイート編集&#x27;, type: :system do
+  before do
+    @tweet1 = FactoryBot.create(:tweet)
+    @tweet2 = FactoryBot.create(:tweet)
+  end
+  context &#x27;ツイート編集ができるとき&#x27; do
+    it &#x27;ログインしたユーザーは自分が投稿したツイートの編集ができる&#x27; do
+      # ツイート1を投稿したユーザーでログインする
+      # ツイート1に「編集」へのリンクがあることを確認する
+      # 編集ページへ遷移する
+      # すでに投稿済みの内容がフォームに入っていることを確認する
+      # 投稿内容を編集する
+      # 編集してもTweetモデルのカウントは変わらないことを確認する
+      # トップページには先ほど変更した内容のツイートが存在することを確認する（画像）
+      # トップページには先ほど変更した内容のツイートが存在することを確認する（テキスト）
+    end
+  end
+  context &#x27;ツイート編集ができないとき&#x27; do
+    it &#x27;ログインしたユーザーは自分以外が投稿したツイートの編集画面には遷移できない&#x27; do
+      # ツイート1を投稿したユーザーでログインする
+      # ツイート2に「編集」へのリンクがないことを確認する
+    end
+    it &#x27;ログインしていないとツイートの編集画面には遷移できない&#x27; do
+      # トップページにいる
+      # ツイート1に「編集」へのリンクがないことを確認する
+      # ツイート2に「編集」へのリンクがないことを確認する
+    end
+  end
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

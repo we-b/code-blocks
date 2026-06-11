@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript" data-line="2,3,4,10,11,12,13,14,15"><code>&lt;script setup&gt;
+const props = defineProps({
+  books: Object
+})
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;h2&gt;レビュー一覧&lt;/h2&gt;
+  &lt;div&gt;
+    &lt;ul class=&quot;review-lists&quot; v-for=&quot;book in books&quot;&gt; 
+      &lt;li class=&quot;review-list&quot;&gt;
+        &lt;h2 class=&quot;review-title&quot;&gt;{{ book.title }}&lt;/h2&gt;
+        &lt;p&gt;{{ book.review }}&lt;/p&gt;
+      &lt;/li&gt;
+    &lt;/ul&gt;
+  &lt;/div&gt;
+&lt;/template&gt;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

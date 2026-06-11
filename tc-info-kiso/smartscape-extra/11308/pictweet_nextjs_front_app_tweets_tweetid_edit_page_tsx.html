@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript"><code>&quot;use client&quot;;
+import { useState } from &#x27;react&#x27;;
+import AuthGuard from &#x27;@/app/_components/AuthGuard&#x27;;
+import Header from &#x27;@/app/_components/Header&#x27;
+import Footer from &#x27;@/app/_components/Footer&#x27;
+import TweetForm from &#x27;@/app/_components/TweetForm&#x27;;
+
+interface TweetFormData {
+  text: string;
+  image: string;
+}
+
+const EditTweetPage = () =&gt; {
+  const [formData, setFormData] = useState&lt;TweetFormData&gt;({ text: &#x27;&#x27;, image: &#x27;&#x27; });
+  const [errorMessages, setErrorMessages] = useState&lt;string[]&gt;([]);
+
+  const handleSubmit = async () =&gt; {
+    // 編集ボタンを押した時の処理
+  };
+
+  return (
+    &lt;AuthGuard&gt;
+      &lt;Header /&gt;
+      &lt;div className=&quot;contents row&quot;&gt;
+        &lt;div className=&quot;container&quot;&gt;
+          &lt;h3&gt;編集する&lt;/h3&gt;
+          &lt;TweetForm
+            initialData={formData}
+            errorMessages={errorMessages}
+            onSubmit={handleSubmit}
+          /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;Footer /&gt;
+    &lt;/AuthGuard&gt;
+  );
+};
+
+export default EditTweetPage;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+</body>
+</html>

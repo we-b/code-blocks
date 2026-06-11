@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code># name属性が&quot;nickname&quot;の要素を探し、&quot;test_user&quot;という文字列を入力
+self.driver.find_element(By.NAME, &quot;nickname&quot;).send_keys(&quot;test_user&quot;)
+
+# name属性が&quot;email&quot;の要素を探し、メールアドレスを入力
+self.driver.find_element(By.NAME, &quot;email&quot;).send_keys(&quot;test@example.com&quot;)
+
+# name属性が&quot;password&quot;の要素を探し、パスワードを入力
+self.driver.find_element(By.NAME, &quot;password&quot;).send_keys(&quot;password123&quot;)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

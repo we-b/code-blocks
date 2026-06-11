@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java" data-line="6,7,8"><code>    @Test
+    public void nicknameが空の場合バリデーションエラーが発生する() {
+        // UserFormのインスタンスを初期化
+        UserForm userForm = new UserForm();
+        userForm.setNickname(&quot;&quot;); // 空のニックネーム
+        userForm.setEmail(&quot;test@test.com&quot;); //削除
+        userForm.setPassword(&quot;techcamp123&quot;); //削除
+        userForm.setPasswordConfirmation(&quot;techcamp123&quot;); //削除
+        // バリデーションの実行
+        ValidatorFactory factory = Validation.buildDefaultValidatorFactory();
+        Validator validator = factory.getValidator();
+        Set&lt;ConstraintViolation&lt;UserForm&gt;&gt; violations = validator.validate(userForm, ValidationPriority1.class);
+        // アサーション
+        assertEquals(1, violations.size());
+        assertEquals(&quot;Nickname can&#x27;t be blank&quot;, violations.iterator().next().getMessage());
+    }</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python" data-line="2,26,27,28,29,30,32,33"><code>from django.shortcuts import render
+from django.views.generic import ListView,CreateView,DeleteView,UpdateView
+from django.urls import reverse_lazy
+from .models import Tweet
+from .forms import TweetForm
+
+class IndexView(ListView):
+    model = Tweet
+    template_name = &#x27;tweets/index.html&#x27;
+    context_object_name = &#x27;tweets&#x27;
+
+class CreateView(CreateView):
+    form_class = TweetForm
+    template_name = &#x27;tweets/create.html&#x27;
+    success_url = reverse_lazy(&quot;Tweets:index&quot;)
+
+    def form_valid(self, form):
+        tweet = form.save(commit=False)
+        tweet.save()
+        return super().form_valid(form)
+
+class DeleteView(DeleteView):
+    model = Tweet
+    success_url = reverse_lazy(&#x27;Tweets:index&#x27;)
+
+class UpdateView(UpdateView):
+    model = Tweet
+    form_class = TweetForm
+    template_name = &#x27;tweets/update.html&#x27;
+    success_url = reverse_lazy(&#x27;Tweets:index&#x27;)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

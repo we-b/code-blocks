@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java" data-line="9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39"><code>（省略）
+
+@Controller
+@AllArgsConstructor
+public class TweetController {
+
+  （省略）
+  
+  @PostMapping(&quot;/tweets/{tweetId}/update&quot;)
+  public String updateTweet(@ModelAttribute(&quot;tweetForm&quot;) @Validated TweetForm tweetForm,
+                            BindingResult result,
+                            @PathVariable(&quot;tweetId&quot;) Integer tweetId,
+                            Model model) {
+
+    if (result.hasErrors()) {
+      List&lt;String&gt; errorMessages = result.getAllErrors().stream()
+              .map(DefaultMessageSourceResolvable::getDefaultMessage)
+              .collect(Collectors.toList());
+      model.addAttribute(&quot;errorMessages&quot;, errorMessages);
+
+      model.addAttribute(&quot;tweetForm&quot;, tweetForm);
+      model.addAttribute(&quot;tweetId&quot;, tweetId);
+      return &quot;tweets/edit&quot;;
+    }
+
+    TweetEntity tweet = tweetRepository.findById(tweetId);
+    tweet.setName(tweetForm.getName());
+    tweet.setText(tweetForm.getText());
+    tweet.setImage(tweetForm.getImage());
+
+    try {
+      tweetRepository.update(tweet);
+    } catch (Exception e) {
+      System.out.println(&quot;エラー：&quot; + e);
+      return &quot;redirect:/&quot;;
+    }
+
+    return &quot;redirect:/&quot;;
+  }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

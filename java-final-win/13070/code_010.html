@@ -13,24 +13,27 @@
     </style>
 </head>
 <body>
-<pre class="language-plaintext"><code>// ☓：インデントの数がバラバラになっている
-// fugafugaもhogehogeも同じクラスのメソッドなのに、インデントの数が多い
+<pre class="language-plaintext"><code># X:スペースの数がバラバラになっている
+# fugafugaもhogehogeも同じクラスのインスタンスメソッドなのに、スペースの数が多い
 
-public void hogehoge() {
-    System.out.println(&quot;こんにちは&quot;);
-}    public void fugafuga() {
-        System.out.println(&quot;Hello&quot;);
-    }
+def hogehoge
+  puts &quot;こんにちは&quot;
+end
 
-// ◯：インデントの数が揃っている
+  def fugafuga
+    puts &quot;Hello&quot;
+  end
 
-public void hogehoge() {
-    System.out.println(&quot;こんにちは&quot;);
-}
+# ◯:スペースの数が揃っている
 
-public void fugafuga() {
-    System.out.println(&quot;Hello&quot;);
-}</code></pre>
+def hogehoge
+  puts &quot;こんにちは&quot;
+end
+
+def fugafuga
+  puts &quot;Hello&quot;
+end
+</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 
 </body>

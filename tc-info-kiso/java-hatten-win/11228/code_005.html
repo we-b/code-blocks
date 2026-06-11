@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java"><code>import java.util.Scanner;
+
+public class PrefectureSelector {
+    public static void main(String[] args) {
+        String[] prefectures = {&quot;北海道&quot;, &quot;青森&quot;, &quot;...(省略)...&quot;, &quot;沖縄&quot;};
+
+        selectPrefecture(prefectures, &quot;birthplace&quot;);
+        selectPrefecture(prefectures, &quot;address&quot;);
+        selectPrefecture(prefectures, &quot;work_address&quot;);
+    }
+
+    public static void selectPrefecture(String[] prefectures, String category) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print(&quot;番号を入力してください: &quot;);
+        int num = scanner.nextInt();
+
+        if (num &gt;= 0 &amp;&amp; num &lt; prefectures.length) {
+            String selectedPrefecture = prefectures[num];
+            switch (category) {
+                case &quot;birthplace&quot;:
+                    System.out.println(&quot;出生地: &quot; + selectedPrefecture);
+                    break;
+                case &quot;address&quot;:
+                    System.out.println(&quot;住所: &quot; + selectedPrefecture);
+                    break;
+                case &quot;work_address&quot;:
+                    System.out.println(&quot;勤務地: &quot; + selectedPrefecture);
+                    break;
+                default:
+                    System.out.println(&quot;不明なカテゴリです&quot;);
+            }
+        } else {
+            System.out.println(&quot;無効な番号です&quot;);
+        }
+    }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>

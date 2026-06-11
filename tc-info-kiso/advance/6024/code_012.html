@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>class CPU
+  attr_reader :name, :gender, :vitality
+
+  def initialize(args)
+    @name = args[:name]
+    @gender = args[:gender]
+    @vitality = args[:vitality]
+    get_occupy(args)
+  end
+
+  def attack
+    raise &quot;Called abstract method: attack&quot;
+  end
+
+  def defense
+    raise &quot;Called abstract method: defense&quot;
+  end
+
+  def get_occupy
+    nil
+  end
+end
+
+class Player &lt; CPU
+  attr_reader :occupy
+
+  def get_occupy(args)
+    @occupy = args[:occupy]
+  end
+
+  def run_skill
+    occupy.run_skill
+  end
+
+  def attack
+    puts &#x27;物理攻撃！相手に10HPのダメージ！！&#x27;
+  end
+
+  def defense
+    puts &#x27;身を守る！10HPのダメージを軽減する！！&#x27;
+  end
+end
+
+class AttackMagic
+  attr_reader :name
+
+  def initialize
+    @name = &quot;攻撃呪文&quot;
+  end
+
+  def run_skill
+    puts &#x27;こうげきじゅもんをとなえた！ 相手に20HPダメージ。&#x27;
+  end
+end
+
+class HealMagic
+  attr_reader :name
+
+  def initialize
+    @name = &quot;回復呪文&quot;
+  end
+
+  def run_skill
+    puts &#x27;回復呪文を発動しました。30HP回復します。&#x27;
+  end
+end
+
+class Wizard
+  attr_reader :skill
+
+  def initialize
+    @skill = AttackMagic.new
+  end
+
+  def run_skill
+    skill.run_skill
+  end
+end
+
+class Cleric
+  attr_reader :skill
+
+  def initialize
+    @skill = HealMagic.new
+  end
+
+  def run_skill
+    skill.run_skill
+  end
+end
+
+class Sage
+  attr_reader :skills
+
+  def initialize
+    @skills = [AttackMagic.new, HealMagic.new]
+  end
+
+  def run_skill
+    puts &quot;どちらのスキルを発動しますか？&quot;
+    skills.each_with_index do |skill, index|
+      puts &quot;#{index}：#{skill.name}&quot;
+    end
+    input = gets.to_i
+    skills[input].run_skill
+  end
+end
+
+wizard = Wizard.new
+cleric = Cleric.new
+sage = Sage.new
+
+player1 = Player.new({ name: &#x27;tanaka&#x27;, gender: &#x27;woman&#x27;, vitality: 100, occupy: wizard })
+player2 = Player.new({ name: &#x27;higuchi&#x27;, gender: &#x27;man&#x27;, vitality: 120, occupy: cleric })
+player3 = Player.new({ name: &#x27;suzuki&#x27;, gender: &#x27;woman&#x27;, vitality: 10, occupy: sage })
+
+player1.run_skill
+player2.run_skill
+player3.run_skill</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

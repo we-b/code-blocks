@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java" data-line="18,19,20"><code>（省略）
+
+@Controller
+@AllArgsConstructor
+public class UserController {
+
+  private final UserRepository userRepository;
+
+  @GetMapping(&quot;/users/sign_up&quot;)
+  public String showSignUp(Model model){
+    model.addAttribute(&quot;userForm&quot;, new UserForm());
+    return &quot;users/signUp&quot;;
+  }
+
+  @PostMapping(&quot;/user&quot;)
+  public String createUser(@ModelAttribute(&quot;userForm&quot;) @Validated() UserForm userForm, BindingResult result, Model model) {
+    userForm.validatePasswordConfirmation(result);
+    if (userRepository.existsByEmail(userForm.getEmail())) {
+      result.rejectValue(&quot;email&quot;, &quot;null&quot;, &quot;Email already exists&quot;);
+    }
+
+    if (result.hasErrors()) {
+      List&lt;String&gt; errorMessages = result.getAllErrors().stream()
+              .map(DefaultMessageSourceResolvable::getDefaultMessage)
+              .collect(Collectors.toList());
+
+      model.addAttribute(&quot;errorMessages&quot;, errorMessages);
+      model.addAttribute(&quot;userForm&quot;, userForm);
+      return &quot;users/signUp&quot;;
+    }
+
+（省略）
+
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

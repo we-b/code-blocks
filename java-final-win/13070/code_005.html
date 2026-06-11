@@ -13,18 +13,14 @@
     </style>
 </head>
 <body>
-<pre class="language-plaintext"><code>// ☓：UserServiceに定義されたupdateAllメソッドが、User・Post・Commentまで変更している
-public class UserService {
-    public void updateAll(User user, Post post, Comment comment) {
-        user.setFamilyName(&quot;Hoge&quot;);
-        user.setFirstName(&quot;Fuga&quot;);
-        post.setBody(&quot;Foo&quot;);
-        comment.setBody(&quot;Bar&quot;);
-        userRepository.save(user);
-        postRepository.save(post);
-        commentRepository.save(comment);
-    }
-}</code></pre>
+<pre class="language-plaintext"><code># X:Userモデルに定義された、change_attributesメソッドが、Tweet, Commentまで変更してしまっている
+class User &lt; ApplicationRecord
+  def self.change_attributes(user, tweet, comment)
+    user.attributes = { family_name: &quot;Hoge&quot;, first_name: &quot;Fuga&quot; }
+    tweet.attributes = { body: Foo }
+    comment.attributes = { body: Bar}
+  end
+end</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 
 </body>

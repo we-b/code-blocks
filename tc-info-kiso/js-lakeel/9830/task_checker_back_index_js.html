@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript" data-line="12,13,14,15,16,17"><code>const express = require(&quot;express&quot;)
+const { PrismaClient } = require(&#x27;@prisma/client&#x27;);
+const prisma = new PrismaClient();
+const app = express();
+const cors = require(&#x27;cors&#x27;)
+app.use(cors({
+  origin: &#x27;http://localhost:5173&#x27;,
+  methods: [&#x27;GET&#x27;, &#x27;POST&#x27;, &#x27;PUT&#x27;, &#x27;DELETE&#x27;],
+  credentials: true,
+}));
+
+// multerのインポート
+const multer = require(&#x27;multer&#x27;);
+// クライアントからアップロードされたファイルの保存ディレクトリをuploads/に設定
+const upload = multer({ dest: &#x27;uploads/&#x27; });
+// クライアントがブラウザから画像にアクセスするためのURL
+app.use(&#x27;/uploads&#x27;, express.static(&#x27;uploads&#x27;))
+
+app.use(express.json());</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

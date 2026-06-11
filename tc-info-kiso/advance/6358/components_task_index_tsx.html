@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript" data-line="1,4,5,14,15,16,17,18,19,20,21,22,23,25,26,27,28,29,30,31,32,33,34,35,36,37,49,50,51,52,57,58,59,60,61"><code>import React, { useContext, useState } from &quot;react&quot;;
+import { Select } from &quot;../select&quot;;
+import { TaskType } from &quot;../../interfaces/TaskType&quot;;
+import { taskRequest } from &quot;../../requests/taskRequest&quot;;
+import { DataContext } from &quot;../../pages/home&quot;;
+import &quot;./style.css&quot;;
+
+interface Props {
+  task: TaskType;
+  getMatchTask: (id: number) =&gt; void;
+}
+
+export const Task = (props: Props) =&gt; {
+  const { dispatch } = useContext(DataContext);
+  const [status, setStatus] = useState&lt;number&gt;(props.task.status);
+  const listElements: string[] = [
+    &quot;ToDo&quot;,
+    &quot;Pending&quot;,
+    &quot;Doing(ToDay)&quot;,
+    &quot;WIP&quot;,
+    &quot;Check&quot;,
+    &quot;Done&quot;,
+  ];
+
+  const changeStatus = async (event: React.ChangeEvent&lt;HTMLSelectElement&gt;) =&gt; {
+    const val = Number(event.target.value);
+    try {
+      const tasks: TaskType[] = await taskRequest(&quot;updateStatus&quot;, {
+        data: props.task,
+        status: val,
+      });
+      dispatch({ type: &quot;tasksUpdate&quot;, payload: { task: tasks } });
+      setStatus(val);
+    } catch (err: any) {
+      console.log(err.message);
+    }
+  };
+  return (
+    &lt;div
+      className=&quot;task&quot;
+      style={{
+        backgroundColor:
+          new Date(props.task.deadlineDate) &gt; new Date()
+            ? &quot;white&quot;
+            : &quot;rgb(250, 194, 194)&quot;,
+      }}
+    &gt;
+      &lt;span className=&quot;task_date&quot;&gt;{props.task.deadlineDate}&lt;/span&gt;
+      &lt;div
+        className=&quot;task_text_contents&quot;
+        onClick={() =&gt; props.getMatchTask(props.task.id)}
+      &gt;
+        &lt;h3 className=&quot;task_title&quot;&gt;{props.task.name}&lt;/h3&gt;
+        &lt;p className=&quot;task_sentence&quot;&gt;{props.task.explanation}&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;div className=&quot;task_input_contents&quot;&gt;
+        &lt;Select
+          optionElements={listElements}
+          changeSelect={changeStatus}
+          initialValue={status}
+        /&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+};</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

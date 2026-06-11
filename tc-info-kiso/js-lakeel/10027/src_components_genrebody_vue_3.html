@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript" data-line="4,5,6,7,8,9,30,31,32"><code>&lt;template&gt;
+  &lt;div class=&quot;modal_body&quot;&gt;
+      &lt;h2 class=&quot;input_menu&quot;&gt;ジャンル編集&lt;/h2&gt;
+      &lt;ul&gt;
+        &lt;li class=&quot;genre_title&quot; v-for=&quot;genre in genreStore.genres&quot; :key=&quot;genre.id&quot;&gt;
+          &lt;span&gt;{{ genre.name }}&lt;/span&gt;
+          &lt;input class=&quot;delete_btn&quot;  type=&quot;submit&quot; value=&quot;削除&quot;&gt;
+        &lt;/li&gt;
+      &lt;/ul&gt;
+      &lt;form&gt;
+        &lt;input class=&quot;input_genre&quot; type=&quot;text&quot; placeholder=&quot;ジャンル名&quot; v-model=&quot;genre.name&quot;/&gt;
+        &lt;input class=&quot;input_submit&quot; type=&quot;button&quot; value=&quot;追加&quot; @click=&quot;submitGenre&quot; /&gt;
+      &lt;/form&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style scoped&gt;
+form {
+  display: flex;
+  flex-direction: column;
+}
+.input_genre {
+  padding: 8px;
+  margin-bottom: 8px;
+}
+.input_submit{
+  width: 160px;
+  margin-left: auto;
+}
+.delete_btn {
+  margin-left: 24px;
+}
+&lt;/style&gt;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

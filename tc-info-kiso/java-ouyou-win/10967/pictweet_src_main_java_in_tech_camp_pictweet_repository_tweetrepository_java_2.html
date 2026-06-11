@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java" data-line="8,10,11,21,22,23,24,35,36,37,38"><code>package in.tech_camp.pictweet.repository;
+
+import java.util.List;
+
+import org.apache.ibatis.annotations.Delete;
+import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.One;
+import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Result;
+import org.apache.ibatis.annotations.Results;
+import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
+
+import in.tech_camp.pictweet.entity.TweetEntity;
+
+@Mapper
+public interface TweetRepository {
+  
+  @Select(&quot;SELECT * FROM tweets&quot;)
+  @Results(value = {
+    @Result(property = &quot;user&quot;, column = &quot;user_id&quot;,
+            one = @One(select = &quot;in.tech_camp.pictweet.repository.UserRepository.findById&quot;))
+  })
+  List&lt;TweetEntity&gt; findAll();
+
+  @Insert(&quot;INSERT INTO tweets (name, text, image, user_id) VALUES (#{name}, #{text}, #{image}, #{userId})&quot;)
+  @Options(useGeneratedKeys = true, keyProperty = &quot;id&quot;)
+  void insert(TweetEntity tweet);
+
+  @Delete(&quot;DELETE FROM tweets WHERE id = #{id}&quot;)
+  void deleteById(Integer id);
+
+  @Select(&quot;SELECT * FROM tweets WHERE id = #{id}&quot;)
+  @Results(value = {
+    @Result(property = &quot;user&quot;, column = &quot;user_id&quot;,
+            one = @One(select = &quot;in.tech_camp.pictweet.repository.UserRepository.findById&quot;))
+  })
+  TweetEntity findById(Integer id);
+
+  @Update(&quot;UPDATE tweets SET name = #{name}, text = #{text}, image = #{image} WHERE id = #{id}&quot;)
+  void update(TweetEntity tweet);
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

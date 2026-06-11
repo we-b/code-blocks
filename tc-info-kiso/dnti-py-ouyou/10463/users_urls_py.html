@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code>from django.urls import path
+
+from .views import SignUpView
+from django.contrib.auth.views import LoginView,LogoutView
+
+app_name = &quot;users&quot;
+urlpatterns = [
+    path(&#x27;sign_up/&#x27;, SignUpView.as_view(), name=&#x27;sign_up&#x27;),
+    path(&#x27;sign_in/&#x27;, LoginView.as_view(template_name=&#x27;users/sign_in.html&#x27;), name=&#x27;sign_in&#x27;),
+    path(&#x27;logout/&#x27;, LogoutView.as_view(next_page=&#x27;/&#x27;), name=&#x27;logout&#x27;),
+]</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

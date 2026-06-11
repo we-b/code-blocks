@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>context &#x27;ツイート編集ができるとき&#x27; do
+  it &#x27;ログインしたユーザーは自分が投稿したツイートの編集ができる&#x27; do
+    # ツイート1を投稿したユーザーでログインする
+    visit new_user_session_path
+    fill_in &#x27;Email&#x27;, with: @tweet1.user.email
+    fill_in &#x27;Password&#x27;, with: @tweet1.user.password
+    find(&#x27;input[name=&quot;commit&quot;]&#x27;).click
+    expect(page).to have_current_path(root_path)
+    # ツイート1に「編集」へのリンクがあることを確認する
+    expect(
+      all(&#x27;.more&#x27;)[1].hover
+    ).to have_link &#x27;編集&#x27;, href: edit_tweet_path(@tweet1)
+    # 編集ページへ遷移する
+    visit edit_tweet_path(@tweet1)
+    # すでに投稿済みの内容がフォームに入っていることを確認する
+    expect(page).to have_field(&#x27;tweet_image&#x27;, with: @tweet1.image)
+    expect(page).to have_field(&#x27;tweet_text&#x27;, with: @tweet1.text)
+    # 投稿内容を編集する
+    fill_in &#x27;tweet_image&#x27;, with: &quot;#{@tweet1.image}+編集した画像URL&quot;
+    fill_in &#x27;tweet_text&#x27;, with: &quot;#{@tweet1.text}+編集したテキスト&quot;
+    # 編集してもTweetモデルのカウントは変わらないことを確認する
+    expect{
+      find(&#x27;input[name=&quot;commit&quot;]&#x27;).click
+      sleep 1
+    }.to change { Tweet.count }.by(0)
+    # トップページには先ほど変更した内容のツイートが存在することを確認する（画像）
+    expect(page).to have_selector &quot;.content_post[style=&#x27;background-image: url(#{@tweet1.image}+編集した画像URL);&#x27;]&quot;
+    # トップページには先ほど変更した内容のツイートが存在することを確認する（テキスト）
+    expect(page).to have_content(&quot;#{@tweet1.text}+編集したテキスト&quot;)
+  end
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

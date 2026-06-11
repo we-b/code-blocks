@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-markup"><code>&lt;script setup&gt;
+import CheckAll from &#x27;vue-material-design-icons/CheckAll.vue&#x27;;
+&lt;/script&gt;
+
+&lt;template&gt;
+  &lt;div class=&quot;header&quot;&gt;
+    &lt;div class=&quot;header-left&quot;&gt;
+      &lt;CheckAll class=&quot;header_icon&quot; fontsize=&quot;large&quot; /&gt;
+      &lt;span class=&quot;header-title&quot;&gt;Task Checker&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;header-search&quot;&gt;
+      &lt;form class=&quot;search-container&quot;&gt;
+        &lt;input
+          placeholder=&quot;タイトルで検索&quot;
+          class=&quot;search-input&quot;
+          type=&quot;search&quot;
+          aria-label=&quot;検索&quot;
+        /&gt;
+        &lt;button
+          type=&quot;submit&quot;
+          class=&quot;search-button&quot;
+        &gt;
+          検索
+        &lt;/button&gt;
+      &lt;/form&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;style&gt;
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 60px;
+  background-color: white;
+  box-shadow: 0 3px 3px rgba(0, 0, 0, 0.1);
+  padding: 0 30px;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.header_icon {
+  color: rgb(170, 1, 1);
+}
+
+.header_title {
+  font-size: 25px;
+  color: rgb(70, 70, 70);
+  font-weight: bold;
+  margin-left: 10px;
+}
+
+
+.search-container {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  width: 100%;
+  max-width: 400px;
+}
+
+.search-input {
+  flex: 1;
+  padding: 0.4rem 0.6rem;
+  background-color: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  font-size: 0.7rem;
+  color: #1f2937;
+  transition: all 0.2s ease;
+}
+
+.search-button {
+  padding: 0.4rem 0.8rem;
+  background-color: #4f83f2;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: 500;
+  font-size: 0.7rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+&lt;/style&gt;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

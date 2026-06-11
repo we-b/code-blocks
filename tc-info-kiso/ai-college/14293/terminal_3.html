@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-bash"><code>⏺ 現在の実装を確認してレビューします。
+
+⏺ Read(app/services/tasks/duplicate_service.rb)
+  ⎿  Read 25 lines
+
+⏺ Read(app/controllers/tasks_controller.rb)
+  ⎿  Read 52 lines
+
+⏺ Read(config/routes.rb)
+  ⎿  Read 10 lines
+
+⏺ ---
+  コードレビュー: タスクの複製機能
+
+  1. コーディング規約
+
+  問題点
+
+  | ファイル                    | 行            | 問題            | 重要度 |
+  |-------------------------|--------------|---------------|-----|
+  | duplicate_service.rb:14 | status: 0    | マジックナンバーの使用   | 中   |
+  | duplicate_service.rb:10 | &quot;(コピー)&quot;      | サフィックスがハードコード | 低   |
+  | tasks_controller.rb:31  | result = ... | 未使用変数         | 低   |
+
+  改善案
+
+  1-1. マジックナンバーの排除 (duplicate_service.rb:14)
+  # Before
+  status: 0
+
+  # After（Taskモデルにenumがある場合）
+  status: :not_started
+  # または定数として定義
+  status: Task::INITIAL_STATUS
+
+  1-2. 未使用変数の削除 (tasks_controller.rb:31)
+  # Before
+  result = Tasks::DuplicateService.new(params[:id]).call
+
+  # After
+  Tasks::DuplicateService.new(params[:id]).call
+
+  ---
+  2. 基本的なセキュリティ
+
+  問題点
+
+  | ファイル                   | 行                                             | 問題           | 重要度 |
+  |------------------------|-----------------------------------------------|--------------|-----|
+  | tasks_controller.rb:31 | params[:id]                                   | 型チェックなし      | 低   |
+  | tasks_controller.rb:3  | skip_before_action :verify_authenticity_token | CSRF保護無効（既存） | 高   |
+
+  改善案
+
+  2-1. パラメータの型変換
+  # Before
+  Tasks::DuplicateService.new(params[:id]).call
+
+  # After（明示的に整数に変換）
+  Tasks::DuplicateService.new(params[:id].to_i).call
+
+  2-2. CSRF保護について（既存コードの問題）
+
+  現状は skip_before_action :verify_authenticity_token
+  で全アクションのCSRF保護が無効化されています。API専用の場合は問題ありませんが、ブラウザからのリクエストも受け付ける場合はリスクがあります。
+
+  ---
+  3. パフォーマンス
+
+  問題点
+
+  | ファイル                      | 行         | 問題          | 重要度 |
+  |---------------------------|-----------|-------------|-----|
+  | tasks_controller.rb:48    | Task.all  | N+1クエリの可能性  | 中   |
+  | duplicate_service.rb:7,18 | 2回のDBアクセス | 最適化可能だが許容範囲 | 低   |
+
+  改善案
+
+  3-1. N+1クエリの防止 (tasks_controller.rb:47-49)
+  # Before
+  def tasks_all
+    @tasks = Task.all
+    render :all_tasks
+  end
+
+  # After（関連を使用している場合）
+  def tasks_all
+    @tasks = Task.includes(:genre).all
+    render :all_tasks
+  end
+
+  ---
+  4. その他の改善提案
+
+  4-1. エラーハンドリングの統一
+
+  現在 duplicate アクションのみ rescue でエラーハンドリングしていますが、他のアクション（update, destroy など）では select_task
+  で同様のエラーが発生する可能性があります。
+
+  # ApplicationControllerに共通のエラーハンドリングを追加
+  class ApplicationController &lt; ActionController::Base
+    rescue_from ActiveRecord::RecordNotFound, with: :record_not_found
+
+    private
+
+    def record_not_found
+      render json: { error: &#x27;Record not found&#x27; }, status: :not_found
+    end
+  end
+
+  4-2. サービスクラスの責務明確化
+
+  ServiceResult の success? が false の場合のハンドリングがコントローラーにありません。
+
+  # コントローラーで結果をチェック
+  def duplicate
+    result = Tasks::DuplicateService.new(params[:id]).call
+    if result.success?
+      tasks_all
+    else
+      render json: { errors: result.errors }, status: :unprocessable_entity
+    end
+  rescue ActiveRecord::RecordNotFound
+    render json: { error: &#x27;Task not found&#x27; }, status: :not_found
+  end
+
+  ---
+  まとめ
+
+  | 観点       | 重要度「高」の問題    | 重要度「中」の問題  |
+  |----------|--------------|------------|
+  | コーディング規約 | なし           | マジックナンバー   |
+  | セキュリティ   | CSRF保護無効（既存） | なし         |
+  | パフォーマンス  | なし           | N+1クエリの可能性 |
+
+  優先対応すべき項目:
+  1. status: 0 → status: :not_started （可読性向上）
+  2. Task.includes(:genre).all （パフォーマンス）
+  3. 未使用変数 result の削除</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+</body>
+</html>

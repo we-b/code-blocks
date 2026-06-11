@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code># ケース1: titleが空
+article = Article.new(title: &#x27;&#x27;, body: &#x27;テスト本文&#x27;)
+article.valid?
+# =&gt; false
+article.errors.full_messages
+# =&gt; [&quot;タイトルを入力してください&quot;]
+
+# ケース2: titleが101文字
+article = Article.new(title: &#x27;あ&#x27; * 101, body: &#x27;テスト本文&#x27;)
+article.valid?
+# =&gt; false
+article.errors.full_messages
+# =&gt; [&quot;タイトルは100文字以内で入力してください&quot;]
+
+# ケース3: titleが空白のみ
+article = Article.new(title: &#x27;   &#x27;, body: &#x27;テスト本文&#x27;)
+article.valid?
+# =&gt; false
+article.errors.full_messages
+# =&gt; [&quot;タイトルに空白文字のみは使用できません&quot;]
+
+# ケース4: bodyが空
+article = Article.new(title: &#x27;テストタイトル&#x27;, body: &#x27;&#x27;)
+article.valid?
+# =&gt; false
+article.errors.full_messages
+# =&gt; [&quot;本文を入力してください&quot;]
+
+# ケース5: 有効なデータ
+article = Article.new(title: &#x27;テストタイトル&#x27;, body: &#x27;テスト本文&#x27;)
+article.valid?
+# =&gt; true</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

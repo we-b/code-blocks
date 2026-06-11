@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>require &#x27;rails_helper&#x27;
+
+RSpec.describe &quot;Tasks API&quot;, type: :request do
+  let!(:genre) { Genre.create!(name: &#x27;テストジャンル&#x27;) }
+
+  // 省略
+
+  # ============================================================
+  # POST /tasks/:id/duplicate - タスク複製API
+  # ============================================================
+  describe &#x27;POST /tasks/:id/duplicate&#x27; do
+    # ----------------------------------------------------------
+    # 6. 正常系 - HTTPレスポンス
+    # ----------------------------------------------------------
+    describe &#x27;正常系&#x27; do
+      let!(:original_task) do
+        Task.create!(
+          name: &#x27;元のタスク&#x27;,
+          explanation: &#x27;これは元のタスクの説明です&#x27;,
+          genre: genre,
+          priority: :high,
+          status: 2,
+          deadline_date: Date.new(2025, 12, 31)
+        )
+      end
+
+      context &#x27;HTTPレスポンス&#x27; do
+        it &#x27;正常にリクエストすると HTTP 200 OK が返される&#x27; do
+          post &quot;/tasks/#{original_task.id}/duplicate&quot;, as: :json
+
+          expect(response).to have_http_status(:ok)
+        end
+
+        it &#x27;レスポンスにタスク一覧（配列）が含まれる&#x27; do
+          post &quot;/tasks/#{original_task.id}/duplicate&quot;, as: :json
+
+          json_response = JSON.parse(response.body)
+          expect(json_response).to be_an(Array)
+        end
+
+        it &#x27;レスポンスに複製されたタスクの情報が含まれる&#x27; do
+          post &quot;/tasks/#{original_task.id}/duplicate&quot;, as: :json
+
+          json_response = JSON.parse(response.body)
+          duplicated_task = json_response.find { |task| task[&#x27;name&#x27;] == &#x27;元のタスク(コピー)&#x27; }
+
+          expect(duplicated_task).not_to be_nil
+        end
+      end
+
+      context &#x27;データベースへの影響&#x27; do
+        it &#x27;タスクが1件追加される&#x27; do
+          expect {
+            post &quot;/tasks/#{original_task.id}/duplicate&quot;, as: :json
+          }.to change(Task, :count).by(1)
+        end
+
+        it &#x27;元のタスクは削除されない&#x27; do
+          post &quot;/tasks/#{original_task.id}/duplicate&quot;, as: :json
+
+          expect(Task.exists?(original_task.id)).to be true
+        end
+      end
+
+    end
+
+    # ----------------------------------------------------------
+    # 8. 異常系 - HTTPエラー
+    # ----------------------------------------------------------
+    describe &#x27;異常系&#x27; do
+      context &#x27;存在しないタスクID&#x27; do
+        it &#x27;存在しない task_id を指定すると HTTP 404 Not Found が返される&#x27; do
+          non_existent_id = 999999
+
+          post &quot;/tasks/#{non_existent_id}/duplicate&quot;, as: :json
+
+          expect(response).to have_http_status(:not_found)
+        end
+
+        it &#x27;タスクは作成されない&#x27; do
+          non_existent_id = 999999
+
+          expect {
+            post &quot;/tasks/#{non_existent_id}/duplicate&quot;, as: :json
+          }.not_to change(Task, :count)
+        end
+      end
+
+      context &#x27;不正なタスクID形式&#x27; do
+        it &#x27;文字列の task_id を指定すると HTTP 404 が返される&#x27; do
+          post &#x27;/tasks/invalid_id/duplicate&#x27;, as: :json
+
+          expect(response).to have_http_status(:not_found)
+        end
+
+        it &#x27;負の値の task_id を指定すると HTTP 404 が返される&#x27; do
+          post &#x27;/tasks/-1/duplicate&#x27;, as: :json
+
+          expect(response).to have_http_status(:not_found)
+        end
+
+        it &#x27;0 の task_id を指定すると HTTP 404 が返される&#x27; do
+          post &#x27;/tasks/0/duplicate&#x27;, as: :json
+
+          expect(response).to have_http_status(:not_found)
+        end
+      end
+    end
+  end
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript"><code>import qs from &#x27;qs&#x27;;
+
+// オブジェクトをapplication/x-www-form-urlencodedに変換
+const obj = { name: &#x27;John&#x27;, age: 30 };
+const stringified = qs.stringify(obj);
+console.log(stringified);     // &#x27;name=John&amp;age=30&#x27;
+
+// application/x-www-form-urlencodedをオブジェクトに変換
+const queryString = &#x27;name=John&amp;age=30&#x27;;
+const parsed = qs.parse(queryString);
+console.log(parsed); // { name: &#x27;John&#x27;, age: &#x27;30&#x27; }</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+</body>
+</html>

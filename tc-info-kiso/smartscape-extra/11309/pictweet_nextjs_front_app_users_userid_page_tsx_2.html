@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript" data-line="2,3,9,14,15,17,18,19,20,21,22,23,24,25,26,27,28,29,30"><code>&#x27;use client&#x27;
+import { useEffect, useState } from &quot;react&quot;;
+import { useParams } from &quot;next/navigation&quot;;
+import Header from &#x27;@/app/_components/Header&#x27;;
+import Footer from &#x27;@/app/_components/Footer&#x27;;
+import TweetList from &quot;@/app/_components/TweetList&quot;;
+import { TweetData } from &quot;@/app/_interfaces/TweetData&quot;;
+import { UserData } from &quot;@/app/_interfaces/UserData&quot;;
+import { findUserTweets } from &quot;@/app/api/users&quot;;
+
+const UserMyPage = () =&gt; {
+  const [user, setUser] = useState&lt;UserData&gt;({id: 0, nickname: &quot;&quot;});
+  const [tweets, setTweets] = useState&lt;TweetData[]&gt;([]);
+  const params = useParams();
+  const userId = params.userId;
+
+  useEffect(() =&gt; {
+    const getTweets = async () =&gt; {
+      try {
+        const response = await findUserTweets(Number(userId));
+        setUser({id: Number(response.id), nickname: String(response.nickname)});
+        setTweets(response.tweets);
+      } catch (error) {
+        setUser({id: 0, nickname: &quot;&quot;});
+        setTweets([]);
+        console.error(&#x27;ユーザー情報の取得に失敗しました:&#x27;, error);
+      }
+    };
+    getTweets();
+  }, []);
+
+  const handleDeleteTweet = async (tweetId: number) =&gt; {
+    // 削除ボタンが押された時の処理
+  };
+
+  return (
+    &lt;div&gt;
+      &lt;Header /&gt;
+      &lt;div className=&quot;contents row&quot;&gt;
+        &lt;p&gt;{user.nickname}さんの投稿一覧&lt;/p&gt;
+        &lt;TweetList tweets={tweets} onDeleteTweet={handleDeleteTweet}/&gt;
+      &lt;/div&gt;
+      &lt;Footer /&gt;
+    &lt;/div&gt;
+  );
+}
+
+export default UserMyPage</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

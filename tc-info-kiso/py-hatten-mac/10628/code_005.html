@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-plaintext"><code>from django.test import TestCase
+from django.core.exceptions import ValidationError
+from ..factories.users import UserFactory
+
+class BaseUserModelTest(TestCase):
+    def setUp(self):
+        self.user = UserFactory.build()
+
+class UserModelSuccessTestCase(BaseUserModelTest):
+    def test_user_creation(self):
+        self.user.full_clean()
+
+class UserModelFailureTestCase(BaseUserModelTest):
+    def test_nickname_cannot_be_blank(self):
+
+    def test_email_cannot_be_blank(self):
+
+    def test_password_cannot_be_blank(self):
+
+    def test_nickname_length_exceeds_limit(self):
+
+    def test_unique_email_constraint(self):
+
+    def test_email_must_contain_at_symbol(self):</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

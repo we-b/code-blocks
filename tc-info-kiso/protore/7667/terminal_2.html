@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-bash"><code># 文字列を定義
+irb(main):001:0&gt; text = &quot;/はスラッシュです&quot;
+=&gt; &quot;/はスラッシュです&quot;
+
+# エスケープ文字を使用せず「/はスラッシュです」との一致を確認するも、エラーとなる
+irb(main):002:0&gt; text.match(//はスラッシュです/)
+Traceback (most recent call last):
+        3: from /Users/tech-camp/.rbenv/versions/2.6.5/bin/irb:23:in `&lt;main&gt;&#x27;
+        2: from /Users/tech-camp/.rbenv/versions/2.6.5/bin/irb:23:in `load&#x27;
+        1: from /Users/tech-camp/.rbenv/versions/2.6.5/lib/ruby/gems/2.6.0/gems/irb-1.0.0/exe/irb:11:in `&lt;top (required)&gt;&#x27;
+SyntaxError ((irb):2: syntax error, unexpected tIDENTIFIER, expecting &#x27;)&#x27;)
+...atch(//はスラッシュです/)
+...       ^~~~~~~~~~~~~~~~~~~~~~~~
+
+# エスケープ文字を使用して「/はスラッシュです」との一致を確認すると、一致する
+irb(main):003:0&gt; text.match(/\/はスラッシュです/)
+=&gt; #&lt;MatchData &quot;/はスラッシュです&quot;&gt;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+</body>
+</html>

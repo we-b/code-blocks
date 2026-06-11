@@ -13,26 +13,17 @@
     </style>
 </head>
 <body>
-<pre class="language-plaintext"><code>// ☓：非ログイン時に表示されるビューで、SecurityContextHolderからユーザー情報を取得している
-// 非ログイン時はanonymousUserとなりCastExceptionが発生する
+<pre class="language-plaintext"><code># X:非ログイン時に表示されるビューで、current_user.idを指定している
+# current_userはログイン時のみ使用できるdeviseのヘルパーなので、非ログイン時に使おうとするとエラーになる
 
-@GetMapping(&quot;/profile&quot;)
-public String profile(Model model) {
-    UserDetails userDetails = (UserDetails) SecurityContextHolder
-        .getContext().getAuthentication().getPrincipal();
-    model.addAttribute(&quot;username&quot;, userDetails.getUsername());
-    return &quot;profile&quot;;
-}
+= link_to &quot;プロフィール&quot;, &quot;users/profile/#{current_user.id}&quot;
 
-// ◯：@AuthenticationPrincipalを使い、非ログイン時はnullになることを考慮している
 
-@GetMapping(&quot;/profile&quot;)
-public String profile(@AuthenticationPrincipal UserDetails userDetails, Model model) {
-    if (userDetails != null) {
-        model.addAttribute(&quot;username&quot;, userDetails.getUsername());
-    }
-    return &quot;profile&quot;;
-}</code></pre>
+# ◯:該当箇所がログイン時のみ読み込まれるように条件を設ける
+
+- if user_signed_in?
+  = link_to &quot;プロフィール&quot;, &quot;users/profile/#{current_user.id}&quot;
+</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 
 </body>

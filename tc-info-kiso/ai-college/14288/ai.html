@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code># NG例：コードの動作を説明しているだけのコメント
+def calculate_total_price(price, quantity)
+  # 税率を10%に設定
+  tax_rate = 0.1
+
+  # 小計を計算
+  subtotal = price * quantity
+
+  # 税額を計算
+  tax = subtotal * tax_rate
+
+  # 小計と税額を合算して返す
+  return subtotal + tax
+end
+
+# OK例：実装の背景（Why）を説明しているコメント
+def calculate_final_price(price, is_reduced_tax_rate)
+  # 通常の消費税率は10%
+  tax_rate = 0.10
+
+  # 軽減税率対象商品の場合、特別な税率を適用する。
+  # このビジネスルールは、2019年10月1日の法改正に基づく。詳細は仕様書XXXを参照。
+  if is_reduced_tax_rate
+    tax_rate = 0.08
+  end
+
+  # パフォーマンス上の理由から、小数点以下の計算はInteger型で行い、最後にFloat型に変換する。
+  # これにより、浮動小数点数演算による誤差の発生を防ぐ。
+  final_price = (price * (1 + tax_rate)).floor
+
+  return final_price.to_f
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

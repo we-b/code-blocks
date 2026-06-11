@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-markup" data-line="13"><code>・
+・
+・
+
+    &lt;!-- 回答投稿フォームの表示 --&gt;
+    &lt;div class=&quot;show-answer-form&quot;&gt;
+      &lt;form method=&quot;post&quot; action=&quot;{% url &#x27;questions:answers:answer&#x27; pk=question.id %}&quot;&gt;
+        {% csrf_token %}
+        &lt;div class=&quot;show-answer-form__heading&quot;&gt;
+          回答する
+        &lt;/div&gt;
+        &lt;div class=&quot;show-answer-form__content&quot;&gt;
+          {{ form.content }}
+        &lt;/div&gt;
+        &lt;div class=&quot;show-answer-form__name&quot;&gt;
+           {{ form.name }}
+        &lt;/div&gt;
+        &lt;div class=&quot;show-answer-form__submit&quot;&gt;
+          &lt;input type=&quot;submit&quot; value=&quot;POST&quot;&gt;
+        &lt;/div&gt;
+      &lt;/form&gt;
+    &lt;/div&gt;
+
+・
+・
+・</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

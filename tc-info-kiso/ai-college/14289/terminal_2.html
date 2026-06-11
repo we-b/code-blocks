@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-bash"><code>分析結果をまとめます。
+
+  アプリケーション概要
+
+  このアプリは ToDo管理アプリケーション で、JSON APIとして機能するRails 7.1のバックエンドシステムです。
+
+  ---
+  データ構造
+
+  テーブル構成
+
+  genres テーブル
+  - id (主キー)
+  - name (string) - ジャンル名
+  - created_at
+  - updated_at
+
+  tasks テーブル
+  - id (主キー)
+  - name (string) - タスク名
+  - explanation (string) - 説明
+  - deadline_date (date) - 締切日
+  - status (integer) - ステータス
+  - genre_id (bigint, 外部キー) - ジャンルID
+  - created_at
+  - updated_at
+
+  リレーション
+
+  - Genre has_many Tasks (dependent: :destroy)
+  - Task belongs_to Genre
+
+  ---
+  API エンドポイント
+
+  Tasks API (JSON形式)
+
+  - GET /tasks - タスク一覧取得
+  - POST /tasks - タスク作成
+  - PATCH/PUT /tasks/:id - タスク更新
+  - DELETE /tasks/:id - タスク削除
+  - POST /tasks/:id/status - タスクステータス更新
+
+  Genres API
+
+  - GET /genres - ジャンル一覧取得
+  - POST /genres - ジャンル作成
+  - DELETE /genres/:id - ジャンル削除
+
+  ---
+  コントローラー構造
+
+  TasksController (app/controllers/tasks_controller.rb:1)
+
+  - CSRF保護を無効化 (skip_before_action :verify_authenticity_token)
+  - 全アクション後に全タスク一覧を返却
+  - パラメータマッピング: camelCase → snake_case (genreId → genre_id, deadlineDate → deadline_date)
+  - JSON形式でレスポンス (app/views/tasks/all_tasks.json.jbuilder:1)
+
+  GenresController (app/controllers/genres_controller.rb:1)
+
+  - CSRF保護を無効化
+  - シンプルなCRUD操作（更新機能なし）
+  - JSON形式で直接レスポンス
+
+  ---
+  特徴
+
+  1. APIモード設計: フロントエンドとの分離を前提としたJSON API
+  2. camelCase対応: フロントエンド（おそらくJavaScript）との連携を考慮したキー名変換
+  3. ジャンル別管理: タスクをジャンルでカテゴライズ可能
+  4. ステータス管理: タスクのステータスを整数値で管理
+  5. 依存削除: ジャンル削除時に関連タスクも自動削除
+
+  このアプリは、フロントエンドアプリケーションからの非同期リクエストを想定したバックエンドAPIとして構築されています。</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+</body>
+</html>

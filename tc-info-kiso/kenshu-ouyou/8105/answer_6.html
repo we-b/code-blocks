@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>it '画像の投稿に成功すると、投稿一覧に遷移して、投稿した画像が表示されている' do
+  sign_in(@room_user.user)
+  click_on(@room_user.room.name)
+  image_path = Rails.root.join('public/images/test_image.png')
+  attach_file('message[image]', image_path, make_visible: true)
+  expect {
+    find('input[name="commit"]').click
+    sleep 1
+  }.to change { Message.count }.by(1)
+  expect(page).to have_current_path(room_messages_path(@room_user.room))
+  expect(page).to have_selector('img')
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

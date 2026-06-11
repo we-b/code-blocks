@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java"><code>import java.util.ArrayList;
+import java.util.List;
+
+// 掲示板クラス
+public class BulletinBoard {
+  private List&lt;String&gt; messages;
+
+  public BulletinBoard() {
+    messages = new ArrayList&lt;&gt;();
+  }
+
+  public void postMessage(String message) {
+    messages.add(message);
+    System.out.println(&quot;新しいメッセージ: &quot; + message);
+  }
+
+  public void displayMessages() {
+    System.out.println(&quot;メッセージ一覧:&quot;);
+    for (String message : messages) {
+      System.out.println(&quot;- &quot; + message);
+    }
+  }
+}
+
+public class Organization {
+  private String name;
+  private BulletinBoard bulletinBoard; // 組織に共有される掲示板
+
+  public Organization(String name, BulletinBoard bulletinBoard) {
+    this.name = name;
+    this.bulletinBoard = bulletinBoard; // 共有掲示板を渡す
+  }
+
+  public void postMessage(String message) {
+    bulletinBoard.postMessage(name + &quot;からの: &quot; + message);
+  }
+}
+
+public class Main {
+  public static void main(String[] args) {
+    // 掲示板インスタンスを一つだけ作成
+    BulletinBoard sharedBoard = new BulletinBoard();
+
+    Organization salesOrg = new Organization(&quot;営業部&quot;, sharedBoard);
+    Organization developmentOrg = new Organization(&quot;開発部&quot;, sharedBoard);
+
+    // 各組織が同じ掲示板にメッセージを投稿
+    salesOrg.postMessage(&quot;売上が前年同期比で10%増加しました！&quot;);
+    developmentOrg.postMessage(&quot;新しいプロジェクトがスタートしました！&quot;);
+
+    // 統一された掲示板に投稿されたメッセージを表示
+    sharedBoard.displayMessages();
+  }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>

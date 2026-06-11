@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript" data-line="14"><code>// health: 健康状態 =&gt; {weight: 体重(kg)、fat: 脂肪率(%)}
+
+const reducer = (state, action) =&gt; {
+  switch (action.type) {
+    case &#x27;食事&#x27;:
+      return {weight: state.weight + 5, fat: state.fat + 5 };
+    case &#x27;サウナ&#x27;:
+      return {weight: state.weight - 5, fat: state.fat - 5 };
+    case &#x27;筋トレ&#x27;:
+      return {weight: state.weight + 5, fat: state.fat - 5 };
+  }
+}
+
+const [health, dispatch] = useReducer(reducer, {weight: 60, fat: 15});
+console.log(&#x27;初期状態: &#x27; + health)
+
+dispatch({type: &#x27;食事&#x27;})   
+console.log(&#x27;食事後: &#x27; + health)
+dispatch({type: &#x27;サウナ&#x27;})
+console.log(&#x27;サウナ後: &#x27; + health)
+dispatch({type: &#x27;筋トレ&#x27;}) 
+console.log(&#x27;筋トレ後: &#x27; + health)
+
+
+
+// 出力結果
+初期状態: {weight: 60, fat: 15}
+食事後: {weight: 65, fat: 20}
+サウナ後: {weight: 60, fat: 15}
+筋トレ後: {weight: 65, fat: 10}
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

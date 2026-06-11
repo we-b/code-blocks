@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby" data-line="9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28"><code>require &#x27;rails_helper&#x27;
+
+RSpec.describe User, type: :model do
+  before do
+    @user = FactoryBot.build(:user)
+  end
+
+  describe &#x27;ユーザー新規登録&#x27; do
+    it &#x27;nicknameとemail、passwordとpassword_confirmationが存在すれば登録できる&#x27; do
+    end
+    it &#x27;nicknameが空では登録できない&#x27; do
+    end
+    it &#x27;emailが空では登録できない&#x27; do
+    end
+    it &#x27;passwordが空では登録できない&#x27; do
+    end
+    it &#x27;passwordとpassword_confirmationが不一致では登録できない&#x27; do
+    end
+    it &#x27;nicknameが7文字以上では登録できない&#x27; do
+    end
+    it &#x27;重複したemailが存在する場合は登録できない&#x27; do
+    end
+    it &#x27;emailは@を含まないと登録できない&#x27; do
+    end
+    it &#x27;passwordが5文字以下では登録できない&#x27; do
+    end
+    it &#x27;passwordが129文字以上では登録できない&#x27; do
+    end
+  end
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

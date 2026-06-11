@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-bash"><code>⏺ まず、既存のコードベースを確認して、Taskモデルとコントローラーの構造を把握させてください。
+
+⏺ Read(app/models/task.rb)
+  ⎿  Read 6 lines
+
+⏺ Read(app/controllers/tasks_controller.rb)
+  ⎿  Read 45 lines
+
+⏺ Read(db/schema.rb)
+  ⎿  Read 64 lines
+
+⏺ Read(app/services/tasks/create_service.rb)
+  ⎿  Read 29 lines
+
+⏺ コードベースを確認しました。Task モデルの構造を把握した上で、テストケースを整理します。
+
+  ---
+  タスク複製機能 テストケース一覧
+
+  単体テスト（モデル/サービスクラス）
+
+  1. 正常系 - 属性の引き継ぎ
+
+  | No. | テストケース                          | 期待結果                     |
+  |-----|---------------------------------|--------------------------|
+  | 1-1 | name が正しく引き継がれ、末尾に「(コピー)」が追加される | 元: &quot;買い物&quot; → 新: &quot;買い物(コピー)&quot; |
+  | 1-2 | explanation がそのまま引き継がれる         | 元と同じ値がセットされる             |
+  | 1-3 | genre_id がそのまま引き継がれる            | 元と同じ値がセットされる             |
+  | 1-4 | priority がそのまま引き継がれる（low）       | priority: low が保持される     |
+  | 1-5 | priority がそのまま引き継がれる（medium）    | priority: medium が保持される  |
+  | 1-6 | priority がそのまま引き継がれる（high）      | priority: high が保持される    |
+
+  2. 正常系 - 特別な処理
+
+  | No. | テストケース                       | 期待結果                      |
+  |-----|------------------------------|---------------------------|
+  | 2-1 | status が「完了」のタスクを複製          | 新タスクの status は「未着手」       |
+  | 2-2 | status が「進行中」のタスクを複製         | 新タスクの status は「未着手」       |
+  | 2-3 | status が「未着手」のタスクを複製         | 新タスクの status は「未着手」       |
+  | 2-4 | deadline_date が設定されているタスクを複製 | 新タスクの deadline_date は nil |
+  | 2-5 | deadline_date が nil のタスクを複製  | 新タスクの deadline_date は nil |
+
+  3. 正常系 - 境界値・エッジケース
+
+  | No. | テストケース                     | 期待結果                             |
+  |-----|----------------------------|----------------------------------|
+  | 3-1 | name が空文字のタスクを複製           | &quot;(コピー)&quot; のみの name になる             |
+  | 3-2 | name が非常に長い文字列のタスクを複製      | 末尾に「(コピー)」が追加される                 |
+  | 3-3 | name に既に「(コピー)」が含まれるタスクを複製 | &quot;タスク(コピー)(コピー)&quot; になる              |
+  | 3-4 | explanation が nil のタスクを複製  | 新タスクの explanation も nil          |
+  | 3-5 | explanation が空文字のタスクを複製    | 新タスクの explanation も空文字           |
+  | 3-6 | genre_id が nil のタスクを複製     | 新タスクの genre_id も nil（要確認：外部キー制約） |
+
+  4. 正常系 - データの独立性
+
+  | No. | テストケース                     | 期待結果                   |
+  |-----|----------------------------|------------------------|
+  | 4-1 | 複製後、元タスクと新タスクが別レコードである     | ID が異なる                |
+  | 4-2 | 複製後、新タスクの created_at は現在時刻 | 元タスクの created_at とは異なる |
+  | 4-3 | 複製後、元タスクを更新しても新タスクに影響しない   | 独立したレコードとして動作          |
+
+  5. 異常系
+
+  | No. | テストケース              | 期待結果                      |
+  |-----|---------------------|---------------------------|
+  | 5-1 | 存在しない task_id を指定   | 適切なエラー（RecordNotFound）    |
+  | 5-2 | 関連する genre が削除済みの場合 | 外部キー制約エラー or 適切なエラーハンドリング |
+
+  ---
+  結合テスト（API リクエスト）
+
+  6. 正常系 - HTTPレスポンス
+
+  | No. | テストケース                             | 期待結果            |
+  |-----|------------------------------------|-----------------|
+  | 6-1 | POST /tasks/:id/duplicate で正常に複製   | HTTP 200 OK     |
+  | 6-2 | レスポンスに新タスクの情報が含まれる                 | 複製されたタスクの属性が返却  |
+  | 6-3 | レスポンスにタスク一覧が含まれる（既存の tasks_all 形式） | 全タスクが返却される      |
+  | 6-4 | DBにタスクが1件追加される                     | Task.count が +1 |
+
+  7. 正常系 - 属性の検証（API経由）
+
+  | No. | テストケース                       | 期待結果                            |
+  |-----|------------------------------|---------------------------------|
+  | 7-1 | レスポンスの name に「(コピー)」が付与されている | name: &quot;元の名前(コピー)&quot;               |
+  | 7-2 | レスポンスの status が初期ステータス       | status: 未着手（0 or &quot;not_started&quot;） |
+  | 7-3 | レスポンスの deadline_date が null  | deadline_date: null             |
+  | 7-4 | レスポンスの priority が元タスクと同じ     | priority が正しく引き継がれる             |
+  | 7-5 | レスポンスの genre_id が元タスクと同じ     | genre_id が正しく引き継がれる             |
+  | 7-6 | レスポンスの explanation が元タスクと同じ  | explanation が正しく引き継がれる          |
+
+  8. 異常系 - HTTPエラー
+
+  | No. | テストケース                | 期待結果                               |
+  |-----|-----------------------|------------------------------------|
+  | 8-1 | 存在しない task_id を指定     | HTTP 404 Not Found                 |
+  | 8-2 | 不正な task_id 形式（文字列など） | HTTP 404 or 400                    |
+  | 8-3 | task_id に負の値を指定       | HTTP 404 Not Found                 |
+  | 8-4 | GET メソッドでアクセス         | HTTP 405 Method Not Allowed or 404 |
+  | 8-5 | PUT メソッドでアクセス         | HTTP 405 Method Not Allowed or 404 |
+  | 8-6 | DELETE メソッドでアクセス      | HTTP 405 Method Not Allowed or 404 |
+
+  9. 複数回複製
+
+  | No. | テストケース        | 期待結果                   |
+  |-----|---------------|------------------------|
+  | 9-1 | 同じタスクを連続で2回複製 | 2つの独立した新タスクが作成される      |
+  | 9-2 | 複製したタスクをさらに複製 | &quot;タスク(コピー)(コピー)&quot; が作成される |
+
+  ---
+  補足：確認すべき設計上のポイント
+
+  1. status の初期値: 現在の schema には enum 定義がないため、「未着手」の値（0? 文字列?）を確認する必要あり
+  2. name のバリデーション: 最大長の制限がある場合、「(コピー)」追加後に超過しないか
+  3. genre の必須/任意: belongs_to :genre に optional 指定がないため、genre_id が nil だとエラーになる可能性</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+</body>
+</html>

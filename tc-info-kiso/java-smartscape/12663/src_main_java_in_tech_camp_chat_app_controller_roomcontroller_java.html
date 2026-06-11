@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java" data-line="3,5,10,11,13,14,17,19,22,23,24"><code>package in.tech_camp.chat_app.controller;
+
+import java.util.List;
+
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import in.tech_camp.chat_app.custom_user.CustomUserDetail;
+import in.tech_camp.chat_app.entity.UserEntity;
+import in.tech_camp.chat_app.form.RoomForm;
+import in.tech_camp.chat_app.repository.UserRepository;
+import lombok.AllArgsConstructor;
+
+@Controller
+@AllArgsConstructor
+public class RoomController {
+  private final UserRepository userRepository;
+
+  @GetMapping(&quot;/rooms/new&quot;)
+  public String showRoomNew(@AuthenticationPrincipal CustomUserDetail currentUser, Model model){
+    List&lt;UserEntity&gt; users = userRepository.findAllExcept(currentUser.getId());
+    model.addAttribute(&quot;users&quot;, users);
+    model.addAttribute(&quot;roomForm&quot;, new RoomForm());
+    return &quot;rooms/new&quot;;
+  }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

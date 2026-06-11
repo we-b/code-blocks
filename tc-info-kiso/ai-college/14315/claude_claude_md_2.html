@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-markdown"><code># グローバル設定
+
+## 言語
+- 回答は日本語で行ってください
+- コード内のコメントも日本語で書いてください
+
+## 安全に関するルール
+- rm -rf コマンドは絶対に実行しない
+- sudo コマンドは実行しない
+- .envファイルの内容は表示も編集もしない
+- 本番環境（production）に関する操作は行わない
+
+## コーディングの基本方針
+- エラーハンドリングは必ず行う
+- 機密情報はハードコードしない
+- 既存のコードスタイルに合わせる</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markdown.min.js"></script>
+</body>
+</html>

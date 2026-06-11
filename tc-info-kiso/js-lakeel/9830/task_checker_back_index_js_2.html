@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript" data-line="2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37"><code>(省略)
+app.post(&quot;/tasks&quot;, upload.single(&#x27;image_url&#x27;), async (req, res) =&gt; {
+  console.log(&quot;リクエストボディ&quot;,req.body)
+  try {
+    const imagePath = req.file ? req.file.path : null; // アップロードした画像のパス
+    console.log(&quot;画像&quot;,req.file)
+    const deadlineDate = new Date(req.body.deadlineDate)
+    const savedData = await prisma.task.create({
+      data: {
+        ...req.body,
+        image_url: imagePath,
+        deadlineDate: deadlineDate,
+        status: Number(req.body.status), 
+        genreId: Number(req.body.genreId),  
+      },
+    });
+
+   if (savedData.image_url) {
+      savedData.image_url = `http://localhost:3000/${savedData.image_url}`
+      console.log(savedData.image_url)
+    } else {
+      savedData.image_url = null;
+    }
+
+    res.json(savedData)
+  } catch(error) {
+    console.log(error)
+    res.status(500).send(&quot;タスクの保存に失敗しました&quot;)
+  }
+})</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

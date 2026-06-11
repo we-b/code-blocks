@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>
+# 今回のコンテンツデータ
+class ContentsData
+  attr_accessor :data_title, :data, :created_at
+  def initialize
+    @data_title = &#x27;コンテンツのタイトル&#x27;
+    @data = &#x27;コンテンツの内容&#x27;
+    @created_at = Time.new(2021, 1, 1)
+  end
+
+
+  def replace_date_jp
+    @date_jp = @created_at.strftime(&quot;%Y年%-m月%-d日&quot;)
+
+  end
+
+  def replace_date_us
+    @date_us = @created_at.strftime(&quot;%-m/%-d/%Y&quot;)
+
+  end
+end
+
+# プリンター
+class Printer
+  def initialize
+    @data = ContentsData.new
+  end
+
+  def print(num)
+    # 部数分を出力する。
+    num.times do
+      puts @data.data
+    end
+  end
+
+  def replace_date_jp
+    @data.replace_date_jp
+  end
+
+  def replace_date_us
+    @data.replace_date_us
+  end
+end
+
+
+printer = Printer.new
+printer.print(5)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

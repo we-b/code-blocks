@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby" data-line="18,19,20,21,22,23,24,25,26,27,32,33,34,39,40,41,47,48,49,54,55,56,57,58,59,60,61,62,63,64,65,66,71"><code>require &#x27;date&#x27;
+
+# 券売機をモデリングしたクラス
+class TicketVendingSystem
+  attr_reader :rides, :created_at
+
+  def initialize
+    @rides = [
+      { name: &#x27;roller coaster&#x27;, fee: 1200 },
+      { name: &#x27;merry-go-round&#x27;, fee: 1000 },
+      { name: &#x27;jackie coaster&#x27;, fee: 800 }
+    ]
+    @created_at = Date.today
+  end
+
+  # 販売機能実行
+  def exec_transaction
+    puts &#x27;0. チケットを購入する&#x27;
+    puts &#x27;1. 終了&#x27;
+    num = gets.chomp.to_i
+    if num == 0
+      transaction
+    elsif num == 1
+      exit
+    else
+      puts &#x27;不正な入力です&#x27;
+    end
+  end
+
+  # チケット購入機能
+  def transaction
+    display_tickets
+    ticket = issue_ticket
+    run_payment(ticket)
+  end
+
+  # チケット一覧表示機能
+  def display_tickets
+    puts &#x27;購入したいチケットを以下から選んで、金額を入力してください&#x27;
+    @rides.each_with_index do |ride, i|
+      puts &quot;[#{i}] 商品名：#{ride[:name]} 価格：#{ride[:fee]}&quot;
+    end
+  end
+
+  # チケット選択機能
+  def issue_ticket
+    ride = @rides[gets.to_i]
+    puts &quot;#{ride[:name]}が選択されました&quot;
+    ride
+  end
+
+  # 決済処理
+  def run_payment(ticket)
+    puts &#x27;お金をいれてください&#x27;
+    while true
+      payment = gets.to_i
+      charge = calc_change(payment, ticket[:fee])
+
+      if charge &gt;= 0
+        break
+      else
+        puts &#x27;入力金額が不足しています。金額を再入力してください。&#x27;
+      end
+    end
+
+    puts &quot;お釣りは#{charge}円です。ご利用ありがとうございました。&quot;
+  end
+
+  # お釣り算出機能
+  def calc_change(payment, fee)
+    payment - fee
+  end
+end
+
+TicketVendingSystem.new.exec_transaction
+
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

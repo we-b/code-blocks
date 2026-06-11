@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>require &#x27;rails_helper&#x27;
+
+RSpec.describe Message, type: :model do
+  before do
+    @message = FactoryBot.build(:message)
+  end
+
+  describe &#x27;メッセージ投稿&#x27; do
+    context &#x27;メッセージが投稿できる場合&#x27; do
+      it &#x27;contentとimageが存在していれば保存できる&#x27; do
+
+      end
+      it &#x27;contentが空でも保存できる&#x27; do
+
+      end
+      it &#x27;imageが空でも保存できる&#x27; do
+
+      end
+    end
+    context &#x27;メッセージが投稿できない場合&#x27; do
+      it &#x27;contentとimageが空では保存できない&#x27; do
+
+      end
+      it &#x27;roomが紐付いていないと保存できない&#x27; do
+
+      end
+      it &#x27;userが紐付いていないと保存できない&#x27; do
+
+      end
+    end
+  end
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

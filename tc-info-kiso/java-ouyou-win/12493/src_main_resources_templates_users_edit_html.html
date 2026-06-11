@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java" data-line="17"><code>&lt;!DOCTYPE html&gt;
+&lt;html xmlns:th=&quot;http://www.thymeleaf.org&quot; lang=&quot;ja&quot;&gt;
+&lt;head&gt;
+  &lt;meta charset=&quot;UTF-8&quot;&gt;
+  &lt;title&gt;ChatApp&lt;/title&gt;
+  &lt;link rel=&quot;stylesheet&quot; type=&quot;text/css&quot; href=&quot;https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.css&quot;&gt;
+  &lt;link rel=&quot;stylesheet&quot; th:href=&quot;@{/css/style.css}&quot; /&gt;
+  &lt;link rel=&quot;stylesheet&quot; th:href=&quot;@{/css/user.css}&quot; /&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+  &lt;div class=&#x27;account-page&#x27; id=&#x27;account-page&#x27;&gt;
+    &lt;div class=&#x27;account-page__inner clearfix&#x27;&gt;
+      &lt;div class=&#x27;account-page__inner--left account-page__header&#x27;&gt;
+        &lt;h2&gt;Edit Account&lt;/h2&gt;
+        &lt;h5&gt;アカウントの編集&lt;/h5&gt;
+        &lt;form th:action=&quot;@{/logout}&quot; method=&quot;post&quot;&gt;
+          &lt;input type=&quot;submit&quot; value=&quot;ログアウト&quot; class=&quot;btn&quot; /&gt;
+        &lt;/form&gt;
+        &lt;a th:href=&quot;@{/}&quot; class=&#x27;btn&#x27;&gt;チャットページに戻る&lt;/a&gt;
+      &lt;/div&gt;
+      &lt;div class=&#x27;account-page__inner--right user-form&#x27;&gt;
+        &lt;form th:action=&quot;@{/users/{id}(id=${user.id})}&quot; th:object=&quot;${user}&quot; method=&quot;post&quot;&gt;
+          &lt;div th:if=&quot;${errorMessages}&quot; th:each=&quot;error : ${errorMessages}&quot;&gt;
+            &lt;div th:text=&quot;${error}&quot;&gt;&lt;/div&gt;
+          &lt;/div&gt;
+          &lt;input type=&quot;hidden&quot; th:field=&quot;*{id}&quot;/&gt;
+
+          &lt;div class=&#x27;field&#x27;&gt;
+            &lt;div class=&#x27;field-label&#x27;&gt;
+              &lt;label for=&quot;name&quot;&gt;Name&lt;/label&gt;
+            &lt;/div&gt;
+            &lt;div class=&#x27;field-input&#x27;&gt;
+              &lt;input type=&quot;text&quot; th:field=&quot;*{name}&quot; id=&quot;name&quot; autofocus=&quot;autofocus&quot;/&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class=&#x27;field&#x27;&gt;
+            &lt;div class=&#x27;field-label&#x27;&gt;
+              &lt;label for=&quot;email&quot;&gt;Email&lt;/label&gt;
+            &lt;/div&gt;
+            &lt;div class=&#x27;field-input&#x27;&gt;
+              &lt;input type=&quot;email&quot; th:field=&quot;*{email}&quot; id=&quot;email&quot;/&gt;
+            &lt;/div&gt;
+          &lt;/div&gt;
+          &lt;div class=&#x27;actions&#x27;&gt;
+            &lt;input type=&quot;submit&quot; value=&quot;Update&quot; class=&#x27;btn&#x27;/&gt;
+          &lt;/div&gt;
+        &lt;/form&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

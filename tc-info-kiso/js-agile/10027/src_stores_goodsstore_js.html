@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript" data-line="4,5,6,7,8,9,10,11,12,13,14,15,16"><code>//(省略)
+
+  // 編集処理を実施するためのリクエストを記載
+  async function updateGoods(updateGoods) {
+    try{
+      const response = await api.put(`/goods/${updateGoods.id}`, updateGoods)
+     //findIndexメソッドでupdateGoods.idに合致するデータをgoods.valueから検索する
+      const index = goods.value.findIndex(g =&gt; g.id === updateGoods.id);
+      if (index !== -1) {
+       goods.value[index]= response.data;
+      }
+    }catch(error){
+      console.log(&#x27;リストの更新に失敗しました&#x27;, error);
+    }
+  }
+  return {goods, fetchAllGoods, addGoods, updateGoods}
+});</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

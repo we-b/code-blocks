@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>class Car
+ def initialize(car_type, capacity)
+   @name = car_type
+   @capacity = capacity
+ end
+ 
+ def info
+   puts &quot;車種：#{@name}　乗車定員：#{@capacity}人&quot;
+ end
+ 
+end
+ 
+class PoliceCar &lt; Car
+ 
+ def info
+   puts &quot;車種：#{@name}　乗車定員：#{@capacity}人　パトロール時間：24時間&quot;
+ end
+ 
+ def siren
+   puts &quot;ウゥ〜ウゥ〜&quot;
+ end
+ 
+end
+ 
+police_car = PoliceCar.new(&quot;パトカー&quot;, 5)
+ 
+police_car.info
+ 
+# ターミナル出力結果
+# 車種：パトカー　乗車定員：5人　パトロール時間：24時間</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

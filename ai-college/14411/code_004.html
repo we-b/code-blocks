@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>ニュース収集エージェントとして動作してください。
+
+【処理内容】
+1. 以下のニュースサイトを巡回する
+- https://news.yahoo.co.jp
+- https://www.bbc.com/news
+- https://www.reuters.com
+
+2. 各サイトから主要なニュースの見出しを5件取得する
+
+3. 取得した見出しを以下の形式でMarkdownにまとめる
+   - サイト名
+   - 見出し一覧（箇条書き）
+   - 取得日時
+
+4. 結果を画面に表示する</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-plaintext"><code>
+以下のようなファイル構成にして内容をコピーして貼り付ければ、実際に動作を試すこともできます。
+(画像ファイルは用意しておりませんので、必要があれば用意してください。)
+
+&lt;ul class=&quot;filetree&quot;&gt;
+  &lt;li class=&quot;t-folder&quot;&gt;Sample
+    &lt;ul&gt;
+      &lt;li class=&quot;t-file&quot;&gt;index.html
+      &lt;li class=&quot;t-file&quot;&gt;app.js
+     &lt;/ul&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+
+カートに入れた商品を増やすと、合計金額が計算され表示が変わります。これらのコードは以下のように動作します。
+
+![https://tech-master.s3.amazonaws.com/uploads/curriculums//a23e2062d2b94166549ae8c13d81407d.gif](https://tech-master.s3.amazonaws.com/uploads/curriculums//a23e2062d2b94166549ae8c13d81407d.gif)
+商品の個数を増やすと、右上の「小計」の横の金額が増えていることがわかります。
+
+ここで、金額が1万円を超える場合は商品の量を増やせない、という制限を加えてみましょう。さらに、警告表示を出現させます。
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-bash"><code>⏺ Serena MCPのオンボーディングを開始します。まず、オンボーディングが既に実行されているか確認します。
+  ⎿ {                                                                                                                                           
+      &quot;result&quot;: &quot;Onboarding not performed yet (no memories available). You should perform onboarding by calling the `onboarding` tool before pro
+    ceeding with the task.&quot;
+    }
+
+
+⏺ オンボーディングがまだ実行されていません。オンボーディングプロセスを開始します。
+  ⎿ {                                                                                                                                           
+      &quot;result&quot;: &quot;You are viewing the project for the first time.\nYour task is to assemble relevant high-level information about the project whi
+    ch\nwill be saved to memory files in the following steps.\nThe information should be sufficient to understand what the project is about,\nan
+    … +15 lines (ctrl+o to expand)
+
+⏺ プロジェクトの情報を収集します。まず、ディレクトリ構造と重要なファイルを確認します。
+
+・・省略・・
+
+⏺ Serena MCPのオンボーディングが完了しました。
+
+  作成したメモリファイル
+
+  | ファイル名                        | 内容                                              |
+  |------------------------------|-------------------------------------------------|
+  | project_overview.md          | プロジェクトの目的、主な機能、データモデル、APIエンドポイント                |
+  | tech_stack.md                | Ruby/Rails バージョン、データベース、テストフレームワーク等             |
+  | code_style_conventions.md    | SOLID原則、Fat Model/Skinny Controller、サービスクラスパターン |
+  | suggested_commands.md        | RSpec、RuboCop、Rails、Git等の開発コマンド                 |
+  | task_completion_checklist.md | タスク完了時の確認項目（テスト、Lint、動作確認）                      |
+  | codebase_structure.md        | ディレクトリ構成と主要ファイルの説明                              |
+
+  プロジェクト概要
+
+  - TODOアプリのバックエンドAPI (Rails 7.1 / Ruby 3.2.0)
+  - データベース: MySQL
+  - テスト: RSpec
+  - 主要モデル: Task, Genre
+  - サービスクラスパターンを採用（app/services/）
+
+  これで今後のタスクでSerenaがプロジェクトの構造やコーディング規約を参照できるようになりました。</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+</body>
+</html>

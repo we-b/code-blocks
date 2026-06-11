@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby" data-line="12,13,14,15,16"><code>require &#x27;rails_helper&#x27;
+
+RSpec.describe &#x27;ツイート投稿&#x27;, type: :system do
+ before do
+   @user = FactoryBot.create(:user)
+   @tweet_text = Faker::Lorem.sentence
+   @tweet_image = Faker::Lorem.sentence
+ end
+ context &#x27;ツイート投稿ができるとき&#x27;do
+   it &#x27;ログインしたユーザーは新規投稿できる&#x27; do
+     # ログインする
+     visit new_user_session_path
+     fill_in &#x27;Email&#x27;, with: @user.email
+     fill_in &#x27;Password&#x27;, with: @user.password
+     find(&#x27;input[name=&quot;commit&quot;]&#x27;).click
+     expect(current_path).to eq root_path
+     # 新規投稿ページへのボタンがある
+     expect(page).to have_content(&#x27;投稿する&#x27;)
+     #省略</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

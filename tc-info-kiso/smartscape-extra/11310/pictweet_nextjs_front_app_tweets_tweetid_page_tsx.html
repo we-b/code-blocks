@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript" data-line="6,7,9,14,15,16,27,28,37,58,59,60,97,98,99,100"><code>&#x27;use client&#x27;
+import { useEffect, useState, FormEvent } from &#x27;react&#x27;
+import Link from &#x27;next/link&#x27;
+import Header from &#x27;@/app/_components/Header&#x27;
+import Footer from &#x27;@/app/_components/Footer&#x27;
+import CommentForm from &#x27;@/app/_components/CommentForm&#x27;
+import CommentList from &#x27;@/app/_components/CommentList&#x27;
+import { TweetData } from &#x27;@/app/_interfaces/TweetData&#x27;
+import { CommentData } from &#x27;@/app/_interfaces/CommentData&#x27;
+import { useAuthContext } from &#x27;@/app/context/AuthContext&#x27;
+import { useParams, notFound, useRouter } from &#x27;next/navigation&#x27;
+import { deleteTweet, findTweetById } from &#x27;@/app/api/tweets&#x27;
+
+interface CommentFormData {
+  text: string;
+}
+
+const ShowTweetDetailPage = () =&gt; {
+  const { user } = useAuthContext()
+  const router = useRouter()
+
+  const params = useParams()
+  const tweetId = params.tweetId
+  const [tweet, setTweet] = useState&lt;TweetData | null&gt;(null)
+  const [loading, setLoading] = useState(true)
+
+  const [comments, setComments] = useState&lt;CommentData[]&gt;([])
+  const [errorMessages, setErrorMessages] = useState&lt;string[]&gt;([]);
+
+  useEffect(() =&gt; {
+    const getTweet = async () =&gt; {
+      setLoading(true);
+      if (tweetId) {
+        try {
+          const response = await findTweetById(Number(tweetId))
+          setTweet(response)
+          setComments(response.comments)
+        } catch (error) {
+          setTweet(null)
+          console.error(&#x27;ツイートの取得に失敗しました:&#x27;, error)
+        }       
+      }
+      setLoading(false)
+    }
+    getTweet()
+  }, [tweetId])
+
+  const handleDelete = async (e: FormEvent) =&gt; {
+    e.preventDefault()
+    try {
+      await deleteTweet(Number(tweetId));
+      router.push(&quot;/&quot;);
+    } catch (error) {
+      console.error(&#x27;ツイートの削除に失敗しました:&#x27;, error);
+    }
+  }
+
+  const handleCommentSubmit = async (formData: CommentFormData) =&gt; {
+    // コメントフォームのSENDボタンが押された時の処理
+  }
+
+  if (loading) {
+    return &lt;div&gt;Loading...&lt;/div&gt;
+  }
+
+  if (!tweet) {
+    return notFound()
+  }
+
+  return (
+    &lt;&gt;
+      &lt;Header /&gt;
+      &lt;div className=&quot;contents row&quot;&gt;
+        &lt;div className=&quot;content_post&quot; style={{ backgroundImage: `url(${tweet.image})` }}&gt;
+          { user?.isAuthenticated &amp;&amp; user.id == tweet.user.id ? (
+            &lt;div className=&quot;more&quot;&gt;
+              &lt;span&gt;&lt;img src=&quot;/images/arrow_top.png&quot; alt=&quot;Arrow Top&quot; /&gt;&lt;/span&gt;
+              &lt;ul className=&quot;more_list&quot;&gt;
+                &lt;li&gt;
+                  &lt;Link href={`/tweets/${tweet.id}/edit`} className=&quot;update-btn&quot;&gt;編集&lt;/Link&gt;
+                &lt;/li&gt;
+                &lt;li&gt;
+                  &lt;form onSubmit={handleDelete}&gt;
+                    &lt;input type=&quot;submit&quot; className=&quot;delete-btn&quot; value=&quot;削除&quot; /&gt;
+                  &lt;/form&gt;
+                &lt;/li&gt;
+              &lt;/ul&gt;
+            &lt;/div&gt;
+          ) : null}
+          &lt;p&gt;{tweet.text}&lt;/p&gt;
+          &lt;span className=&quot;name&quot;&gt;
+            &lt;Link href={`/users/${tweet.user.id}`}&gt;
+              &lt;span&gt;投稿者&lt;/span&gt;&lt;span&gt;{tweet.user.nickname}&lt;/span&gt;
+            &lt;/Link&gt;
+          &lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div className=&quot;container&quot;&gt;
+          &lt;CommentForm errorMessages={errorMessages} onSubmit={handleCommentSubmit} /&gt;
+          &lt;CommentList comments={comments} /&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;Footer /&gt;
+    &lt;/&gt;
+  )
+}
+
+export default ShowTweetDetailPage</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

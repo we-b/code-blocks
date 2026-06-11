@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-plaintext"><code>class PostsController &lt; ApplicationController
+  def index
+    ad_types
+    image_counts
+  end
+
+  private
+
+  def ad_types
+    ad_types = [&quot;gif&quot;, &quot;image&quot;, &quot;movie&quot;]
+    @ad_type = ad_types.sample
+  end
+
+  def image_counts
+    image_counts = [1, 2]
+    @image_count = image_counts.sample
+  end
+end
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

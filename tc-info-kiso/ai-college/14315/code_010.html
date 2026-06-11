@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-markdown"><code># プロジェクト概要
+## 目的
+社内の勤怠管理を行うWebアプリケーションです。
+従業員が出退勤を記録し、管理者が集計・承認を行います。
+
+## 技術スタック
+- フロントエンド: React 18 + TypeScript
+- バックエンド: Node.js 20 + Express
+- データベース: PostgreSQL 15
+- 認証: JWT + bcrypt
+- デプロイ: AWS ECS
+
+## 主要な機能
+1. 従業員の出退勤打刻
+2. 勤怠データの一覧表示
+3. 管理者による承認ワークフロー
+4. 月次レポートの出力</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markdown.min.js"></script>
+</body>
+</html>

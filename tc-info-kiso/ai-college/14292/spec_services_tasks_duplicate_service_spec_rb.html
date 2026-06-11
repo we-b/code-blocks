@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>require &#x27;rails_helper&#x27;
+
+RSpec.describe Tasks::DuplicateService, type: :service do
+  let(:genre) { Genre.create!(name: &#x27;テストジャンル&#x27;) }
+
+  # ============================================================
+  # 1. 正常系 - 属性の引き継ぎ
+  # ============================================================
+  describe &#x27;属性の引き継ぎ&#x27; do
+    context &#x27;name の引き継ぎ&#x27; do
+      it &#x27;name が正しく引き継がれ、末尾に「(コピー)」が追加される&#x27; do
+        original_task = Task.create!(
+          name: &#x27;買い物&#x27;,
+          genre: genre
+        )
+
+        result = described_class.new(original_task.id).call
+
+        expect(result.success?).to be true
+        expect(result.task.name).to eq(&#x27;買い物(コピー)&#x27;)
+      end
+    end
+
+    context &#x27;explanation の引き継ぎ&#x27; do
+      it &#x27;explanation がそのまま引き継がれる&#x27; do
+        original_task = Task.create!(
+          name: &#x27;テストタスク&#x27;,
+          explanation: &#x27;詳細な説明文です&#x27;,
+          genre: genre
+        )
+
+        result = described_class.new(original_task.id).call
+
+        expect(result.success?).to be true
+        expect(result.task.explanation).to eq(&#x27;詳細な説明文です&#x27;)
+      end
+    end
+
+    context &#x27;genre_id の引き継ぎ&#x27; do
+      it &#x27;genre_id がそのまま引き継がれる&#x27; do
+        original_task = Task.create!(
+          name: &#x27;テストタスク&#x27;,
+          genre: genre
+        )
+
+        result = described_class.new(original_task.id).call
+
+        expect(result.success?).to be true
+        expect(result.task.genre_id).to eq(genre.id)
+      end
+    end
+
+    context &#x27;priority の引き継ぎ&#x27; do
+      it &#x27;priority が low の場合、そのまま引き継がれる&#x27; do
+        original_task = Task.create!(
+          name: &#x27;テストタスク&#x27;,
+          genre: genre,
+          priority: :low
+        )
+
+        result = described_class.new(original_task.id).call
+
+        expect(result.success?).to be true
+        expect(result.task.priority).to eq(&#x27;low&#x27;)
+        expect(result.task.low?).to be true
+      end
+
+      it &#x27;priority が medium の場合、そのまま引き継がれる&#x27; do
+        original_task = Task.create!(
+          name: &#x27;テストタスク&#x27;,
+          genre: genre,
+          priority: :medium
+        )
+
+        result = described_class.new(original_task.id).call
+
+        expect(result.success?).to be true
+        expect(result.task.priority).to eq(&#x27;medium&#x27;)
+        expect(result.task.medium?).to be true
+      end
+
+      it &#x27;priority が high の場合、そのまま引き継がれる&#x27; do
+        original_task = Task.create!(
+          name: &#x27;テストタスク&#x27;,
+          genre: genre,
+          priority: :high
+        )
+
+        result = described_class.new(original_task.id).call
+
+        expect(result.success?).to be true
+        expect(result.task.priority).to eq(&#x27;high&#x27;)
+        expect(result.task.high?).to be true
+      end
+    end
+  end
+
+  # ============================================================
+  # 2. 正常系 - 特別な処理
+  # ============================================================
+  describe &#x27;特別な処理&#x27; do
+    context &#x27;status の初期化&#x27; do
+      it &#x27;status が「完了」のタスクを複製すると、新タスクは「未着手」になる&#x27; do
+        original_task = Task.create!(
+          name: &#x27;テストタスク&#x27;,
+          genre: genre,
+          status: 2  # 完了
+        )
+
+        result = described_class.new(original_task.id).call
+
+        expect(result.success?).to be true
+        expect(result.task.status).to eq(0)  # 未着手
+      end
+
+      it &#x27;status が「進行中」のタスクを複製すると、新タスクは「未着手」になる&#x27; do
+        original_task = Task.create!(
+          name: &#x27;テストタスク&#x27;,
+          genre: genre,
+          status: 1  # 進行中
+        )
+
+        result = described_class.new(original_task.id).call
+
+        expect(result.success?).to be true
+        expect(result.task.status).to eq(0)  # 未着手
+      end
+
+      it &#x27;status が「未着手」のタスクを複製すると、新タスクも「未着手」になる&#x27; do
+        original_task = Task.create!(
+          name: &#x27;テストタスク&#x27;,
+          genre: genre,
+          status: 0  # 未着手
+        )
+
+        result = described_class.new(original_task.id).call
+
+        expect(result.success?).to be true
+        expect(result.task.status).to eq(0)  # 未着手
+      end
+    end
+
+    context &#x27;deadline_date のリセット&#x27; do
+      it &#x27;deadline_date が設定されているタスクを複製すると、新タスクの deadline_date は nil になる&#x27; do
+        original_task = Task.create!(
+          name: &#x27;テストタスク&#x27;,
+          genre: genre,
+          deadline_date: Date.new(2025, 12, 31)
+        )
+
+        result = described_class.new(original_task.id).call
+
+        expect(result.success?).to be true
+        expect(result.task.deadline_date).to be_nil
+      end
+
+      it &#x27;deadline_date が nil のタスクを複製すると、新タスクの deadline_date も nil になる&#x27; do
+        original_task = Task.create!(
+          name: &#x27;テストタスク&#x27;,
+          genre: genre,
+          deadline_date: nil
+        )
+
+        result = described_class.new(original_task.id).call
+
+        expect(result.success?).to be true
+        expect(result.task.deadline_date).to be_nil
+      end
+    end
+  end
+
+  # ============================================================
+  # 3. 正常系 - 境界値・エッジケース
+  # ============================================================
+  describe &#x27;境界値・エッジケース&#x27; do
+    context &#x27;name の境界値&#x27; do
+      it &#x27;name が空文字のタスクを複製すると、「(コピー)」のみの name になる&#x27; do
+        original_task = Task.create!(
+          name: &#x27;&#x27;,
+          genre: genre
+        )
+
+        result = described_class.new(original_task.id).call
+
+        expect(result.success?).to be true
+        expect(result.task.name).to eq(&#x27;(コピー)&#x27;)
+      end
+
+      it &#x27;name が非常に長い文字列でも、末尾に「(コピー)」が追加される&#x27; do
+        long_name = &#x27;あ&#x27; * 100
+        original_task = Task.create!(
+          name: long_name,
+          genre: genre
+        )
+
+        result = described_class.new(original_task.id).call
+
+        expect(result.success?).to be true
+        expect(result.task.name).to eq(&quot;#{long_name}(コピー)&quot;)
+      end
+
+      it &#x27;name に既に「(コピー)」が含まれるタスクを複製すると、「(コピー)(コピー)」になる&#x27; do
+        original_task = Task.create!(
+          name: &#x27;タスク(コピー)&#x27;,
+          genre: genre
+        )
+
+        result = described_class.new(original_task.id).call
+
+        expect(result.success?).to be true
+        expect(result.task.name).to eq(&#x27;タスク(コピー)(コピー)&#x27;)
+      end
+    end
+
+    context &#x27;explanation の境界値&#x27; do
+      it &#x27;explanation が nil のタスクを複製すると、新タスクの explanation も nil になる&#x27; do
+        original_task = Task.create!(
+          name: &#x27;テストタスク&#x27;,
+          genre: genre,
+          explanation: nil
+        )
+
+        result = described_class.new(original_task.id).call
+
+        expect(result.success?).to be true
+        expect(result.task.explanation).to be_nil
+      end
+
+      it &#x27;explanation が空文字のタスクを複製すると、新タスクの explanation も空文字になる&#x27; do
+        original_task = Task.create!(
+          name: &#x27;テストタスク&#x27;,
+          genre: genre,
+          explanation: &#x27;&#x27;
+        )
+
+        result = described_class.new(original_task.id).call
+
+        expect(result.success?).to be true
+        expect(result.task.explanation).to eq(&#x27;&#x27;)
+      end
+    end
+  end
+
+  # ============================================================
+  # 4. 正常系 - データの独立性
+  # ============================================================
+  describe &#x27;データの独立性&#x27; do
+    it &#x27;複製後、元タスクと新タスクのIDが異なる&#x27; do
+      original_task = Task.create!(
+        name: &#x27;テストタスク&#x27;,
+        genre: genre
+      )
+
+      result = described_class.new(original_task.id).call
+
+      expect(result.success?).to be true
+      expect(result.task.id).not_to eq(original_task.id)
+    end
+
+    it &#x27;複製後、新タスクの created_at は複製実行時の時刻になる&#x27; do
+      original_task = Task.create!(
+        name: &#x27;テストタスク&#x27;,
+        genre: genre
+      )
+      original_created_at = original_task.created_at
+
+      travel_to(1.day.from_now) do
+        result = described_class.new(original_task.id).call
+
+        expect(result.success?).to be true
+        expect(result.task.created_at).to be &gt; original_created_at
+      end
+    end
+
+    it &#x27;複製後、元タスクを更新しても新タスクに影響しない&#x27; do
+      original_task = Task.create!(
+        name: &#x27;テストタスク&#x27;,
+        explanation: &#x27;元の説明&#x27;,
+        genre: genre
+      )
+
+      result = described_class.new(original_task.id).call
+      duplicated_task = result.task
+
+      # 元タスクを更新
+      original_task.update!(name: &#x27;更新後のタスク&#x27;, explanation: &#x27;更新後の説明&#x27;)
+
+      # 複製したタスクは影響を受けない
+      duplicated_task.reload
+      expect(duplicated_task.name).to eq(&#x27;テストタスク(コピー)&#x27;)
+      expect(duplicated_task.explanation).to eq(&#x27;元の説明&#x27;)
+    end
+
+    it &#x27;複製によってタスクが1件増加する&#x27; do
+      original_task = Task.create!(
+        name: &#x27;テストタスク&#x27;,
+        genre: genre
+      )
+
+      expect {
+        described_class.new(original_task.id).call
+      }.to change(Task, :count).by(1)
+    end
+  end
+
+  # ============================================================
+  # 5. 異常系
+  # ============================================================
+  describe &#x27;異常系&#x27; do
+    context &#x27;存在しないタスクIDを指定&#x27; do
+      it &#x27;ActiveRecord::RecordNotFound が発生する&#x27; do
+        non_existent_id = 999999
+
+        expect {
+          described_class.new(non_existent_id).call
+        }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+
+    context &#x27;不正なタスクIDを指定&#x27; do
+      it &#x27;nil を指定すると ActiveRecord::RecordNotFound が発生する&#x27; do
+        expect {
+          described_class.new(nil).call
+        }.to raise_error(ActiveRecord::RecordNotFound)
+      end
+    end
+  end
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

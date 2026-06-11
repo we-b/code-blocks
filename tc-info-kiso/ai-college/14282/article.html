@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>| カラム名      | 型         | 制約                  | 説明               |
+|--------------|-----------|----------------------|-------------------|
+| id           | bigint    | PRIMARY KEY          | 主キー             |
+| title        | string    | NOT NULL             | タイトル（1-100文字） |
+| body         | text      | NOT NULL             | 本文               |
+| status       | integer   | NOT NULL, default: 0 | ステータス（enum）   |
+| published_at | datetime  | -                    | 公開日時           |
+| created_at   | datetime  | NOT NULL             | 作成日時           |
+| updated_at   | datetime  | NOT NULL             | 更新日時           |</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

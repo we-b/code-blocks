@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript" data-line="3,9,12,15,16,17,18,34"><code>&#x27;use client&#x27;;
+import Link from &#x27;next/link&#x27;
+import { FormEvent } from &#x27;react&#x27;;
+import { TweetData } from &#x27;@/app/_interfaces/TweetData&#x27;;
+import { useAuthContext } from &#x27;@/app/context/AuthContext&#x27;;
+
+interface TweetProps {
+    tweet: TweetData;
+    onDeleteTweet: (tweetId: number) =&gt; Promise&lt;void&gt;;
+}
+
+const Tweet = ({ tweet , onDeleteTweet}: TweetProps) =&gt; {
+  const { user } = useAuthContext()
+
+  const handleDelete = async (e: FormEvent) =&gt; {
+    e.preventDefault()
+    onDeleteTweet(tweet.id)
+  }
+
+  return (
+    &lt;div className=&quot;content_post&quot; style={{ backgroundImage: `url(${tweet.image})` }}&gt;
+      &lt;div className=&quot;more&quot;&gt;
+        &lt;span&gt;&lt;img src=&quot;/images/arrow_top.png&quot; alt=&quot;Arrow Top&quot; /&gt;&lt;/span&gt;
+        &lt;ul className=&quot;more_list&quot;&gt;
+          &lt;li&gt;
+            &lt;Link href={`/tweets/${tweet.id}`}&gt;詳細&lt;/Link&gt;
+          &lt;/li&gt;
+          { user?.isAuthenticated &amp;&amp; user.id == tweet.user.id ? (
+            &lt;&gt;
+              &lt;li&gt;
+                &lt;Link href={`/`} className=&quot;update-btn&quot;&gt;編集&lt;/Link&gt;
+              &lt;/li&gt;
+              &lt;li&gt;
+                &lt;form onSubmit={handleDelete}&gt;
+                  &lt;input type=&quot;submit&quot; className=&quot;delete-btn&quot; value=&quot;削除&quot; /&gt;
+                &lt;/form&gt;
+              &lt;/li&gt;
+            &lt;/&gt;
+          ): null }
+        &lt;/ul&gt;
+      &lt;/div&gt;
+      &lt;p&gt;{tweet.text}&lt;/p&gt;
+      &lt;span className=&quot;name&quot;&gt;
+        &lt;Link href={`/`}&gt;
+          &lt;span&gt;投稿者&lt;/span&gt;&lt;span&gt;{tweet.user.nickname}&lt;/span&gt;
+        &lt;/Link&gt;
+      &lt;/span&gt;
+    &lt;/div&gt;
+  );
+};
+
+export default Tweet</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

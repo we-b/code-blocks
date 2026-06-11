@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-erb"><code>&lt;div&gt;
+  &lt;%= form_with model: @plan, url: calendars_path, class: &#x27;form&#x27; do |f| %&gt;
+    &lt;%= f.label :日付を選択, class: &#x27;lavel&#x27; %&gt;
+    &lt;%= f.date_field :date, class: &#x27;date-select&#x27; %&gt;
+    &lt;%= f.label :予定を入力, class: &#x27;lavel&#x27; %&gt;
+    &lt;%= f.text_field :plan, class: &#x27;text-input&#x27; %&gt;
+    &lt;%= f.submit &#x27;保存&#x27; %&gt;
+  &lt;% end %&gt;
+&lt;/div&gt;
+&lt;div&gt;
+  &lt;div class=&#x27;calendar&#x27;&gt;
+    &lt;% @week_days.each do |day| %&gt;
+      &lt;div class=&#x27;item&#x27;&gt;
+        &lt;div class=&#x27;date&#x27;&gt;
+          &lt;% day[:month] %&gt;/&lt;% day[:date] %&gt;
+        &lt;/div&gt;
+        &lt;ul class=&#x27;content&#x27;&gt;
+        &lt;% if day[:plans].length != 0 %&gt;
+          &lt;% day[:plans].each do |plan| %&gt;
+            &lt;li class=&#x27;plan-list&#x27;&gt;・&lt;%= plan %&gt;&lt;/li&gt;
+          &lt;% end %&gt;
+        &lt;% end %&gt;
+        &lt;/ul&gt;
+      &lt;/div&gt;
+    &lt;% end %&gt;
+  &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-erb.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby" data-line="4"><code>require &quot;./drink&quot;
+require &quot;./vending_machine&quot;
+require &quot;./user&quot;
+require &quot;./slot_game&quot;
+
+puts &quot;商品を用意してください。&quot;
+drinks = []
+3.times do |i|
+  puts &quot;商品名を入力してください。&quot;
+  drink_name = gets.chomp
+  puts &quot;金額を入力してください。&quot;
+  drink_fee = gets.to_i
+  drinks &lt;&lt; Drink.new(drink_name,drink_fee)
+end
+
+vending_machine = VendingMachine.new(drinks)
+vending_machine.show_drinks
+
+puts &quot;あなたはお客さんです。投入金額を決めてください。&quot;
+money = gets.to_i
+user = User.new(money)
+
+vending_machine.pay(user)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

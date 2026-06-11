@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby" data-line="16,19,20,21,22,25"><code>require &#x27;rails_helper&#x27;
+
+RSpec.describe &#x27;チャットルームの削除機能&#x27;, type: :system do
+  before do
+    @room_user = FactoryBot.create(:room_user)
+  end
+
+  it &#x27;チャットルームを削除すると、関連するメッセージがすべて削除されている&#x27; do
+    # サインインする
+    sign_in(@room_user.user)
+
+    # 作成されたチャットルームへ遷移する
+    click_on(@room_user.room.name)
+
+    # メッセージ情報を5つDBに追加する
+    FactoryBot.create_list(:message, 5, room_id: @room_user.room.id, user_id: @room_user.user.id)
+
+    # 「チャットを終了する」ボタンをクリックすることで、作成した5つのメッセージが削除されていることを確認する
+    expect {
+      find_link(&#x27;チャットを終了する&#x27;,  href: room_path(@room_user.room)).click
+      sleep 1
+    }.to change { @room_user.room.messages.count }.by(-5)
+
+    # トップページに遷移していることを確認する
+    expect(page).to have_current_path(root_path)
+  end
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

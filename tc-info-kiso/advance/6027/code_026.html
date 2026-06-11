@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code># 顧客クラス
+class Customer
+  def admission_fee # 入場料
+    500
+  end
+end
+
+# 受付クラス
+class Reception
+  attr_reader :customers
+
+  def initialize
+    @customers = [Customer.new, Customer.new]
+  end
+
+  # 入場料の請求
+  def request_payment
+    puts &quot;#{customers.length}人入場するには#{sum}円必要です。&quot;
+  end
+
+  # 入場料の計算
+  def sum
+    @sum = 0
+    customers.each do |customer|
+      @sum += customer.admission_fee
+    end
+    @sum
+  end
+end
+
+reception = Reception.new
+reception.request_payment</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

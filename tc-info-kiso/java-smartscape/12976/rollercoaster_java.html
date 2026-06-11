@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java"><code>import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.Scanner;
+
+public class RollerCoaster {
+  public static void main(String[] args) {
+    int rideCount = 0;
+    List&lt;Map&lt;String, String&gt;&gt; friends = new ArrayList&lt;&gt;();
+
+    try (Scanner scanner = new Scanner(System.in)){
+
+      Map&lt;String, String&gt; friend1 = new HashMap&lt;&gt;();
+      System.out.println(&quot;お友達の名前は？&quot;);
+      friend1.put(&quot;name&quot;, scanner.nextLine());
+      System.out.println(&quot;お友達の身長は？&quot;);
+      friend1.put(&quot;height&quot;, scanner.nextLine());
+      friends.add(friend1);
+      if(Integer.parseInt(friend1.get(&quot;height&quot;)) &gt;= 130){
+        System.out.println(friend1.get(&quot;name&quot;) + &quot;くんは乗車できます&quot;);
+        rideCount++;
+      } else {
+        System.out.println(friend1.get(&quot;name&quot;) + &quot;くんは乗車できません！&quot;);
+      }
+  
+      Map&lt;String, String&gt; friend2 = new HashMap&lt;&gt;();
+      System.out.println(&quot;お友達の名前は？&quot;);
+      friend2.put(&quot;name&quot;, scanner.nextLine());
+      System.out.println(&quot;お友達の身長は？&quot;);
+      friend2.put(&quot;height&quot;, scanner.nextLine());
+      friends.add(friend2);
+      if(Integer.parseInt(friend2.get(&quot;height&quot;)) &gt;= 130){
+        System.out.println(friend2.get(&quot;name&quot;) + &quot;くんは乗車できます&quot;);
+        rideCount++;
+      } else {
+        System.out.println(friend2.get(&quot;name&quot;) + &quot;くんは乗車できません！&quot;);
+      }
+  
+      Map&lt;String, String&gt; friend3 = new HashMap&lt;&gt;();
+      System.out.println(&quot;お友達の名前は？&quot;);
+      friend3.put(&quot;name&quot;, scanner.nextLine());
+      System.out.println(&quot;お友達の身長は？&quot;);
+      friend3.put(&quot;height&quot;, scanner.nextLine());
+      friends.add(friend3);
+      if(Integer.parseInt(friend3.get(&quot;height&quot;)) &gt;= 130){
+        System.out.println(friend3.get(&quot;name&quot;) + &quot;くんは乗車できます&quot;);
+        rideCount++;
+      } else {
+        System.out.println(friend3.get(&quot;name&quot;) + &quot;くんは乗車できません！&quot;);
+      }
+
+      System.out.println(&quot;乗車するのは&quot; + rideCount + &quot;人です&quot;);
+  
+    }
+  }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>

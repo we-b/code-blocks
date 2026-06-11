@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-bash"><code>設計観点からのコードレビュー
+
+  1. 単一責任の原則（SRP）
+
+  現状分析
+
+  現在の Tasks::DuplicateService が持つ責務を分解すると：
+
+  Tasks::DuplicateService#call
+  ├── 1. 元タスクの取得 (Task.find)
+  ├── 2. 名前の変換ロジック (&quot;#{name}(コピー)&quot;)
+  ├── 3. コピーする属性の決定 (explanation, genre_id, priority)
+  ├── 4. リセットする属性の決定 (status → 0, deadline_date → nil)
+  ├── 5. 新タスクの永続化 (save)
+  └── 6. 結果オブジェクトの生成 (ServiceResult)
+
+  評価
+
+  | 観点       | 評価  | コメント                                       |
+  |----------|-----|--------------------------------------------|
+  | 責務の集中度   | △   | 「複製」という大枠には収まっているが、複数の変換ルールが混在             |
+  | 変更理由の単一性 | ×   | 「名前のルール変更」「コピー対象の変更」「保存方法の変更」など、複数の変更理由がある |
+
+  問題点
+
+  2と3と4が同じメソッド内にハードコードされている
+
+  # 現状: 3つの異なるルールが1箇所に混在
+  duplicated_task = Task.new(
+    name: &quot;#{original_task.name}(コピー)&quot;,  # ← 名前変換ルール
+    explanation: original_task.explanation,  # ← コピールール
+    genre_id: original_task.genre_id,        # ← コピールール
+    priority: original_task.priority,        # ← コピールール
+    status: 0,                               # ← リセットルール
+    deadline_date: nil                       # ← リセットルール
+  )
+
+  ---
+  2. 拡張性
+
+  想定される将来の仕様変更
+
+  1. 除外リストの追加: 「priority はコピーしない」
+  2. 新属性の追加: Task に assignee_id が追加され、コピー対象にする
+  3. 名前ルールの変更: 「(コピー)」→「_copy」に変更
+  4. 条件付きコピー: 「status が完了の場合のみ explanation をコピー」
+
+  現状の拡張性評価
+
+  | 変更シナリオ  | 現状の対応    | 影響範囲       |
+  |---------|----------|------------|
+  | 除外属性の追加 | コード直接修正  | callメソッド全体 |
+  | 新属性の追加  | コード直接修正  | callメソッド全体 |
+  | 名前ルール変更 | コード直接修正  | callメソッド   |
+  | 条件付きコピー | 大幅なコード修正 | callメソッド全体 |
+
+  結論: 拡張性は低い — どの変更も call メソッドの直接修正が必要
+
+  ---
+  3. 改善案
+
+  案A: シンプルな改善（定数による設定の外出し）
+
+  class Tasks::DuplicateService
+    # 設定を定数として外出し
+    COPY_ATTRIBUTES = %i[explanation genre_id priority].freeze
+    RESET_ATTRIBUTES = { status: 0, deadline_date: nil }.freeze
+    NAME_SUFFIX = &#x27;(コピー)&#x27;
+
+    def initialize(task_id)
+      @task_id = task_id
+    end
+
+    def call
+      original_task = Task.find(@task_id)
+      duplicated_task = build_duplicate(original_task)
+
+      if duplicated_task.save
+        ServiceResult.new(success: true, task: duplicated_task)
+      else
+        ServiceResult.new(success: false, task: duplicated_task, errors: duplicated_task.errors.full_messages)
+      end
+    end
+
+    private
+
+    def build_duplicate(original)
+      Task.new(
+        **copy_attributes(original),
+        **RESET_ATTRIBUTES,
+        name: &quot;#{original.name}#{NAME_SUFFIX}&quot;
+      )
+    end
+
+    def copy_attributes(original)
+      COPY_ATTRIBUTES.index_with { |attr| original.public_send(attr) }
+    end
+  end
+
+  メリット: 変更時に定数だけ修正すれば良い
+  デメリット: 条件付きコピーなど複雑なルールには対応しづらい
+
+  ---
+  案B: 柔軟な改善（オプション引数による設定）
+
+  class Tasks::DuplicateService
+    DEFAULT_OPTIONS = {
+      copy_attributes: %i[explanation genre_id priority],
+      reset_attributes: { status: 0, deadline_date: nil },
+      name_suffix: &#x27;(コピー)&#x27;
+    }.freeze
+
+    def initialize(task_id, options = {})
+      @task_id = task_id
+      @options = DEFAULT_OPTIONS.merge(options)
+    end
+
+    def call
+      original_task = Task.find(@task_id)
+      duplicated_task = build_duplicate(original_task)
+
+      if duplicated_task.save
+        ServiceResult.new(success: true, task: duplicated_task)
+      else
+        ServiceResult.new(success: false, task: duplicated_task, errors: duplicated_task.errors.full_messages)
+      end
+    end
+
+    private
+
+    def build_duplicate(original)
+      Task.new(
+        **copy_attributes(original),
+        **@options[:reset_attributes],
+        name: &quot;#{original.name}#{@options[:name_suffix]}&quot;
+      )
+    end
+
+    def copy_attributes(original)
+      @options[:copy_attributes].index_with { |attr| original.public_send(attr) }
+    end
+  end
+
+  使用例:
+  # デフォルト動作
+  Tasks::DuplicateService.new(task_id).call
+
+  # priorityを除外してコピー
+  Tasks::DuplicateService.new(task_id, copy_attributes: %i[explanation genre_id]).call
+
+  # 名前のサフィックスを変更
+  Tasks::DuplicateService.new(task_id, name_suffix: &#x27;_copy&#x27;).call
+
+  メリット: 呼び出し側で柔軟にカスタマイズ可能
+  デメリット: オプションが増えると複雑になる
+
+  ---
+  4. 推奨
+
+  | プロジェクト規模    | 推奨案 | 理由                   |
+  |-------------|-----|----------------------|
+  | 小〜中規模       | 案A  | 過度な抽象化を避けつつ、変更容易性を確保 |
+  | 大規模・頻繁な仕様変更 | 案B  | 柔軟性が必要な場合に対応可能       |
+
+  現在のプロジェクト規模であれば、案A（定数による設定の外出し） が最もバランスが良いと考えます。
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-bash.min.js"></script>
+</body>
+</html>

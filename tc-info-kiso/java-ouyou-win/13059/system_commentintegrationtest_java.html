@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java" data-line="16,27"><code>// 省略
+
+import in.tech_camp.pictweet.PictweetApplication;
+import in.tech_camp.pictweet.entity.CommentEntity;
+import in.tech_camp.pictweet.entity.TweetEntity;
+import in.tech_camp.pictweet.entity.UserEntity;
+import in.tech_camp.pictweet.factory.CommentFormFactory;
+import in.tech_camp.pictweet.factory.TweetFormFactory;
+import in.tech_camp.pictweet.factory.UserFormFactory;
+import in.tech_camp.pictweet.form.CommentForm;
+import in.tech_camp.pictweet.form.TweetForm;
+import in.tech_camp.pictweet.form.UserForm;
+import in.tech_camp.pictweet.repository.CommentRepository;
+import in.tech_camp.pictweet.repository.TweetRepository;
+import in.tech_camp.pictweet.service.UserService;
+import static in.tech_camp.pictweet.support.LoginSupport.login;
+
+@ActiveProfiles(&quot;test&quot;)
+@SpringBootTest(classes = PictweetApplication.class)
+@AutoConfigureMockMvc
+public class CommentIntegrationTest {
+  // 省略
+
+  @Test
+  public void ログインしたユーザーはツイート詳細ページでコメント投稿できる() throws Exception {
+    // ログインする
+    MockHttpSession session = login(mockMvc, userForm);
+    assertNotNull(session);
+
+    // 省略
+  }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-JavaScript" data-line="7,8,9,10,15,18,19,20,21,22,23,24"><code>&lt;template&gt;
+  &lt;div id=&quot;app&quot;&gt;
+    &lt;div&gt;
+      &lt;label for=&quot;timeInput&quot;&gt;カウントダウン時間（分）:&lt;/label&gt;
+      &lt;input id=&quot;timeInput&quot; type=&quot;number&quot; v-model.number=&quot;inputMinutes&quot; step=&quot;1&quot;  min=&quot;0&quot;/&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;timer&quot;&gt;{{ formatTime }}&lt;/div&gt;
+    &lt;div class=&quot;controls&quot;&gt;
+      &lt;button @click=&quot;setTime&quot;&gt;セット&lt;/button&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+&lt;/template&gt;
+
+&lt;script setup&gt;
+import { ref, computed } from &#x27;vue&#x27;; // computedを追記
+
+const inputMinutes = ref(0);
+const time = ref(0);
+
+const formatTime = computed(() =&gt; {
+  const minutes = Math.floor(time.value / 60);
+  const seconds = ((time.value / 60) % 1) * 60;
+  return `${minutes}:${seconds.toFixed(0).padStart(2, &#x27;0&#x27;)}`;
+});
+
+
+&lt;/script&gt;
+// (省略)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-JavaScript.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

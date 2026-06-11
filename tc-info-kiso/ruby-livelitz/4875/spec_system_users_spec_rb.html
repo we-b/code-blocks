@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby" data-line="14,17,20,23,24,27,28,31"><code>require &#x27;rails_helper&#x27;
+
+RSpec.describe &#x27;ユーザーログイン機能&#x27;, type: :system do
+  it &#x27;ログインしていない状態でトップページにアクセスした場合、サインインページに移動する&#x27; do
+    # トップページに遷移させる
+    visit root_path
+
+    # ログインしていない場合、サインインページに遷移していることを確認する
+    expect(page).to have_current_path(new_user_session_path)
+  end
+
+  it &#x27;ログインに成功し、トップページに遷移する&#x27; do
+    # 予め、ユーザーをDBに保存する
+    @user = FactoryBot.create(:user)
+
+    # サインインページへ移動する
+    visit  new_user_session_path
+
+    # ログインしていない場合、サインインページに遷移していることを確認する
+    expect(page).to have_current_path(new_user_session_path)
+
+    # すでに保存されているユーザーのemailとpasswordを入力する
+    fill_in &#x27;user_email&#x27;, with: @user.email
+    fill_in &#x27;user_password&#x27;, with: @user.password
+
+    # ログインボタンをクリックする
+    click_on(&#x27;Log in&#x27;)
+    sleep 1
+
+    # トップページに遷移していることを確認する
+    expect(page).to have_current_path(root_path)
+  end
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

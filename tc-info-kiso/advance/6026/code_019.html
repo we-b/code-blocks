@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>class Item
+  attr_reader :name, :price
+  def initialize(name, price)
+    @name = name
+    @price = price
+  end
+end
+
+class Customer
+  attr_reader :purchase_items
+
+  def initialize(name)
+    @name = name
+    @purchase_items = []
+  end
+
+  def buy(pay, item)
+    return puts &#x27;お金が足りません&#x27; if pay &lt; item.price
+
+    puts &quot;#{@name}が#{item.name}を購入しました&quot;
+    purchase_items &lt;&lt; item
+  end
+
+  def inquiry_purchase_items
+    puts &quot;#{@name}の購入商品一覧&quot;
+    purchase_items.each do |purchase_item|
+      puts &quot;商品名:#{purchase_item.name}&quot;
+    end
+  end
+end
+
+items = [
+  Item.new(&#x27;おもちゃ&#x27;, 1000),
+  Item.new(&#x27;なりきりセット&#x27;, 10000)
+]
+customer = Customer.new(&#x27;たかし&#x27;)
+customer.buy(2000, items[0])
+customer.buy(1000, items[1])
+customer.inquiry_purchase_items</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

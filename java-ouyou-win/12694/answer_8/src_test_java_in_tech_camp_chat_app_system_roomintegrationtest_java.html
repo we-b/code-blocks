@@ -20,7 +20,7 @@ import java.sql.Timestamp;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.mock.web.MockHttpSession;
 
@@ -39,7 +39,7 @@ import in.tech_camp.chat_app.entity.MessageEntity;
 import in.tech_camp.chat_app.entity.RoomEntity;
 import in.tech_camp.chat_app.entity.RoomUserEntity;
 import in.tech_camp.chat_app.entity.UserEntity;
-import in.tech_camp.chat_app.factories.MessageFormFactory;
+import in.tech_camp.chat_app.factories.MessageFromFactory;
 import in.tech_camp.chat_app.factories.RoomFormFactory;
 import in.tech_camp.chat_app.factories.UserFormFactory;
 import in.tech_camp.chat_app.form.MessageForm;

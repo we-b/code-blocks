@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>module Subject
+  def initialize
+    @observers=[]
+  end
+
+  def add_observer(observer)
+    @observers &lt;&lt; observer
+  end
+
+  def notify_observers
+    @observers.each do |observer|
+      observer.update(self)
+    end
+  end
+end
+
+  # 従業員クラス
+class Employee
+  # Subject moduleをinclude
+  include Subject
+  attr_reader :name, :salary
+
+  def initialize(name, salary)
+    # Subject moduleのinitializeを行う
+    super()
+    @name = name
+    @salary = salary
+  end
+
+  def salary=(new_salary)
+    @salary = new_salary
+    notify_observers
+  end
+end
+
+# 上司クラス
+class Manager
+  def update(changed_employee)
+    puts &quot;上司：#{changed_employee.name}さんの給料は#{changed_employee.salary}円です！&quot;
+  end
+end
+
+  # 経理担当クラス
+class Accountant
+  def update(changed_employee)
+    puts &quot;経理部門：#{changed_employee.name}さんの給料は#{changed_employee.salary}円です!&quot;
+  end
+end
+
+takashi = Employee.new(&#x27;takashi&#x27;, 10000)
+takashi.add_observer(Manager.new)
+takashi.add_observer(Accountant.new)
+takashi.salary = 9999999
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

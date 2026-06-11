@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-typescript"><code>  const { register, handleSubmit, formState: { errors } } = useForm&lt;FormData&gt;();
+  
+  return (
+    &lt;form onSubmit={handleSubmit()}&gt;
+      &lt;div&gt;
+        &lt;label&gt;Name&lt;/label&gt;
+        {errors.name &amp;&amp; &lt;p&gt;{errors.name.message}&lt;/p&gt;}
+        &lt;input {...register(&#x27;name&#x27;, { required: &quot;Name is required&quot; })} /&gt;
+      &lt;/div&gt;
+      
+      &lt;div&gt;
+        &lt;label&gt;Email&lt;/label&gt;
+        {errors.email &amp;&amp; &lt;p&gt;{errors.email.message}&lt;/p&gt;}
+        &lt;input {...register(&#x27;email&#x27;, { 
+             required: &quot;Email is required&quot;, 
+             pattern: { value: /^\S+@\S+$/i, message: &quot;Invalid email address&quot; }
+        })} /&gt;
+      &lt;/div&gt;
+      
+      &lt;button type=&quot;submit&quot;&gt;Submit&lt;/button&gt;
+    &lt;/form&gt;
+  );
+};</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-typescript.min.js"></script>
+</body>
+</html>

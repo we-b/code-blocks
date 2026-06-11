@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-plaintext"><code>Articles APIのリクエストスペックを書いてください。
+以下のエンドポイントをテストしてください：
+
+1. GET /api/v1/articles（一覧取得）
+   - 記事一覧が取得できること
+   - ステータスコードが200であること
+
+2. GET /api/v1/articles/:id（詳細取得）
+   - 記事の詳細が取得できること
+   - 存在しないIDの場合は404を返すこと
+
+3. POST /api/v1/articles（作成）
+   - 正しいパラメータで記事が作成できること
+   - 不正なパラメータでは422を返すこと
+
+4. PATCH /api/v1/articles/:id（更新）
+   - 記事を更新できること
+   - 存在しないIDの場合は404を返すこと
+
+5. DELETE /api/v1/articles/:id（削除）
+   - 記事を削除できること
+   - 存在しないIDの場合は404を返すこと
+
+テストファイルは spec/requests/api/v1/articles_spec.rb に作成してください。
+JSONレスポンスの検証も含めてください。</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-ruby"><code>query_path = &#x27;query.txt&#x27;
+database_path = &#x27;database.txt&#x27;
+database = []
+# データベース内容
+File.open(database_path, mode = &quot;r&quot;) do |f|
+  f.each_line do |record|
+    database &lt;&lt; record.to_i
+  end
+end
+# 検索クエリの処理
+File.open(query_path, mode = &quot;r&quot;) do |f|
+  f.each_line do |query|
+    query = query.to_i
+    database.each_with_index do |record, index|
+      if record == query
+        puts &quot;#{record}を見つけました&quot;
+      else
+        puts &quot;#{query}は見つかりませんでした&quot; if index == database.length - 1
+      end
+    end
+  end
+end</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-ruby.min.js"></script>
+</body>
+</html>

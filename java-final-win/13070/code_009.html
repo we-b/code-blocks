@@ -13,24 +13,12 @@
     </style>
 </head>
 <body>
-<pre class="language-plaintext"><code>// ☓：indexしか必要ないのに、不要なマッピングまで定義している
+<pre class="language-plaintext"><code># X : indexしか必要ないのに、resourcesで丸ごと定義している
+resources :items
 
-@GetMapping(&quot;/items&quot;)
-public List&lt;Item&gt; index() { ... }
-
-@PostMapping(&quot;/items&quot;)
-public Item create(@RequestBody Item item) { ... }
-
-@PutMapping(&quot;/items/{id}&quot;)
-public Item update(@PathVariable Long id, @RequestBody Item item) { ... }
-
-@DeleteMapping(&quot;/items/{id}&quot;)
-public void delete(@PathVariable Long id) { ... }
-
-// ◯：必要なマッピングのみ定義している
-
-@GetMapping(&quot;/items&quot;)
-public List&lt;Item&gt; index() { ... }</code></pre>
+# ◯:only, exceptを使用して必要なルーティングのみ定義している
+resources: items, only: :index
+</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 
 </body>

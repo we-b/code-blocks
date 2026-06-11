@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-java"><code>// list1 はヒープ上の新しいArrayListオブジェクトへの参照を持つ
+List&lt;String&gt; list1 = new ArrayList&lt;&gt;();
+
+// list2 は list1 と同じオブジェクトへの参照を持つ (コピーではない)
+List&lt;String&gt; list2 = list1;
+
+// list1 に null を代入すると、list1 はオブジェクトへの参照を失う
+list1 = null;
+// この時点では list2 がまだ参照を持っているので、オブジェクトはGC対象外</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-java.min.js"></script>
+</body>
+</html>
