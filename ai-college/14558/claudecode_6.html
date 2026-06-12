@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>config.json にティアマッピングを定義し、参照ファイルは適宜修正して下さい。
+⏺ 影響範囲を整理します。
+
+  変更が必要なファイル
+
+  1. config.json — ティア定義の追加
+
+  現状は competitors 配列のみ。ここに tiers 定義を追加する。
+
+  &quot;tiers&quot;: [
+    {
+      &quot;name&quot;: &quot;無料&quot;,
+      &quot;mapping&quot;: { &quot;Asana&quot;: &quot;Personal&quot;, &quot;Notion&quot;: &quot;フリー&quot;, &quot;Todoist&quot;: &quot;初心者&quot; }
+    },
+    {
+      &quot;name&quot;: &quot;エントリー&quot;,
+      &quot;mapping&quot;: { &quot;Asana&quot;: &quot;Starter&quot;, &quot;Notion&quot;: &quot;プラス&quot;, &quot;Todoist&quot;: &quot;プロ&quot; }
+    },
+    ...
+  ]
+
+  2. compare-data.py — 比較ロジックの変更
+
+  現状: 企業ごとにプラン名でマッチングして差分を計算
+  変更後: ティア単位で「Asana:Starter vs Notion:プラス vs Todoist:プロ」を比較
+
+  - config.json からティア定義を読み込む
+  - 出力の comparison.json の構造が変わる（企業別 → ティア別）
+
+  出力構造のイメージ：
+  {
+    &quot;comparedAt&quot;: &quot;...&quot;,
+    &quot;tiers&quot;: [
+      {
+        &quot;tier&quot;: &quot;無料&quot;,
+        &quot;companies&quot;: {
+          &quot;Asana&quot;: { &quot;planName&quot;: &quot;Personal&quot;, &quot;status&quot;: &quot;unchanged&quot;, &quot;changes&quot;: {...} },
+          &quot;Notion&quot;: { &quot;planName&quot;: &quot;フリー&quot;, &quot;status&quot;: &quot;unchanged&quot;, &quot;changes&quot;: {...} },
+          &quot;Todoist&quot;: { &quot;planName&quot;: &quot;初心者&quot;, &quot;status&quot;: &quot;unchanged&quot;, &quot;changes&quot;: {...} }
+        }
+      },
+      ...
+    ]
+  }
+
+  3. generate-csv.py — 入力データ構造の変更に追従
+
+  現状 comparison.json の companies[].plans[] を読んでマトリクスを作っている。ティア別構造に合わせて読み込みロジックを変更。
+
+  4. ComparisonTable.tsx — テーブル構造の変更
+
+  現状: プラン名が行、企業名が列（空白セルだらけ）
+  変更後: ティアが行、企業名が列（各セルに対応するプランのデータが入る）
+
+  行のヘッダーが「Personal」→「無料ティア（Asana:Personal / Notion:フリー / Todoist:初心者）」のようになる</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

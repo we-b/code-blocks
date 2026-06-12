@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>competitor-analysis/
+├── viewer/                         ← この章で構築
+│   ├── package.json
+│   ├── next.config.ts
+│   ├── src/
+│   │   ├── app/
+│   │   │   ├── page.tsx            ← ダッシュボード
+│   │   │   └── api/
+│   │   │       ├── comparison/route.ts
+│   │   │       ├── report/route.ts
+│   │   │       ├── infographic/route.ts
+│   │   │       ├── review-status/route.ts
+│   │   │       ├── validation/route.ts
+│   │   │       └── regenerate-infographic/route.ts
+│   │   ├── components/
+│   │   │   ├── ComparisonTable.tsx
+│   │   │   ├── InfographicPreview.tsx
+│   │   │   ├── ReportPreview.tsx
+│   │   │   ├── ReviewStatusBadge.tsx
+│   │   │   ├── ReviewPanel.tsx
+│   │   │   ├── ValidationBadge.tsx
+│   │   │   └── RegenerationHistory.tsx
+│   │   ├── hooks/
+│   │   │   └── useReviewStatus.ts
+│   │   └── lib/
+│   │       └── paths.ts
+│   └── ...
+└── data/
+    └── output/
+        └── review-status.json      ← ステータス保存先</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

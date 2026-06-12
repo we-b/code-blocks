@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>以下のディレクトリ構造を作成してください。
+
+podcast-agent/
+├── config.json              ← テーマ・参考URL・話者設定
+├── data/
+│   ├── scripts/             ← 台本（Markdown）
+│   ├── audio/
+│   │   ├── segments/        ← セクションごとの音声
+│   │   ├── mixed/           ← BGMミックス済み
+│   │   └── final/           ← 最終出力
+│   ├── bgm/                 ← BGM素材
+│   └── output/              ← Show Notes（エピソードの概要や参考リンク）、チャプター情報
+├── viewer/                  ← Next.js Viewer
+└── .claude/
+    └── skills/
+        └── podcast-creator/
+            ├── SKILL.md
+            └── scripts/
+                ├── tts-generate.py      ← 音声合成API呼び出し
+                └── mix-audio.py         ← ffmpegによるBGMミキシング
+
+config.json は空のJSONオブジェクト {} で作成してください。</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

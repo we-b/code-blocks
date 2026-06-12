@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>competitor-analysis/viewer/ にAPIルートを作成してください。
+
+作成するファイル:
+1. src/app/api/comparison/route.ts
+   - competitor-analysis/data/output/comparison.json を読み込んで返す
+   - ファイルが存在しない場合は 404 を返す
+
+2. src/app/api/report/route.ts
+   - competitor-analysis/data/output/report.md を読み込んでテキストとして返す
+   - ファイルが存在しない場合は 404 を返す
+
+3. src/app/api/infographic/route.ts
+   - competitor-analysis/data/output/infographic.png を読み込んで画像として返す
+   - Content-Type: image/png
+   - ファイルが存在しない場合は 404 を返す
+
+4. src/app/api/review-status/route.ts
+   - GET: competitor-analysis/data/output/review-status.json を読み込んで返す（存在しない場合はデフォルト値を返す）
+   - POST: リクエストボディのJSONを review-status.json に書き込む
+
+5. src/lib/paths.ts
+   - data/output/ のパスを定数として定義するユーティリティ
+   - process.cwd() からの相対パスで competitor-analysis/data/output/ を参照
+
+注意:
+- パスは viewer/ から見た相対パスで ../data/output/ になります
+- fsモジュールでファイルを直接読み書きしてください（データベースは使いません）</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>competitor-analysis/viewer/ のインフォグラフィックプレビューに、差し戻し→再生成のフローを追加してください。
+
+作成・修正するファイル:
+
+1. src/components/InfographicPreview.tsx の修正
+   - 画像の下に「差し戻し &amp; 再生成」セクションを追加
+   - ステータスが「差し戻し」の場合に表示される修正指示フォーム:
+     - テキストエリア: 修正プロンプトの入力欄（例: 「文字をもっと大きくして、色のコントラストを強くしてください」）
+     - 「再生成」ボタン
+   - 再生成中はローディングスピナーを表示
+   - 再生成完了後、画像を自動でリロード
+
+2. src/app/api/regenerate-infographic/route.ts
+   - POST: リクエストボディから修正プロンプトを受け取る
+   - competitor-analysis/data/output/comparison.json を読み込む
+   - 元のプロンプトに修正指示を追加して、generate-image.py を実行
+   - 実行コマンド例:
+     python competitor-analysis/.claude/skills/competitor-analysis/scripts/generate-image.py \
+       -p &quot;（元のプロンプト + 修正指示）&quot; \
+       -o &quot;competitor-analysis/data/output/infographic.png&quot;
+   - 実行結果（成功/失敗）をJSONで返す
+
+3. src/components/RegenerationHistory.tsx
+   - 再生成の履歴を表示するコンポーネント
+   - 各履歴: タイムスタンプ + 修正プロンプト + 結果（成功/失敗）
+   - 履歴は review-status.json 内の regenerationHistory 配列に保存
+
+注意:
+- generate-image.py の実行は child_process.exec を使用
+- 再生成には時間がかかるため、非同期で実行し、UIにはローディング状態を表示
+- エラーが発生した場合は、エラーメッセージをUIに表示</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

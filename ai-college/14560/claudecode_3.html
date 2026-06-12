@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>podcast-agent/config.json の設定に基づいて、ポッドキャスト台本を生成してください。
+
+台本の要件:
+1. config.json の episode.theme に基づいたテーマで構成
+2. config.json の reference_urls の内容を Playwright MCP で取得し、参考情報として活用
+3. 対談形式（ホストとゲストの掛け合い）
+4. 5分程度（約1500〜2000文字）
+5. 以下のセクション構成:
+   - オープニング（挨拶、テーマ紹介）
+   - セクション1（テーマの概要）
+   - セクション2（具体的な活用事例）
+   - セクション3（今後の展望）
+   - エンディング（まとめ、次回予告）
+
+台本のフォーマット:
+各発言を以下の形式で記述してください。
+
+## セクション名
+
+**ホスト:** 発言内容
+
+**ゲスト:** 発言内容
+
+出力先: podcast-agent/data/scripts/episode-001.md</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

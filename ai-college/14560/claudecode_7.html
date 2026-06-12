@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>podcast-agent/viewer/ にNext.jsアプリを構築してください。
+
+要件:
+1. 音声再生と波形表示:
+   - wavesurfer.js を使用して音声ファイルの波形を表示
+   - 再生/一時停止、シークバー、再生速度変更
+   - data/audio/final/episode-001.mp3 を読み込む
+
+2. 台本の同期表示:
+   - data/scripts/episode-001.md の台本を表示
+   - data/output/chapters.json のチャプター情報で、再生位置に合わせて現在のセクションをハイライト
+   - セクションをクリックするとその位置にジャンプ
+
+3. セクション単位のレビューUI:
+   - 各セクションに「承認」「差し戻し」ボタン
+   - 差し戻し時にコメント入力欄を表示
+   - レビュー状態を data/output/review-status.json に保存
+
+4. ステータスサマリー:
+   - 全セクションの承認/差し戻し/未レビュー状態を一覧表示
+   - 全セクション承認で「完了」バッジを表示
+
+技術スタック:
+- Next.js (App Router)
+- wavesurfer.js
+- Tailwind CSS
+- ファイル読み書きはAPI Routes（Chapter 6で学んだサーバー側の処理）経由</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

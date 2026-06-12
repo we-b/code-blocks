@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>competitor-analysis/.claude/skills/competitor-analysis/SKILL.md に、パラメータとオプションの仕組みを追加してください。
+
+追加する内容:
+
+1. $ARGUMENTS の処理:
+   - 引数がある場合: カンマ区切りの企業名リストとして解釈し、config.json から該当企業のみを対象にする
+   - 引数がない場合: config.json の全企業を対象にする
+
+2. オプションの処理:
+   - --quick: ステップ1〜4のみ実行（クロール+構造化+バリデーションまで）
+   - --no-viewer: ステップ1〜8を実行し、Viewer起動をスキップ
+   - --excel: generate-csv.py の代わりに generate-excel.py を実行（未実装の場合はCSVで代替）
+   - --with-screenshots: クロール時にPlaywright MCPでスクリーンショットも保存
+
+3. 使用例セクション:
+   - 通常実行、企業指定、各オプションの使用例を記述</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

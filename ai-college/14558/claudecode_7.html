@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>competitor-analysis/viewer/ に、承認/差し戻しのステータス管理UIを追加してください。
+
+作成・修正するファイル:
+
+1. src/components/ReviewStatusBadge.tsx
+   - ステータスに応じたバッジ表示（未確認: グレー、承認: 緑、差し戻し: 赤）
+   - クリックで「承認」「差し戻し」を切り替えるドロップダウン
+   - 「差し戻し」選択時にコメント入力欄を表示
+
+2. src/components/ReviewPanel.tsx
+   - 全レビュー対象のステータス一覧を表示するパネル
+   - 各項目: アイテム名 + ステータスバッジ + コメント
+   - 「全て承認」ボタン
+   - ステータスの変更は /api/review-status にPOSTして保存
+
+3. src/app/page.tsx の修正
+   - ダッシュボードの右側（またはサイドパネル）にReviewPanelを配置
+   - 各タブのコンテンツ内にもステータスバッジを表示
+   - ComparisonTable: 各企業名の横にステータスバッジ
+   - InfographicPreview: 画像の下にステータスバッジ
+   - ReportPreview: レポートの上部にステータスバッジ
+
+4. src/hooks/useReviewStatus.ts
+   - review-status.jsonの読み込み・更新を管理するカスタムフック
+   - GET /api/review-status でステータスを取得
+   - POST /api/review-status でステータスを保存
+   - 楽観的更新（保存完了を待たずにUI表示を先に更新する方式。詳しくは後述の「生成されたコードのポイント」で解説します）
+
+デザイン:
+- ステータスバッジは小さめ（目立ちすぎないように）
+- 差し戻しコメントは textarea で複数行入力可能
+- 保存成功時に小さなトースト通知（画面の端に一時的にポップアップし、数秒で消える小さなメッセージ）を表示</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

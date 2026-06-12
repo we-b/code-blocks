@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>podcast-agent/.claude/skills/podcast-creator/scripts/mix-audio.py を作成してください。
+
+仕様:
+- コマンドライン引数:
+  - -s / --segments-dir: 音声セグメントのディレクトリ（デフォルト: data/audio/segments/）
+  - -b / --bgm: BGMファイルのパス（デフォルト: data/bgm/bgm.mp3）
+  - -c / --config: config.jsonのパス（デフォルト: config.json）
+  - -o / --output: 出力ファイルパス（デフォルト: data/audio/final/episode-001.mp3）
+  - --no-bgm: BGMなしで結合のみ
+- 処理の流れ:
+  1. data/audio/segments/ 内のファイルをファイル名順にソート
+  2. pydub を使って全セグメントを結合
+  3. BGMファイルが存在する場合:
+     - BGMの音量を config.json の audio.bgm_volume に基づいて調整
+     - ナレーション音声にBGMを重ねる（overlay）
+  4. 結合済み音声を data/audio/mixed/ に保存
+  5. 最終出力を data/audio/final/ にmp3形式で保存（pydubが内部的にffmpegを使ってwav→mp3変換を行う）
+
+- pydub ライブラリを使用
+- ffmpegがインストールされている前提（pydubがwavからmp3への変換時に内部的にffmpegを呼び出す）
+- BGMファイルが存在しない場合は、BGMなしで結合のみ行う
+- エラー時は分かりやすいメッセージを表示
+
+使用例:
+python mix-audio.py
+python mix-audio.py --no-bgm</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>
