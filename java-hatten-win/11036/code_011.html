@@ -13,11 +13,11 @@
     </style>
 </head>
 <body>
-<pre class="language-javascript"><code>const isLeapYear? = (year) =&gt; {
+<pre class="language-javascript"><code>const isLeapYear = (year) =&gt; {
     return year % 4 == 0 &amp;&amp; year % 100 != 0 || year % 400 == 0;
 };
 
-if (isLeapYear?(year)) {
+if (isLeapYear(year)) {
   console.log(`${year}年は閏年です`);
 } else {
   console.log(`${year}年は閏年ではありません`);
