@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code># 読み込み
+with open(&quot;memo.txt&quot;, &quot;r&quot;, encoding=&quot;utf-8&quot;) as f:
+    lines = f.readlines()
+
+for line in lines:
+    clean_line = line.strip()
+    if clean_line.startswith(&quot;・&quot;):
+        print(clean_line)
+
+print(&quot;---&quot;)
+
+# 書き込み
+with open(&quot;result.txt&quot;, &quot;w&quot;, encoding=&quot;utf-8&quot;) as f:
+    f.write(&quot;抽出結果：\n&quot;)
+    for line in lines:
+        clean_line = line.strip()
+        if clean_line.startswith(&quot;・&quot;):
+            f.write(clean_line + &quot;\n&quot;)
+
+print(&quot;result.txt に書き込みました。&quot;)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

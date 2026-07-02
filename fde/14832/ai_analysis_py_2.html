@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code>import os
+from dotenv import load_dotenv
+from google import genai
+
+load_dotenv()
+api_key = os.environ[&quot;GEMINI_API_KEY&quot;]
+
+# 1. CSVファイルを読み込む
+with open(&quot;sales.csv&quot;, &quot;r&quot;, encoding=&quot;utf-8&quot;) as f:
+    csv_text = f.read()
+
+# 2. AIに分析を依頼する
+client = genai.Client(api_key=api_key)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

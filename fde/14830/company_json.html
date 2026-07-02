@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-json"><code>{
+    &quot;company&quot;: &quot;株式会社サンプル&quot;,
+    &quot;founded&quot;: 2020,
+    &quot;departments&quot;: [
+        {
+            &quot;name&quot;: &quot;営業部&quot;,
+            &quot;members&quot;: [
+                {&quot;name&quot;: &quot;山田太郎&quot;, &quot;role&quot;: &quot;部長&quot;},
+                {&quot;name&quot;: &quot;田中花子&quot;, &quot;role&quot;: &quot;主任&quot;}
+            ]
+        },
+        {
+            &quot;name&quot;: &quot;開発部&quot;,
+            &quot;members&quot;: [
+                {&quot;name&quot;: &quot;佐藤次郎&quot;, &quot;role&quot;: &quot;部長&quot;},
+                {&quot;name&quot;: &quot;鈴木一郎&quot;, &quot;role&quot;: &quot;エンジニア&quot;},
+                {&quot;name&quot;: &quot;高橋美咲&quot;, &quot;role&quot;: &quot;エンジニア&quot;}
+            ]
+        }
+    ]
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-json.min.js"></script>
+</body>
+</html>

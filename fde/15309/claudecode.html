@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>competitor-analysis/data/current/ にある各企業の生テキストファイル（*-raw.txt）を読み取り、構造化されたJSONファイルに変換してください。
+
+参照:
+- competitor-analysis/config.json の extractFields（plans, price, features, limitations）を抽出するフィールドとして使用
+
+出力形式:
+各企業ごとに以下の形式のJSONファイルを生成してください:
+
+{
+  &quot;company&quot;: &quot;企業名&quot;,
+  &quot;url&quot;: &quot;取得元URL&quot;,
+  &quot;collectedAt&quot;: &quot;YYYY-MM-DDTHH:mm:ss&quot;,
+  &quot;data&quot;: {
+    &quot;plans&quot;: [
+      {
+        &quot;name&quot;: &quot;プラン名&quot;,
+        &quot;price&quot;: &quot;月額料金（文字列）&quot;,
+        &quot;priceValue&quot;: 数値（月額料金の数値のみ。元の通貨のまま。無料の場合は0）,
+        &quot;features&quot;: [&quot;機能1&quot;, &quot;機能2&quot;, ...],
+        &quot;limitations&quot;: [&quot;制限事項1&quot;, &quot;制限事項2&quot;, ...]
+      }
+    ]
+  }
+}
+
+出力先: competitor-analysis/data/current/{企業名小文字}.json
+（例: notion.json, todoist.json, asana.json）
+
+注意:
+- 価格がドル表記の場合は、price に「$10」のように元の表記をそのまま記録し、priceValue には数値だけ（例: 10）を入れてください。為替レートでの円換算はしません（為替レートは日々変動するため、換算した数値を保存すると、同じ生データから作り直しても日によって値が変わってしまうからです。生データに忠実な、決定的なデータにするためです）
+- ※異なる通貨の priceValue を、そのまま大小比較することはできません。通貨をまたいだ比較は、price（表記）とあわせて人間が解釈する前提です
+- 「要問合せ」など金額が公開されていないプランは、priceValue を null にしてください
+- 無料プランも含めてください
+- 情報が読み取れないフィールドは null にしてください
+- 各プランの features と limitations はできるだけ多く抽出してください</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

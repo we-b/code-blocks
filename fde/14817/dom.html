@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>HTML                    JavaScript
+├── ヘッダー要素    ←→  getElementById × 3 + addEventListener × 2
+├── メニュー要素    ←→  getElementById × 3 + addEventListener × 1
+├── タブ要素        ←→  querySelectorAll × 2 + addEventListener × 3
+├── フォーム要素    ←→  getElementById × 5 + addEventListener × 4
+├── カード要素 × 10 ←→  querySelectorAll × 3 + addEventListener × 10
+└── フッター要素    ←→  getElementById × 2 + addEventListener × 1
+
+→ 要素取得: 数十箇所  イベント登録: 数十箇所  → 全体像が見えなくなる</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

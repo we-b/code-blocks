@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>① データ量が多い
+   CSVファイルが10万行を超えると、開くだけで重い
+   スプレッドシートも数万行で動作が遅くなる
+
+② 複数人が同時に更新する
+   CSVを2人が同時に編集すると、片方の変更が消える
+   スプレッドシートは同時編集できるが、競合が起きることも
+
+③ 高速な検索が必要
+   「2024年3月の問い合わせのうち、優先度が高いもの」
+   CSVなら全行を1行ずつ見る必要がある
+   データベースなら一瞬で見つかる
+
+④ データの整合性を保ちたい
+   「注文番号は必ず入力する」「優先度は高/中/低のどれか」
+   CSVにはこうしたルールを強制する仕組みがない</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>ステップ1: config.json 読み込み                    [設定]
+    ↓
+　└ クロール前のローテーション: data/current/ → data/previous/ へ移動
+　　（初回は current/ が空なのでスキップ）
+    ↓
+ステップ2: 競合サイトをクロール（Playwright MCP）    [データ収集]
+    ↓
+ステップ3: テキストを構造化JSON化（Claude Code）     [データ抽出]
+    ↓
+ステップ4: スキーマバリデーション（validate-schema.py）[自動チェック]
+    ↓
+ステップ5: 前回データとの差分計算（compare-data.py）  [差分比較]
+    （ローテーション後の current と previous を比較）
+    ↓
+ステップ6: 比較マトリクスCSV生成（generate-csv.py）   [CSV出力]
+    ↓
+ステップ7: インフォグラフィック生成（generate-image.py）[画像生成]
+    ↓
+ステップ8: 分析レポート生成（comparison.json → Claude Code）[レポート]
+    ↓
+ステップ9: Viewerで人間レビュー                     [品質確認]
+    ↓
+ステップ10: 承認/差し戻し → 修正ループ              [評価ループ]</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

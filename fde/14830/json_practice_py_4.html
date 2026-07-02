@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code>import json
+
+with open(&quot;company.json&quot;, &quot;r&quot;, encoding=&quot;utf-8&quot;) as f:
+    data = json.load(f)
+
+# 会社名
+print(data[&quot;company&quot;])
+# → 株式会社サンプル
+
+# 1つ目の部署名
+print(data[&quot;departments&quot;][0][&quot;name&quot;])
+# → 営業部
+
+# 開発部の2番目のメンバーの名前
+print(data[&quot;departments&quot;][1][&quot;members&quot;][1][&quot;name&quot;])
+# → 鈴木一郎</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

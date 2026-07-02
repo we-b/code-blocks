@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>customer-followupというSkillを作ってください。
+
+フォルダ内の商談記録ファイル（meeting-notes.txt）を検索して読み込み、以下の3つをそれぞれ別のファイルに出力するものです。
+
+1. フォローアップメール（お礼と合意事項の確認） → followup-email.txt
+2. ネクストアクション（自分のタスクリスト） → next-actions.txt
+3. 次回訪問アジェンダ → next-agenda.txt
+
+# 注意事項
+・事前にAgent Skillsの仕様をリサーチして、必ず正しい記述を行なってください。
+・このプロジェクトでのみの利用を想定して作成してください。
+・フォルダ内のmeeting-notes.txtを検索して読み込んでください。
+・3つの成果物はそれぞれ別のファイルに書き出してください。
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code>from google import genai
+
+# 1. CSVファイルを読み込む
+with open(&quot;sales.csv&quot;, &quot;r&quot;, encoding=&quot;utf-8&quot;) as f:
+    csv_text = f.read()
+
+print(&quot;=== 読み込んだCSVデータ ===&quot;)
+print(csv_text)
+
+# 2. AIに分析を依頼する
+client = genai.Client(api_key=&quot;あなたのAPIキー&quot;)
+
+prompt = f&quot;&quot;&quot;以下のCSVデータは、ある会社の購入履歴です。
+このデータを分析して、以下の3点をまとめてください。
+
+1. 売上合計（単価 x 個数の合計）
+2. カテゴリ別の売上と、その割合
+3. この会社への提案（どのカテゴリに注力すべきか）
+
+CSVデータ:
+{csv_text}
+&quot;&quot;&quot;
+
+response = client.models.generate_content(
+    model=&quot;gemini-3-flash-preview&quot;,
+    contents=prompt
+)
+
+print(&quot;=== AIの分析結果 ===&quot;)
+print(response.text)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

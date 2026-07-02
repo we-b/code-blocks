@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>competitor-analysis/viewer/ に、バリデーション結果の表示を追加してください。
+
+修正するファイル:
+
+1. src/app/api/validation/route.ts（新規作成）
+   - competitor-analysis/data/output/validation-report.json を読み込んで返す
+
+2. src/components/ValidationBadge.tsx（新規作成）
+   - バリデーション結果に応じたバッジを表示
+   - 全件PASS: 緑バッジ「自動チェック OK」
+   - 一部FAIL: 赤バッジ「自動チェック NG: {エラー数}件」
+   - バッジクリックでエラー詳細をツールチップ表示
+
+3. src/components/ComparisonTable.tsx の修正
+   - 各企業名の横に ValidationBadge を追加
+   - バリデーションがFAILの企業は行全体を薄い赤背景でハイライト
+
+4. src/components/ReviewPanel.tsx の修正
+   - パネル上部に「自動チェック結果」セクションを追加
+   - 「自動チェック済み項目」と「人間が確認すべき項目」を分けて表示
+   - 自動チェック済み: チェックマーク付きのリスト（編集不可）
+   - 人間確認項目: ステータスバッジ付きのリスト（承認/差し戻し可能）</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

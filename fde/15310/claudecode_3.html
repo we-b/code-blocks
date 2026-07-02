@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>competitor-analysis/.claude/skills/competitor-analysis/scripts/validate-schema.py を作成してください。
+
+仕様:
+- 入力: data/current/ 配下の全JSONファイル（*-raw.txt は除外）
+- 検証項目:
+  1. 必須フィールドの存在確認: company, url, collectedAt, data, data.plans
+  2. data.plans が空でないこと（1つ以上のプランがあること）
+  3. 各プランの必須フィールド: name, price, priceValue, features, limitations
+  4. priceValue が数値型（int または float）または null であること（「要問合せ」など金額が読み取れないプランは null を許容する）
+  5. features と limitations がリスト型であること
+- 出力: 検証結果をJSON形式で data/output/validation-report.json に保存
+- 出力形式:
+  {
+    &quot;validatedAt&quot;: &quot;YYYY-MM-DDTHH:mm:ss&quot;,
+    &quot;results&quot;: [
+      {
+        &quot;file&quot;: &quot;ファイル名&quot;,
+        &quot;status&quot;: &quot;pass&quot; または &quot;fail&quot;,
+        &quot;errors&quot;: [&quot;エラーメッセージ1&quot;, &quot;エラーメッセージ2&quot;],
+        &quot;warnings&quot;: [&quot;警告メッセージ1&quot;]
+      }
+    ],
+    &quot;summary&quot;: {
+      &quot;total&quot;: 3,
+      &quot;passed&quot;: 2,
+      &quot;failed&quot;: 1
+    }
+  }
+- コマンドライン引数: --data-dir でデータディレクトリを指定（デフォルト: data/current/）
+- 実行時にターミナルにも結果を表示すること（色付きで pass/fail を表示）</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

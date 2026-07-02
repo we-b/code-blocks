@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>competitor-analysis/.claude/skills/competitor-analysis/scripts/generate-image.py を作成してください。
+
+仕様:
+- コマンドライン引数: -p &quot;プロンプト&quot; -o &quot;出力パス&quot;
+- 環境変数 GOOGLE_CLOUD_PROJECT / GOOGLE_CLOUD_LOCATION を読み取り、Vertex AI 経由で認証する（APIキー文字列は使わない）
+- google-genai ライブラリを使用し、genai.Client(vertexai=True, project=..., location=...) で初期化
+- generate_content の config に response_modalities=[&quot;TEXT&quot;, &quot;IMAGE&quot;] を設定
+- レスポンスのpartsからimage部分を取得してファイルに保存
+- Pillowを使って画像を保存
+- エラー時は分かりやすいメッセージを表示して終了
+
+参考コード:
+#!/usr/bin/env python3
+&quot;&quot;&quot;
+画像生成スクリプト
+Vertex AI（Gemini画像生成API）を使用して画像を生成する
+
+使用例:
+    python generate-image.py -p &quot;競合分析のインフォグラフィック&quot; -o &quot;data/output/analysis.png&quot;
+&quot;&quot;&quot;
+
+import argparse
+import os
+import sys
+
+from google import genai
+from google.genai import types
+
+
+def generate_image(prompt: str, output_path: str) -&gt; str:
+    &quot;&quot;&quot;
+    Gemini APIを使用して画像を生成する
+
+    Args:
+        prompt: 画像の説明
+        output_path: 出力ファイルパス
+
+    Returns:
+        生成された画像のファイルパス
+    &quot;&quot;&quot;
+    project = os.environ.get(&quot;GOOGLE_CLOUD_PROJECT&quot;)
+    location = os.environ.get(&quot;GOOGLE_CLOUD_LOCATION&quot;, &quot;global&quot;)
+    if not project:
+        print(&quot;エラー: 環境変数 GOOGLE_CLOUD_PROJECT が設定されていません。&quot;)
+        sys.exit(1)
+
+    # APIキー文字列ではなく、gcloud認証（ADC）＋プロジェクトIDで Vertex AI に接続する
+    client = genai.Client(vertexai=True, project=project, location=location)
+
+    # 画像生成モデル（リストの先頭から順に試す）
+    # - gemini-3.1-flash-image-preview: 高速・低コスト。まずこちらを試す
+    # - gemini-3-pro-image-preview: 高品質（日本語の描画精度が高い）だが従量課金で無料枠なし
+    # より高品質な画像が欲しい場合は、順番を入れ替えてProを先に試してもよい
+    models = [&quot;gemini-3.1-flash-image-preview&quot;, &quot;gemini-3-pro-image-preview&quot;]
+
+    for model in models:
+        try:
+            print(f&quot;モデル {model} で生成を試みます...&quot;)
+            response = client.models.generate_content(
+                model=model,
+                contents=prompt,
+                config=types.GenerateContentConfig(
+                    response_modalities=[&quot;TEXT&quot;, &quot;IMAGE&quot;],
+                ),
+            )
+
+            for part in response.parts:
+                if part.inline_data is not None:
+                    image = part.as_image()
+                    os.makedirs(os.path.dirname(os.path.abspath(output_path)), exist_ok=True)
+                    image.save(output_path)
+                    print(f&quot;画像を保存しました: {output_path}&quot;)
+                    return output_path
+
+            print(f&quot;エラー: {model} のレスポンスに画像が含まれていませんでした。&quot;)
+
+        except Exception as e:
+            print(f&quot;{model} での生成に失敗しました: {e}&quot;)
+            if model != models[-1]:
+                print(&quot;次のモデルにフォールバックします...&quot;)
+
+    print(&quot;エラー: すべてのモデルで画像生成に失敗しました。&quot;)
+    sys.exit(1)
+
+
+def main():
+    parser = argparse.ArgumentParser(description=&quot;Gemini APIを使用して画像を生成する&quot;)
+    parser.add_argument(
+        &quot;-p&quot;, &quot;--prompt&quot;,
+        type=str,
+        required=True,
+        help=&quot;画像の説明（日本語可）&quot;,
+    )
+    parser.add_argument(
+        &quot;-o&quot;, &quot;--output&quot;,
+        type=str,
+        required=True,
+        help=&quot;出力ファイルパス（例: output/image.png）&quot;,
+    )
+
+    args = parser.parse_args()
+
+    generate_image(prompt=args.prompt, output_path=args.output)
+
+
+if __name__ == &quot;__main__&quot;:
+    main()</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

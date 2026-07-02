@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-markup"><code>&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;ja&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;プルダウンメニュー&lt;/title&gt;
+    &lt;link rel=&quot;stylesheet&quot; href=&quot;dropdown.css&quot;&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div&gt;
+        &lt;button id=&quot;menu-button&quot;&gt;メニュー ▼&lt;/button&gt;
+        &lt;ul id=&quot;menu-list&quot; hidden&gt;
+            &lt;li&gt;ホーム&lt;/li&gt;
+            &lt;li&gt;お知らせ&lt;/li&gt;
+            &lt;li&gt;お問い合わせ&lt;/li&gt;
+        &lt;/ul&gt;
+    &lt;/div&gt;
+    &lt;h1&gt;プルダウンメニューの実装&lt;/h1&gt;
+    &lt;p id=&quot;status&quot;&gt;メニューは閉じています&lt;/p&gt;
+    &lt;script src=&quot;dropdown.js&quot;&gt;&lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+
+</body>
+</html>

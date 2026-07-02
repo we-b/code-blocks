@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>competitor-analysis/config.json を読み込んで、competitors に定義されている各企業のURLにアクセスし、ページのテキスト内容を取得してください。
+
+手順:
+1. config.json を読み込んで、competitors の一覧を取得
+2. 各企業について:
+   a. URLにPlaywright MCPでアクセス
+   b. ページの内容を取得（browser_snapshot を使用）
+   c. 取得した内容を competitor-analysis/data/current/{企業名}-raw.txt として保存
+3. 全企業の処理が完了したら、保存したファイル一覧を表示
+
+注意:
+- 企業名はconfig.jsonの &quot;name&quot; フィールドをそのまま使ってください（例: Notion, Todoist, Asana）
+- ファイル名は小文字にしてください（例: notion-raw.txt）
+- ページが表示されたら、Cookie同意やポップアップが出ていれば閉じてから取得してください（前のLessonで学んだ同意画面の対処を思い出しましょう）
+- 料金表が表示されるまで少し待ってから取得してください</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

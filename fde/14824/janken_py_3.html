@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python" data-line="3,5,12,15,18,21,24"><code>import random
+
+is_playing = True   # ★追加: ゲーム継続中フラグ
+
+while is_playing:   # ★変更: True → is_playing
+    print(&quot;最初はグー、じゃんけんぽん！&quot;)
+    player_hand = input(&quot;あなたの手を選んでください（0:グー、1:チョキ、2:パー）: &quot;)
+    player_hand = int(player_hand)
+    cpu_hand = random.randint(0, 2)
+
+    if player_hand == cpu_hand:
+        print(&quot;あいこです。もう一度勝負！&quot;)   # ★メッセージを変更
+    elif player_hand == 0 and cpu_hand == 1:
+        print(&quot;あなたの勝ちです&quot;)
+        is_playing = False   # ★追加: フラグを降ろす
+    elif player_hand == 1 and cpu_hand == 2:
+        print(&quot;あなたの勝ちです&quot;)
+        is_playing = False   # ★追加: フラグを降ろす
+    elif player_hand == 2 and cpu_hand == 0:
+        print(&quot;あなたの勝ちです&quot;)
+        is_playing = False   # ★追加: フラグを降ろす
+    else:
+        print(&quot;あなたの負けです&quot;)
+        is_playing = False   # ★追加: フラグを降ろす</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

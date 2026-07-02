@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python" data-line="29,30,31,32,33,34,35,36,39,41,42"><code>import random
+
+hands = [&quot;グー&quot;, &quot;チョキ&quot;, &quot;パー&quot;]
+win_table = {
+    &quot;グー&quot;: &quot;チョキ&quot;,
+    &quot;チョキ&quot;: &quot;パー&quot;,
+    &quot;パー&quot;: &quot;グー&quot;,
+}
+
+def get_cpu_hand():
+    num = random.randint(0, 2)
+    return hands[num]
+
+
+def get_player_hand():
+    num = int(input(&quot;あなたの手を選んでください（0:グー、1:チョキ、2:パー）: &quot;))
+    return hands[num]
+
+
+def judge(player_hand, cpu_hand):
+    if player_hand == cpu_hand:
+        return &quot;draw&quot;
+    elif win_table[player_hand] == cpu_hand:
+        return &quot;win&quot;
+    else:
+        return &quot;lose&quot;
+
+
+def play_one_round():
+    &quot;&quot;&quot;じゃんけん1回ぶんを実行して、結果を返す&quot;&quot;&quot;
+    print(&quot;最初はグー、じゃんけんぽん！&quot;)
+    player_hand = get_player_hand()
+    cpu_hand = get_cpu_hand()
+    print(f&quot;あなたの手: {player_hand}&quot;)
+    print(f&quot;コンピュータの手: {cpu_hand}&quot;)
+    return judge(player_hand, cpu_hand)
+
+
+is_playing = True
+
+while is_playing:
+    result = play_one_round()
+
+    if result == &quot;draw&quot;:
+        print(&quot;あいこです。もう一度勝負！&quot;)
+    elif result == &quot;win&quot;:
+        print(&quot;あなたの勝ちです&quot;)
+        is_playing = False
+    else:
+        print(&quot;あなたの負けです&quot;)
+        is_playing = False</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

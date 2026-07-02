@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.css" rel="stylesheet" />
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-javascript" data-line="1,3,8,10,11,12,13,14"><code>&#x27;use client&#x27;;
+
+import { useState, useEffect } from &#x27;react&#x27;;
+import Link from &#x27;next/link&#x27;;
+import PostCard from &#x27;../components/PostCard&#x27;;
+
+export default function PostsPage() {
+  const [posts, setPosts] = useState([]);
+
+  useEffect(() =&gt; {
+    fetch(&#x27;http://localhost:8000/api/posts/&#x27;)
+      .then((response) =&gt; response.json())
+      .then((data) =&gt; setPosts(data));
+  }, []);
+
+  return (
+    &lt;div&gt;
+      &lt;h1&gt;投稿一覧&lt;/h1&gt;
+      &lt;nav&gt;
+        &lt;Link href=&quot;/&quot;&gt;トップ&lt;/Link&gt;
+        {&#x27; | &#x27;}
+        &lt;Link href=&quot;/posts/new&quot;&gt;新規投稿&lt;/Link&gt;
+      &lt;/nav&gt;
+      {posts.map((post) =&gt; (
+        &lt;PostCard key={post.id} title={post.title} content={post.content} /&gt;
+      ))}
+    &lt;/div&gt;
+  );
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/line-highlight/prism-line-highlight.min.js"></script>
+</body>
+</html>

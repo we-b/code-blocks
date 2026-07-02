@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>competitor-analysis/ ディレクトリ内の全工程を、Claude Code Agent Skill としてまとめてください。
+
+作成するファイル:
+competitor-analysis/.claude/skills/competitor-analysis/SKILL.md
+
+SKILL.mdの要件:
+1. フロントマター:
+   - name: competitor-analysis
+   - description: SaaS競合プロダクトの価格・機能比較分析を自動実行するワークフロー。ユーザーが「競合分析」「競合比較」「プロダクト比較」「competitor analysis」「SaaS比較」と言った時に使用。config.jsonの設定に基づき、Webクロール、データ構造化、スキーマバリデーション、差分計算、CSV生成、インフォグラフィック生成、分析レポート作成、Viewerでの人間レビューまでの全工程を統括する。
+
+2. 本文の構成:
+   - ワークフローの全10ステップを命令形で記述
+   - 各ステップで使うスクリプトの具体的なパスとコマンド
+   - Claude Code自身がやる処理（クロール、構造化、レポート生成）とスクリプトに委譲する処理の区別を明記
+   - 各ステップの成功条件（何をもって次のステップに進むか）
+   - エラーハンドリング（各ステップでの失敗時の対処法）
+   - 使用例（通常実行、オプション付き実行）
+
+3. 執筆ルール:
+   - 命令形で書く
+   - 「なぜ」を説明する（理由を伝えることで想定外の状況にも対応できる）
+   - 具体的なコマンドやファイルパスを含める
+   - 500行以内に収める
+
+4. ワークフローの10ステップ:
+   ステップ1: config.json を読み込み、対象企業とURLを確認する
+   ステップ2: クロール前のローテーションを行ってから、Playwright MCP で各企業の料金ページをクロールする
+     - ローテーション: 2回目以降は data/current/ の中身を data/previous/ へ移動する（初回は data/current/ が空なのでスキップ）
+     - これにより、ステップ5の差分計算がローテーション後の current と previous を比較できる
+   ステップ3: クロールしたテキストを構造化JSONに変換する（data/current/ に保存）
+   ステップ4: python .claude/skills/competitor-analysis/scripts/validate-schema.py --data-dir data/current/ で各JSONのスキーマを検証する
+   ステップ5: python .claude/skills/competitor-analysis/scripts/compare-data.py で前回データ（previous）との差分を計算する
+   ステップ6: python .claude/skills/competitor-analysis/scripts/generate-csv.py で比較マトリクスCSVを生成する
+   ステップ7: data/output/comparison.json を読み取ってプロンプトを組み立て、python .claude/skills/competitor-analysis/scripts/generate-image.py -p &quot;（comparison.jsonから組み立てたプロンプト）&quot; -o &quot;competitor-analysis/data/output/infographic.png&quot; でインフォグラフィックを生成する
+   ステップ8: data/output/comparison.json を分析し、data/output/report.md を生成する
+     - comparison.json には前回データとの差分が含まれるため、レポートに「前回比較」セクションを設け、価格・機能の変化（値上がり/値下がり、追加/削除された機能）に言及する
+     - 初回実行で差分がない場合は「初回収集のため比較データなし」と記載する
+   ステップ9: cd viewer &amp;&amp; npm run dev でViewerを起動し、ユーザーにレビューを促す
+   ステップ10: ユーザーの承認/差し戻しに基づいて、必要に応じて再生成する
+
+既存のスクリプト（.claude/skills/competitor-analysis/scripts/ 内）の内容を読み込んで、正確なコマンドライン引数を反映してください。特に generate-image.py は -p（プロンプト）と -o（出力パス）が必須で、引数なしでは動きません。</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

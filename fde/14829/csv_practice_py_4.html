@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code>import csv
+
+data = [
+    [&quot;名前&quot;, &quot;部署&quot;, &quot;メール&quot;],
+    [&quot;山田太郎&quot;, &quot;営業部&quot;, &quot;yamada@example.com&quot;],
+    [&quot;鈴木花子&quot;, &quot;企画部&quot;, &quot;suzuki@example.com&quot;],
+    [&quot;佐藤次郎&quot;, &quot;開発部&quot;, &quot;sato@example.com&quot;],
+]
+
+with open(&quot;members.csv&quot;, &quot;w&quot;, newline=&quot;&quot;, encoding=&quot;utf-8&quot;) as f:
+    writer = csv.writer(f)
+    for row in data:
+        writer.writerow(row)
+
+print(&quot;members.csv に書き込みました。&quot;)</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>
