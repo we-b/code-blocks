@@ -19,5 +19,31 @@
 決定事項、担当者、次回までの持ち帰り、の3つに分けて出力してください。</code></pre>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+<script>
+/* 自分の高さを親ページ（learningBOX）へ通知する。
+   親側のスクリプトが受け取ってiframeの高さを合わせる。
+   親にスクリプトが無い場合は何も起きず、変換時に計算した高さのまま表示される。 */
+(function () {
+    function sendHeight() {
+        /* documentElement.scrollHeight はビューポート高さを下回らないため、
+           内容が短いときに縮小できない。コードブロック本体を直接測る。 */
+        var pre = document.querySelector('pre');
+        var h = pre
+            ? Math.ceil(pre.getBoundingClientRect().height)
+            : document.documentElement.scrollHeight;
+        if (!h) { return; }
+        try {
+            parent.postMessage({ codeBlockHeight: h }, '*');
+        } catch (e) {}
+    }
+    window.addEventListener('load', sendHeight);
+    if (document.readyState === 'complete') { sendHeight(); }
+    /* Prismのハイライト適用やWebフォント読み込みで高さが変わるため、再測定する */
+    if (window.ResizeObserver) {
+        var target = document.querySelector('pre') || document.body;
+        if (target) { new ResizeObserver(sendHeight).observe(target); }
+    }
+})();
+</script>
 </body>
 </html>
