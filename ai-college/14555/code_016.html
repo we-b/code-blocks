@@ -19,7 +19,7 @@
 - コマンドライン引数: -p &quot;プロンプト&quot; -o &quot;出力パス&quot;
 - 環境変数 GOOGLE_CLOUD_PROJECT / GOOGLE_CLOUD_LOCATION を読み取り、Vertex AI 経由で認証する（APIキー文字列は使わない）
 - google-genai ライブラリを使用し、genai.Client(vertexai=True, project=..., location=...) で初期化
-- モデル: gemini-3-pro-image-preview
+- モデル: gemini-3-pro-image
 - generate_content の config に response_modalities=[&quot;TEXT&quot;, &quot;IMAGE&quot;] を設定
 - レスポンスのpartsからimage部分を取得してファイルに保存
 - Pillowを使って画像を保存
@@ -64,7 +64,7 @@ def generate_image(prompt: str, output_path: str) -&gt; str:
     # APIキー文字列ではなく、gcloud認証（ADC）＋プロジェクトIDで Vertex AI に接続する
     client = genai.Client(vertexai=True, project=project, location=location)
 
-    models = [&quot;gemini-3-pro-image-preview&quot;, &quot;gemini-3.1-flash-image-preview&quot;]
+    models = [&quot;gemini-3-pro-image&quot;, &quot;gemini-3.1-flash-image-preview&quot;]
 
     for model in models:
         try:
