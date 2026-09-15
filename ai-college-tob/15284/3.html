@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>条件1：機密情報にアクセスできる
+　　　 → AIが、顧客データやパスワードを読める状態にある
+
+条件2：汚染された外部コンテンツを取り込む
+　　　 → AIが、ニセ指示の仕込まれたサイト・ファイル・部品を読み込む（入口）
+
+条件3：外部へ送信する能力がある
+　　　 → AIが、メール送信やデータ送信など、外に送る手段を持っている（出口）
+
+この3つがすべてそろったとき、はじめて攻撃が成立する。</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>
