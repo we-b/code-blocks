@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>⏺ config.json の episode.theme を「AIエージェントの最新動向」に設定
+
+⏺ 参考URLの内容を取得中...
+  → https://www.anthropic.com/research を取得
+
+⏺ 台本を生成中...
+  → data/scripts/episode-001.md に保存
+
+⏺ VOICEVOXに接続中... OK
+⏺ 音声を生成中...
+  → tts-generate.py を実行
+  → 15セグメント生成完了
+
+⏺ BGMミキシング中...
+  → mix-audio.py を実行
+  → data/audio/final/episode-001.mp3 に保存
+
+⏺ チャプター情報とShow Notesを生成中...
+  → data/output/chapters.json に保存
+  → data/output/show-notes.md に保存
+
+⏺ Viewerを起動します
+  → cd viewer &amp;&amp; npm run dev</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

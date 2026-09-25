@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>テーマと参考URLを設定（config.json: JSON形式の設定ファイル）
+  ↓
+参考URLの内容を取得（Playwright MCP）
+  ↓
+対談形式の台本を生成（Claude Code）
+  ↓
+台本を音声に変換（VOICEVOX + Pythonスクリプト）
+  ↓
+BGMミキシング（BGMと音声を重ね合わせる処理）（ffmpeg + Pythonスクリプト）
+  ↓
+チャプター情報・Show Notes（番組の概要や参考リンクのまとめ）を生成（Claude Code）
+  ↓
+Viewerで人間がレビュー・承認/差し戻し（Next.js）</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

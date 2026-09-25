@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>podcast-agent/ ディレクトリ内の全工程を、Claude Code Agent Skill としてまとめてください。
+
+作成するファイル:
+podcast-agent/.claude/skills/podcast-creator/SKILL.md
+
+SKILL.mdの要件:
+1. フロントマター:
+   - name: podcast-creator
+   - description: ポッドキャスト台本の生成、音声合成、BGMミキシング、Show Notes作成までの全工程を自動実行するワークフロー。ユーザーが「ポッドキャスト」「podcast」「音声コンテンツ」「対談」「エピソード作成」と言った時に使用。config.jsonのテーマに基づき、参考URL取得、台本生成、音声合成、BGMミキシング、チャプター情報生成、Show Notes作成、Viewerでのレビューまでの全工程を統括する。
+
+2. 本文の構成:
+   - ワークフローの全ステップを命令形で記述
+   - 各ステップで使うスクリプトの具体的なパスとコマンド
+   - Claude Code自身がやる処理（台本生成、チャプター情報生成、Show Notes生成）とスクリプトに委譲する処理（VOICEVOX音声合成、ffmpegミキシング）の区別を明記
+   - VOICEVOXが起動している必要がある旨を前提条件として明記
+   - 各ステップの成功条件
+   - エラーハンドリング
+   - 使用例
+
+3. $ARGUMENTS の処理:
+   - 引数がある場合: テーマとして解釈し、config.json の episode.theme を上書き
+   - 引数がない場合: config.json の episode.theme をそのまま使用
+
+4. オプション:
+   - --voices &quot;ホスト:四国めたん（ノーマル）,ゲスト:ずんだもん（ノーマル）&quot;: 話者の声を指定
+   - --duration 10min: エピソードの長さを指定
+   - --no-bgm: BGMなしで生成
+   - --script-only: 台本生成のみ（音声生成をスキップ）
+
+5. 執筆ルール:
+   - 命令形で書く
+   - 「なぜ」を説明する
+   - 具体的なコマンドやファイルパスを含める
+   - 500行以内に収める
+
+既存のスクリプト（.claude/skills/podcast-creator/scripts/ 内）の内容を読み込んで、正確なコマンドライン引数を反映してください。</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>podcast-agent/data/scripts/episode-001.md の台本構造と、data/audio/segments/ の音声ファイルの長さから、以下の2つのファイルを生成してください。
+
+1. podcast-agent/data/output/chapters.json
+   - セクションごとの開始時間とタイトル
+   - 形式: [{&quot;time&quot;: &quot;0:00&quot;, &quot;title&quot;: &quot;オープニング&quot;}, {&quot;time&quot;: &quot;1:30&quot;, &quot;title&quot;: &quot;AIエージェントとは&quot;}, ...]
+
+2. podcast-agent/data/output/show-notes.md
+   - エピソードの概要（3〜5文）
+   - チャプター一覧（時間付き）
+   - 参考リンク（config.json の reference_urls を引用）
+   - 話者紹介
+
+各音声ファイルの長さは、先ほどインストールしたpydubライブラリで秒単位に取得できます:
+from pydub import AudioSegment
+audio = AudioSegment.from_file(&quot;ファイルパス&quot;)
+duration_seconds = len(audio) / 1000</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-markdown"><code>## 使用例
+
+### 例1: 通常の週次分析
+ユーザー: 「/competitor-analysis」
+アクション: 全10ステップを順番に実行
+結果: data/output/ に全成果物が生成され、Viewerが起動する
+
+### 例2: 特定企業のみ分析
+ユーザー: 「/competitor-analysis --targets Notion,Todoist」
+アクション: config.json からNotionとTodoistのみを対象に実行
+結果: 2社の比較レポートが生成される</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markdown.min.js"></script>
+</body>
+</html>

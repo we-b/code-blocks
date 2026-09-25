@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>podcast-agent/config.json を以下の内容で作成してください。
+
+{
+  &quot;podcast&quot;: {
+    &quot;title&quot;: &quot;Tech Insights&quot;,
+    &quot;description&quot;: &quot;最新テクノロジーを分かりやすく解説するポッドキャスト&quot;
+  },
+  &quot;episode&quot;: {
+    &quot;theme&quot;: &quot;AIエージェントの最新動向と活用事例&quot;,
+    &quot;duration_minutes&quot;: 5,
+    &quot;reference_urls&quot;: [
+      &quot;https://www.anthropic.com/research&quot;
+    ]
+  },
+  &quot;speakers&quot;: {
+    &quot;host&quot;: {
+      &quot;name&quot;: &quot;ホスト&quot;,
+      &quot;voice&quot;: &quot;四国めたん（ノーマル）&quot;,
+      &quot;role&quot;: &quot;進行役。質問を投げかけ、リスナー目線で話を引き出す&quot;
+    },
+    &quot;guest&quot;: {
+      &quot;name&quot;: &quot;ゲスト&quot;,
+      &quot;voice&quot;: &quot;ずんだもん（ノーマル）&quot;,
+      &quot;role&quot;: &quot;専門家。具体例を交えて分かりやすく解説する&quot;
+    }
+  },
+  &quot;audio&quot;: {
+    &quot;voicevox_host&quot;: &quot;localhost:50021&quot;,
+    &quot;bgm_volume&quot;: 0.15
+  }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

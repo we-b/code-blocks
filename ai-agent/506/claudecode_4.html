@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>competitor-analysis/viewer/ のトップページを、競合分析ダッシュボードとして作り替えてください。
+
+作成するファイル:
+1. src/app/page.tsx（トップページ）
+   - タイトル「競合プロダクト比較ダッシュボード」
+   - 3つのタブで切り替えるレイアウト:
+     - 「比較データ」タブ: 比較マトリクステーブル
+     - 「インフォグラフィック」タブ: 画像プレビュー
+     - 「レポート」タブ: Markdownレンダリング
+   - ヘッダーにデータの収集日時を表示
+
+2. src/components/ComparisonTable.tsx
+   - /api/comparison からデータを取得
+   - 企業名を列、プラン情報を行としたテーブルを表示
+   - 各プランの名前・価格・主要機能を表示
+   - 変化のある項目をハイライト:
+     - 値上がり: 赤背景 + 上矢印
+     - 値下がり: 緑背景 + 下矢印
+     - 新規追加: 青バッジ
+     - 削除: グレー + 取り消し線
+   - ソート機能（価格順、企業名順）
+
+3. src/components/InfographicPreview.tsx
+   - /api/infographic の画像を表示
+   - クリックで拡大表示（モーダル）
+   - 画像の読み込み中はスケルトンローダー（グレーの枠で大まかなレイアウトを表示する読み込み中の表現）を表示
+
+4. src/components/ReportPreview.tsx
+   - /api/report のMarkdownをレンダリングして表示
+   - react-markdown + remark-gfm を使用
+   - コードブロック、テーブル、見出しのスタイリング
+
+デザイン:
+- Tailwind CSSでスタイリング
+- ダークモード非対応でOK（ライトテーマのみ）
+- 余白を適切に取り、見やすいレイアウト
+- レスポンシブ対応は不要（デスクトップのみ）</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

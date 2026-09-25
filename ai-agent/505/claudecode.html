@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>competitor-analysis/.claude/skills/competitor-analysis/scripts/compare-data.py を作成してください。
+
+仕様:
+- 入力:
+  - data/current/*.json（今回の構造化データ）
+  - data/previous/*.json（前回の構造化データ）
+- 処理:
+  - 同じ企業名のJSONファイル同士を比較
+  - 各プランのフィールドごとに差分を計算:
+    - 数値フィールド（priceValue）: 差分値と変化率を計算
+    - テキストフィールド（features, limitations）: 追加・削除された項目を検出
+    - プラン自体の追加・削除を検出
+- 出力: data/output/comparison.json
+- 出力形式:
+  {
+    &quot;comparedAt&quot;: &quot;YYYY-MM-DDTHH:mm:ss&quot;,
+    &quot;companies&quot;: [
+      {
+        &quot;name&quot;: &quot;企業名&quot;,
+        &quot;plans&quot;: [
+          {
+            &quot;name&quot;: &quot;プラン名&quot;,
+            &quot;changes&quot;: {
+              &quot;priceValue&quot;: {
+                &quot;previous&quot;: 前回値,
+                &quot;current&quot;: 今回値,
+                &quot;diff&quot;: 差分,
+                &quot;changeRate&quot;: 変化率（%）
+              },
+              &quot;features&quot;: {
+                &quot;added&quot;: [&quot;追加された機能&quot;],
+                &quot;removed&quot;: [&quot;削除された機能&quot;],
+                &quot;unchanged&quot;: [&quot;変化なしの機能&quot;]
+              },
+              &quot;limitations&quot;: {
+                &quot;added&quot;: [&quot;追加された制限&quot;],
+                &quot;removed&quot;: [&quot;削除された制限&quot;],
+                &quot;unchanged&quot;: [&quot;変化なしの制限&quot;]
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+- コマンドライン引数:
+  - --current-dir: 今回データのディレクトリ（デフォルト: data/current/）
+  - --previous-dir: 前回データのディレクトリ（デフォルト: data/previous/）
+  - --output: 出力先（デフォルト: data/output/comparison.json）
+- 初回実行時（previousが空の場合）:
+  - currentの各JSONファイルをpreviousにコピー
+  - 差分はすべてゼロ（変化なし）として出力
+  - ターミナルに「初回実行: previousデータを作成しました」と表示</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

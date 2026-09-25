@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>deal-notes.txt を読み込んで、商談の振り返りを生成するSkillを作ってください。
+Skill名は deal-review。
+- 案件ごとに結果（受注／失注）と要因を抽出する
+- 要因は「価格」「機能・提案内容」「タイミング」「競合」「顧客の社内事情」の5分類に振り分ける
+- 受注案件の共通する勝因、失注案件の共通する要因を整理する
+- 次の商談に向けた改善アクションを3つ提案する
+出力は「振り返りサマリー」「要因の分類表」「改善アクション」の3部構成で、Markdownで保存してください。</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

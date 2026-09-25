@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>podcast-agent/.claude/skills/podcast-creator/scripts/tts-generate.py を作成してください。
+
+仕様:
+- コマンドライン引数:
+  - -s / --script: 台本ファイルのパス（例: data/scripts/episode-001.md）
+  - -c / --config: config.jsonのパス（デフォルト: config.json）
+  - -o / --output-dir: 出力ディレクトリ（デフォルト: data/audio/segments/）
+  - --sections: 生成するセクション番号をカンマ区切りで指定（例: --sections &quot;2,4&quot;）。省略時は全セクション
+- 処理の流れ:
+  1. 台本ファイルを読み込み、セクションごとに分割
+  2. 各セクション内の発言を話者ごとに分割
+  3. config.json の speakers 設定から、話者に対応する VOICEVOX キャラクター名を取得
+  4. VOICEVOX API（localhost:50021）で各発言を音声に変換
+  5. セクション番号_発言番号_話者名.wav の形式でファイルを保存
+
+- VOICEVOX APIの使い方:
+  1. GET /speakers でキャラクター一覧を取得し、キャラクター名からspeaker_idを特定
+  2. POST /audio_query?text=テキスト&amp;speaker=ID で音声クエリを生成
+  3. POST /synthesis?speaker=ID に音声クエリを渡して音声データ（WAV）を取得
+- requests ライブラリを使用
+- config.json の audio.voicevox_host からVOICEVOXのアドレスを取得
+- エラー時は分かりやすいメッセージを表示（特にVOICEVOXが起動していない場合の案内）
+
+使用例:
+python tts-generate.py -s data/scripts/episode-001.md</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

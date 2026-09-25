@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>1. 人間がViewerで画像を確認
+2. 「文字が小さい」「色が見にくい」と判断 → 差し戻し
+3. 修正プロンプトを入力（例: 「文字を大きく、色のコントラストを強く」）
+4. 「再生成」ボタンをクリック
+5. generate-image.py が実行され、新しい画像が生成される
+6. Viewerが画像を再読み込みして表示
+7. 人間が再確認 → 承認 or 再度差し戻し</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

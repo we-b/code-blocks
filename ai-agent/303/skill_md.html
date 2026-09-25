@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-markdown"><code>---
+name: proposal-draft
+description: 顧客名と案件内容から提案書の下書きを作成します
+argument-hint: [customer_name] [project_details]
+---
+
+# 提案書下書き作成
+
+以下の情報をもとに、提案書の下書きを作成してください。
+
+**顧客名**: $0
+
+**案件内容**: $1
+
+## 作成する提案書の構成
+
+以下の構成で提案書の下書きを作成してください：
+
+1. **表紙**
+   - 提案書タイトル
+   - 顧客名
+   - 提案日（本日の日付）
+   - 提案元（貴社名）
+
+2. **エグゼクティブサマリー**
+   - 提案の概要を簡潔に記載
+
+3. **背景・課題**
+   - 顧客が抱える課題や背景を整理
+
+4. **提案内容**
+   - 具体的な解決策や提供サービスの詳細
+   - 実施スケジュール案
+   - 期待される効果
+
+5. **体制・実績**
+   - プロジェクト体制
+   - 類似案件の実績
+
+6. **お見積り**
+   - 概算費用（詳細は別途相談）
+
+7. **今後の進め方**
+   - 次のステップ
+
+提案書は、プロフェッショナルで説得力のある内容にしてください。
+具体的な金額や固有名詞で不明な部分は[要確認]として記載してください。</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markdown.min.js"></script>
+</body>
+</html>

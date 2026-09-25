@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-markdown"><code>## エラーハンドリング
+
+### サイトにアクセスできない場合
+- 3回までリトライ（5秒間隔）
+- それでも失敗した場合は、該当サイトをスキップ
+- レポートに「アクセス失敗」と記載
+
+### 情報が取得できない場合
+- 取得できなかった項目は「取得失敗」と記載
+- 他の項目は通常通り処理を継続
+
+### 検索フォームが見つからない場合
+- 検索をスキップし、トップページの情報のみ取得
+- レポートに「検索機能なし」と記載
+
+### エラーログ
+- エラーが発生した場合、レポート末尾に「エラーログ」セクションを追加</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markdown.min.js"></script>
+</body>
+</html>
