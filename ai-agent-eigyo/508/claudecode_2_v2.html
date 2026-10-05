@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>podcast-agent/config.json を以下の内容で作成してください。
+
+{
+  "podcast": {
+    "title": "おすすめ商品ラジオ",
+    "description": "注目の商品を対談形式で紹介する音声コンテンツ"
+  },
+  "episode": {
+    "theme": "人気ワイヤレスイヤホン3製品の紹介",
+    "duration_minutes": 5,
+    "reference_urls": [
+      "https://we-b.github.io/claude-code-lesson-samples/shop-a/"
+    ]
+  },
+  "speakers": {
+    "host": {
+      "name": "ホスト",
+      "voice": "四国めたん（ノーマル）",
+      "role": "進行役。お客様目線で質問し、選ぶときのポイントを引き出す"
+    },
+    "guest": {
+      "name": "ゲスト",
+      "voice": "ずんだもん（ノーマル）",
+      "role": "商品に詳しい担当者。特徴や違いを具体例を交えて解説する"
+    }
+  },
+  "audio": {
+    "voicevox_host": "localhost:50021",
+    "bgm_volume": 0.15
+  }
+}</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>
