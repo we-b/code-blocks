@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>ad-report という名前のSkillを作ってください。
+フォルダ内の *_広告費.csv をすべて読み込み、媒体ごとに施策別の出稿額・クリック数・コンバージョン数を集計し、CPA（出稿額÷コンバージョン数）を算出してください。
+全媒体の合計も出し、媒体ごとの予算50万円を超えている場合はアラートを表示してください。
+出力は「媒体別集計」「全体集計」「予算超過アラート」の3部構成で、Markdownの表にしてください。
+
+# 注意事項
+・事前にAgent Skillsの仕様をリサーチして、必ず正しい記述を行なってください。
+・このプロジェクトでのみの利用を想定して作成してください。</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

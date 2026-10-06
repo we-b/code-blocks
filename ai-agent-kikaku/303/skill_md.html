@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-markdown"><code>---
+name: plan-draft
+description: 企画テーマとターゲットからプロモーション企画書と発信文の下書きを生成します
+argument-hint: [企画テーマ] [ターゲット]
+---
+
+# 企画書ドラフト生成
+
+企画テーマ「$0」、ターゲット「$1」のプロモーション企画書の下書きを作成してください。
+
+## 出力構成
+1. 企画の狙い（3行以内）
+2. ターゲットとインサイト（ターゲットが抱える状況・気持ちを2〜3点）
+3. 施策案（3案。それぞれ概要・チャネル・期待効果を1行ずつ）
+4. 想定KPI（認知・反応・購買の3段階で1つずつ）
+5. 発信文のドラフト（SNS投稿文140字以内、プレスリリース冒頭3行）
+
+数値や実績は仮置きとし、「（仮）」と明記すること。</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markdown.min.js"></script>
+</body>
+</html>

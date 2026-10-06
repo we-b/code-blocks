@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-markdown"><code>---
+name: ad-report
+description: 媒体別の広告費CSVを読み込んで集計レポートを作成
+---
+
+フォルダ内の *_広告費.csv にマッチするファイルをすべて読み込んでください。
+
+各ファイルには日付、施策名、出稿額、クリック数、コンバージョン数の列があります。
+
+以下の形式でレポートを作成してください：
+
+## 広告費集計レポート
+
+### 媒体別集計
+（各媒体の出稿額合計と施策別内訳、CPA（出稿額÷コンバージョン数）を表示）
+
+### 全体集計
+（全媒体を合計した出稿総額とコンバージョン数）
+
+### 予算超過アラート
+（媒体ごとの予算50万円を超えている場合は警告）
+予算内の場合は「全媒体、予算内です」と表示</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markdown.min.js"></script>
+</body>
+</html>
