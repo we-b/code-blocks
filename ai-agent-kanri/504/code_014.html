@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-python"><code>#!/usr/bin/env python3
+"""
+ツール比較データのスキーマ検証スクリプト
+
+使用例:
+    python validate-schema.py
+    python validate-schema.py --data-dir data/current/
+"""
+
+import argparse
+import json
+import os
+import sys
+from datetime import datetime
+from glob import glob
+
+
+RED = "\033[91m"
+GREEN = "\033[92m"
+YELLOW = "\033[93m"
+RESET = "\033[0m"
+
+
+def validate_file(filepath):
+    """1つのJSONファイルを検証する"""
+    errors = []
+    warnings = []
+    filename = os.path.basename(filepath)
+
+    try:
+        with open(filepath, "r", encoding="utf-8") as f:
+            data = json.load(f)
+    except json.JSONDecodeError as e:
+        return {"file": filename, "status": "fail", "errors": [f"JSONパースエラー: {e}"], "warnings": []}
+    except Exception as e:
+        return {"file": filename, "status": "fail", "errors": [f"ファイル読み込みエラー: {e}"], "warnings": []}
+
+    # 1. 必須フィールドの存在確認
+    for field in ["company", "url", "collectedAt", "data"]:
+        if field not in data:
+            errors.append(f"必須フィールド '{field}' がありません")
+
+    if "data" in data:
+        if "plans" not in data["data"]:
+            errors.append("必須フィールド 'data.plans' がありません")
+        else:
+            plans = data["data"]["plans"]
+
+            # 2. plans が空でないこと
+            if not isinstance(plans, list) or len(plans) == 0:
+                errors.append("data.plans は1つ以上のプランを含む必要があります")
+            else:
+                # 3-5. 各プランの検証
+                for i, plan in enumerate(plans):
+                    plan_name = plan.get("name", f"インデックス {i}")
+
+                    # 3. 各プランの必須フィールド
+                    for field in ["name", "price", "priceValue", "features", "limitations"]:
+                        if field not in plan:
+                            errors.append(f"プラン '{plan_name}': 必須フィールド '{field}' がありません")
+
+                    # 4. priceValue が数値型または null であること
+                    if "priceValue" in plan:
+                        pv = plan["priceValue"]
+                        if pv is not None and not isinstance(pv, (int, float)):
+                            errors.append(f"プラン '{plan_name}': priceValue は数値型である必要があります（現在: {type(pv).__name__}）")
+
+                    # 5. features と limitations がリスト型であること
+                    if "features" in plan:
+                        if not isinstance(plan["features"], list):
+                            errors.append(f"プラン '{plan_name}': features はリスト型である必要があります")
+                        elif len(plan["features"]) == 0:
+                            warnings.append(f"プラン '{plan_name}': features が空です")
+
+                    if "limitations" in plan:
+                        if not isinstance(plan["limitations"], list):
+                            errors.append(f"プラン '{plan_name}': limitations はリスト型である必要があります")
+
+    status = "fail" if errors else "pass"
+    return {"file": filename, "status": status, "errors": errors, "warnings": warnings}
+
+
+def main():
+    parser = argparse.ArgumentParser(description="ツール比較データのスキーマ検証")
+    parser.add_argument(
+        "--data-dir",
+        type=str,
+        default="data/current/",
+        help="データディレクトリ（デフォルト: data/current/）",
+    )
+    args = parser.parse_args()
+
+    json_files = sorted(glob(os.path.join(args.data_dir, "*.json")))
+
+    if not json_files:
+        print(f"{RED}エラー: {args.data_dir} にJSONファイルが見つかりません{RESET}")
+        sys.exit(1)
+
+    print(f"検証対象: {len(json_files)} ファイル\n")
+
+    results = []
+    for filepath in json_files:
+        result = validate_file(filepath)
+        results.append(result)
+
+        # ターミナル表示
+        if result["status"] == "pass":
+            status_str = f"{GREEN}PASS{RESET}"
+        else:
+            status_str = f"{RED}FAIL{RESET}"
+
+        print(f"  [{status_str}] {result['file']}")
+
+        for error in result["errors"]:
+            print(f"       {RED}✗ {error}{RESET}")
+        for warning in result["warnings"]:
+            print(f"       {YELLOW}⚠ {warning}{RESET}")
+
+    passed = sum(1 for r in results if r["status"] == "pass")
+    failed = sum(1 for r in results if r["status"] == "fail")
+
+    report = {
+        "validatedAt": datetime.now().strftime("%Y-%m-%dT%H:%M:%S"),
+        "results": results,
+        "summary": {
+            "total": len(results),
+            "passed": passed,
+            "failed": failed,
+        },
+    }
+
+    output_dir = os.path.join(os.path.dirname(args.data_dir.rstrip("/")), "output")
+    os.makedirs(output_dir, exist_ok=True)
+    output_path = os.path.join(output_dir, "validation-report.json")
+
+    with open(output_path, "w", encoding="utf-8") as f:
+        json.dump(report, f, ensure_ascii=False, indent=2)
+
+    print(f"\n{'='*40}")
+    print(f"合計: {len(results)}  {GREEN}成功: {passed}{RESET}  {RED}失敗: {failed}{RESET}")
+    print(f"レポート保存先: {output_path}")
+
+    sys.exit(1 if failed &gt; 0 else 0)
+
+
+if __name__ == "__main__":
+    main()
+</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-python.min.js"></script>
+</body>
+</html>

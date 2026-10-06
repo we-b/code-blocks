@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>rule-draft という名前のSkillを作ってください。
+規程名と改定要点を引数（$0、$1）で受け取り、社内規程・マニュアルの改定案と社内周知文の下書きを生成します。
+出力の構成は「改定の背景」「新旧対照の要点」「改定条文の案」「社内周知文の案」の4部構成にしてください。
+条文の案には「（要確認）」と付けて、法令の原文確認が必要な箇所を明示してください。
+
+# 注意事項
+・事前にAgent Skillsの仕様をリサーチして、必ず正しい記述を行なってください。
+・このプロジェクトでのみの利用を想定して作成してください。</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

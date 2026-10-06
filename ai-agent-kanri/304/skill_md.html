@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-markdown"><code>---
+name: expense-report
+description: 複数部署の経費CSVを読み込んで精算レポートを作成
+---
+
+フォルダ内の *_経費.csv にマッチするファイルをすべて読み込んでください。
+
+各ファイルには日付、項目、金額、カテゴリの列があります。
+
+以下の形式でレポートを作成してください：
+
+## 経費精算レポート
+
+### 部署別集計
+（各部署の経費合計とカテゴリ内訳を表示）
+
+### 全社集計
+（全部署の合計金額）
+
+### 予算超過アラート
+（部署ごとの予算50万円を超えている場合は警告）
+予算内の場合は「全部署、予算内です」と表示</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markdown.min.js"></script>
+</body>
+</html>

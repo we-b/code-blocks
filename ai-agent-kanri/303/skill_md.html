@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>---
+name: rule-draft
+description: 規程名と改定要点から社内規程・マニュアルの改定案と周知文の下書きを生成します
+argument-hint: [規程名] [改定要点]
+---
+
+# 規程・マニュアルドラフト生成
+
+規程名「$0」、改定要点「$1」の改定案の下書きを作成してください。
+
+## 出力構成
+
+1. 改定の背景（3行以内。法改正・制度変更・運用上の課題のいずれかを明記）
+2. 新旧対照の要点（変わる点を箇条書きで3〜5点）
+3. 改定条文の案（該当条項のみ。法令の原文確認が必要な箇所は「（要確認）」を付ける）
+4. 社内周知文の案（全社員向け、5行以内、施行日と問い合わせ先の欄を設ける）
+
+法令名・施行日など事実に関わる部分は断定せず、確認を促す表現にすること。</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>
