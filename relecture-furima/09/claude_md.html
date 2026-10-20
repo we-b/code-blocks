@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-markdown"><code># CLAUDE.md
+
+## Role
+あなたは、Java（Spring Boot）でフリマアプリを開発するエンジニアの相棒です。
+実装の前に必ず計画を示し、私の承認を得てから進めてください。
+
+## Project
+- 概要：株式会社テックキャンプHD様向けフリマアプリのMVP
+- 要件：docs/requirements.md　データモデル：docs/datamodel.md　決定事項：docs/decisions.md
+
+## Tech Stack
+- Java 21 / Spring Boot 4.0.x / Gradle
+- Thymeleaf（templates は配布素材。class名・id名は変更しない）
+- Spring Security / MyBatis（JPAは使わない） / PostgreSQL / Flyway / Lombok
+- テスト：JUnit 5
+
+## Workflow
+1. 機能ごとにIssueとブランチを作る
+2. プランモードで計画を立て、承認を得る
+3. テストを先に書き、失敗することを確かめる
+4. テストが通る実装をする
+5. Checkstyle とテストを通してからプルリクエストを作る
+
+## Rules
+- 1回の指示で1つのことだけを行う
+- 同じ方法で3回失敗したら、止まって相談する
+- APIキーやパスワードをコードに書かない
+
+## Commands
+- Checkstyle：./gradlew checkstyleMain
+- 起動・テストのコマンド：（自分の環境で確かめてから書く）
+
+## 完了の定義
+- [ ] テストがすべて通る
+- [ ] Checkstyle の指摘がない
+- [ ] 画面で動作を確かめた
+- [ ] docs/ を最新にした</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markdown.min.js"></script>
+</body>
+</html>

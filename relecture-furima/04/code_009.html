@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>【プランモード】
+docs/requirements.md、docs/decisions.md、docs/datamodel.md を読み、
+フリマアプリの開発計画を立ててください。
+
+【条件】
+- 1つの機能を、1つのIssue・1つのブランチ・1つのプルリクエストで進められる大きさに分けてください
+- 機能どうしの依存関係（どれが先に必要か）を考えて、実装の順番を決めてください
+- 各機能に、対応する要件のID（REQ-xxx）と、完了の条件を書いてください
+- 約1週間後の第2回ミーティングまでに、ユーザー管理を動かしたいです
+
+計画が承認されたら、各機能のIssueの下書き（タイトルと本文）を docs/plan.md に保存してください。
+承認後に行うのは docs/plan.md の保存だけです。コードやマイグレーションファイルは作らないでください。</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

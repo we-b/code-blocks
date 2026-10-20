@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>【仕様変更依頼】
+（受けた要望を書く。例：〇〇のときに、△△にしてほしい）
+
+この変更によって影響を受ける箇所を、次の分類ごとに、
+ファイル名とクラス名・メソッド名（ドキュメントは見出し）つきでリストアップしてください。
+
+1. ドキュメント（docs/requirements.md、docs/datamodel.md、docs/decisions.md、docs/plan.md）
+2. データベース（テーブルやカラムの追加・変更が必要か）
+3. 実装コード
+4. テストコード（変更が必要なテスト、追加が必要なテスト）
+
+あわせて、この変更のあとも結果が変わらないはずの既存のテストを挙げてください。
+結果は docs/change-request.md に保存してください。</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

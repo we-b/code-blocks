@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-markdown"><code>## 動作（5つの観点）
+- [ ] 正常系の動作：docs/requirements.md の必須の機能が、期待どおりに動く
+- [ ] 入力チェック：必須の項目を空欄にすると、正しいエラーメッセージが出る
+- [ ] エラーケース：存在しないURLへのアクセスや、ログインしていないときのアクセス制限が正しく働く
+- [ ] データの整合性：画像・金額・日付が正しく表示される
+- [ ] 画面の移り変わり：各ボタン・リンクが期待どおりの画面に移る
+- [ ] 追加の要望：第3回で受けた要望に対応している
+
+## コードと資料
+- [ ] ./gradlew test がすべて成功する
+- [ ] ./gradlew checkstyleMain が成功する
+- [ ] README に、概要・機能一覧・起動のしかた・テストの実行のしかたがある
+- [ ] README の手順どおりに、別のフォルダから起動できた
+- [ ] docs/ の要件定義・データモデル・決定事項・開発計画が最新
+
+## デモの準備
+- [ ] 見せる順番を決めた（目安12分）
+- [ ] 追加の要望への対応を、どう進めたか説明できる</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-markdown.min.js"></script>
+</body>
+</html>

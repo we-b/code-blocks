@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>docs/requirements.md と docs/decisions.md にもとづき、
+フリマアプリのデータモデルを3つの異なるアプローチで設計し、
+docs/datamodel.md に保存してください。
+
+【3つのアプローチ】
+案A：シンプル型（テーブル数が最小）
+案B：バランス型（正規化と実用性のバランス）
+案C：拡張重視型（将来の変更に強い）
+
+【出力内容】
+各案ごとに、次を含めてください。
+1. 設計の考え方
+2. テーブル定義（テーブル名、カラム名、型、制約）
+3. ER図（Mermaid記法）
+4. メリット・デメリット
+
+【前提】
+- データベースは PostgreSQL、データアクセスは MyBatis です
+- カテゴリーなどの選択肢を、テーブルで持つか、Javaのenumで持つかも、案ごとに考えてください</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>docs/datamodel.md の3つの案について、次の2つを行い、docs/datamodel.md に追記してください。
+
+1. 次の5つの軸で採点（10点満点）し、根拠とともに表にする
+   - パフォーマンス（検索・集計の速さ）
+   - 拡張性（機能追加のしやすさ）
+   - 保守性（わかりやすさ）
+   - 実装コスト（低いほど高得点）
+   - データ整合性（矛盾の起きにくさ）
+
+2. 次の将来シナリオが起きた場合の対応の難しさを評価する。
+   テーブルの追加で済むか、作り直しが必要かも書く
+   - （自分で考えたシナリオ1）
+   - （自分で考えたシナリオ2）</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>
