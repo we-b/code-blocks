@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet" />
+
+    <style>
+        body { margin: 0; padding: 0; background-color: #2d2d2d; }
+        pre { margin: 0 !important; border-radius: 0; border: none; }
+        .line-highlight { background: rgba(255, 255, 255, 0.1) !important; }
+        .line-highlight::before,
+        .line-highlight::after { display: none; }
+    </style>
+</head>
+<body>
+<pre class="language-text"><code>このPCの開発環境が、次の条件にそろっているか確かめてください。
+確かめるためのコマンドだけを実行し、インストールや設定の変更はしないでください。
+結果は、項目ごとに「OK」か「足りない」を表にまとめ、足りないものがあれば理由も書いてください。
+
+- JDK 21：java -version の結果が 21. から始まる
+- PostgreSQL 16：psql --version の結果が 16. から始まる（Macの場合は /Library/PostgreSQL/16/bin/psql --version）
+- PostgreSQL のユーザー postgres に、パスワード postgres で localhost に接続できる
+- VS Code の拡張機能：code --list-extensions の結果に vscjava.vscode-java-pack と vmware.vscode-boot-dev-pack がある
+- Git：git --version の結果が git version から始まる
+- Claude Code：claude --version でバージョンの数字が出る</code></pre>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-text.min.js"></script>
+</body>
+</html>
